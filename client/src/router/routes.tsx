@@ -3,7 +3,13 @@ import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
 import MapPage from "../pages/map/mapPage";
 
+import Artwork from "../components/Artwork/Artwork";
+
 const routes = [
+  {
+    path: "/",
+    element: <Artwork />,
+  },
   {
     path: "/map",
     element: <MapPage />,
