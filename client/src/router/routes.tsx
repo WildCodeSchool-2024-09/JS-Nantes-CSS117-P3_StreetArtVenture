@@ -1,8 +1,10 @@
+import Artwork from "../components/Artwork/Artwork";
+
 const routes = [
   {
     /***** EXEMPLE DE ROUTE *****/
-    /*path: "/",
-    element: <HomePage />,*/
+    path: "/",
+    element: <Artwork />,
   },
 ];
 
