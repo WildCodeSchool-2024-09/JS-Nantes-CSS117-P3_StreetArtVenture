@@ -6,14 +6,14 @@ function Artwork() {
   return (
     <>
       <section className="artwork-page">
-        <div className="image-card">
-          <img
-            src={backgroundimage}
-            alt="background gray if from lighter to darker"
-          />
-          <div className="white-card">
-            <h1>Galerie d'oeuvre</h1>
-          </div>
+        <img
+          className="background-gray"
+          src={backgroundimage}
+          alt="background gray if from lighter to darker"
+        />
+
+        <div className="white-card">
+          <h1>Galerie d'oeuvre</h1>
         </div>
       </section>
     </>
