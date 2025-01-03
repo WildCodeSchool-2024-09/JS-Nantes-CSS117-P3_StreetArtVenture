@@ -1,17 +1,20 @@
 import "./Artwork.css";
+
 import backgroundimage from "../../assets/image/background-grey.jpg";
-import transparentcard from "../../assets/image/Rectangle-transparent.png";
+
 function Artwork() {
   return (
     <>
       <section className="artwork-page">
-        <img
-          src={backgroundimage}
-          alt="background gray if from lighter to darker"
-        />
-        <section className="white-card">
-          <img src={transparentcard} alt="card of transparant color" />
-        </section>
+        <div className="image-card">
+          <img
+            src={backgroundimage}
+            alt="background gray if from lighter to darker"
+          />
+          <div className="white-card">
+            <h1>Galerie d'oeuvre</h1>
+          </div>
+        </div>
       </section>
     </>
   );
