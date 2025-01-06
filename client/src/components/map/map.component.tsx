@@ -56,8 +56,7 @@ function MapComponent({
             icon={defaultIcon}
           >
             <Popup>
-              {/* <img className="popup-image" src={el.imgPath} alt="art" /> */}
-              {/* TODO CHANGE TO DYNAMIC IMG SEND BY BACKEND */}
+              <img className="popup-image" src={el.picture_path} alt="art" />
               <h4 className="popup-title">{el.name}</h4>
               <p className="popup-coordinates">Lattitude {el.coordinates.x}</p>
               <p className="popup-coordinates">Longitude {el.coordinates.y}</p>
