@@ -1,5 +1,6 @@
 import "../inscriptionForm/InscriptionForm.css";
 import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
 import validationRules from "./ValidationRules";
 
 const InscriptionForm: React.FC = (): React.ReactNode => {
@@ -24,12 +25,13 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
   return (
     <main className="body-inscription-form">
       <form className="inscription-form" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="inscription-form-title">S'inscrire</h2>
+        <h2 className="inscription-form-title">Inscription</h2>
         <section className="inscription-inputs-section">
           {/* ................INPUT USERNAME....................... */}
           <section className="form-group">
+            <h4 className="input-information"> Nom d'utilisateur </h4>
             <input
-              placeholder="Nom d'utilisateur..."
+              placeholder="..."
               className="inscription-input"
               type="text"
               {...register("userName", validationRules.userName)}
@@ -42,10 +44,11 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           </section>
           {/* ................INPUT EMAIL....................... */}
           <section className="form-group">
+            <h4 className="input-information"> Mail </h4>
             <input
-              placeholder="e-mail..."
+              placeholder="..."
               className="inscription-input"
-              type="text"
+              type="email"
               {...register("email", validationRules.email)}
             />
             {errors.email && (
@@ -56,8 +59,9 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           </section>
           {/* ...................INPUT PRENOMS....................... */}
           <section className="form-group">
+            <h4 className="input-information"> Prénom </h4>
             <input
-              placeholder="Prenoms..."
+              placeholder="..."
               className="inscription-input"
               type="text"
               {...register("firstName", validationRules.firstName)}
@@ -70,8 +74,9 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           </section>
           {/* ...................INPUT NOMS....................... */}
           <section className="form-group">
+            <h4 className="input-information"> Noms </h4>
             <input
-              placeholder="Noms..."
+              placeholder="..."
               className="inscription-input"
               type="text"
               {...register("lastName", validationRules.lastName)}
@@ -84,25 +89,27 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           </section>
           {/* ...................INPUT ADRESSE....................... */}
           <section className="form-group-adress">
+            <h4 className="input-information-adress"> Adresse </h4>
             <input
               {...register("adresse", validationRules.adresse)}
               className="inscription-input"
               type="text"
-              placeholder="Adresse..."
+              placeholder="..."
             />
             {errors.adresse && (
-              <p className="inscription-error-message">
+              <p className="inscription-error-message-adress">
                 {errors.adresse.message}
               </p>
             )}
           </section>
           {/* ......................INPUT VILLE.......................... */}
           <section className="form-group">
+            <h4 className="input-information"> Ville </h4>
             <input
               {...register("city", validationRules.city)}
               className="inscription-input"
               type="text"
-              placeholder="Ville..."
+              placeholder="..."
             />
             {errors.city && (
               <p className="inscription-error-message">{errors.city.message}</p>
@@ -110,11 +117,12 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           </section>
           {/* ......................INPUT CODE POSTAL.......................... */}
           <section className="form-group">
+            <h4 className="input-information"> Code postal </h4>
             <input
               {...register("postal", validationRules.postal)}
               className="inscription-input"
-              type="text"
-              placeholder="Code postale..."
+              type="number"
+              placeholder="..."
             />
             {errors.postal && (
               <p className="inscription-error-message">
@@ -124,10 +132,11 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           </section>
           {/* ......................INPUT MOT DE PASSE....................... */}
           <section className="form-group">
+            <h4 className="input-information"> Mot de passe </h4>
             <input
               className="inscription-input"
-              type="text"
-              placeholder="Mot de passe..."
+              type="password"
+              placeholder="..."
               {...register("password", validationRules.password)}
             />
             {errors.password && (
@@ -138,9 +147,13 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           </section>
           {/* ...................INPUT CONFIRMEZ MDP....................... */}
           <section className="form-group">
+            <h4 className="input-information">
+              {" "}
+              Confirmez votre mot de passe{" "}
+            </h4>
             <input
-              placeholder="Confirmez votre mot de passe"
-              type="text"
+              placeholder="..."
+              type="password"
               className="inscription-input"
               {...register("confirmPassword", validationRules.confirmPassword)}
             />
@@ -156,9 +169,11 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           </button>
           <p className="deja-inscrit">
             Déjà inscrit ?
-            <button type="button" className="connexion-form-button">
-              Se connecter
-            </button>
+            <NavLink to="/Connexion">
+              <button type="button" className="connexion-form-button">
+                Se connecter
+              </button>
+            </NavLink>
           </p>
         </section>
       </form>
