@@ -73,15 +73,10 @@
   }
   section.artwork-page .city {
     background-color: #333;
+    color: white;
     padding: 5px;
-    border-radius: 4px;
+    border-radius: 23px;
     width: 10em;
     height: 3ch;
-  }
-
-  .select-city {
-    font-size: 16px;
-    color: white; /* Ceci change la couleur du texte en blanc */
-    background-color: black; /* Ceci change la couleur de fond en noir */
   }
 }
