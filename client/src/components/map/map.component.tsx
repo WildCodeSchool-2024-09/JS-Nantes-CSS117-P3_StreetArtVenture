@@ -1,8 +1,8 @@
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import "./map.component.css";
 import L from "leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.awesome-markers/dist/leaflet.awesome-markers.css";
+import "./map.component.css";
 import "leaflet.awesome-markers";
 import type { LatLngExpression } from "leaflet";
 import type { ArtPiece } from "../../types/art_piece";
@@ -58,7 +58,9 @@ function MapComponent({
             <Popup>
               {/* <img className="popup-image" src={el.imgPath} alt="art" /> */}
               {/* TODO CHANGE TO DYNAMIC IMG SEND BY BACKEND */}
-              {el.description && <p className="popup-desc">{el.description}</p>}
+              <h4 className="popup-title">{el.name}</h4>
+              <p className="popup-coordinates">Lattitude {el.coordinates.x}</p>
+              <p className="popup-coordinates">Longitude {el.coordinates.y}</p>
             </Popup>
           </Marker>
         ))}
