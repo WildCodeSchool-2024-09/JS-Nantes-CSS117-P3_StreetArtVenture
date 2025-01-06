@@ -1,8 +1,9 @@
+import MapPage from "../pages/map/mapPage";
+
 const routes = [
   {
-    /***** EXEMPLE DE ROUTE *****/
-    /*path: "/",
-    element: <HomePage />,*/
+    path: "/map",
+    element: <MapPage />,
   },
 ];
 
