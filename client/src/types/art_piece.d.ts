@@ -7,4 +7,5 @@ export interface ArtPiece {
   is_covered: boolean;
   description: string;
   points_value: number | null;
+  picture_path: string;
 }
