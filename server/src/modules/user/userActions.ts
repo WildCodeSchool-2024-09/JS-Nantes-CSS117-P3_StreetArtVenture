@@ -6,9 +6,25 @@ import userRepository from "./userRepository";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
 
+const verifyToken: RequestHandler = async (req, res, next) => {
+  const token = req.body.token;
+  if (!token) {
+    res.status(401).json({ message: "Token manquant." });
+    return;
+  }
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET as string);
+    req.body = decoded;
+    res.status(200).json({ token });
+    next();
+  } catch (error) {
+    res.status(401).json({ message: "Token invalide." });
+  }
+};
+
 const verifyUser: RequestHandler = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, reminder } = req.body;
     const user = await userRepository.verifyUser(email, password);
 
     if (user == null) {
@@ -21,7 +37,7 @@ const verifyUser: RequestHandler = async (req, res, next) => {
           is_admin: user[0].is_admin,
         },
         JWT_SECRET,
-        { expiresIn: "30d" },
+        { expiresIn: reminder },
       );
       res.status(200).json({ token });
     }
@@ -30,4 +46,4 @@ const verifyUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { verifyUser };
+export default { verifyUser, verifyToken };

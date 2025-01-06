@@ -5,6 +5,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const Connexion: React.FC<ConnexionProps> = () => {
+  const isConnected = async () => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      return;
+    }
+    try {
+      const response = await fetch("http://localhost:3310/user/verifyToken", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      });
+      if (!response.ok) {
+        return;
+      }
+      window.location.href = "/home";
+    } catch (error) {
+      console.error("Erreur lors de la vérification de connexion:", error);
+    }
+  };
+  isConnected();
   const validationRules = {
     password: {
       required: "Saisissez votre mot de passe",
@@ -35,6 +57,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
         body: JSON.stringify({
           email: email,
           password: password,
+          reminder: reminderValue,
         }),
       });
 
@@ -54,9 +77,15 @@ export const Connexion: React.FC<ConnexionProps> = () => {
   };
 
   const [checked, setChecked] = React.useState(false);
-
+  let reminderValue = "2h"; // durée de vie du token
   const handleChange = () => {
-    setChecked(!checked);
+    if (checked === true) {
+      setChecked(!checked);
+      reminderValue = "30d";
+    } else {
+      setChecked(!checked);
+      reminderValue = "2h";
+    }
   };
 
   return (
