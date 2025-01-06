@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import type { ConnexionProps } from "./Connexion.types";
 import "./Connexion.css";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const Connexion: React.FC<ConnexionProps> = () => {
@@ -46,6 +46,8 @@ export const Connexion: React.FC<ConnexionProps> = () => {
     formState: { errors },
   } = useForm<ConnexionProps>();
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const onSubmit = async (data: ConnexionProps) => {
     const { email, password } = data;
     try {
@@ -62,6 +64,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
       });
 
       if (!response.ok) {
+        setErrorMessage("E-mail ou mot-de-passe invalide ! ");
         throw new Error("Échec de la connexion");
       }
 
@@ -127,6 +130,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
         <button className="green-button montserrat" type="submit">
           S'identifier
         </button>
+        <p className="error-message">{errorMessage}</p>
         <h2 className="white center bangers-regular">Pas encore inscrit ?</h2>
         <Link
           className="white center bangers-regular margin-bot"
