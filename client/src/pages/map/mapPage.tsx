@@ -61,7 +61,7 @@ function MapPage() {
   }
 
   return (
-    <>
+    <main className="map-page-main-container montserrat">
       {position === "loading" ? (
         <p>chargement..</p>
       ) : position === "denied" ? (
@@ -72,15 +72,13 @@ function MapPage() {
       ) : position === "asking" ? (
         <p>veuillez accepter la géolocalisation</p>
       ) : (
-        <div id="map-main-container">
-          <MapComponent
-            markerList={data}
-            position={position}
-            centerMarker={position}
-          />
-        </div>
+        <MapComponent
+          markerList={data}
+          position={position}
+          centerMarker={position}
+        />
       )}
-    </>
+    </main>
   );
 }
 
