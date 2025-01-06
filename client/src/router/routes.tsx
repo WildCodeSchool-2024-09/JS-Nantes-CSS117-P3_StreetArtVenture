@@ -8,7 +8,7 @@ const routes = [
   },
   {
     path: "/connexion",
-    element: <Connexion email={""} password={""} />,
+    element: <Connexion />,
 
     /***** EXEMPLE DE ROUTE *****/
     /*path: "/",

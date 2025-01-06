@@ -80,14 +80,15 @@ export const Connexion: React.FC<ConnexionProps> = () => {
   };
 
   const [checked, setChecked] = React.useState(false);
-  let reminderValue = "2h"; // durée de vie du token
+  const [reminderValue, setReminderValue] = React.useState("2h");
+
   const handleChange = () => {
-    if (checked === true) {
+    if (checked === false) {
       setChecked(!checked);
-      reminderValue = "30d";
+      setReminderValue("30d");
     } else {
       setChecked(!checked);
-      reminderValue = "2h";
+      setReminderValue("2h");
     }
   };
 
