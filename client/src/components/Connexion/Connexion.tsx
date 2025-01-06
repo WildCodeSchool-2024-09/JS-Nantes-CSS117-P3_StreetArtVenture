@@ -83,15 +83,9 @@ export const Connexion: React.FC<ConnexionProps> = () => {
   const [reminderValue, setReminderValue] = React.useState("2h");
 
   const handleChange = () => {
-    if (checked === false) {
-      setChecked(!checked);
-      setReminderValue("30d");
-    } else {
-      setChecked(!checked);
-      setReminderValue("2h");
-    }
+    setChecked(!checked);
+    setReminderValue(checked ? "2h" : "30d");
   };
-
   return (
     <body className="connexion-page">
       <form className="connexion-container " onSubmit={handleSubmit(onSubmit)}>
