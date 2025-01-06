@@ -1,12 +1,11 @@
-import { Outlet } from "react-router-dom";
+import InscriptionForm from "./components/inscriptionForm/InscriptionForm";
 import "./App.css";
 
 function App() {
   return (
     <>
-      {/* header dans le futur */}
-      <Outlet />
-      {/* footer dans le futur */}
+      {/* < Outlet /> */}
+      <InscriptionForm />
     </>
   );
 }
