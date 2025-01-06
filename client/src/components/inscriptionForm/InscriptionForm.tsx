@@ -2,7 +2,7 @@ import "../inscriptionForm/InscriptionForm.css";
 import { useForm } from "react-hook-form";
 import validationRules from "./ValidationRules";
 
-const inscriptionForm: React.FC = (): React.ReactNode => {
+const InscriptionForm: React.FC = (): React.ReactNode => {
   type InscriptionFormValues = {
     firstName: string;
     userName: string;
@@ -24,7 +24,7 @@ const inscriptionForm: React.FC = (): React.ReactNode => {
   return (
     <main className="body-inscription-form">
       <form className="inscription-form" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="inscription-title">S'inscrire</h2>
+        <h2 className="inscription-form-title">S'inscrire</h2>
         <section className="inscription-inputs-section">
           {/* ................INPUT USERNAME....................... */}
           <section className="form-group">
@@ -166,4 +166,4 @@ const inscriptionForm: React.FC = (): React.ReactNode => {
   );
 };
 
-export default inscriptionForm;
+export default InscriptionForm;
