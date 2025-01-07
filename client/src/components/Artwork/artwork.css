@@ -5,46 +5,61 @@
   height: 118ch;
 }
 .white-card {
+  height: 800px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
-  border: 1px solid #ddd;
+
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
   padding: 20px;
-  width: 300px;
+  width: 850px;
   text-align: center;
   opacity: 0.7;
 }
 .white-card h1 {
   font-family: "Bangers", cursive;
-  font-size: 36px;
-  color: #333;
+  font-size: 50px;
+  color: black;
 }
-.scroll-container {
-  width: 200px;
-  height: 300px;
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-  position: relative;
+.traith1 {
+  display: block;
+  margin: 15px auto;
+  color: black;
 }
-
-.scroll-content {
-  position: absolute;
-  white-space: nowrap;
-  animation: scroll 10s linear infinite;
+section.artwork-page .city {
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 23px;
+  width: 10em;
+  height: 4ch;
+  margin-bottom: 10px;
 }
-
-@keyframes scroll {
-  0% {
-    top: 100%;
-  }
-  100% {
-    top: -100%;
-  }
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.container-owerflow {
+  height: 35em;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.green-container {
+  height: 11em;
+  background-color: #22b573;
+  border-radius: 15px;
+  margin-top: 8ch;
+  padding: 3ch;
+  width: 20em;
+  margin-right: 10px;
 }
 
 @media screen and (max-width: 415px) {
@@ -59,20 +74,21 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
-    opacity: 0.8;
+    opacity: 0.7;
     height: 700px;
     margin-top: 60px;
   }
   .white-card h1 {
     font-family: "Bangers", cursive;
     font-size: 36px;
-    color: #333;
+    color: black;
   }
   .traith1 {
     margin-top: 30px;
+    color: black;
   }
   section.artwork-page .city {
-    background-color: #333;
+    background-color: black;
     color: white;
     padding: 5px;
     border-radius: 23px;
@@ -83,7 +99,7 @@
 
   .container-owerflow {
     height: 30em;
-    overflow-y: auto;
+    overflow: auto;
   }
   .green-container {
     height: 11em;
