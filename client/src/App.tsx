@@ -1,12 +1,12 @@
-import { Outlet } from "react-router-dom";
-import "./App.css";
+// import { Outlet } from "react-router-dom";
+import "./global.css";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
     <>
-      {/* header dans le futur */}
-      <Outlet />
-      {/* footer dans le futur */}
+      <Header />
+      {/* <Outlet /> */}
     </>
   );
 }
