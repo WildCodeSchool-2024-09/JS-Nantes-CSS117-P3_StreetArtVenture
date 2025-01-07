@@ -37,6 +37,7 @@ section.artwork-page .city {
   width: 10em;
   height: 4ch;
   margin-bottom: 10px;
+  text-align: center;
 }
 .container {
   display: flex;
@@ -73,10 +74,10 @@ section.artwork-page .city {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 300px;
-    text-align: center;
     opacity: 0.7;
     height: 700px;
-    margin-top: 60px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .white-card h1 {
     font-family: "Bangers", cursive;
@@ -105,8 +106,9 @@ section.artwork-page .city {
     height: 11em;
     background-color: #22b573;
     border-radius: 15px;
-
-    margin-top: 8ch;
+    margin-top: 2ch;
     padding: 3ch;
+    width: 20em;
+    margin-right: 5px;
   }
 }
