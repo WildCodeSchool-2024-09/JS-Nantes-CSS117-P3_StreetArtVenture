@@ -11,7 +11,7 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
     lastName: string;
     adresse: string;
     city: string;
-    postal: number;
+    postal: string;
     password: string;
     confirmPassword: string;
   };
@@ -24,9 +24,9 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
 
   const onSubmit = async (data: InscriptionFormValues) => {
     const {
+      email,
       firstName,
       userName,
-      email,
       lastName,
       adresse,
       city,
@@ -40,14 +40,14 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          name: userName,
           email: email,
+          name: userName,
           firstname: firstName,
           lastname: lastName,
           zipcode: postal,
           city: city,
           password: password,
-          adresse: adresse,
+          adress: adresse,
         }),
       });
       if (!response.ok) {

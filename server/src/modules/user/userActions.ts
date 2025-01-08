@@ -60,9 +60,10 @@ const inscription: RequestHandler = async (req, res, next) => {
     } = req.body;
     const isUser = await userRepository.isUserYet(name, email);
 
-    if (isUser != null) {
-      res.status(409).json({ message: "Cet utilisateur existe deja" });
-    } else {
+    if (isUser?.length) {
+      res.status(409).json({ message: "Cet utilisateur existe deja", isUser });
+    }
+    {
       const insertId = await userRepository.userInscription(
         name,
         firstname,
