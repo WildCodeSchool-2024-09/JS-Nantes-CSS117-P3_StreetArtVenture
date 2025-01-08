@@ -53,13 +53,16 @@ section.artwork-page .city {
   justify-content: center;
   gap: 20px;
 }
+.galerie-oeuvre {
+  height: 8em;
+}
 .green-container {
-  height: 11em;
+  height: 20em;
   background-color: #22b573;
   border-radius: 15px;
   margin-top: 8ch;
   padding: 3ch;
-  width: 20em;
+  width: 15em;
   margin-right: 10px;
 }
 
@@ -102,8 +105,11 @@ section.artwork-page .city {
     height: 30em;
     overflow: auto;
   }
+  .galerie-oeuvre {
+    height: 10em;
+  }
   .green-container {
-    height: 11em;
+    height: 22em;
     background-color: #22b573;
     border-radius: 15px;
     margin-top: 2ch;
