@@ -1,23 +1,24 @@
-import App from "../App";
 import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import { Connexion } from "../components/Connexion/Connexion";
+import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
 
 const routes = [
   {
-    path: "/",
-    element: <App />,
+    path: "/login",
+    element: <Connexion />,
+  },
+  {
+    path: "/leaderboard",
+    element: <LeaderboardPage />,
   },
   {
     path: "/register",
     element: <InscriptionForm />,
-
+  },
+  {
     path: "/connexion",
     element: <Connexion />,
-
-    /***** EXEMPLE DE ROUTE *****/
-    /*path: "/",
-    element: <HomePage />,*/
-  },
+  }
 ];
 
 export default routes;
