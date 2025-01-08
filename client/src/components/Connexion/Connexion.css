@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+.connexion-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./backgroundConnexion.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.white {
+  color: white;
+}
+
+.connexion-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 300px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.green-button {
+  background-color: #22b573;
+  border-color: #22b573;
+  color: white;
+  border-radius: 8px;
+  width: 55%;
+  margin-left: 23%;
+  height: 30px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: -3%;
+  margin-left: 15%;
+}
+
+.input {
+  width: 80%;
+  height: 30px;
+  border-radius: 8px;
+  margin-left: 10%;
+  max-width: 400px;
+  min-width: 200px;
+  max-height: fit-content;
+}
+
+.checkbox {
+  margin-left: 15%;
+}
+.checkboxing {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.bangers-regular {
+  font-family: "Bangers", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bigger {
+  font-weight: 800;
+  margin-top: 20px;
+}
+
+.montserrat {
+  font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.margin-bot {
+  margin-bottom: 8%;
+}
