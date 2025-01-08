@@ -46,4 +46,48 @@ const verifyUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { verifyUser, verifyToken };
+const inscription: RequestHandler = async (req, res, next) => {
+  try {
+    const {
+      name,
+      email,
+      firstname,
+      lastname,
+      zipcode,
+      city,
+      password,
+      adress,
+    } = req.body;
+    const isUser = await userRepository.isUserYet(name, email);
+
+    if (isUser != null) {
+      res.status(409).json({ message: "Cet utilisateur existe deja" });
+    } else {
+      const insertId = await userRepository.userInscription(
+        name,
+        firstname,
+        lastname,
+        email,
+        zipcode,
+        adress,
+        city,
+        password,
+      );
+
+      if (!insertId) {
+        res.status(500).json({
+          message:
+            "Il y a eu un probleme lors de votre inscription, veuillez reessayer",
+        });
+      } else {
+        res
+          .status(201)
+          .json({ insertId, message: "Utilisateur créé avec succès" });
+      }
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { verifyUser, verifyToken, inscription };
