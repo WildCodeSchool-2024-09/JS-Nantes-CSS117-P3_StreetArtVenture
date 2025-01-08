@@ -38,7 +38,6 @@ function Artwork() {
             ))}
           </select>
           <div className="container-owerflow">
-            {/* <div className="container"> */}
             <div className="green-container">
               <img
                 className="galerie-oeuvre"
@@ -191,7 +190,6 @@ function Artwork() {
                 nisi ut aliquip ex ea
               </p>
             </div>
-            {/* </div> */}
           </div>
         </div>
       </section>
