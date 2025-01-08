@@ -4,6 +4,7 @@ const router = express.Router();
 router.use(express.json());
 /* ************************************************************************* */
 // Define Your API Routes Here
+
 /* ************************************************************************* */
 
 import artActions from "./modules/art/artActions";
@@ -23,6 +24,10 @@ router.get("/leaderboard/getLeaderboard", leaderboardActions.getLeaderboard);
 router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 
 router.get("/art/findArtPiecesAround", artActions.browseAround);
+
+import { browse } from "./modules/art_piece/artPieceActions";
+
+router.get("/api/art", browse);
 
 /* ************************************************************************* */
 
