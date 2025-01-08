@@ -30,7 +30,7 @@ function Artwork() {
             <option className="select-city" value="paris">
               Paris(75)
             </option>
-            <option className="select-city" value="strasbourd">
+            <option className="select-city" value="strasbourg">
               Strasbourg(67)
             </option>
             <option className="select-city" value="toulouse">
