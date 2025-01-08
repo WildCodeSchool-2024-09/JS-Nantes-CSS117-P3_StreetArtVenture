@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CityCoordinates from "../../components/cityCoordinates/cityCoordinates.component";
 import MapComponent from "../../components/map/map.component";
+
 import "./MapPage.css";
 import type { ArtPiece } from "../../types/art_piece";
 
@@ -67,6 +68,7 @@ function MapPage() {
       ) : position === "denied" ? (
         <>
           <p>géolocalisation refusée</p>
+          {/* TODO gestion d'input d'une ville qui n'existe pas, actuellement le user n'a pas de retour dans ce cas */}
           <CityCoordinates setManualCity={setManualCity} />
         </>
       ) : position === "asking" ? (
