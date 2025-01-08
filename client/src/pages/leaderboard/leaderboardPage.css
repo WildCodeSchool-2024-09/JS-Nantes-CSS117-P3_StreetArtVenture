@@ -1,0 +1,55 @@
+.leaderboard-page-main-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../../public/global_background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard-page-container > h1 {
+  text-align: center;
+}
+
+.leaderboard-page-container {
+  width: 70%;
+  margin: 36px 0;
+  max-width: 750px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 2.5% 7.5%;
+  gap: 16px;
+}
+
+.leaderboard-no-mob {
+  display: block;
+}
+
+.leaderboard-no-des {
+  display: none;
+}
+
+@media screen and (max-width: 450px) {
+  .leaderboard-filters-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .leaderboard-filters-container > * {
+    width: 60%;
+  }
+
+  .leaderboard-no-mob {
+    display: none;
+  }
+
+  .leaderboard-no-des {
+    display: block;
+  }
+}

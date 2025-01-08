@@ -1,8 +1,9 @@
+import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
+
 const routes = [
   {
-    /***** EXEMPLE DE ROUTE *****/
-    /*path: "/",
-    element: <HomePage />,*/
+    path: "/leaderboard",
+    element: <LeaderboardPage />,
   },
 ];
 
