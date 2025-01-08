@@ -46,7 +46,6 @@ function Artwork() {
             </option>
           </select>
           <div className="container-owerflow">
-            {/* <div className="container"> */}
             <div className="green-container">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
@@ -111,7 +110,6 @@ function Artwork() {
                 nisi ut aliquip ex ea
               </p>
             </div>
-            {/* </div> */}
           </div>
         </div>
       </section>
