@@ -28,7 +28,7 @@ router.get("/api", browse);
 
 import { browse } from "./modules/art_piece/artPieceActions";
 
-router.get("/api/art", browse);
+router.get("/api", browse);
 
 /* ************************************************************************* */
 
