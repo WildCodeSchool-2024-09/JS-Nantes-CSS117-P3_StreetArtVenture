@@ -1,8 +1,9 @@
+import App from "../App";
+
 const routes = [
   {
-    /***** EXEMPLE DE ROUTE *****/
-    /*path: "/",
-    element: <HomePage />,*/
+    path: "/",
+    element: <App />,
   },
 ];
 

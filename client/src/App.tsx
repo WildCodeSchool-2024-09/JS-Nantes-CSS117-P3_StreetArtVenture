@@ -1,12 +1,9 @@
-import { Outlet } from "react-router-dom";
-import "./App.css";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
     <>
-      {/* header dans le futur */}
-      <Outlet />
-      {/* footer dans le futur */}
+      <Footer />
     </>
   );
 }
