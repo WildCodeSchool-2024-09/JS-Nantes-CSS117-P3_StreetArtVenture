@@ -1,10 +1,3 @@
-import App from "../App";
-
-const routes = [
-  {
-    path: "/",
-    element: <App />,
-  },
-];
+const routes = [];
 
 export default routes;
