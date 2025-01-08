@@ -2,11 +2,11 @@ import databaseClient from "../../../database/client";
 
 import type { Rows } from "../../../database/client";
 
-interface cities {
-  city: string;
+interface Cities {
+  city: string[];
 }
 
-interface user {
+interface User {
   id: number;
 }
 
@@ -15,7 +15,7 @@ class leaderboardRepository {
     const query = "SELECT DISTINCT city FROM user";
     const [rows] = await databaseClient.query<Rows>(query);
 
-    return rows as cities[];
+    return rows as Cities[];
   }
 
   async getLeaderboard(city?: string, name?: string, offset?: string) {
@@ -40,7 +40,7 @@ class leaderboardRepository {
 
     const [rows] = await databaseClient.query<Rows>(query, params);
 
-    return rows as user[];
+    return rows as User[];
   }
 
   async getUserData(id: string) {
@@ -55,7 +55,7 @@ class leaderboardRepository {
   `;
     const [rows] = await databaseClient.query<Rows>(query, [id]);
 
-    return rows as user[];
+    return rows as User[];
   }
 }
 

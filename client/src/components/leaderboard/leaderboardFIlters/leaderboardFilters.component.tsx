@@ -30,7 +30,7 @@ function LeaderboardFilters({
   }
 
   return (
-    <form className="leaderboard-filters-container">
+    <div className="leaderboard-filters-container">
       <img
         className="leaderboard-no-des"
         src="/public/separator.png"
@@ -60,7 +60,7 @@ function LeaderboardFilters({
         type="text"
         placeholder="Pseudo"
       />
-    </form>
+    </div>
   );
 }
 
