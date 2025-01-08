@@ -159,6 +159,11 @@ function Artwork() {
               </p>
             </div>
             <div className="green-container">
+              <img
+                className="galerie-oeuvre"
+                src={imageGalerieOeuvre1}
+                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
+              />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -167,6 +172,11 @@ function Artwork() {
               </p>
             </div>
             <div className="green-container">
+              <img
+                className="galerie-oeuvre"
+                src={imageGalerieOeuvre2}
+                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
+              />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -175,6 +185,11 @@ function Artwork() {
               </p>
             </div>
             <div className="green-container">
+              <img
+                className="galerie-oeuvre"
+                src={imageGalerieOeuvre1}
+                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
+              />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -183,6 +198,11 @@ function Artwork() {
               </p>
             </div>
             <div className="green-container">
+              <img
+                className="galerie-oeuvre"
+                src={imageGalerieOeuvre2}
+                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
+              />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
