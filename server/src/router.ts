@@ -12,6 +12,8 @@ router.use(express.json());
 // Define item-related routes
 import leaderboardActions from "./modules/leaderboard/leaderboardActions";
 
+console.warn("test");
+
 router.get("/api/items", itemActions.browse);
 router.get("/api/items/:id", itemActions.read);
 router.post("/api/items", itemActions.add);
