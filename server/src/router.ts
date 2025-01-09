@@ -24,7 +24,7 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 
 import { browse } from "./modules/art_piece/artPieceActions";
 
-router.get("/api", browse);
+router.get("/api/art", browse);
 
 /* ************************************************************************* */
 
