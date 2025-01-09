@@ -1,0 +1,9 @@
+.leaderboard-page-separator {
+  width: 97.5%;
+  border: 1px solid black;
+}
+
+.leaderboard-page-user-ranking {
+  background-color: #22b573;
+  margin-top: 0px;
+}
