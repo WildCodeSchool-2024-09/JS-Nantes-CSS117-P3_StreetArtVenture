@@ -7,10 +7,6 @@ import Artwork from "../components/Artwork/Artwork";
 
 const routes = [
   {
-    path: "/",
-    element: <Artwork />,
-  },
-  {
     path: "/map",
     element: <MapPage />,
   },
@@ -29,6 +25,10 @@ const routes = [
   {
     path: "/connexion",
     element: <Connexion />,
+  },
+  {
+    path: "/gallery",
+    element: <Artwork />,
   },
 ];
 
