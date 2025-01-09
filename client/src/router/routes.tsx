@@ -1,8 +1,13 @@
-import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import { Connexion } from "../components/Connexion/Connexion";
+import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
+import MapPage from "../pages/map/mapPage";
 
 const routes = [
+  {
+    path: "/map",
+    element: <MapPage />,
+  },
   {
     path: "/login",
     element: <Connexion />,
@@ -18,7 +23,7 @@ const routes = [
   {
     path: "/connexion",
     element: <Connexion />,
-  }
+  },
 ];
 
 export default routes;

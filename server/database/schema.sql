@@ -23,7 +23,8 @@ CREATE TABLE art_piece (
   is_validated BOOLEAN DEFAULT FALSE NOT NULL,
   is_covered BOOLEAN DEFAULT FALSE NOT NULL,
   description VARCHAR(255),
-  points_value INT DEFAULT NULL
+  points_value INT DEFAULT NULL,
+  picture_path VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE viewed_art_piece (
