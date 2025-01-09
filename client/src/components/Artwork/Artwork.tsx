@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import "./Artwork.css";
 import backgroundimage from "/background-grey.jpg";
 import imageGalerieOeuvre1 from "/images/image-galerie-oeuvre1.png";
@@ -5,6 +7,13 @@ import imageGalerieOeuvre2 from "/images/image-galerie-oeuvre2.png";
 import traith1 from "/trait-h1-artwork.tsx.png";
 
 function Artwork() {
+  const [citys, setCitys] = useState<{ city: string }[]>([]);
+  useEffect(() => {
+    fetch("http://localhost:3310/api/art/")
+      .then((res) => res.json())
+      .then((cities) => setCitys(cities));
+  }, []);
+
   return (
     <>
       <section className="artwork-page">
@@ -24,27 +33,9 @@ function Artwork() {
           />
 
           <select className="city" name="city">
-            <option className="select-city" value="nantes">
-              Nantes(44)
-            </option>
-            <option className="select-city" value="paris">
-              Paris(75)
-            </option>
-            <option className="select-city" value="strasbourg">
-              Strasbourg(67)
-            </option>
-            <option className="select-city" value="toulouse">
-              Toulouse(31)
-            </option>
-            <option className="select-city" value="marseille">
-              Marseille(13)
-            </option>
-            <option className="select-city" value="nice">
-              Nice(06)
-            </option>
-            <option className="select-city" value="clermond-ferrand">
-              Clermond-Ferrand(63)
-            </option>
+            {citys.map((city) => (
+              <option key={city.city}>{city.city}</option>
+            ))}
           </select>
           <div className="container-owerflow">
             <div className="green-container">
