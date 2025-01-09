@@ -1,4 +1,3 @@
-import App from "../App";
 import { Connexion } from "../components/Connexion/Connexion";
 import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
@@ -10,10 +9,6 @@ const routes = [
     element: <MapPage />,
   },
   {
-    path: "/",
-    element: <App />,
-  },
-  {
     path: "/login",
     element: <Connexion />,
   },
@@ -21,6 +16,7 @@ const routes = [
     path: "/leaderboard",
     element: <LeaderboardPage />,
   },
+
   {
     path: "/register",
     element: <InscriptionForm />,
