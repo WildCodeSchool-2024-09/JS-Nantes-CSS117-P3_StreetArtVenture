@@ -1,9 +1,11 @@
 .leaderboard-informations-container {
+  height: 8%;
+  align-items: center;
+  margin-top: 2%;
   width: 100%;
   border-radius: 23px;
   color: white;
   padding: 6px 12px;
-  margin-top: 8px;
   background-color: #2dde8f;
   display: flex;
   list-style: none;
