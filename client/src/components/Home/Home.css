@@ -1,0 +1,24 @@
+.background-image {
+  background-image: url("/homepagefirst.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 35vh;
+}
+
+.black-background {
+  background-image: url("/black-background.jpg");
+}
+
+.content-wrapper {
+  width: 35%;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.home-img {
+  width: 35%;
+}

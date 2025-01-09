@@ -1,10 +1,10 @@
-import App from "../App";
 import { Connexion } from "../components/Connexion/Connexion";
+import { Home } from "../components/Home/Home";
 
 const routes = [
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
     path: "/connexion",
