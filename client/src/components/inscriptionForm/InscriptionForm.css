@@ -1,0 +1,147 @@
+.body-inscription-form {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  background-image: url("../../../public/images/wallpaper2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.inscription-form {
+  display: grid;
+  width: 320px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.765);
+  grid-template-columns: 1fr;
+}
+
+.inscription-form-title {
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  padding: 20px;
+}
+
+.inscription-inputs-section {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 30px;
+}
+
+.inscription-input {
+  border-radius: 5px;
+  border-style: none;
+  width: 90%;
+  padding: 8px;
+  height: 40px;
+}
+
+.input-information {
+  color: white;
+  text-align: left;
+  margin: 0px 0px 6px 20px;
+}
+
+.input-information-adress {
+  color: white;
+  text-align: left;
+  margin: 0px 0px 6px 20px;
+}
+
+.inscription-error-message {
+  color: red;
+  text-align: left;
+  margin: 6px 10px 0px 20px;
+}
+
+.inscription-error-message-adress {
+  color: red;
+  text-align: left;
+  margin: 6px 0px 0px 20px;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.form-group-adress {
+  width: 100%;
+}
+
+.inscription-form-button {
+  background-color: rgb(83, 164, 84);
+  color: white;
+  width: 130px;
+  height: 40px;
+  border-style: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  margin: 16px;
+}
+
+.inscription-form-button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.deja-inscrit {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.connexion-form-button {
+  background-color: rgba(245, 245, 220, 0);
+  color: white;
+  width: 140px;
+  border-style: none;
+  align-self: center;
+  font-size: 1.2rem;
+  text-decoration: underline;
+}
+
+.connexion-form-button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .inscription-form {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
+    justify-items: center;
+    align-items: center;
+  }
+
+  .inscription-inputs-section {
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-group {
+    width: 340px;
+    grid-template-columns: auto auto;
+  }
+
+  .form-group-adress {
+    width: 770px;
+    grid-column: 1 / 3;
+  }
+
+  .input-information-adress {
+    margin-left: 40px;
+    color: white;
+    text-align: left;
+  }
+
+  .inscription-error-message-adress {
+    margin: 6px 0px 0px 40px;
+  }
+}
