@@ -16,6 +16,7 @@ const routes = [
     path: "/leaderboard",
     element: <LeaderboardPage />,
   },
+
   {
     path: "/register",
     element: <InscriptionForm />,
