@@ -22,7 +22,6 @@ import App from "./App";
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <App />, // Renders the App component for the home page
     children: routes,
   },
