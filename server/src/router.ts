@@ -27,7 +27,7 @@ router.get("/art/findArtPiecesAround", artActions.browseAround);
 
 import { browse } from "./modules/art_piece/artPieceActions";
 
-router.get("/api", browse);
+router.get("/api/art", browse);
 
 /* ************************************************************************* */
 
