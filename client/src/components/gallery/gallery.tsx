@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import "./Artwork.css";
+import "./gallery.css";
 import backgroundimage from "/background-grey.jpg";
 import imageGalerieOeuvre1 from "/images/image-galerie-oeuvre1.png";
 import imageGalerieOeuvre2 from "/images/image-galerie-oeuvre2.png";
 import traith1 from "/trait-h1-artwork.tsx.png";
 
-function Artwork() {
-  const [citys, setCitys] = useState<{ city: string }[]>([]);
+function Gallery() {
+  const [cities, setCities] = useState<{ city: string }[]>([]);
   useEffect(() => {
-    fetch("http://localhost:3310/api/art/")
+    fetch("http://localhost:3310/art/getCities")
       .then((res) => res.json())
-      .then((cities) => setCitys(cities));
+      .then((city) => setCities(city));
   }, []);
 
   return (
@@ -33,8 +33,8 @@ function Artwork() {
           />
 
           <select className="city" name="city">
-            {citys.map((city) => (
-              <option key={city.city}>{city.city}</option>
+            {cities.map((cities) => (
+              <option key={cities.city}>{cities.city}</option>
             ))}
           </select>
           <div className="container-owerflow">
@@ -217,4 +217,4 @@ function Artwork() {
   );
 }
 
-export default Artwork;
+export default Gallery;

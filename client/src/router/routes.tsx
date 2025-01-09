@@ -3,7 +3,7 @@ import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
 import MapPage from "../pages/map/mapPage";
 
-import Artwork from "../components/Artwork/Artwork";
+import Gallery from "../components/gallery/gallery";
 
 const routes = [
   {
@@ -28,7 +28,7 @@ const routes = [
   },
   {
     path: "/gallery",
-    element: <Artwork />,
+    element: <Gallery />,
   },
 ];
 

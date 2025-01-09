@@ -7,7 +7,7 @@ interface ArtPiece {
   city: string;
 }
 class ArtPieceRepository {
-  async readAll() {
+  async getCities() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await databaseClient.query<Rows>(
       "select city FROM user GROUP BY city",

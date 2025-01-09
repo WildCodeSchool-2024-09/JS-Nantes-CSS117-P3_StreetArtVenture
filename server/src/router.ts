@@ -24,9 +24,9 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 
 router.get("/art/findArtPiecesAround", artActions.browseAround);
 
-import { browse } from "./modules/art_piece/artPieceActions";
+import artPieceActions from "./modules/art_piece/artPieceActions";
 
-router.get("/api/art", browse);
+router.get("/art/getCities", artPieceActions.getCities);
 
 /* ************************************************************************* */
 

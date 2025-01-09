@@ -1,9 +1,9 @@
 import type { RequestHandler } from "express";
 import artPieceRepository from "./artPieceRepository";
 
-const browse: RequestHandler = async (req, res, next) => {
+const getCities: RequestHandler = async (req, res, next) => {
   try {
-    const artPiece = await artPieceRepository.readAll();
+    const artPiece = await artPieceRepository.getCities();
 
     res.json(artPiece);
   } catch (err) {
@@ -11,4 +11,4 @@ const browse: RequestHandler = async (req, res, next) => {
   }
 };
 
-export { browse };
+export default { getCities };
