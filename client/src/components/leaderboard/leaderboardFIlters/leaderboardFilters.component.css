@@ -1,0 +1,51 @@
+.leaderboard-filters-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leaderboard-filters-container > * {
+  border-radius: 23px;
+  width: 27.5%;
+}
+
+.leaderboard-filters-container > select {
+  padding-left: 4px;
+  transition: border-radius 0.5s linear;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+.leaderboard-filters-container > select:focus-within {
+  border-radius: 0;
+}
+
+.leaderboard-filters-container > img {
+  height: fit-content;
+  align-self: center;
+}
+
+.leaderboard-filters-container > input {
+  padding: 10px;
+  font-size: 0.66em;
+}
+
+@media screen and (max-width: 450px) {
+  .leaderboard-filters-container {
+    gap: 10px;
+  }
+
+  .leaderboard-filters-container > select {
+    text-align: center;
+    padding: 4px 0;
+  }
+
+  .leaderboard-filters-container > input {
+    width: 80%;
+    padding: 4px 8px;
+  }
+
+  .leaderboard-page-separator {
+    margin: -4px 0;
+  }
+}
