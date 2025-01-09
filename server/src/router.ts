@@ -12,6 +12,8 @@ import itemActions from "./modules/item/itemActions";
 import leaderboardActions from "./modules/leaderboard/leaderboardActions";
 import userActions from "./modules/user/userActions";
 
+console.warn("test");
+
 router.get("/api/items", itemActions.browse);
 router.get("/api/items/:id", itemActions.read);
 router.post("/api/items", itemActions.add);
