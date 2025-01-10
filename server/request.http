@@ -1,1 +1,3 @@
-GET http://localhost:3310/api/art
+GET http://localhost:3310/art/getArt
+
+
