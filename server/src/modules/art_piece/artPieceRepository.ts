@@ -30,7 +30,7 @@ class ArtPieceRepository {
 
   async getArt() {
     const [rows] = await databaseClient.query(
-      "select name, adress, city, department, coordinates, is_validated, is_covered, description, points_value FROM art_piece;",
+      "select id, name, picture_path, adress, city, department, coordinates, is_validated, is_covered, description, points_value FROM art_piece;",
     );
     return rows as ArtCard[];
   }
