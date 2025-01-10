@@ -1,0 +1,53 @@
+.headerClass {
+  background-image: url("images/black_grunge.jpg");
+  background-size: cover;
+  height: 130px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  align-items: center;
+}
+
+.Logo_street {
+  height: 120px;
+  margin-left: 30px;
+}
+
+.link_connecter {
+  font-family: var(--primary-font);
+  color: white;
+  font-weight: 500;
+  text-decoration-line: none;
+  font-size: 20px;
+  display: block;
+}
+
+@media screen and (max-width: 600px) {
+  .Logo_street {
+    height: 90px;
+    margin-left: 30px;
+  }
+  .link_connecter {
+    font-weight: 500;
+    font-size: 20px;
+  }
+  .headerClass {
+    padding: 25px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .headerClass {
+    justify-content: space-evenly;
+    gap: 20px;
+  }
+  .Logo_street {
+    margin-left: 1px;
+  }
+  .link_connecter {
+    font-weight: 500;
+    font-size: 14px;
+    display: none;
+  }
+}
