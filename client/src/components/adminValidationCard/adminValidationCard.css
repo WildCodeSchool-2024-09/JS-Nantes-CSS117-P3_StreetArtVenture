@@ -1,5 +1,6 @@
 .body-admin-validation {
   display: grid;
+  grid-template-rows: 70% 100px;
   justify-items: center;
   align-items: center;
   justify-content: center;
@@ -7,7 +8,7 @@
   background-size: cover;
   background-position: center;
   width: 100vw;
-  height: 140vh;
+  height: 1000px;
   padding: 40px;
 }
 
