@@ -19,6 +19,14 @@ type User = {
 };
 
 class UserRepository {
+  async read(id: number) {
+    const [row] = await databaseClient.query<Rows>(
+      "SELECT name, firstname, lastname, email, zipcode, city, adress FROM user WHERE id = ?",
+      [id],
+    );
+    return row as User[];
+  }
+
   async readAll() {
     const [rows] = await databaseClient.query<Rows>("select * from user");
     return rows as User[];
@@ -33,6 +41,29 @@ class UserRepository {
       return null;
     }
     return rows as User[];
+  }
+
+  async update(id: number, data: User) {
+    const query = `UPDATE user SET
+    name = ?,
+    firstname = ?,
+    lastname = ?,
+    email = ?,
+    adress = ?,
+    zipcode = ?,
+    city = ?
+    WHERE id = ?`;
+    const [row] = await databaseClient.query<Rows>(query, [
+      data.name,
+      data.firstname,
+      data.lastname,
+      data.email,
+      data.adress,
+      data.zipcode,
+      data.city,
+      id,
+    ]);
+    return row as User[];
   }
 }
 export default new UserRepository();
