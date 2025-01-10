@@ -68,7 +68,7 @@ section.artwork-page .city {
 
 @media screen and (max-width: 415px) {
   .background-gray {
-    height: 112ch;
+    height: 85vh;
   }
   .white-card {
     transform: translate(-50%, -50%);
@@ -76,9 +76,10 @@ section.artwork-page .city {
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
     width: 300px;
     opacity: 0.7;
-    height: 700px;
+    height: 600px;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -102,19 +103,23 @@ section.artwork-page .city {
   }
 
   .container-owerflow {
-    height: 30em;
+    height: 25em;
     overflow: auto;
   }
   .galerie-oeuvre {
     height: 10em;
+    width: 25ch;
   }
   .green-container {
-    height: 22em;
+    height: 18em;
     background-color: #22b573;
     border-radius: 15px;
     margin-top: 2ch;
-    padding: 3ch;
+    padding: ch;
     width: 20em;
     margin-right: 5px;
+  }
+  .streetart {
+    margin-top: 20px;
   }
 }

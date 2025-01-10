@@ -2,16 +2,36 @@ import { useEffect } from "react";
 import { useState } from "react";
 import "./gallery.css";
 import backgroundimage from "/background-grey.jpg";
-import imageGalerieOeuvre1 from "/images/image-galerie-oeuvre1.png";
-import imageGalerieOeuvre2 from "/images/image-galerie-oeuvre2.png";
+
 import traith1 from "/trait-h1-artwork.tsx.png";
+
+interface CardI {
+  id: number;
+  name: string;
+  adress: string;
+  city: string;
+  department: string;
+  coordinate: { x: number; y: number };
+  is_validated: boolean;
+  is_covered: boolean;
+  description: string;
+  points_value: number;
+  picture_path: string;
+}
 
 function Gallery() {
   const [cities, setCities] = useState<{ city: string }[]>([]);
+  const [card, setCard] = useState<CardI[]>([]);
+
   useEffect(() => {
     fetch("http://localhost:3310/art/getCities")
       .then((res) => res.json())
       .then((city) => setCities(city));
+  }, []);
+  useEffect(() => {
+    fetch("http://localhost:3310/art/getArt")
+      .then((res) => res.json())
+      .then((streetart) => setCard(streetart));
   }, []);
 
   return (
@@ -38,178 +58,22 @@ function Gallery() {
             ))}
           </select>
           <div className="container-owerflow">
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre2}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
+            {card.map((card) => (
+              <div className="green-container" key={card.id}>
+                <img
+                  className="galerie-oeuvre"
+                  src={`http://localhost:3310${card.picture_path}`}
+                  alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
+                />
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre1}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre2}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre1}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre2}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre1}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre2}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre1}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre2}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre1}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre2}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre1}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
-            <div className="green-container">
-              <img
-                className="galerie-oeuvre"
-                src={imageGalerieOeuvre2}
-                alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-              />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea
-              </p>
-            </div>
+                <div className="streetart" key={card.name}>
+                  {card.name}
+                </div>
+                <div className="streetart" key={card.adress}>
+                  {card.adress}, {card.city}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
