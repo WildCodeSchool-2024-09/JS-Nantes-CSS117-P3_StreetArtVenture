@@ -14,3 +14,13 @@ export interface User {
   last_connection: string;
   rank?: number;
 }
+
+export interface UserProfileData {
+  name: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  zipcode: string;
+  city: string;
+  adress: string;
+}
