@@ -1,0 +1,78 @@
+.body-admin-validation {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  background-image: url("../../../public/backgroundAdmin.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 140vh;
+  padding: 40px;
+}
+
+.main-validation-card {
+  display: grid;
+  justify-items: center;
+  background-color: rgba(68, 148, 69, 0.726);
+  border-radius: 12px;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.658);
+}
+
+.new-street-art-photo {
+  width: 100%;
+}
+
+.street-art-given-title {
+  color: white;
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.number-of-points {
+  color: white;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.accepted-or-refused-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 16px;
+  height: 45px;
+}
+
+.brown-button-admin {
+  border-radius: 12px;
+  border-style: none;
+  background-color: rgba(192, 173, 150, 0.753);
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.658);
+}
+
+.brown-button-admin:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.next-button {
+  padding: 30px 10px 30px 10px;
+  border-radius: 50px;
+  background-color: rgba(68, 148, 69, 0.726);
+  border-style: none;
+  color: white;
+  font-size: 1.2rem;
+  margin: 16px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.658);
+}
+
+.next-button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
