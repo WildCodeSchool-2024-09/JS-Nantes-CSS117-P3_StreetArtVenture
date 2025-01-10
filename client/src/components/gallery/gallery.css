@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+
+.background-gray {
+  width: 100%;
+  height: 118ch;
+}
+.white-card {
+  height: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+
+  border-radius: 10px;
+
+  padding: 20px;
+  width: 850px;
+  text-align: center;
+  opacity: 0.7;
+}
+.white-card h1 {
+  font-family: "Bangers", cursive;
+  font-size: 50px;
+  color: black;
+}
+.traith1 {
+  display: block;
+  margin: 15px auto;
+  color: black;
+}
+section.artwork-page .city {
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 23px;
+  width: 10em;
+  height: 4ch;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.container-owerflow {
+  height: 35em;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.galerie-oeuvre {
+  height: 8em;
+}
+.green-container {
+  height: 20em;
+  background-color: #22b573;
+  border-radius: 15px;
+  margin-top: 8ch;
+  padding: 3ch;
+  width: 15em;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 415px) {
+  .background-gray {
+    height: 112ch;
+  }
+  .white-card {
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    opacity: 0.7;
+    height: 700px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .white-card h1 {
+    font-family: "Bangers", cursive;
+    font-size: 36px;
+    color: black;
+  }
+  .traith1 {
+    margin-top: 30px;
+    color: black;
+  }
+  section.artwork-page .city {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 23px;
+    width: 10em;
+    height: 4ch;
+    text-align: center;
+  }
+
+  .container-owerflow {
+    height: 30em;
+    overflow: auto;
+  }
+  .galerie-oeuvre {
+    height: 10em;
+  }
+  .green-container {
+    height: 22em;
+    background-color: #22b573;
+    border-radius: 15px;
+    margin-top: 2ch;
+    padding: 3ch;
+    width: 20em;
+    margin-right: 5px;
+  }
+}

@@ -4,6 +4,8 @@ import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
 import MapPage from "../pages/map/mapPage";
 import ProfilePage from "../pages/profile/profilePage";
 
+import Gallery from "../components/gallery/gallery";
+
 const routes = [
   {
     path: "/profile",
@@ -29,6 +31,10 @@ const routes = [
   {
     path: "/connexion",
     element: <Connexion />,
+  },
+  {
+    path: "/gallery",
+    element: <Gallery />,
   },
 ];
 

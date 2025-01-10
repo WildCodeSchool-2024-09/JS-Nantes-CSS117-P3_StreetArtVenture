@@ -26,6 +26,10 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 
 router.get("/art/findArtPiecesAround", artActions.browseAround);
 
+import artPieceActions from "./modules/art_piece/artPieceActions";
+
+router.get("/art/getCities", artPieceActions.getCities);
+
 /* ************************************************************************* */
 
 export default router;
