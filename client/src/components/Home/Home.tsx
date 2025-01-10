@@ -2,7 +2,7 @@ import "./Home.css";
 
 export const Home: React.FC = () => {
   return (
-    <body>
+    <main>
       <h1 className="montserrat background-image">
         Chasses les œuvres de Street-Art de ta ville !
       </h1>
@@ -61,6 +61,6 @@ export const Home: React.FC = () => {
           Voir le classement !
         </button>
       </article>
-    </body>
+    </main>
   );
 };

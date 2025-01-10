@@ -1,32 +1,33 @@
 import { useForm } from "react-hook-form";
 import type { ConnexionProps } from "./Connexion.types";
 import "./Connexion.css";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Connexion: React.FC<ConnexionProps> = () => {
-  const isConnected = async () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
     const token = localStorage.getItem("authToken");
-    if (!token) {
-      return;
-    }
+
     try {
-      const response = await fetch("http://localhost:3310/user/verifyToken", {
+      fetch("http://localhost:3310/user/verifyToken", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ token }),
+      }).then((response) => {
+        if (!response.ok) {
+          return;
+        }
+        navigate("/");
       });
-      if (!response.ok) {
-        return;
-      }
-      window.location.href = "/home";
     } catch (error) {
       console.error("Erreur lors de la vérification de connexion:", error);
     }
-  };
-  isConnected();
+  }, [navigate]);
+
   const validationRules = {
     password: {
       required: "Saisissez votre mot de passe",
@@ -48,7 +49,8 @@ export const Connexion: React.FC<ConnexionProps> = () => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: ConnexionProps) => {
+  const onSubmit = async (data: ConnexionProps, event: React.FormEvent) => {
+    event.preventDefault();
     const { email, password } = data;
     try {
       const response = await fetch("http://localhost:3310/user/verify", {
@@ -73,7 +75,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
 
       localStorage.setItem("authToken", token);
 
-      window.location.href = "/home";
+      navigate("/");
     } catch (error) {
       console.error("Erreur de connexion:", error);
     }
@@ -87,8 +89,8 @@ export const Connexion: React.FC<ConnexionProps> = () => {
     setReminderValue(checked ? "2h" : "30d");
   };
   return (
-    <body className="connexion-page">
-      <form className="connexion-container " onSubmit={handleSubmit(onSubmit)}>
+    <main className="connexion-page">
+      <form className="connexion-container" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="white center bangers-regular bigger">SE CONNECTER</h1>
 
         <input
@@ -121,7 +123,6 @@ export const Connexion: React.FC<ConnexionProps> = () => {
           />
           Se souvenir de moi
         </label>
-
         <button className="green-button montserrat" type="submit">
           S'identifier
         </button>
@@ -134,6 +135,6 @@ export const Connexion: React.FC<ConnexionProps> = () => {
           S'inscrire
         </Link>
       </form>
-    </body>
+    </main>
   );
 };
