@@ -2,6 +2,7 @@
   display: grid;
   justify-items: center;
   align-items: center;
+  justify-content: center;
   background-image: url("../../../public/backgroundAdmin.jpg");
   background-size: cover;
   background-position: center;
@@ -17,7 +18,7 @@
   border-radius: 12px;
   gap: 20px;
   padding: 20px;
-  width: 100%;
+  width: 95%;
   max-width: 400px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.658);
 }
@@ -26,10 +27,23 @@
   width: 100%;
 }
 
-.street-art-given-title {
+.street-art-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   color: white;
+  font-size: 1.2rem;
+  gap: 70px;
   text-align: center;
-  font-size: 1.6rem;
+}
+
+.art-description {
+  height: 100px;
+  width: 90%;
+  border-style: none;
+  padding: 20px;
+  vertical-align: top;
+  box-sizing: border-box;
+  resize: none;
 }
 
 .number-of-points {
@@ -68,7 +82,7 @@
   border-style: none;
   color: white;
   font-size: 1.2rem;
-  margin: 16px;
+  margin: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.658);
 }
 

@@ -9,15 +9,20 @@ export function AdminValidation() {
           alt="Document sent by user(...)"
           className="new-street-art-photo"
         />
-        <section className="street-art-given-title">
-          Titre du street-art:
-          <br /> YODA
+        <section className="street-art-info">
+          <p>
+            Titre de l'oeuvre: <br />
+            Yoda
+          </p>
+          <p>
+            Recompense: <br />
+            100 points
+          </p>
         </section>
-        <section className="number-of-points">
-          Recompense : <br />
-          <section className="show-number-of-points" />
-          100 points
-        </section>
+        <textarea
+          placeholder="Description de l'oeuvre..."
+          className="art-description"
+        />
         <section className="accepted-or-refused-buttons">
           <button type="button" className="brown-button-admin">
             {" "}
