@@ -3,10 +3,36 @@ import { useNavigate } from "react-router-dom";
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
+
+  const handlePlay = async () => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      navigate("/Connexion");
+    } else {
+      try {
+        fetch("http://localhost:3310/user/verifyToken", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ token }),
+        }).then((response) => {
+          if (!response.ok) {
+            navigate("/Connexion");
+          }
+          navigate("/map");
+        });
+      } catch (error) {
+        navigate("/Connexion");
+        console.error("Erreur lors de la vérification de connexion:", error);
+      }
+    }
+  };
+
   return (
     <main>
       <figure className="head-img">
-        <img className="head-img" src="./images/IMAGE_HOMEPAGE.jpg" alt="" />
+        <img className="head-img " src="./images/IMAGE_HOMEPAGE.jpg" alt="" />
       </figure>
       <article className="flex-article ">
         <div className="content-wrapper ">
@@ -22,21 +48,21 @@ export const Home: React.FC = () => {
           </p>
           <button
             type="button"
-            onClick={() => navigate("/Connexion")}
+            onClick={handlePlay}
             className="home-button home-green-button home-p montserrat "
           >
             JOUER
           </button>
         </div>
         <img
-          className="home-img"
+          className="home-img vanish"
           src="/homePageMap.jpg"
           alt="la carte de nantes avec des points d'intérêts"
         />
       </article>
       <article className="dark-background flex-article">
         <img
-          className="home-img"
+          className="home-img vanish"
           src="homePageDiscovery.jpg"
           alt="street art représentant un enfant ouvrant un rideau sur le mur pour découvrir de nouveaux tags"
         />
@@ -81,7 +107,7 @@ export const Home: React.FC = () => {
           </button>
         </div>
         <img
-          className="home-img"
+          className="home-img vanish"
           src="images/leaderboardHome.jpg"
           alt="street art représentant un enfant ouvrant un rideau sur le mur pour découvrir de nouveaux tags"
         />

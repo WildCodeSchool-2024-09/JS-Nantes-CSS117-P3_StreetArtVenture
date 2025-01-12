@@ -49,8 +49,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: ConnexionProps, event: React.FormEvent) => {
-    event.preventDefault();
+  const onSubmit = async (data: ConnexionProps) => {
     const { email, password } = data;
     try {
       const response = await fetch("http://localhost:3310/user/verify", {

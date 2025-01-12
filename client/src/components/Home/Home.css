@@ -31,13 +31,15 @@
 }
 
 .home-img {
-  width: 35%;
-  height: auto;
+  width: 650px;
+  height: 650px;
+  border-radius: 12px;
 }
 
 .home-p {
   font-weight: 400;
   font-size: 25px;
+  text-align: center;
 }
 
 .home-button {
@@ -57,5 +59,28 @@
   background-color: white;
   border-color: white;
   color: black;
-  height: 45px;
+  height: 60px;
+}
+
+@media (max-width: 1500px) {
+  .home-img {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 900px) {
+  .vanish {
+    display: none;
+  }
+
+  .content-wrapper {
+    width: 65%;
+    gap: 50px;
+  }
+
+  .head-img {
+    width: 115%;
+    margin-left: -43px;
+  }
 }
