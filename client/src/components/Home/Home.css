@@ -1,24 +1,61 @@
-.background-image {
-  background-image: url("/homepagefirst.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 35vh;
+.head-img {
+  height: auto;
+  width: 100%;
 }
 
-.black-background {
+.title-size {
+  font-size: 50px;
+}
+
+.dark-background {
   background-image: url("/black-background.jpg");
+}
+.green-background {
+  background-color: #22b573;
 }
 
 .content-wrapper {
   width: 35%;
+  gap: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-.flex {
+.flex-article {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: row;
+  padding-top: 7vh;
+  padding-bottom: 7vh;
 }
 
 .home-img {
   width: 35%;
+  height: auto;
+}
+
+.home-p {
+  font-weight: 400;
+  font-size: 25px;
+}
+
+.home-button {
+  border-radius: 8px;
+  width: 55%;
+  margin-left: 23%;
+  cursor: pointer;
+  height: 45px;
+}
+
+.home-green-button {
+  background-color: #22b573;
+  border-color: #22b573;
+  color: white;
+}
+.white-button {
+  background-color: white;
+  border-color: white;
+  color: black;
+  height: 45px;
 }
