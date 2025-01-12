@@ -12,11 +12,6 @@
   --secondary-font: "Bangers", serif;
 }
 
-.space-around {
-  display: flex;
-  justify-content: space-between;
-}
-
 .center {
   display: flex;
   justify-content: center;
