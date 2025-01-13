@@ -5,16 +5,15 @@
   height: 118ch;
 }
 .white-card {
-  height: 800px;
+  height: 650px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
-
   border-radius: 10px;
-
   padding: 20px;
+  margin-top: 6ch;
   width: 850px;
   text-align: center;
   opacity: 0.7;
@@ -46,7 +45,7 @@ section.artwork-page .city {
   gap: 20px;
 }
 .container-owerflow {
-  height: 35em;
+  height: 25em;
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
@@ -60,12 +59,15 @@ section.artwork-page .city {
   height: 20em;
   background-color: #22b573;
   border-radius: 15px;
-  margin-top: 8ch;
+  margin-top: 2ch;
   padding: 3ch;
   width: 15em;
   margin-right: 10px;
 }
-
+.galerie-oeuvre {
+  height: 10em;
+  width: 25ch;
+}
 @media screen and (max-width: 415px) {
   .background-gray {
     height: 85vh;
@@ -116,7 +118,7 @@ section.artwork-page .city {
     border-radius: 15px;
     margin-top: 2ch;
     padding: ch;
-    width: 20em;
+
     margin-right: 5px;
   }
   .streetart {
