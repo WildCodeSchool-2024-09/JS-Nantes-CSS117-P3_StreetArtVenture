@@ -31,8 +31,8 @@
 }
 
 .home-img {
-  width: 650px;
-  height: 650px;
+  width: 550px;
+  height: 485px;
   border-radius: 12px;
 }
 
@@ -65,7 +65,7 @@
 @media (max-width: 1500px) {
   .home-img {
     width: 450px;
-    height: 450px;
+    height: 385px;
   }
 }
 
