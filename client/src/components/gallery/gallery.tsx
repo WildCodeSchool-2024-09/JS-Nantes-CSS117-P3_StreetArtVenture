@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./gallery.css";
 import backgroundimage from "/background-grey.jpg";
 
@@ -22,6 +21,7 @@ interface CardI {
 function Gallery() {
   const [cities, setCities] = useState<{ city: string }[]>([]);
   const [card, setCard] = useState<CardI[]>([]);
+  const [selectedValue, setSelectedValue] = useState("Votre ville");
 
   useEffect(() => {
     fetch("http://localhost:3310/art/getCities")
@@ -33,6 +33,15 @@ function Gallery() {
       .then((res) => res.json())
       .then((streetart) => setCard(streetart));
   }, []);
+
+  function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedValue(event.target.value);
+  }
+
+  const filtereArray =
+    selectedValue !== "Votre ville"
+      ? card.filter((el) => el.city.includes(selectedValue))
+      : card;
 
   return (
     <>
@@ -52,13 +61,14 @@ function Gallery() {
             alt="background gray if from lighter to darker"
           />
 
-          <select className="city" name="city">
+          <select className="city" name="city" onChange={handleSelect}>
+            <option>Votre ville</option>
             {cities.map((cities) => (
               <option key={cities.city}>{cities.city}</option>
             ))}
           </select>
           <div className="container-owerflow">
-            {card.map((card) => (
+            {filtereArray.map((card) => (
               <div className="green-container" key={card.id}>
                 <img
                   className="galerie-oeuvre"
