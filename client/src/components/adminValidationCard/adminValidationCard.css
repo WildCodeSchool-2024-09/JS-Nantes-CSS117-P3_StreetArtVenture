@@ -15,7 +15,7 @@
 .main-validation-card {
   display: grid;
   justify-items: center;
-  background-color: rgba(68, 148, 69, 0.726);
+  background-color: rgba(34, 181, 115, 1);
   border-radius: 12px;
   gap: 20px;
   padding: 20px;
@@ -37,6 +37,10 @@
   text-align: center;
 }
 
+input {
+  width: 46px;
+}
+
 .art-description {
   height: 100px;
   width: 90%;
@@ -45,6 +49,11 @@
   vertical-align: top;
   box-sizing: border-box;
   resize: none;
+}
+
+.art-description:focus {
+  border: none;
+  outline: none;
 }
 
 .number-of-points {
@@ -62,32 +71,30 @@
 }
 
 .brown-button-admin {
-  border-radius: 12px;
+  border-radius: 8px;
   border-style: none;
-  background-color: rgba(192, 173, 150, 0.753);
+  background-color: rgba(182, 188, 149, 1);
   color: white;
   font-size: 1.2rem;
   padding: 10px;
-  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.658);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.658);
 }
 
 .brown-button-admin:hover {
-  transform: scale(1.1);
   cursor: pointer;
 }
 
 .next-button {
   padding: 30px 10px 30px 10px;
   border-radius: 50px;
-  background-color: rgba(68, 148, 69, 0.726);
+  background-color: rgba(34, 181, 115, 1);
   border-style: none;
   color: white;
   font-size: 1.2rem;
   margin: 10px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.658);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.658);
 }
 
 .next-button:hover {
-  transform: scale(1.1);
   cursor: pointer;
 }

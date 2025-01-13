@@ -16,7 +16,7 @@ export function AdminValidation() {
           </p>
           <p>
             Recompense: <br />
-            100 points
+            <input type="number" /> points
           </p>
         </section>
         <textarea
