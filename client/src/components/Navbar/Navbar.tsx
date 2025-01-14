@@ -9,17 +9,22 @@ function Navbar() {
   return (
     <>
       <section className="hamburger">
-        <Hamburger toggled={isOpen} toggle={setOpen} size={50} />
+        <Hamburger
+          toggled={isOpen}
+          toggle={setOpen}
+          size={50}
+          className="burger-class"
+        />
         {isOpen && (
           <div>
             <ul className="section_ul">
               <Link className="link_nav" to="/test">
                 Jouer
               </Link>
-              <Link className="link_nav" to="/test">
+              <Link className="link_nav" to="/connexion">
                 Connexion
               </Link>
-              <Link className="link_nav" to="/test">
+              <Link className="link_nav" to="/leaderboard">
                 Classement
               </Link>
               <Link className="link_nav" to="/test">
