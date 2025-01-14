@@ -11,7 +11,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
     const token = localStorage.getItem("authToken");
 
     try {
-      fetch("http://localhost:3310/user/verifyToken", {
+      fetch(`${import.meta.env.VITE_API_URL}/user/verifyToken`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -52,17 +52,20 @@ export const Connexion: React.FC<ConnexionProps> = () => {
   const onSubmit = async (data: ConnexionProps) => {
     const { email, password } = data;
     try {
-      const response = await fetch("http://localhost:3310/user/verify", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/verify`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            reminder: reminderValue,
+          }),
         },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          reminder: reminderValue,
-        }),
-      });
+      );
 
       if (!response.ok) {
         setErrorMessage("E-mail ou mot-de-passe invalide ! ");

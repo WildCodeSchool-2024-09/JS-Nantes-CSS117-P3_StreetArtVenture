@@ -10,7 +10,7 @@ export const Home: React.FC = () => {
       navigate("/Connexion");
     } else {
       try {
-        fetch("http://localhost:3310/user/verifyToken", {
+        fetch(`${import.meta.env.VITE_API_URL}/user/verifyToken`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
