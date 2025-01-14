@@ -1,7 +1,7 @@
 import "../adminValidationCard/adminValidationCard.css";
 import { useEffect, useState } from "react";
 
-export function AdminValidation() {
+export function AdminValidationBoard() {
   const [status, setStatus] = useState<string | null>(null);
   const [showMessage, setShowMessage] = useState(false);
 
@@ -22,8 +22,25 @@ export function AdminValidation() {
 
   const [banUser, setBanUser] = useState<string | false>(false);
 
-  const handleBan = () => {
-    setBanUser("User is banned");
+  const handleBan = async () => {
+    try {
+      const response = await fetch("http://VITE_API_URL/user/verifyUser", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setBanUser(!setBanUser);
+        alert("L'utilisateur a été banni avec succès.");
+      } else {
+        throw new Error("Erreur lors de la tentative de bannir l'utilisateur.");
+      }
+    } catch (error) {
+      console.error("Erreur :", error);
+      alert("Impossible de bannir l'utilisateur.");
+    }
   };
 
   return (
@@ -77,8 +94,7 @@ export function AdminValidation() {
           className="brown-button-admin"
           onClick={handleBan}
         >
-          {banUser === "User is ban"}
-          Bannir l'utilisateur
+          {banUser ? "Utilisateur banni" : "Bannir l'utilisateur"}
         </button>
       </section>
       <button type="button" className="next-button">

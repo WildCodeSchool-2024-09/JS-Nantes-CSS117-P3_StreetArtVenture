@@ -1,10 +1,10 @@
 import { Connexion } from "../components/Connexion/Connexion";
-import { AdminValidation } from "../components/adminValidationCard/adminValidationCard";
+import { AdminValidationBoard } from "../components/adminValidationCard/adminValidationCard";
+import Gallery from "../components/gallery/gallery";
 import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
 import MapPage from "../pages/map/mapPage";
 import ProfilePage from "../pages/profile/profilePage";
-import Gallery from "../components/gallery/gallery";
 
 const routes = [
   {
@@ -34,8 +34,8 @@ const routes = [
   },
   {
     path: "/adminvalidation",
-    element: <AdminValidation />,
-},
+    element: <AdminValidationBoard />,
+  },
   {
     path: "/gallery",
     element: <Gallery />,
