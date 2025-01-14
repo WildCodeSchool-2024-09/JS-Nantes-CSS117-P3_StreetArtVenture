@@ -1,7 +1,7 @@
 .headerClass {
   background-image: url("images/black_grunge.jpg");
   background-size: cover;
-  height: 130px;
+  height: 90px;
   width: 100%;
   display: flex;
   justify-content: space-between;

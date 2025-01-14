@@ -14,15 +14,21 @@ const WebcamCapture: React.FC = () => {
 
   return (
     <div className="camera-container">
-      <Webcam
-        className="camera"
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        videoConstraints={{
-          facingMode: "user",
-        }}
-      />
+      <div className="overlay">
+        <div className="overlay-element top-left"> </div>
+        <div className="overlay-element top-right"> </div>
+        <div className="overlay-element bottom-left"> </div>
+        <div className="overlay-element bottom-right"> </div>
+        <Webcam
+          className="camera"
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          videoConstraints={{
+            facingMode: "user",
+          }}
+        />
+      </div>
       <div className="button-container">
         <button
           className="circle-button"
@@ -30,8 +36,11 @@ const WebcamCapture: React.FC = () => {
           onClick={capturePhoto}
         />
       </div>
-      <button className="white-button" type="button">
-        Envoi
+      <button className="white-button print-button " type="button">
+        <div className="send-container">
+          <p className="p-button">Envoyer</p>
+          <img className="send-img" src="/send.PNG" alt="send button" />
+        </div>
       </button>
     </div>
   );
