@@ -77,4 +77,52 @@ const update: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { verifyUser, verifyToken, read, update };
+const deleteUser: RequestHandler = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await userRepository.delete(Number.parseInt(id));
+  if (!user.length) {
+    res.sendStatus(404);
+  } else {
+    res.json(user);
+  }
+};
+
+const patch: RequestHandler = async (req, res, net) => {
+  const { id } = req.params;
+  const {
+    name,
+    firstname,
+    lastname,
+    email,
+    zipcode,
+    adress,
+    city,
+    password,
+    points,
+    is_admin,
+    creation_date,
+    last_connection,
+  } = req.body;
+  const user = await userRepository.patchName({
+    id: Number.parseInt(id),
+    name,
+    firstname,
+    lastname,
+    email,
+    zipcode,
+    adress,
+    city,
+    password,
+    points,
+    is_admin,
+    creation_date,
+    last_connection,
+  });
+  if (!user.length) {
+    res.sendStatus(404);
+  } else {
+    res.json(user);
+  }
+};
+
+export default { verifyUser, verifyToken, read, update, deleteUser, patch };

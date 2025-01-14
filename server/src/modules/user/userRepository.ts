@@ -65,5 +65,27 @@ class UserRepository {
     ]);
     return row as User[];
   }
+
+  async delete(id: number) {
+    const query = "DELETE FROM user WHERE id = ?";
+    const [row] = await databaseClient.query<Rows>(query, [id]);
+    return row as User[];
+  }
+
+  async patchName(fieldsToUpdate: User) {
+    const query = "UPDATE user SET ? WHERE id = ?";
+    const filterUndefined = (obj: User) => {
+      return Object.fromEntries(
+        Object.entries(obj).filter(
+          ([key, value]) => value !== undefined && value !== "id",
+        ),
+      );
+    };
+    const [row] = await databaseClient.query<Rows>(query, [
+      filterUndefined(fieldsToUpdate),
+      fieldsToUpdate.id,
+    ]);
+    return row as User[];
+  }
 }
 export default new UserRepository();
