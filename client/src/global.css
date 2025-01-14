@@ -11,3 +11,8 @@
   --primary-font: "Montserrat", serif;
   --secondary-font: "Bangers", serif;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+}

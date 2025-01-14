@@ -17,12 +17,18 @@ router.post("/api/items", itemActions.add);
 
 router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
+router.get("/user/:id", userActions.read);
+router.patch("/user/:id", userActions.update);
 
 router.get("/leaderboard/getCities", leaderboardActions.getCities);
 router.get("/leaderboard/getLeaderboard", leaderboardActions.getLeaderboard);
 router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 
 router.get("/art/findArtPiecesAround", artActions.browseAround);
+
+import artPieceActions from "./modules/art_piece/artPieceActions";
+
+router.get("/art/getCities", artPieceActions.getCities);
 
 /* ************************************************************************* */
 

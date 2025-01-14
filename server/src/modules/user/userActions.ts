@@ -1,10 +1,10 @@
-import dotenv from "dotenv"; ////
-import jwt from "jsonwebtoken"; ////
-dotenv.config({ path: "./server/.env" }); ////
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+dotenv.config({ path: "./server/.env" });
 import type { RequestHandler } from "express";
 import userRepository from "./userRepository";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key"; //////
+const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
 
 const verifyToken: RequestHandler = async (req, res, next) => {
   const token = req.body.token;
@@ -45,4 +45,35 @@ const verifyUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { verifyUser, verifyToken };
+const read: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch a specific user based on the provided ID
+    const userId = Number(req.params.id);
+    const user = await userRepository.read(userId);
+
+    // If the user is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the item in JSON format
+    if (!user) {
+      res.sendStatus(404);
+    } else {
+      res.json(user);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+const update: RequestHandler = async (req, res, next) => {
+  // Get new infos + id from request
+  const userId = Number(req.params.id);
+  const updatedInfos = req.body;
+  const user = await userRepository.update(userId, updatedInfos);
+  if (!user.length) {
+    res.sendStatus(404);
+  } else {
+    res.json(user);
+  }
+};
+
+export default { verifyUser, verifyToken, read, update };

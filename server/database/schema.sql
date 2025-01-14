@@ -145,28 +145,28 @@ INSERT INTO user(name, firstname, lastname, email, zipcode, city, adress, passwo
 ('Walter', 'Brain', 'Gislason', 'Keely20@hotmail.com', '65144-2179', 'Angers', '2871 Marquardt Stream', '$argon2id$v=19$m=65536,t=3,p=4$O4UShHhPcGHe2D4n60EUzg$pO4O3+vASeVKjY5SsdmxiWMVlVvIeUB66mDVHaB+wJ8', 429, false, '2022-10-19 04:18:03', '2023-05-30 08:49:52'),
 ('Lang', 'Mylene', 'Kub', 'Kayley5@gmail.com', '41643', 'Nantes', '512 Marlon Trafficway', '$argon2id$v=19$m=65536,t=3,p=4$AWaJ+cMkvIbktfOAmJbx+Q$jPXe6FUFCwsSDDlqhF3wi6jVjEqqZw8PRslf0L4Omxo', 1102, false, '2023-10-23 19:43:10', '2024-01-30 01:51:16');
 
-INSERT INTO art_piece (name, adress, coordinates, is_validated, is_covered, description, points_value)
+INSERT INTO art_piece (name, picture_path , adress, city, department, coordinates, is_validated, is_covered, description, points_value)
 VALUES
-  ('Révolte des Couleurs', 'Rue de la Liberté, Nantes', POINT(47.218637, -1.553616), TRUE, FALSE, 'Oeuvre vibrante qui évoque la lutte pour la liberté.', 10),
-  ('Aube Nouvelle', 'Boulevard de la République, Nantes', POINT(47.210244, -1.554298), FALSE, FALSE, 'Mural représentant un lever de soleil avec des tons chauds.', 20),
-  ('Fragment du Temps', 'Place du Commerce, Nantes', POINT(47.214348, -1.556412), TRUE, TRUE, 'Street art en 3D, une immersion dans évolution du temps.', 50),
-  ('Racines Urbaines', 'Quai des Tuileries, Nantes', POINT(47.220347, -1.547512), TRUE, FALSE, 'Graffiti inspiré par les racines des arbres entrelacées avec la ville.', 10),
-  ('Silence Électrique', 'Avenue de la République, Nantes', POINT(47.211111, -1.561111), FALSE, FALSE, 'Mural qui donne une impression de calme dans un monde bruyant.', 100),
-  ('Le Dernier Souffle', 'Rue de la Gare, Nantes', POINT(47.211889, -1.565298), TRUE, FALSE, 'Street art illustrant les équilibres fragile de la nature.', 20),
-  ('Ombre des Murs', 'Rue du Bouffay, Nantes', POINT(47.213221, -1.561444), FALSE, TRUE, 'Oeuvre représentant des silhouettes perdues dans les ombres.', 50),
-  ('Évasion Électrique', 'Rue du Port, Nantes', POINT(47.218234, -1.560222), TRUE, TRUE, 'Peinture murale futuriste, évasion dans une société trop normée.', 100),
-  ('Regard Perçant', 'Place des Halles, Nantes', POINT(47.210635, -1.564292), FALSE, FALSE, 'Graffiti qui capte avec des yeux percants.', 50),
-  ('Unité des Contraires', 'Rue des Chantiers, Nantes', POINT(47.215577, -1.552344), TRUE, FALSE, 'Oeuvre sur les opposés : lumière et obscurité, mouvement et calme.', 10),
-  ('Esprit de la Rue', 'Place du Ralliement, Angers', POINT(47.473474, -0.552174), TRUE, FALSE, 'Graffiti célébrant la rue et des artistes de passage.', 10),
-  ('Le Poids des Mots', 'Rue de la Maine, Angers', POINT(47.474002, -0.551231), FALSE, FALSE, 'Mural sur les paroles et les silences, et leur poids dans la société.', 20),
-  ('Mélancolie Acier', 'Rue du Boulevard, Angers', POINT(47.476254, -0.553448), TRUE, TRUE, 'Street art représentant des pièces de métal et acier, symbole industrialisation.', 50),
-  ('Voix du Passé', 'Avenue de la Gare, Angers', POINT(47.470319, -0.557824), TRUE, FALSE, 'Mural représentant les anciens habitants de la ville et leur influence sur le présent.', 100),
-  ('Vagues de Révolte', 'Rue des Violettes, Angers', POINT(47.475883, -0.550438), FALSE, FALSE, 'Oeuvre qui exprime des idées de révolte contre les normes sociales à travers des vagues.', 20),
-  ('Sous la Peau de la Ville', 'Rue des Ponts, Angers', POINT(47.473312, -0.548576), TRUE, TRUE, 'Street art qui dévoile les structures cachées et oubliées de la ville.', 50),
-  ('Oeil du Cyclone', 'Hôtel de Ville, Angers', POINT(47.474834, -0.549197), FALSE, FALSE, 'Graffiti représentant un œil immense, vision du monde moderne vu comme un cyclone.', 10),
-  ('Dans le Vent', 'Rue de la Croix de Lorette, Angers', POINT(47.472874, -0.552905), TRUE, FALSE, 'Oeuvre inspirée par la légèreté du vent, avec des formes abstraites.', 100),
-  ('Ultime Danse', 'Place du Général Leclerc, Angers', POINT(47.470958, -0.553544), FALSE, FALSE, 'Peinture murale qui capture un mouvement de danse effréné.', 20),
-  ('Changement des Époques', 'Rue de la Fonderie, Angers', POINT(47.472273, -0.551391), TRUE, FALSE, 'Graffiti qui dépeint les changements sociaux et les transitions culturelles.', 50);
+  ('Révolte des Couleurs', "/assets/images/art_piece_1.jpg", 'Rue de la Liberté', "Nantes" , "Loire-Atlantique", POINT(47.218637, -1.553616), TRUE, FALSE, 'Oeuvre vibrante qui évoque la lutte pour la liberté.', 10),
+  ('Aube Nouvelle', "/assets/images/art_piece_1.jpg", 'Boulevard de la République', "Nantes", "Loire-Atlantique" , POINT(47.210244, -1.554298), FALSE, FALSE, 'Mural représentant un lever de soleil avec des tons chauds.', 20),
+  ('Fragment du Temps', "/assets/images/art_piece_1.jpg", 'Place du Commerce', "Nantes", "Loire-Atlantique" , POINT(47.214348, -1.556412), TRUE, TRUE, 'Street art en 3D, une immersion dans évolution du temps.', 50),
+  ('Racines Urbaines', "/assets/images/art_piece_1.jpg", 'Quai des Tuileries', "Nantes", "Loire-Atlantique" , POINT(47.220347, -1.547512), TRUE, FALSE, 'Graffiti inspiré par les racines des arbres entrelacées avec la ville.', 10),
+  ('Silence Électrique', "/assets/images/art_piece_1.jpg", 'Avenue de la République', "Nantes", "Loire-Atlantique" , POINT(47.211111, -1.561111), FALSE, FALSE, 'Mural qui donne une impression de calme dans un monde bruyant.', 100),
+  ('Le Dernier Souffle', "/assets/images/art_piece_1.jpg", 'Rue de la Gare', "Nantes", "Loire-Atlantique" , POINT(47.211889, -1.565298), TRUE, FALSE, 'Street art illustrant les équilibres fragile de la nature.', 20),
+  ('Ombre des Murs', "/assets/images/art_piece_1.jpg", 'Rue du Bouffay', "Nantes", "Loire-Atlantique" , POINT(47.213221, -1.561444), FALSE, TRUE, 'Oeuvre représentant des silhouettes perdues dans les ombres.', 50),
+  ('Évasion Électrique', "/assets/images/art_piece_1.jpg", 'Rue du Port', "Nantes", "Loire-Atlantique" , POINT(47.218234, -1.560222), TRUE, TRUE, 'Peinture murale futuriste, évasion dans une société trop normée.', 100),
+  ('Regard Perçant', "/assets/images/art_piece_1.jpg", 'Place des Halles', "Nantes", "Loire-Atlantique" , POINT(47.210635, -1.564292), FALSE, FALSE, 'Graffiti qui capte avec des yeux percants.', 50),
+  ('Unité des Contraires', "/assets/images/art_piece_1.jpg", 'Rue des Chantiers', "Nantes", "Loire-Atlantique" , POINT(47.215577, -1.552344), TRUE, FALSE, 'Oeuvre sur les opposés : lumière et obscurité, mouvement et calme.', 10),
+  ('Esprit de la Rue', "/assets/images/art_piece_1.jpg", 'Place du Ralliement', "Angers", "Maine-et-Loire", POINT(47.473474, -0.552174), TRUE, FALSE, 'Graffiti célébrant la rue et des artistes de passage.', 10),
+  ('Le Poids des Mots', "/assets/images/art_piece_1.jpg", 'Rue de la Maine', "Angers", "Maine-et-Loire" ,POINT(47.474002, -0.551231), FALSE, FALSE, 'Mural sur les paroles et les silences, et leur poids dans la société.', 20),
+  ('Mélancolie Acier', "/assets/images/art_piece_1.jpg", 'Rue du Boulevard', "Angers", "Maine-et-Loire" , POINT(47.476254, -0.553448), TRUE, TRUE, 'Street art représentant des pièces de métal et acier, symbole industrialisation.', 50),
+  ('Voix du Passé', "/assets/images/art_piece_1.jpg", 'Avenue de la Gare', "Angers", "Maine-et-Loire" , POINT(47.470319, -0.557824), TRUE, FALSE, 'Mural représentant les anciens habitants de la ville et leur influence sur le présent.', 100),
+  ('Vagues de Révolte', "/assets/images/art_piece_1.jpg", 'Rue des Violettes', "Angers", "Maine-et-Loire" , POINT(47.475883, -0.550438), FALSE, FALSE, 'Oeuvre qui exprime des idées de révolte contre les normes sociales à travers des vagues.', 20),
+  ('Sous la Peau de la Ville', "/assets/images/art_piece_1.jpg", 'Rue des Ponts', "Angers", "Maine-et-Loire" , POINT(47.473312, -0.548576), TRUE, TRUE, 'Street art qui dévoile les structures cachées et oubliées de la ville.', 50),
+  ('Oeil du Cyclone', "/assets/images/art_piece_1.jpg", 'Hôtel de Ville', "Angers", "Maine-et-Loire" , POINT(47.474834, -0.549197), FALSE, FALSE, 'Graffiti représentant un œil immense, vision du monde moderne vu comme un cyclone.', 10),
+  ('Dans le Vent', "/assets/images/art_piece_1.jpg", 'Rue de la Croix de Lorette', "Angers", "Maine-et-Loire" , POINT(47.472874, -0.552905), TRUE, FALSE, 'Oeuvre inspirée par la légèreté du vent, avec des formes abstraites.', 100),
+  ('Ultime Danse', "/assets/images/art_piece_1.jpg", 'Place du Général Leclerc', "Angers", "Maine-et-Loire" , POINT(47.470958, -0.553544), FALSE, FALSE, 'Peinture murale qui capture un mouvement de danse effréné.', 20),
+  ('Changement des Époques', "/assets/images/art_piece_1.jpg", 'Rue de la Fonderie', "Angers", "Maine-et-Loire" , POINT(47.472273, -0.551391), TRUE, FALSE, 'Graffiti qui dépeint les changements sociaux et les transitions culturelles.', 50);
 
 INSERT INTO reported_art_piece (art_piece_id, user_id, timestamp)
 VALUES
