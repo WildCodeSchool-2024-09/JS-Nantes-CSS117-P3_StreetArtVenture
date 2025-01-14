@@ -1,0 +1,34 @@
+.camera-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+  z-index: 402;
+  position: fixed;
+  background-color: rgba(27, 200, 67, 0.7);
+  align-items: center;
+  left: 40%;
+}
+.camera {
+  width: 500px;
+}
+
+.button-container {
+  background-color: #22b573;
+  width: 130px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  border: 4px solid white; /* Bordure blanche arrondie */
+}
+
+.circle-button {
+  background-color: white;
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
