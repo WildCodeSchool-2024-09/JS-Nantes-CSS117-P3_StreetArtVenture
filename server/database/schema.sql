@@ -32,8 +32,8 @@ CREATE TABLE viewed_art_piece (
   art_piece_id INT UNSIGNED,
   user_id INT UNSIGNED,
   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  FOREIGN KEY (art_piece_id) REFERENCES art_piece(id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  FOREIGN KEY (art_piece_id) REFERENCES art_piece(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE reported_art_piece (
@@ -41,8 +41,8 @@ CREATE TABLE reported_art_piece (
   art_piece_id INT UNSIGNED,
   user_id INT UNSIGNED,
   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  FOREIGN KEY (art_piece_id) REFERENCES art_piece(id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  FOREIGN KEY (art_piece_id) REFERENCES art_piece(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
 INSERT INTO user(name, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection) VALUES
