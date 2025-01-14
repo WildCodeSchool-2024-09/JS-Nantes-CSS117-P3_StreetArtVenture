@@ -1,16 +1,24 @@
 import "../adminValidationCard/adminValidationCard.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function AdminValidation() {
   const [status, setStatus] = useState<string | null>(null);
+  const [showMessage, setShowMessage] = useState(false);
 
-  const handleValidation = () => {
-    setStatus("Your street art is valid");
+  const handleAction = (message: string) => {
+    setStatus(message);
+    setShowMessage(true);
   };
 
-  const handleRejection = () => {
-    setStatus("Your street art is not valid");
-  };
+  useEffect(() => {
+    if (showMessage) {
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showMessage]);
 
   const [banUser, setBanUser] = useState<string | false>(false);
 
@@ -41,31 +49,28 @@ export function AdminValidation() {
         />
         <section className="accepted-or-refused-buttons">
           <button
-            className="brown-button-admin"
+            onClick={() =>
+              handleAction(
+                "Vous avez confirmé l'ajout de ce street art à la galerie.",
+              )
+            }
             type="button"
-            onClick={handleValidation}
+            className="brown-button-admin"
           >
-            {status === "Your street art is valid"}
             Valider
           </button>
-          {status === "Your street art is valid" && (
-            <p className="admin-validation-message">
-              Vous avez confirmé l'ajout de ce street art à la galerie.
-            </p>
-          )}
           <button
-            className="brown-button-admin"
+            onClick={() =>
+              handleAction(
+                "Vous avez refusé l'ajout de ce street art à la galerie.",
+              )
+            }
             type="button"
-            onClick={handleRejection}
+            className="brown-button-admin"
           >
-            {status === "refused"}
             Refuser
           </button>
-          {status === "Your street art is not valid" && (
-            <p className="admin-validation-message">
-              Vous avez refusé l'ajout de ce street art à la galerie.
-            </p>
-          )}
+          {showMessage && <p className="admin-validation-message">{status}</p>}
         </section>
         <button
           type="button"

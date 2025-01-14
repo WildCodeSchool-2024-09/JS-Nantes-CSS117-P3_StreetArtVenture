@@ -1,6 +1,6 @@
 .body-admin-validation {
   display: grid;
-  grid-template-rows: 70% 40px;
+  grid-template-rows: 70% 80px;
   justify-items: center;
   align-items: center;
   justify-content: center;
@@ -10,6 +10,7 @@
   width: 100vw;
   height: 1000px;
   padding: 40px;
+  font-family: var(--primary-font);
 }
 
 .main-validation-card {
@@ -53,6 +54,7 @@
   vertical-align: top;
   box-sizing: border-box;
   resize: none;
+  font-family: var(--primary-font);
 }
 
 .art-description:focus {
@@ -82,7 +84,7 @@
   font-size: 1.2rem;
   padding: 14px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.658);
-  font-weight: bold;
+  font-family: var(--primary-font);
 }
 
 .brown-button-admin:hover {
@@ -92,7 +94,7 @@
 .admin-validation-message {
   top: 0%;
   background-color: rgba(34, 181, 115, 1);
-  font-size: 1rem;
+  font-size: 1.2rem;
   position: absolute;
   width: 100%;
   z-index: 1000;
@@ -100,6 +102,7 @@
   padding: 12px;
   text-align: center;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  font-family: var(--primary-font);
 }
 
 .next-button {
@@ -116,10 +119,6 @@
 
 @media screen and (min-width: 720px) {
   .body-admin-validation {
-    grid-template-rows: 80% 40px;
-  }
-
-  .main-validation-card {
-    margin-top: 20px;
+    grid-template-rows: 70% 90px;
   }
 }
