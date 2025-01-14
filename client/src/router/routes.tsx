@@ -4,7 +4,7 @@ import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
 import MapPage from "../pages/map/mapPage";
 import ProfilePage from "../pages/profile/profilePage";
 
-import Gallery from "../components/gallery/gallery";
+import Gallery from "../components/gallery/Gallery";
 
 const routes = [
   {

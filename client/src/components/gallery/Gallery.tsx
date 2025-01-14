@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./gallery.css";
 import backgroundimage from "/background-grey.jpg";
-
 import traith1 from "/trait-h1-artwork.tsx.png";
 
 interface CardI {
@@ -24,12 +23,12 @@ function Gallery() {
   const [selectedValue, setSelectedValue] = useState("Votre ville");
 
   useEffect(() => {
-    fetch("http://localhost:3310/art/getCities")
+    fetch(`${import.meta.env.VITE_API_URL}/art/getCities`)
       .then((res) => res.json())
       .then((city) => setCities(city));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:3310/art/getArt")
+    fetch(`${import.meta.env.VITE_API_URL}/art/getArt`)
       .then((res) => res.json())
       .then((streetart) => setCard(streetart));
   }, []);
@@ -72,7 +71,7 @@ function Gallery() {
               <div className="green-container" key={card.id}>
                 <img
                   className="galerie-oeuvre"
-                  src={`http://localhost:3310${card.picture_path}`}
+                  src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
                   alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
                 />
 
