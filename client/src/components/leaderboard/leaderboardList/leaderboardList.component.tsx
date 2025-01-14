@@ -1,13 +1,24 @@
-import { useRef } from "react";
+import { type FormEvent, useRef, useState } from "react";
 import type { User } from "../../../types/user";
 import "./leaderboardList.component.css";
+import { format } from "date-fns";
+import PopupAdminConfirmation from "../admin/popupAdminConfirmation.component";
 
 interface LeaderboardListProps {
   data: User[];
   fetchMore: () => void;
+  refreshData: () => void;
 }
 
-function LeaderboardList({ data, fetchMore }: LeaderboardListProps) {
+function LeaderboardList({
+  refreshData,
+  data,
+  fetchMore,
+}: LeaderboardListProps) {
+  const [isPopupOpen, setIsPopupOpen] = useState<false | "rename" | "ban">(
+    false,
+  );
+  const [poppedUser, setPoppedUser] = useState<null | User>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = async () => {
@@ -22,6 +33,40 @@ function LeaderboardList({ data, fetchMore }: LeaderboardListProps) {
     }
   };
 
+  const handleAdminAction = async (id: number, type: "rename" | "ban") => {
+    setIsPopupOpen(type);
+    const usrdata = data.filter((el) => el.id === id);
+    setPoppedUser(usrdata[0]);
+  };
+
+  async function handleAdminConfirmation(
+    method: "DELETE" | "PATCH",
+    e?: FormEvent,
+  ) {
+    if (!poppedUser || (method === "PATCH" && !e)) return;
+    if (method === "PATCH") {
+      const form = e?.target as HTMLFormElement;
+      const input = form.elements[0] as HTMLInputElement;
+      if (method === "PATCH" && !input.value) return;
+      await fetch(`${import.meta.env.VITE_API_URL}/user/${poppedUser?.id}`, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: input.value }),
+      });
+    } else
+      await fetch(`${import.meta.env.VITE_API_URL}/user/${poppedUser?.id}`, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    setIsPopupOpen(false);
+    setPoppedUser(null);
+    refreshData();
+  }
+
   return !data.length ? (
     <p className="no-result-leaderboard montserrat">
       Aucun utilisateur ne correspond à vos filtres
@@ -35,11 +80,38 @@ function LeaderboardList({ data, fetchMore }: LeaderboardListProps) {
       {data.map((el, index) => (
         <ul key={el.id} className="leaderboard-informations-container">
           <li className="montserrat">{index + 1}</li>
+          {el.last_connection && (
+            <li>{format(new Date(el.last_connection), "HH:mm dd/MM/yyyy")}</li>
+          )}
           <li className="montserrat">{el.name}</li>
+          {el.last_connection && (
+            <button
+              className="leaderboard-rename-button pointer"
+              type="button"
+              onClick={() => handleAdminAction(el.id, "rename")}
+            >
+              ...
+            </button>
+          )}
           <li className="montserrat">{el.points}</li>
+          {el.last_connection && (
+            <button
+              className="leaderboard-rename-button pointer"
+              type="button"
+              onClick={() => handleAdminAction(el.id, "ban")}
+            >
+              X
+            </button>
+          )}
         </ul>
       ))}
       <div className="leaderboard-loader" />
+      <PopupAdminConfirmation
+        isPopupOpen={isPopupOpen}
+        poppedUser={poppedUser}
+        setIsPopupOpen={setIsPopupOpen}
+        handleAdminConfirmation={handleAdminConfirmation}
+      />
     </div>
   );
 }
