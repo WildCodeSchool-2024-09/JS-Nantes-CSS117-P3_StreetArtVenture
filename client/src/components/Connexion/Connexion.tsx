@@ -87,7 +87,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
     setReminderValue(checked ? "2h" : "30d");
   };
   return (
-    <body className="connexion-page">
+    <main className="connexion-page">
       <form className="connexion-container " onSubmit={handleSubmit(onSubmit)}>
         <h1 className="white center bangers-regular bigger">SE CONNECTER</h1>
 
@@ -134,6 +134,6 @@ export const Connexion: React.FC<ConnexionProps> = () => {
           S'inscrire
         </Link>
       </form>
-    </body>
+    </main>
   );
 };

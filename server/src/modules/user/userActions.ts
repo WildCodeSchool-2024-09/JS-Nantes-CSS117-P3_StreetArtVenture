@@ -1,10 +1,10 @@
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
-dotenv.config({ path: "./server/.env" });
+import dotenv from "dotenv"; ////
+import jwt from "jsonwebtoken"; ////
+dotenv.config({ path: "./server/.env" }); ////
 import type { RequestHandler } from "express";
 import userRepository from "./userRepository";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key"; //////
 
 const verifyToken: RequestHandler = async (req, res, next) => {
   const token = req.body.token;
@@ -14,9 +14,8 @@ const verifyToken: RequestHandler = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, JWT_SECRET as string);
-    req.body = decoded;
-    res.status(200).json({ token });
-    next();
+    req.body.decodedToken = decoded;
+    res.status(200).json({ token, decodedToken: decoded });
   } catch (error) {
     res.status(401).json({ message: "Token invalide." });
   }

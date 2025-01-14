@@ -1,3 +1,4 @@
+import App from "../App";
 import { Connexion } from "../components/Connexion/Connexion";
 import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
@@ -24,6 +25,10 @@ const routes = [
   {
     path: "/connexion",
     element: <Connexion />,
+  },
+  {
+    path: "/app",
+    element: <App />,
   },
 ];
 
