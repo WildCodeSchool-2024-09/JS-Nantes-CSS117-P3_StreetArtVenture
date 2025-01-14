@@ -1,0 +1,28 @@
+.footer-section {
+  width: 100%;
+  height: 100px;
+  background-image: url("images/black_grunge.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-section img {
+  height: 80px;
+}
+
+.footer-section p {
+  font-family: var(--primary-font);
+  color: white;
+}
+
+@media screen and (max-width: 550px) {
+  .footer-section img {
+    height: 60px;
+  }
+  .footer-section p {
+    font-size: 12px;
+  }
+}
