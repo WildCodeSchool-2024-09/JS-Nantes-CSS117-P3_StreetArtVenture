@@ -2,7 +2,7 @@ import "../adminValidationCard/adminValidationCard.css";
 import { useEffect, useState } from "react";
 
 export function AdminValidationBoard() {
-  const [status, setStatus] = useState<string | null>(null);
+  const [status, setStatus] = useState<string | boolean>(false);
   const [showMessage, setShowMessage] = useState(false);
 
   const handleAction = (message: string) => {
@@ -20,19 +20,22 @@ export function AdminValidationBoard() {
     }
   }, [showMessage]);
 
-  const [banUser, setBanUser] = useState<string | false>(false);
+  const [banUser, setBanUser] = useState<string | boolean>(false);
 
   const handleBan = async () => {
     try {
-      const response = await fetch("http://VITE_API_URL/user/verifyUser", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/verifyUser`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
       if (response.ok) {
-        setBanUser(!setBanUser);
+        setBanUser(true);
         alert("L'utilisateur a été banni avec succès.");
       } else {
         throw new Error("Erreur lors de la tentative de bannir l'utilisateur.");
