@@ -2,7 +2,7 @@ import { type FormEvent, useRef, useState } from "react";
 import type { User } from "../../../types/user";
 import "./leaderboardList.component.css";
 import { format } from "date-fns";
-import PopupAdminConfirmation from "../admin/popupAdminConfirmation.component";
+import AdminModal from "../admin/AdminModal.component";
 
 interface LeaderboardListProps {
   data: User[];
@@ -79,11 +79,15 @@ function LeaderboardList({
     >
       {data.map((el, index) => (
         <ul key={el.id} className="leaderboard-informations-container">
-          <li className="montserrat">{index + 1}</li>
+          <li className="montserrat">
+            <p>{index + 1}</p>
+          </li>
           {el.last_connection && (
-            <li>{format(new Date(el.last_connection), "HH:mm dd/MM/yyyy")}</li>
+            <p>{format(new Date(el.last_connection), "HH:mm dd/MM/yyyy")}</p>
           )}
-          <li className="montserrat">{el.name}</li>
+          <li className="montserrat">
+            <p>{el.name}</p>
+          </li>
           {el.last_connection && (
             <button
               className="leaderboard-rename-button pointer"
@@ -93,7 +97,9 @@ function LeaderboardList({
               ...
             </button>
           )}
-          <li className="montserrat">{el.points}</li>
+          <li className="montserrat">
+            <p>{el.points}</p>
+          </li>
           {el.last_connection && (
             <button
               className="leaderboard-rename-button pointer"
@@ -106,7 +112,7 @@ function LeaderboardList({
         </ul>
       ))}
       <div className="leaderboard-loader" />
-      <PopupAdminConfirmation
+      <AdminModal
         isPopupOpen={isPopupOpen}
         poppedUser={poppedUser}
         setIsPopupOpen={setIsPopupOpen}

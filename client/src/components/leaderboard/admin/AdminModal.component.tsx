@@ -1,21 +1,13 @@
-import type { FormEvent } from "react";
-import type { User } from "../../../types/user";
-import DeleteUserForm from "./deleteUser.component";
-import RenameUserForm from "./renameUser.component";
+import type { AdminModalProps } from "./AdminModal";
+import DeleteUserForm from "./DeleteUserPopupForm.component";
+import RenameUserForm from "./RenameUserPopupForm.component";
 
-interface PopupAdminConfirmationProps {
-  isPopupOpen: false | "rename" | "ban";
-  poppedUser: null | User;
-  setIsPopupOpen: (arg1: false | "rename" | "ban") => void;
-  handleAdminConfirmation: (arg1: "PATCH" | "DELETE", e?: FormEvent) => void;
-}
-
-function PopupAdminConfirmation({
+function AdminModal({
   isPopupOpen,
   poppedUser,
   setIsPopupOpen,
   handleAdminConfirmation,
-}: PopupAdminConfirmationProps) {
+}: AdminModalProps) {
   return (
     <>
       {isPopupOpen && poppedUser && (
@@ -50,4 +42,4 @@ function PopupAdminConfirmation({
   );
 }
 
-export default PopupAdminConfirmation;
+export default AdminModal;
