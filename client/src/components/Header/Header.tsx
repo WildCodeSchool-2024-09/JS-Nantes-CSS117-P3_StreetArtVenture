@@ -21,13 +21,16 @@ function Header() {
 
     const verifyToken = async () => {
       try {
-        const response = await fetch("http://localhost:3310/user/verifyToken", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/user/verifyToken`,
+          {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({ token }),
           },
-          body: JSON.stringify({ token }),
-        });
+        );
 
         if (!response.ok) {
           console.error("Echec de la validation du token.");

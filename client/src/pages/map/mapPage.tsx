@@ -38,7 +38,7 @@ function MapPage() {
   async function getData(lat: number, lng: number) {
     // parameter radius (optionnal) can be added if we want a wider or narrower radius
     const res = await fetch(
-      `http://localhost:3310/art/findArtPiecesAround?latitude=${lat}&longitude=${lng}`,
+      `${import.meta.env.VITE_API_URL}/art/findArtPiecesAround?latitude=${lat}&longitude=${lng}`,
     );
     const newData = await res.json();
     setData(newData);

@@ -9,7 +9,7 @@ import traith1 from "/trait-h1-artwork.tsx.png";
 function Gallery() {
   const [cities, setCities] = useState<{ city: string }[]>([]);
   useEffect(() => {
-    fetch("http://localhost:3310/art/getCities")
+    fetch(`${import.meta.env.VITE_API_URL}/art/getCities`)
       .then((res) => res.json())
       .then((city) => setCities(city));
   }, []);
