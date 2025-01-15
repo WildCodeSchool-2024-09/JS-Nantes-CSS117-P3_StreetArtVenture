@@ -1,1 +1,7 @@
 GET http://localhost:3310/api/art
+
+###
+
+GET http://localhost:3310/user/5 HTTP/1.1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluIFVzZXIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzY5MzU5MzksImV4cCI6MTczNjkzOTUzOX0.J6JgXp0CEe0RYd1oo1babwP013_DB1XCginPy3JVgaQ
