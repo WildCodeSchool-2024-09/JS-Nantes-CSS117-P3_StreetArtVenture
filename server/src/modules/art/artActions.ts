@@ -22,4 +22,14 @@ const browseAround: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseAround };
+const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
+  try {
+    const items = await artRepository.unvalidatedArtPiece();
+    res.json(items);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+export default { browseAround, unvalidatedArtPiece };

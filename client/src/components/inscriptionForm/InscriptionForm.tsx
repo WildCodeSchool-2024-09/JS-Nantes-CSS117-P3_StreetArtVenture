@@ -145,7 +145,7 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
               </p>
             )}
           </section>
-          {/* ...................INPUT CONFIRMEZ MDP....................... */}
+          {/* .........................INPUT CONFIRMEZ MDP....................... */}
           <section className="form-group">
             <h4 className="input-information">
               {" "}

@@ -22,6 +22,12 @@ class artRepository {
     // Return the array of items
     return rows as ArtPiece[];
   }
+
+  async unvalidatedArtPiece() {
+    const query = "SELECT * FROM art_piece WHERE is_validated = FALSE LIMIT 1";
+    const [row] = await databaseClient.query<Rows>(query);
+    return row as ArtPiece[];
+  }
 }
 
 export default new artRepository();
