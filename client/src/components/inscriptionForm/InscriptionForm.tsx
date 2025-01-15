@@ -16,9 +16,6 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
     confirmPassword: string;
   };
 
-  // const formData = new FormData(e.currentTarget);
-  // const data = Object.formEntries(FormData.entries())
-
   const {
     register,
     handleSubmit,
