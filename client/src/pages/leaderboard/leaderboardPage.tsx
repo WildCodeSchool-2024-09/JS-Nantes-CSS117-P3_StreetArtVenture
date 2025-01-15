@@ -22,7 +22,7 @@ function LeaderboardPage() {
   useEffect(() => {
     async function fetchUserData() {
       const res = await fetch(
-        `http://localhost:3310/leaderboard/getUserData/${USER_ID}`,
+        `${import.meta.env.VITE_API_URL}/leaderboard/getUserData/${USER_ID}`,
       );
       const user = await res.json();
       setUserData(user[0]);
@@ -37,8 +37,8 @@ function LeaderboardPage() {
       async function fetchLeaderboard() {
         setPage(0);
         const query = isAdmin
-          ? `http://localhost:3310/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`
-          : `http://localhost:3310/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`;
+          ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`
+          : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`;
         const res = await fetch(query);
         const users = await res.json();
         setData(users);
@@ -55,8 +55,8 @@ function LeaderboardPage() {
   async function fetchMore() {
     const newPage = page + 1;
     const query = isAdmin
-      ? `http://localhost:3310/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`
-      : `http://localhost:3310/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`;
+      ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`
+      : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`;
     const res = await fetch(query);
     const users = await res.json();
     if (users) {
