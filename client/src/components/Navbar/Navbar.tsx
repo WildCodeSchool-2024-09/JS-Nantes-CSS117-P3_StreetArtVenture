@@ -18,7 +18,7 @@ function Navbar() {
         {isOpen && (
           <div>
             <ul className="section_ul">
-              <Link className="link_nav" to="/test">
+              <Link className="link_nav" to="/map">
                 Jouer
               </Link>
               <Link className="link_nav" to="/connexion">
@@ -27,7 +27,7 @@ function Navbar() {
               <Link className="link_nav" to="/leaderboard">
                 Classement
               </Link>
-              <Link className="link_nav" to="/test">
+              <Link className="link_nav" to="/gallery">
                 Les Oeuvres
               </Link>
               <Link className="link_nav" to="/test">
