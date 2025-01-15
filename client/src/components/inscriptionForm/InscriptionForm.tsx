@@ -42,10 +42,10 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
         </section>
         {/* ................INPUT EMAIL....................... */}
         <section className="form-group">
-          <label htmlFor="Mail"> Mail </label>
+          <label htmlFor="mail"> Mail </label>
           <input
-            id="Mail"
-            type="Mail"
+            id="mail"
+            type="mail"
             {...register("email", validationRules.email)}
           />
           {errors.email && (
@@ -96,10 +96,10 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
         </section>
         {/* ......................INPUT VILLE.......................... */}
         <section className="form-group">
-          <label htmlFor="ville"> Ville </label>
+          <label htmlFor="city"> Ville </label>
           <input
             {...register("city", validationRules.city)}
-            id="ville"
+            id="city"
             type="text"
           />
           {errors.city && (
@@ -108,10 +108,10 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
         </section>
         {/* ......................INPUT CODE POSTAL.......................... */}
         <section className="form-group">
-          <label htmlFor="code-postal"> Code postal </label>
+          <label htmlFor="postal-code"> Code postal </label>
           <input
             {...register("postal", validationRules.postal)}
-            id="code-postal"
+            id="postal-code"
             type="number"
           />
           {errors.postal && (
@@ -120,9 +120,9 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
         </section>
         {/* ......................INPUT MOT DE PASSE....................... */}
         <section className="form-group">
-          <label htmlFor="mot-de-passe"> Mot de passe </label>
+          <label htmlFor="password"> Mot de passe </label>
           <input
-            id="mot-de-passe"
+            id="password"
             type="password"
             {...register("password", validationRules.password)}
           />
@@ -134,10 +134,12 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
         </section>
         {/* ...................INPUT CONFIRMEZ MDP....................... */}
         <section className="form-group">
-          <label htmlFor="confirmer-mdp">Confirmez le mot de passe</label>
+          <label htmlFor="password-confirmation">
+            Confirmez le mot de passe
+          </label>
           <input
             type="password"
-            id="confirmer-mdp"
+            id="password-confirmation"
             {...register("confirmPassword", validationRules.confirmPassword)}
           />
           {errors.confirmPassword && (
@@ -148,13 +150,10 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
         </section>
         {/* ...................ESPACE ENTRE INPUT && BUTTONS....................... */}
         <button type="submit">S'inscrire</button>
-        <p className="deja-inscrit">
+        <p className="register-yet">
           Déjà inscrit ?
           <p>
-            <NavLink
-              to="/Connexion"
-              style={{ textDecoration: "none", color: "white" }}
-            >
+            <NavLink id="nav-link" to="/Connexion">
               Se connecter
             </NavLink>
           </p>

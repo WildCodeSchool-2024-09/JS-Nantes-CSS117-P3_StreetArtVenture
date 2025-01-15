@@ -64,15 +64,15 @@
   cursor: pointer;
 }
 
-.deja-inscrit {
+.register-yet {
   text-align: center;
   color: white;
   font-size: 1.4rem;
 }
 
-.deja-inscrit > p {
+.register-yet > p > #nav-link {
+  color: white;
   font-weight: bold;
-  text-decoration: underline;
 }
 
 .inscription-error-message {
