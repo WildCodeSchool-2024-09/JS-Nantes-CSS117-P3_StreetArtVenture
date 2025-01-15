@@ -1,21 +1,11 @@
 import databaseClient from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
+import type { ArtCard } from "./ArtCardType";
 
 interface ArtPiece {
   id: number;
   city: string;
 }
-
-type ArtCard = {
-  name: string;
-  adress?: string;
-  city: string;
-  department: string;
-  coordinates: string; // Exemple : "POINT(12.34 56.78)"
-  is_validated: boolean;
-  is_covered: boolean;
-  description: string;
-};
 
 class ArtPieceRepository {
   async getCities() {

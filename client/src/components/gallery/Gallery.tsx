@@ -2,20 +2,7 @@ import { useEffect, useState } from "react";
 import "./gallery.css";
 import backgroundimage from "/background-grey.jpg";
 import traith1 from "/trait-h1-artwork.tsx.png";
-
-interface CardI {
-  id: number;
-  name: string;
-  adress: string;
-  city: string;
-  department: string;
-  coordinate: { x: number; y: number };
-  is_validated: boolean;
-  is_covered: boolean;
-  description: string;
-  points_value: number;
-  picture_path: string;
-}
+import type { CardI } from "./GalleryType";
 
 function Gallery() {
   const [cities, setCities] = useState<{ city: string }[]>([]);
@@ -25,12 +12,11 @@ function Gallery() {
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/art/getCities`)
       .then((res) => res.json())
-      .then((city) => setCities(city));
-  }, []);
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/art/getArt`)
-      .then((res) => res.json())
-      .then((streetart) => setCard(streetart));
+      .then((data) => {
+        setCities(data.cities);
+        setCard(data.artCard);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
