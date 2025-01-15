@@ -34,6 +34,7 @@ const verifyUser: RequestHandler = async (req, res, next) => {
           id: user[0].id,
           email: user[0].email,
           is_admin: user[0].is_admin,
+          is_ban: user[0].is_ban,
         },
         JWT_SECRET,
         { expiresIn: reminder },
