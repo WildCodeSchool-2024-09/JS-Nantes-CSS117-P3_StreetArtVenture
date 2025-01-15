@@ -14,9 +14,8 @@ const verifyToken: RequestHandler = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, JWT_SECRET as string);
-    req.body = decoded;
-    res.status(200).json({ token });
-    next();
+    req.body.decodedToken = decoded;
+    res.status(200).json({ token, decodedToken: decoded });
   } catch (error) {
     res.status(401).json({ message: "Token invalide." });
   }
