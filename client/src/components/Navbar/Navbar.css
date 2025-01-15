@@ -6,6 +6,7 @@
 .section_ul {
   position: fixed;
   position: absolute;
+  z-index: 401;
   width: 300px;
   height: 250px;
   background-color: #1e1e1e;
