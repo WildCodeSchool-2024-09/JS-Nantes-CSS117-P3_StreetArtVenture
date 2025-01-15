@@ -12,15 +12,32 @@
   justify-content: space-between;
 }
 
+.leaderboard-informations-container > li {
+  flex: 1;
+  text-align: center;
+  min-width: 10px;
+}
+
+.leaderboard-informations-container > :first-child {
+  flex: 0;
+}
+
 .leaderboard-informations-container > :nth-child(2) {
   overflow: hidden;
   padding: 0 0 0 8px;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .leaderboard-informations-container > :nth-child(3) {
   padding-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leaderboard-informations-container > :last-child {
+  flex: none;
+  justify-self: flex-end;
 }
 
 .leaderboard-user-container {
@@ -38,8 +55,8 @@
   background-color: #27cd83;
 }
 
-.leaderboard-informations-containerr > li {
-  list-style: none;
+.leaderboard-informations-container > button {
+  margin: 0 4px;
 }
 
 .leaderboard-loader {
@@ -57,4 +74,43 @@
   background-color: #7f8582;
   border-radius: 10px;
   border: 2px solid hsla(0, 0%, 100%, 0.8);
+}
+
+.leaderboard-rename-button {
+  height: auto;
+  background-color: #97d186;
+  border: 0;
+  border-radius: 20px;
+  padding: 0px 8px 2px;
+  transition: transform 0.33s ease;
+}
+
+.leaderboard-rename-button:hover {
+  transform: translate(0, -2px);
+  background-color: rgb(144, 199, 128);
+}
+
+.leaderboard-popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgba(204, 204, 204, 0.5);
+  z-index: 10;
+}
+
+.leaderboard-popup-container {
+  background-color: rgba(255, 255, 255, 0.97);
+  width: 50vw;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  border-radius: 23px;
 }

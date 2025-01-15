@@ -47,4 +47,21 @@ const getUserData: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { getCities, getLeaderboard, getUserData };
+const getAdminLeaderboard: RequestHandler = async (req, res, next) => {
+  try {
+    const { city, name, offset } = req.query;
+    // Fetch top 10 from (optionnal) city and name, optionnal offset admin version
+    const users = await leaderboardRepository.getAdminLeaderboard(
+      city as string,
+      name as string,
+      offset as string,
+    );
+
+    // Respond with the users informations in JSON format
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { getCities, getLeaderboard, getUserData, getAdminLeaderboard };
