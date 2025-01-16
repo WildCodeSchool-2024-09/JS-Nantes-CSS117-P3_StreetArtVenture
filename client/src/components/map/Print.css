@@ -1,10 +1,11 @@
 .camera-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 480px;
-  height: 75vh;
+  height: 65vh;
   z-index: 402;
+  gap: 10px;
   position: fixed;
   background-color: rgba(34, 181, 115, 0.7);
   align-items: center;
@@ -15,8 +16,28 @@
 
 .camera {
   width: 400px;
+  border-radius: 8px;
+}
+.new-shot {
+  width: 400px;
   margin-top: 30px;
   border-radius: 8px;
+  z-index: 600;
+  height: 300px;
+  opacity: 0;
+  position: fixed;
+  background-color: rgba(34, 181, 115, 0);
+  left: 39.3%;
+  border: none;
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+}
+.new-shot:hover {
+  opacity: 1;
+}
+div:has(.new-shot:hover) .shadow {
+  filter: brightness(50%);
 }
 
 .button-container {
@@ -28,7 +49,6 @@
   align-items: center;
   border-radius: 16px;
   border: 4px solid white;
-  margin-top: 15px;
 }
 
 .circle-button {
@@ -57,29 +77,29 @@
 .overlay .top-left {
   border-left: var(--border-style);
   border-top: var(--border-style);
-  top: 50px;
-  left: 20px;
+  top: 10px;
+  left: 10px;
 }
 
 .overlay .top-right {
   border-right: var(--border-style);
   border-top: var(--border-style);
-  top: 50px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
 }
 
 .overlay .bottom-left {
   border-left: var(--border-style);
   border-bottom: var(--border-style);
-  bottom: 30px;
-  left: 20px;
+  bottom: 55px;
+  left: 10px;
 }
 
 .overlay .bottom-right {
   border-right: var(--border-style);
   border-bottom: var(--border-style);
-  bottom: 30px;
-  right: 20px;
+  bottom: 55px;
+  right: 10px;
 }
 
 .print-button {
@@ -101,4 +121,9 @@
 }
 .send-img {
   width: 30px;
+}
+
+.index-test {
+  z-index: 500;
+  margin-top: 50px;
 }

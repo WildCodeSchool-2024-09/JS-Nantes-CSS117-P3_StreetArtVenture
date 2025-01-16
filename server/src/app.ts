@@ -1,9 +1,27 @@
 // Load the express module to create a web application
 
+import path from "node:path";
 import express from "express";
+import multer from "multer";
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "../public/assets/images");
+  },
+
+  filename: (req, file, cb) => {
+    // biome-ignore lint/suspicious/noConsoleLog: <explanation>
+    console.log(file);
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
 const app = express();
 
+app.post("/upload", upload.single("image"), (req, res) => {
+  res.send("Image Uploaded");
+});
 // Configure it
 
 /* ************************************************************************* */
@@ -76,7 +94,6 @@ app.use(router);
 // - Redirecting unhandled requests (e.g., all requests not matching a defined API route) to the client's index.html. This allows the client to handle client-side routing.
 
 import fs from "node:fs";
-import path from "node:path";
 
 // Serve server resources
 
