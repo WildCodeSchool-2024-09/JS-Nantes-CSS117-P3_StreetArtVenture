@@ -1,27 +1,8 @@
 // Load the express module to create a web application
 
-import path from "node:path";
 import express from "express";
-import multer from "multer";
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "../public/assets/images");
-  },
-
-  filename: (req, file, cb) => {
-    // biome-ignore lint/suspicious/noConsoleLog: <explanation>
-    console.log(file);
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
 const app = express();
-
-app.post("/upload", upload.single("image"), (req, res) => {
-  res.send("Image Uploaded");
-});
 // Configure it
 
 /* ************************************************************************* */
@@ -122,6 +103,7 @@ if (fs.existsSync(clientBuildPath)) {
 // Middleware for Error Logging
 // Important: Error-handling middleware should be defined last, after other app.use() and routes calls.
 
+import path from "node:path";
 import type { ErrorRequestHandler } from "express";
 
 // Define a middleware function to log errors

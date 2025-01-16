@@ -1,7 +1,28 @@
+import path from "node:path";
 import express from "express";
+import multer from "multer";
 
 const router = express.Router();
 router.use(express.json());
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/assets/images");
+  },
+
+  filename: (req, file, cb) => {
+    // biome-ignore lint/suspicious/noConsoleLog: <explanation>
+    console.log(file);
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+
+router.post("/api/upload", upload.single("image"), (req, res) => {
+  res.send({ message: "Image Uploaded" });
+});
+
 /* ************************************************************************* */
 // Define Your API Routes Here
 /* ************************************************************************* */

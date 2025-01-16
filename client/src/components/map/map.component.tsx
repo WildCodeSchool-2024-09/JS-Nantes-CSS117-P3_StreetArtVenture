@@ -80,7 +80,12 @@ function MapComponent({
         >
           +
         </button>
-        {openCapture && <WebcamCapture />}
+        {openCapture && (
+          <WebcamCapture
+            openCapture={openCapture}
+            setOpenCapture={setOpenCapture}
+          />
+        )}
       </MapContainer>
     )
   );

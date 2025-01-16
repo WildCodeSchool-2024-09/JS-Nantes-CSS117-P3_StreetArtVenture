@@ -2,7 +2,15 @@ import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./Print.css";
 
-const WebcamCapture: React.FC = () => {
+interface WebcamCaptureProps {
+  openCapture: boolean;
+  setOpenCapture: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const WebcamCapture: React.FC<WebcamCaptureProps> = ({
+  openCapture,
+  setOpenCapture,
+}) => {
   const [previsualisation, setPrevisualisation] = useState(true);
   const [showPicture, setShowPicture] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
@@ -22,6 +30,34 @@ const WebcamCapture: React.FC = () => {
     setPrevisualisation(true);
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!capturedImage) return;
+
+    const blob = await fetch(capturedImage).then((res) => res.blob());
+    const file = new File([blob], "photo.jpg", { type: "image/jpeg" });
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/upload`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (response.ok) {
+        setOpenCapture(!openCapture);
+      } else {
+      }
+    } catch (error) {
+      console.error("Erreur réseau :", error);
+    }
+  };
+
   return (
     <div className="camera-container">
       {showPicture && capturedImage && (
@@ -38,18 +74,12 @@ const WebcamCapture: React.FC = () => {
       )}
       {previsualisation && (
         <div className="overlay">
-          <div className="overlay-element top-left"> </div>
-          <div className="overlay-element top-right"> </div>
-          <div className="overlay-element bottom-left"> </div>
-          <div className="overlay-element bottom-right"> </div>
           <Webcam
             className="camera"
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            videoConstraints={{
-              facingMode: "user",
-            }}
+            videoConstraints={{ facingMode: "user" }}
           />
         </div>
       )}
@@ -63,12 +93,14 @@ const WebcamCapture: React.FC = () => {
         </div>
       )}
       {showPicture && (
-        <button className="white-button print-button " type="button">
-          <div className="send-container">
-            <p className="p-button">Envoyer</p>
-            <img className="send-img" src="/send.PNG" alt="send button" />
-          </div>
-        </button>
+        <form onSubmit={handleSubmit}>
+          <button className="white-button print-button" type="submit">
+            <div className="send-container">
+              <p className="p-button">Envoyer</p>
+              <img className="send-img" src="/send.PNG" alt="send button" />
+            </div>
+          </button>
+        </form>
       )}
     </div>
   );
