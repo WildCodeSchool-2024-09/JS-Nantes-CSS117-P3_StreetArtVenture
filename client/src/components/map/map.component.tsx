@@ -6,14 +6,8 @@ import "./map.component.css";
 import "leaflet.awesome-markers";
 import type { LatLngExpression } from "leaflet";
 import { useState } from "react";
-import type { ArtPiece } from "../../types/art_piece";
+import type { MapComponentProps } from "./Map.types";
 import WebcamCapture from "./Print";
-
-interface MapComponentProps {
-  position: number[];
-  centerMarker?: number[];
-  markerList: ArtPiece[] | null;
-}
 
 function MapComponent({
   position,
