@@ -23,6 +23,7 @@ CREATE TABLE art_piece (
   coordinates POINT NOT NULL,
   is_validated BOOLEAN DEFAULT FALSE NOT NULL,
   is_covered BOOLEAN DEFAULT FALSE NOT NULL,
+  picture_path VARCHAR(255) NULL,
   description VARCHAR(255),
   points_value INT DEFAULT NULL
 );

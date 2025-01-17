@@ -1,11 +1,7 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./Print.css";
-
-interface WebcamCaptureProps {
-  openCapture: boolean;
-  setOpenCapture: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import type { WebcamCaptureProps } from "./Map.types";
 
 const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   openCapture,
@@ -51,7 +47,6 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
 
       if (response.ok) {
         setOpenCapture(!openCapture);
-      } else {
       }
     } catch (error) {
       console.error("Erreur réseau :", error);

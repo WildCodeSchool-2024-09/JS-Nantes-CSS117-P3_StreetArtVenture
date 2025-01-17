@@ -101,6 +101,7 @@ const patch: RequestHandler = async (req, res, net) => {
     password,
     points,
     is_admin,
+    is_ban,
     creation_date,
     last_connection,
   } = req.body;
@@ -116,6 +117,7 @@ const patch: RequestHandler = async (req, res, net) => {
     password,
     points,
     is_admin,
+    is_ban,
     creation_date,
     last_connection,
   });

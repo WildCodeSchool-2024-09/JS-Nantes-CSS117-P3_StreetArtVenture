@@ -35,7 +35,7 @@ class UserRepository {
 
   async verifyUser(email: string, password: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
-      "select id, is_admin, email from user where email = ? and password = ?",
+      "select id, is_admin, is_ban, email from user where email = ? and password = ?",
       [email, password],
     );
     if (rows.length === 0) {

@@ -98,8 +98,6 @@ if (fs.existsSync(clientBuildPath)) {
   });
 }
 
-/* ************************************************************************* */
-
 // Middleware for Error Logging
 // Important: Error-handling middleware should be defined last, after other app.use() and routes calls.
 

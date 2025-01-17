@@ -11,8 +11,6 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    // biome-ignore lint/suspicious/noConsoleLog: <explanation>
-    console.log(file);
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
