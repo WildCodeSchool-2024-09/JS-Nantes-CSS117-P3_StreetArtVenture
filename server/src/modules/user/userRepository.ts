@@ -14,6 +14,7 @@ type User = {
   password: string;
   points: number;
   is_admin: boolean;
+  is_ban: boolean;
   creation_date: Date;
   last_connection: Date;
 };
@@ -34,7 +35,7 @@ class UserRepository {
 
   async verifyUser(email: string, password: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
-      "select id, is_admin, email from user where email = ? and password = ?",
+      "select id, is_admin, is_ban, email from user where email = ? and password = ?",
       [email, password],
     );
     if (rows.length === 0) {
@@ -62,6 +63,28 @@ class UserRepository {
       data.zipcode,
       data.city,
       id,
+    ]);
+    return row as User[];
+  }
+
+  async delete(id: number) {
+    const query = "DELETE FROM user WHERE id = ?";
+    const [row] = await databaseClient.query<Rows>(query, [id]);
+    return row as User[];
+  }
+
+  async patchName(fieldsToUpdate: User) {
+    const query = "UPDATE user SET ? WHERE id = ?";
+    const filterUndefined = (obj: User) => {
+      return Object.fromEntries(
+        Object.entries(obj).filter(
+          ([key, value]) => value !== undefined && value !== "id",
+        ),
+      );
+    };
+    const [row] = await databaseClient.query<Rows>(query, [
+      filterUndefined(fieldsToUpdate),
+      fieldsToUpdate.id,
     ]);
     return row as User[];
   }
