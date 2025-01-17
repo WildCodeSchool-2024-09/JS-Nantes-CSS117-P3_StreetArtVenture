@@ -14,6 +14,7 @@ const verifyToken: RequestHandler = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, JWT_SECRET as string);
+
     req.body.decodedToken = decoded;
     res.status(200).json({ token, decodedToken: decoded });
   } catch (error) {
@@ -100,6 +101,7 @@ const patch: RequestHandler = async (req, res, net) => {
     password,
     points,
     is_admin,
+    is_ban,
     creation_date,
     last_connection,
   } = req.body;
@@ -115,6 +117,7 @@ const patch: RequestHandler = async (req, res, net) => {
     password,
     points,
     is_admin,
+    is_ban,
     creation_date,
     last_connection,
   });
