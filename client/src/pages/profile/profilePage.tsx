@@ -62,6 +62,7 @@ function ProfilePage() {
     <main className="profile-main-container">
       <div className="profile-form-container">
         <h1>Changez les informations de votre profil</h1>
+        <img src="forme_blanche.png" alt="element-graphique" />
         <form id="edit-profile" onSubmit={handleSubmit(onSubmit)}>
           {Object.keys(data).map((key, index) => {
             return (
