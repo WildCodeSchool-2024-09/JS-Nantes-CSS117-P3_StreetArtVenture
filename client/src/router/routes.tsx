@@ -8,6 +8,7 @@ import MapPage from "../pages/map/mapPage";
 import ProfilePage from "../pages/profile/profilePage";
 
 import Gallery from "../components/gallery/Gallery";
+import Lost from "../components/lost/Lost";
 
 const routes = [
   {
@@ -46,6 +47,10 @@ const routes = [
   {
     path: "/gallery",
     element: <Gallery />,
+  },
+  {
+    path: "/lost",
+    element: <Lost />,
   },
 ];
 
