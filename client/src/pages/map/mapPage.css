@@ -9,3 +9,12 @@
 .map-page-main-container > p {
   padding: 40px 0 20px 0;
 }
+
+#leaflet-map {
+  position: relative;
+  z-index: 1;
+}
+
+.leaflet-pane {
+  z-index: 1;
+}
