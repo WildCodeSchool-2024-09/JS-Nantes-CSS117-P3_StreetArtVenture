@@ -32,4 +32,18 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseAround, unvalidatedArtPiece };
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const artValidation = await artRepository.update(id);
+    if (artValidation) {
+      res.status(204).send("Art piece has been validated !");
+    } else {
+      res.sendStatus(500);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { browseAround, unvalidatedArtPiece, edit };

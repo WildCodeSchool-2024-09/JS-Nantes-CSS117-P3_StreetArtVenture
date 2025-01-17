@@ -7,6 +7,7 @@ router.use(express.json());
 /* ************************************************************************* */
 
 import artActions from "./modules/art/artActions";
+import artPieceActions from "./modules/art_piece/artPieceActions";
 import itemActions from "./modules/item/itemActions";
 import leaderboardActions from "./modules/leaderboard/leaderboardActions";
 import userActions from "./modules/user/userActions";
@@ -26,9 +27,8 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 
 router.get("/art/findArtPiecesAround", artActions.browseAround);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
-import artPieceActions from "./modules/art_piece/artPieceActions";
-
 router.get("/art/getCities", artPieceActions.getCities);
+router.put("/art/artPieceValidation/:id", artActions.edit);
 
 /* ************************************************************************* */
 
