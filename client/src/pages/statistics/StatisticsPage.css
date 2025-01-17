@@ -1,0 +1,14 @@
+.stats-main-container {
+  display: flex;
+  justify-content: center;
+}
+
+.stats-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-container > span > ul {
+  list-style: none;
+}
