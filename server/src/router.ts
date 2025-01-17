@@ -30,6 +30,11 @@ import artPieceActions from "./modules/art_piece/artPieceActions";
 
 router.get("/art/getCities", artPieceActions.getCities);
 
+import statisticsActions from "./modules/statistics/statisticsActions";
+
+router.get("/statistics/user", statisticsActions.getUserStatistics);
+router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
+
 /* ************************************************************************* */
 
 export default router;
