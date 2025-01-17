@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    overflow-y: auto; /* Ajout du scroll vertical */
   }
 
   .lost-page-background::before {
@@ -20,13 +21,8 @@
     padding: 0;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
-    border: 0;
   }
-  .signalement-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: auto;
-  }
+
   .signalement-container {
     display: flex;
     align-items: center;
@@ -34,12 +30,14 @@
     justify-content: flex-start;
     width: 100%;
   }
+
   .signalement-text {
     margin-top: 10px;
     color: black;
     font-family: var(--primary-font);
     margin-right: 10px;
   }
+
   .circle {
     margin-top: 0px;
     width: 32px;
@@ -47,39 +45,75 @@
     background-color: #d9d9d9;
     border-radius: 50%;
   }
+
   .circle > p {
     margin-top: 5px;
     margin-left: 10px;
     font-size: 19px;
     color: #ff1717;
   }
+
   .works-container {
     height: 100%;
     width: 100%;
     padding-bottom: 40vh;
   }
+
   .works-consulting {
     text-align: center;
     margin-top: 40px;
   }
-  .block-green-container {
+
+  .block-green-reported-work {
     width: 39vh;
     height: 25em;
     display: flex;
+    flex-direction: column;
     background-color: #22b573;
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border-radius: 24px;
+    margin-top: 20px;
+    margin-left: 10px;
+    order: 2;
   }
+
+  .block-compared-artwork-lost {
+    width: 39vh;
+    height: 17em;
+    display: flex;
+    flex-direction: column;
+    background-color: #22b573;
+    border-radius: 24px;
+    margin-top: 20px;
+    margin-left: 10px;
+    order: 1;
+  }
+
   .reported-work {
-    margin: 10px 0 0 10px;
+    margin: 10px;
     font-size: 20px;
     color: #ffffff;
   }
+
   .title-street-art {
-    margin: 55px 0 0 55px;
+    margin-top: 55px;
+    margin-left: 200px;
+    position: relative;
+    order: 1;
+    font-size: 20px;
+    color: #ffffff;
+  }
+
+  .coordinates-gps {
+    margin-top: 55px;
+    margin-left: 200px;
+    position: relative;
+    order: 1;
+    font-size: 20px;
+    color: #ffffff;
+  }
+
+  .compared-work {
+    margin: 10px;
     font-size: 20px;
     color: #ffffff;
   }
