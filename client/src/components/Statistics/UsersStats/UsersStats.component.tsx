@@ -12,7 +12,7 @@ function UsersStats() {
   async function fetchUsersData() {
     const req = await fetch(`${import.meta.env.VITE_API_URL}/statistics/user`);
     const stats = await req.json();
-    setData(stats[0]);
+    setData(stats);
   }
 
   return (
@@ -22,6 +22,9 @@ function UsersStats() {
         <ul>
           <li>
             <p>Nombre d'utilisateurs : {data.nb_users}</p>
+          </li>
+          <li>
+            <p>Nombre d'utilisateurs bannis : {data.nb_users_banned}</p>
           </li>
         </ul>
       </span>
