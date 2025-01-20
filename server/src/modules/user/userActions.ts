@@ -1,7 +1,5 @@
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
-dotenv.config({ path: "./server/.env" });
 import type { RequestHandler } from "express";
+import jwt from "jsonwebtoken";
 import userRepository from "./userRepository";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
