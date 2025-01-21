@@ -36,10 +36,10 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
     const artValidation = await artRepository.update(id);
-    if (artValidation) {
-      res.status(204).send("Art piece has been validated !");
+    if (!artValidation) {
+      res.sendStatus(404);
     } else {
-      res.sendStatus(500);
+      res.status(204).send("Art piece has been validated !");
     }
   } catch (err) {
     next(err);

@@ -32,7 +32,7 @@ class artRepository {
   async update(id: number) {
     const query = "UPDATE art_piece SET is_validated = TRUE WHERE id = ?";
     const [result] = await databaseClient.query<Result>(query, [id]);
-    return result;
+    return result.affectedRows;
   }
 }
 

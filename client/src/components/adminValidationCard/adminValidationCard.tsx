@@ -3,20 +3,19 @@ import "../adminValidationCard/adminValidationCard.css";
 import { useEffect, useState } from "react";
 
 // - onclick fonction qui va fetch quand on click sur le bouton
-// - creer ta route /art_piece/validate/:Id
+// - creer ta route /art_piece/validate/:id
 // - creer ton action ou tu recuper l'id dans req.params.id
 // - creer repository ou tu fais la requete sql avec l'id donne en param
 
 export function AdminValidationBoard() {
   const [status, setStatus] = useState<string | boolean>(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [data, setData] = useState<ArtPiece | null>(null);
 
   const handleAction = (message: string) => {
     setStatus(message);
     setShowMessage(true);
   };
-
-  const [data, setData] = useState<ArtPiece | null>(null);
 
   useEffect(() => {
     const fetchArtPiece = async () => {
@@ -28,6 +27,28 @@ export function AdminValidationBoard() {
     };
     fetchArtPiece();
   }, []);
+
+  // async function handleValidation() {
+  // 	try {
+  // 		const response = await fetch(
+  // 			`${import.meta.env.VITE_API_URL}/art/artPieceValidation/${id}`,
+  // 			{
+  // 				method: "PATCH",
+  // 				headers: {
+  // 					"Content-Type": "application/json",
+  // 				},
+  // 			},
+  // 		);
+  // 		if (response.ok) {
+  // 			alert("L'œuvre a été validée avec succès !");
+  // 		} else {
+  // 			alert("Échec de la validation. Veuillez réessayer.");
+  // 		}
+  // 	} catch (error) {
+  // 		console.error("Erreur lors de la validation :", error);
+  // 		alert("Une erreur est survenue.");
+  // 	}
+  // }
 
   useEffect(() => {
     if (showMessage) {
@@ -50,6 +71,7 @@ export function AdminValidationBoard() {
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({}),
         },
       );
 
@@ -91,11 +113,7 @@ export function AdminValidationBoard() {
             />
             <section className="accepted-or-refused-buttons">
               <button
-                onClick={() =>
-                  handleAction(
-                    "Vous avez confirmé l'ajout de ce street art à la galerie.",
-                  )
-                }
+                // onClick={handleAction}
                 type="button"
                 className="brown-button-admin"
               >
