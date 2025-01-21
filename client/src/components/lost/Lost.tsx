@@ -23,14 +23,14 @@ function Lost() {
           <section className="block-green">
             <section className="block-green-reported-work">
               <section className="block-green-container-reported-work">
-                <p className="reported-work">Oeuvre signalée</p>
+                <p className="reported-work">Oeuvre comparée</p>
                 <p className="title-street-art">Titre street art</p>
                 <p className="coordinates-gps">Coordonnées GPS</p>
               </section>
             </section>
             <section className="block-compared-artwork-lost">
               <section className="block-green-container-compared-artwork-lost">
-                <p className="compared-work">Oeuvre comparée</p>
+                <p className="compared-work">Oeuvre signalée</p>
               </section>
             </section>
           </section>
