@@ -18,19 +18,19 @@ function Lost() {
           <img
             className="trait-h1-lost"
             src={traith1lost}
-            alt="Background gray gradient from lighter to darker"
+            alt="a black brushstroke under the text"
           />
           <section className="block-green">
             <section className="block-green-reported-work">
-              <section className="block-green-container-reported-work">
-                <p className="reported-work">Oeuvre comparée</p>
-                <p className="title-street-art">Titre street art</p>
-                <p className="coordinates-gps">Coordonnées GPS</p>
-              </section>
+              <p className="compared-work">Oeuvre signalée</p>
             </section>
             <section className="block-compared-artwork-lost">
               <section className="block-green-container-compared-artwork-lost">
-                <p className="compared-work">Oeuvre signalée</p>
+                <section className="block-green-container-reported-work">
+                  <p className="reported-work">Oeuvre comparée</p>
+                  <p className="title-street-art">Titre street art</p>
+                  <p className="coordinates-gps">Coordonnées GPS</p>
+                </section>
               </section>
             </section>
           </section>
