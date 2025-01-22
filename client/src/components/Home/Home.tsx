@@ -75,6 +75,11 @@ export const Home: React.FC = () => {
           <h2 className="bangers-regular center white title-size">
             LES OEUVRES
           </h2>
+          <img
+            className="separator-noir"
+            src="/public/forme_blanche.png"
+            alt="visual separator"
+          />
           <p className="--primary-font white  home-p">
             Explore toutes les œuvres de street art référencées, qu’elles soient
             encore visibles ou disparues. Plonge dans une galerie interactive
@@ -97,6 +102,11 @@ export const Home: React.FC = () => {
           <h2 className="bangers-regular center title-size white">
             le classement
           </h2>
+          <img
+            className="separator-noir"
+            src="/public/forme_blanche.png"
+            alt="visual separator"
+          />
           <p className="--primary-font white home-p">
             Consulte le classement des explorateurs et mesure-toi aux autres
             joueurs ! Suis ta progression, compare ton score avec celui des
