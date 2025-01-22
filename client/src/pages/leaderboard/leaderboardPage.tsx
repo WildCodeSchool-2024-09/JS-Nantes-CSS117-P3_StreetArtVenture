@@ -67,6 +67,7 @@ function LeaderboardPage() {
     }
   }
 
+  // Fetch les premières informations du scoreboard
   async function fetchDefaultLeaderboard() {
     if (data) setData(null);
     const endpoint = isAdmin
