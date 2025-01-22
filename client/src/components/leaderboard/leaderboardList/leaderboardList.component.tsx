@@ -16,6 +16,7 @@ function LeaderboardList({
   const [poppedUser, setPoppedUser] = useState<null | User>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // triggers fetchmore function prop when container is scrolled to the bottom
   const handleScroll = async () => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
@@ -34,6 +35,7 @@ function LeaderboardList({
     setPoppedUser(usrdata[0]);
   };
 
+  // handle admin actions ban or rename
   async function handleAdminConfirmation(
     method: "DELETE" | "PATCH",
     e?: FormEvent,
