@@ -11,19 +11,33 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    const uniqueName = Date.now() + path.extname(file.originalname);
+    cb(null, uniqueName);
   },
 });
 
 const upload = multer({ storage: storage });
 
-router.post("/api/upload", upload.single("image"), (req, res) => {
-  res.send({ message: "Image Uploaded" });
-});
-
 /* ************************************************************************* */
 // Define Your API Routes Here
 /* ************************************************************************* */
+import type { Request, Response } from "express";
+
+router.post(
+  "/api/upload",
+  upload.single("image"),
+  (req: Request, res: Response): void => {
+    if (!req.file) {
+      res.status(400).json({ error: "Aucune image envoyée" });
+      return;
+    }
+
+    const fileName = req.file.filename;
+    const filePath = `/assets/images/${fileName}`;
+
+    res.json({ message: "Image Uploaded", fileName, filePath });
+  },
+);
 
 import artActions from "./modules/art/artActions";
 import itemActions from "./modules/item/itemActions";
@@ -61,6 +75,7 @@ router.get("/art/findArtPiecesAround", artActions.browseAround);
 import artPieceActions from "./modules/art_piece/artPieceActions";
 
 router.get("/art/getCities", artPieceActions.getCities);
+router.post("/art/newArt", artActions.updateAccepted);
 
 /* ************************************************************************* */
 

@@ -1,6 +1,6 @@
 import databaseClient from "../../../database/client";
 
-import type { Rows } from "../../../database/client";
+import type { Result, Rows } from "../../../database/client";
 import type { ArtPiece } from "../../types/express/artPiece";
 
 class artRepository {
@@ -21,6 +21,27 @@ class artRepository {
 
     // Return the array of items
     return rows as ArtPiece[];
+  }
+  async updateValidation(
+    name: string,
+    adress: string,
+    city: string,
+    pos_x: number,
+    pos_y: number,
+    path: string,
+  ) {
+    const query =
+      "UPDATE art_piece SET name = ?,adress = ?, city = ?, coordinates = POINT(? ?), picture_path = ?";
+
+    const [result] = await databaseClient.query<Result>(query, [
+      name,
+      adress,
+      city,
+      pos_x,
+      pos_y,
+      path,
+    ]);
+    return result.affectedRows;
   }
 }
 

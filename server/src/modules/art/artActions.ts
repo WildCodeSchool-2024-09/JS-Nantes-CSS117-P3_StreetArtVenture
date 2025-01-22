@@ -22,4 +22,31 @@ const browseAround: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseAround };
+const updateAccepted: RequestHandler = async (req, res, next) => {
+  try {
+    const pos_x = req.body.coordinates[0];
+    const pos_y = req.body.coordinates[1];
+    const name = req.body.name;
+    const path = req.body.path;
+    const userId = req.body.userId;
+    const mout = req.body.mout;
+
+    const affectedRows = await artRepository.updateValidation(
+      pos_x,
+      pos_y,
+      name,
+      path,
+      userId,
+      mout,
+    );
+    if (!affectedRows) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { browseAround, updateAccepted };
