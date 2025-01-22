@@ -1,6 +1,6 @@
 import { type ChangeEvent, useEffect, useState } from "react";
 import "./leaderboardFilters.component.css";
-import type { LeaderboardFiltersProps } from "../leader.board";
+import type { LeaderboardFiltersProps } from "../leaderboard";
 
 function LeaderboardFilters({
   handleFormChange,
