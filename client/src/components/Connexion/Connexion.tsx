@@ -1,32 +1,33 @@
 import { useForm } from "react-hook-form";
 import type { ConnexionProps } from "./Connexion.types";
 import "./Connexion.css";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Connexion: React.FC<ConnexionProps> = () => {
-  const isConnected = async () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
     const token = localStorage.getItem("authToken");
-    if (!token) {
-      return;
-    }
+
     try {
-      const response = await fetch("http://localhost:3310/user/verifyToken", {
+      fetch(`${import.meta.env.VITE_API_URL}/user/verifyToken`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ token }),
+      }).then((response) => {
+        if (!response.ok) {
+          return;
+        }
+        navigate("/");
       });
-      if (!response.ok) {
-        return;
-      }
-      window.location.href = "/home";
     } catch (error) {
       console.error("Erreur lors de la vérification de connexion:", error);
     }
-  };
-  isConnected();
+  }, [navigate]);
+
   const validationRules = {
     password: {
       required: "Saisissez votre mot de passe",
@@ -51,17 +52,20 @@ export const Connexion: React.FC<ConnexionProps> = () => {
   const onSubmit = async (data: ConnexionProps) => {
     const { email, password } = data;
     try {
-      const response = await fetch("http://localhost:3310/user/verify", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/verify`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            reminder: reminderValue,
+          }),
         },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          reminder: reminderValue,
-        }),
-      });
+      );
 
       if (!response.ok) {
         setErrorMessage("E-mail ou mot-de-passe invalide ! ");
@@ -73,7 +77,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
 
       localStorage.setItem("authToken", token);
 
-      window.location.href = "/home";
+      navigate("/");
     } catch (error) {
       console.error("Erreur de connexion:", error);
     }
@@ -87,12 +91,12 @@ export const Connexion: React.FC<ConnexionProps> = () => {
     setReminderValue(checked ? "2h" : "30d");
   };
   return (
-    <body className="connexion-page">
-      <form className="connexion-container " onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="white center bangers-regular bigger">SE CONNECTER</h1>
+    <main className="connexion-page">
+      <form className="connexion-container" onSubmit={handleSubmit(onSubmit)}>
+        <h1>SE CONNECTER</h1>
 
         <input
-          className="input montserrat"
+          className="input-text"
           placeholder="Votre adresse mail"
           {...register("email", validationRules.email)}
         />
@@ -101,7 +105,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
         )}
 
         <input
-          className="input montserrat"
+          className="input-text"
           type="password"
           placeholder="Votre mot de passe"
           {...register("password", validationRules.password)}
@@ -121,19 +125,15 @@ export const Connexion: React.FC<ConnexionProps> = () => {
           />
           Se souvenir de moi
         </label>
-
         <button className="green-button montserrat" type="submit">
           S'identifier
         </button>
         <p className="error-message">{errorMessage}</p>
         <h2 className="white center bangers-regular">Pas encore inscrit ?</h2>
-        <Link
-          className="white center bangers-regular margin-bot"
-          to="/InscriptionForm"
-        >
+        <Link className="link-inscription" to="/InscriptionForm">
           S'inscrire
         </Link>
       </form>
-    </body>
+    </main>
   );
 };
