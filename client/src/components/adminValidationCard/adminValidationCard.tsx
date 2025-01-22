@@ -23,32 +23,37 @@ export function AdminValidationBoard() {
         `${import.meta.env.VITE_API_URL}/art/latestArtPieceUnvelidated`,
       );
       const data = await response.json();
-      setData(data[0]);
+      if (Array.isArray(data) && data.length > 0) {
+        setData(data[0]);
+      }
     };
     fetchArtPiece();
   }, []);
 
-  // async function handleValidation() {
-  // 	try {
-  // 		const response = await fetch(
-  // 			`${import.meta.env.VITE_API_URL}/art/artPieceValidation/${id}`,
-  // 			{
-  // 				method: "PATCH",
-  // 				headers: {
-  // 					"Content-Type": "application/json",
-  // 				},
-  // 			},
-  // 		);
-  // 		if (response.ok) {
-  // 			alert("L'œuvre a été validée avec succès !");
-  // 		} else {
-  // 			alert("Échec de la validation. Veuillez réessayer.");
-  // 		}
-  // 	} catch (error) {
-  // 		console.error("Erreur lors de la validation :", error);
-  // 		alert("Une erreur est survenue.");
-  // 	}
-  // }
+  async function handleValidation() {
+    if (!data || !data.id) {
+      alert("Aucune œuvre à valider.");
+      return;
+    }
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/art/artPieceValidation/${data.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      if (response.ok) {
+        alert("L'œuvre a été validée avec succès !");
+      } else {
+        alert("Échec de la validation. Veuillez réessayer.");
+      }
+    } catch (error) {
+      alert("Une erreur est survenue.");
+    }
+  }
 
   useEffect(() => {
     if (showMessage) {
@@ -113,7 +118,7 @@ export function AdminValidationBoard() {
             />
             <section className="accepted-or-refused-buttons">
               <button
-                // onClick={handleAction}
+                onClick={handleValidation}
                 type="button"
                 className="brown-button-admin"
               >

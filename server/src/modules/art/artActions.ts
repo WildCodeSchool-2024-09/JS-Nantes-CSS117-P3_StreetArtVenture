@@ -39,7 +39,7 @@ const edit: RequestHandler = async (req, res, next) => {
     if (!artValidation) {
       res.sendStatus(404);
     } else {
-      res.status(204).send("Art piece has been validated !");
+      res.status(200).send("Art piece has been validated !");
     }
   } catch (err) {
     next(err);

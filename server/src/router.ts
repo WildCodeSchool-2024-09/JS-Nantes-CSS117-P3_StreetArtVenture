@@ -28,7 +28,7 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 router.get("/art/findArtPiecesAround", artActions.browseAround);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.get("/art/getCities", artPieceActions.getCities);
-router.put("/art/artPieceValidation/:id", artActions.edit);
+router.patch("/art/artPieceValidation/:id", artActions.edit);
 
 /* ************************************************************************* */
 
