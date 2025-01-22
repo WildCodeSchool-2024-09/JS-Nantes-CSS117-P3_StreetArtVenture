@@ -27,7 +27,7 @@ import userActions from "./modules/user/userActions";
 /* ************************** PUBLIC ACTIONS ************************** */
 
 /* ************************** LOGGED USERS ACTIONS ************************** */
-router.use(authActions.verifyToken);
+// router.use(authActions.verifyToken); TODO uncomment after login implementation
 
 router.get("/art/findArtPiecesAround", artActions.browseAround);
 router.get("/art/getCities", artPieceActions.getCities);
@@ -37,7 +37,7 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 router.patch("/user/:id", userActions.patch); // TODO US-36
 
 /* ************************** ADMIN ACTIONS ************************** */
-router.use(authActions.verifyAdmin);
+// router.use(authActions.verifyAdmin); TODO uncomment after login implementation
 
 router.get(
   "/leaderboard/admin/getLeaderboard",
