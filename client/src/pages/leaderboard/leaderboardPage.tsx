@@ -18,7 +18,7 @@ function LeaderboardPage() {
   const [filters, setFilters] = useState({ city: "", name: "" });
   const [page, setPage] = useState(0);
 
-  // On mount, on fetch sans filtres le top 10 + les données de l'utilisateur
+  // On mount, fetch without filters the top 10 + user data
   useEffect(() => {
     async function fetchUserData() {
       const res = await fetch(
@@ -31,7 +31,7 @@ function LeaderboardPage() {
     fetchDefaultLeaderboard();
   }, []);
 
-  // Fonction de gestion des filtres
+  // Filter management function
   useEffect(() => {
     const handler = setTimeout(() => {
       async function fetchLeaderboard() {
@@ -51,7 +51,7 @@ function LeaderboardPage() {
     };
   }, [filters]);
 
-  // Fonction de gestion du scroll
+  // Scroll management function
   async function fetchMore() {
     const newPage = page + 1;
     const query = isAdmin
@@ -67,7 +67,7 @@ function LeaderboardPage() {
     }
   }
 
-  // Fetch les premières informations du scoreboard
+  // Fetch first informations of scoreboard when new filter applied/on mount
   async function fetchDefaultLeaderboard() {
     if (data) setData(null);
     const endpoint = isAdmin
