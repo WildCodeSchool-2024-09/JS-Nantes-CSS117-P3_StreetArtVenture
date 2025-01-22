@@ -93,10 +93,10 @@ export const Connexion: React.FC<ConnexionProps> = () => {
   return (
     <main className="connexion-page">
       <form className="connexion-container" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="white center bangers-regular bigger">SE CONNECTER</h1>
+        <h1>SE CONNECTER</h1>
 
         <input
-          className="input montserrat"
+          className="input-text"
           placeholder="Votre adresse mail"
           {...register("email", validationRules.email)}
         />
@@ -105,7 +105,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
         )}
 
         <input
-          className="input montserrat"
+          className="input-text"
           type="password"
           placeholder="Votre mot de passe"
           {...register("password", validationRules.password)}
@@ -130,10 +130,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
         </button>
         <p className="error-message">{errorMessage}</p>
         <h2 className="white center bangers-regular">Pas encore inscrit ?</h2>
-        <Link
-          className="white center bangers-regular margin-bot"
-          to="/InscriptionForm"
-        >
+        <Link className="link-inscription" to="/InscriptionForm">
           S'inscrire
         </Link>
       </form>

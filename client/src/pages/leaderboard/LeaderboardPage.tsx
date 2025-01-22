@@ -8,6 +8,9 @@ import type { User } from "../../types/user";
 // TODO UNE FOIS LE SYSTÈME DE CONNEXION MIS EN PLACE
 // Utiliser l'id du user connecté, pour l'instant écrit en brut
 const USER_ID = 5;
+// TODO UNE FOIS LE SYSTÈME DE CONNEXION MIS EN PLACE
+// créer une variable qui determine si l'utilisateur connecté est un admin
+const isAdmin = true;
 
 function LeaderboardPage() {
   const [data, setData] = useState<null | User[]>(null);
@@ -17,22 +20,15 @@ function LeaderboardPage() {
 
   // On mount, on fetch sans filtres le top 10 + les données de l'utilisateur
   useEffect(() => {
-    async function fetchLeaderboard() {
-      const res = await fetch(
-        "http://localhost:3310/leaderboard/getLeaderboard",
-      );
-      const users = await res.json();
-      setData(users);
-    }
     async function fetchUserData() {
       const res = await fetch(
-        `http://localhost:3310/leaderboard/getUserData/${USER_ID}`,
+        `${import.meta.env.VITE_API_URL}/leaderboard/getUserData/${USER_ID}`,
       );
       const user = await res.json();
       setUserData(user[0]);
     }
     fetchUserData();
-    fetchLeaderboard();
+    fetchDefaultLeaderboard();
   }, []);
 
   // Fonction de gestion des filtres
@@ -40,9 +36,10 @@ function LeaderboardPage() {
     const handler = setTimeout(() => {
       async function fetchLeaderboard() {
         setPage(0);
-        const res = await fetch(
-          `http://localhost:3310/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`,
-        );
+        const query = isAdmin
+          ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`
+          : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`;
+        const res = await fetch(query);
         const users = await res.json();
         setData(users);
       }
@@ -57,9 +54,10 @@ function LeaderboardPage() {
   // Fonction de gestion du scroll
   async function fetchMore() {
     const newPage = page + 1;
-    const res = await fetch(
-      `http://localhost:3310/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`,
-    );
+    const query = isAdmin
+      ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`
+      : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`;
+    const res = await fetch(query);
     const users = await res.json();
     if (users) {
       let newData = data as User[];
@@ -69,12 +67,33 @@ function LeaderboardPage() {
     }
   }
 
+  async function fetchDefaultLeaderboard() {
+    if (data) setData(null);
+    const endpoint = isAdmin
+      ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard`
+      : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard`;
+    const res = await fetch(endpoint);
+    const users = await res.json();
+    setData(users);
+  }
+
+  function refreshData() {
+    setPage(0);
+    fetchDefaultLeaderboard();
+  }
+
   return (
     <main className="leaderboard-page-main-container">
       <div className="leaderboard-page-container">
         <h1 className="bangers">Classement des meilleurs chasseurs</h1>
         <LeaderboardFilters formData={filters} handleFormChange={setFilters} />
-        {data && <LeaderboardList fetchMore={fetchMore} data={data} />}
+        {data && (
+          <LeaderboardList
+            refreshData={refreshData}
+            fetchMore={fetchMore}
+            data={data}
+          />
+        )}
         {userData && <LeaderboardUserData data={userData} />}
       </div>
     </main>

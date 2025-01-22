@@ -43,6 +43,31 @@ class leaderboardRepository {
     return rows as User[];
   }
 
+  async getAdminLeaderboard(city?: string, name?: string, offset?: string) {
+    const params = [];
+    let query = "SELECT id, points, name, last_connection FROM user ";
+    if (city && name) {
+      query += "WHERE city = ? AND name LIKE ? ";
+      params.push(city);
+      params.push(`%${name}%`);
+    } else if (city) {
+      query += "WHERE city = ? ";
+      params.push(city);
+    } else if (name) {
+      query += "WHERE name LIKE ? ";
+      params.push(`%${name}%`);
+    }
+    query += "ORDER BY points DESC LIMIT 10 ";
+    if (offset) {
+      query += "OFFSET ?";
+      params.push(Number.parseInt(offset));
+    }
+
+    const [rows] = await databaseClient.query<Rows>(query, params);
+
+    return rows as User[];
+  }
+
   async getUserData(id: string) {
     // as rank is a keyword in SQL, I need to put ` around it and escape the backticks with \
     const query = `
