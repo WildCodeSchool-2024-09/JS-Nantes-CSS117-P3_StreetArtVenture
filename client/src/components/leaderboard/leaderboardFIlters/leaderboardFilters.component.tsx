@@ -8,6 +8,7 @@ function LeaderboardFilters({
 }: LeaderboardFiltersProps) {
   const [selectData, setSelectData] = useState([]);
 
+  // Fetch the name of the different city to get the select options
   useEffect(() => {
     async function fetchCities() {
       const res = await fetch("http://localhost:3310/leaderboard/getCities");
