@@ -34,9 +34,14 @@ export const Home: React.FC = () => {
       <figure className="head-img">
         <img className="head-img " src="./images/IMAGE_HOMEPAGE.jpg" alt="" />
       </figure>
-      <article className="flex-article ">
-        <div className="content-wrapper ">
+      <article className="flex-article-white">
+        <div className="content-wrapper">
           <h2 className="bangers-regular  center title-size">LE JEU</h2>
+          <img
+            className="separator-noir"
+            src="/public/separator.png"
+            alt="visual separator"
+          />
           <p className="home-p --primary-font  ">
             Explore ta ville et découvre ses trésors cachés de street art !
             Accède à une carte interactive, trouve des œuvres près de toi et
@@ -70,6 +75,11 @@ export const Home: React.FC = () => {
           <h2 className="bangers-regular center white title-size">
             LES OEUVRES
           </h2>
+          <img
+            className="separator-noir"
+            src="/public/forme_blanche.png"
+            alt="visual separator"
+          />
           <p className="--primary-font white  home-p">
             Explore toutes les œuvres de street art référencées, qu’elles soient
             encore visibles ou disparues. Plonge dans une galerie interactive
@@ -92,6 +102,11 @@ export const Home: React.FC = () => {
           <h2 className="bangers-regular center title-size white">
             le classement
           </h2>
+          <img
+            className="separator-noir"
+            src="/public/forme_blanche.png"
+            alt="visual separator"
+          />
           <p className="--primary-font white home-p">
             Consulte le classement des explorateurs et mesure-toi aux autres
             joueurs ! Suis ta progression, compare ton score avec celui des
@@ -108,7 +123,7 @@ export const Home: React.FC = () => {
         </div>
         <img
           className="home-img vanish"
-          src="images/leaderboardHome.jpg"
+          src="images/leaderboardHome2.png"
           alt="street art représentant un enfant ouvrant un rideau sur le mur pour découvrir de nouveaux tags"
         />
       </article>
