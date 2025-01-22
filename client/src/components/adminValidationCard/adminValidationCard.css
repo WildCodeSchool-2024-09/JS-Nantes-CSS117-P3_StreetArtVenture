@@ -22,7 +22,7 @@
   padding: 20px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.658);
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.658);
 }
 
 .new-street-art-photo {
@@ -115,6 +115,13 @@
 
 .next-button:hover {
   cursor: pointer;
+}
+
+.no-art-piece {
+  color: white;
+  text-align: center;
+  font-size: 2.2rem;
+  padding: 28px;
 }
 
 @media screen and (min-width: 720px) {

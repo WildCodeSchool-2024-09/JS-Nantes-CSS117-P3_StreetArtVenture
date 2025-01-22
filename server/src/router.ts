@@ -29,6 +29,7 @@ router.get("/art/findArtPiecesAround", artActions.browseAround);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.get("/art/getCities", artPieceActions.getCities);
 router.patch("/art/artPieceValidation/:id", artActions.edit);
+router.delete("/art/artPieceDenied/:id", artActions.deniedArtPiece);
 
 /* ************************************************************************* */
 

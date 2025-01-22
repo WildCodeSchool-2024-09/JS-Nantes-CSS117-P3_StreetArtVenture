@@ -46,4 +46,18 @@ const edit: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseAround, unvalidatedArtPiece, edit };
+const deniedArtPiece: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const deniedArt = await artRepository.delete(id);
+    if (deniedArt === 0) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).send("Art piece has been denied !");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { browseAround, unvalidatedArtPiece, edit, deniedArtPiece };

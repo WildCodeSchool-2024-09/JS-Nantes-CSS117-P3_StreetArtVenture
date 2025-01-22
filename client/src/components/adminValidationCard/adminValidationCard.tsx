@@ -8,14 +8,7 @@ import { useEffect, useState } from "react";
 // - creer repository ou tu fais la requete sql avec l'id donne en param
 
 export function AdminValidationBoard() {
-  const [status, setStatus] = useState<string | boolean>(false);
-  const [showMessage, setShowMessage] = useState(false);
   const [data, setData] = useState<ArtPiece | null>(null);
-
-  const handleAction = (message: string) => {
-    setStatus(message);
-    setShowMessage(true);
-  };
 
   useEffect(() => {
     const fetchArtPiece = async () => {
@@ -55,15 +48,30 @@ export function AdminValidationBoard() {
     }
   }
 
-  useEffect(() => {
-    if (showMessage) {
-      const timer = setTimeout(() => {
-        setShowMessage(false);
-      }, 4000);
-
-      return () => clearTimeout(timer);
+  async function handleDenied() {
+    if (!data || !data.id) {
+      alert("Aucune œuvre à valider.");
+      return;
     }
-  }, [showMessage]);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/art/artPieceDenied/${data.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      if (response.ok) {
+        alert("L'œuvre a été refusée avec succès !");
+      } else {
+        alert("Échec du refus. Veuillez réessayer.");
+      }
+    } catch (error) {
+      alert("Une erreur est survenue.");
+    }
+  }
 
   const [banUser, setBanUser] = useState<string | boolean>(false);
 
@@ -125,19 +133,12 @@ export function AdminValidationBoard() {
                 Valider
               </button>
               <button
-                onClick={() =>
-                  handleAction(
-                    "Vous avez refusé l'ajout de ce street art à la galerie.",
-                  )
-                }
+                onClick={handleDenied}
                 type="button"
                 className="brown-button-admin"
               >
                 Refuser
               </button>
-              {showMessage && (
-                <p className="admin-validation-message">{status}</p>
-              )}
             </section>
             <button
               type="button"
@@ -146,12 +147,17 @@ export function AdminValidationBoard() {
             >
               {banUser ? "Utilisateur banni" : "Bannir l'utilisateur"}
             </button>
+            <button type="button" className="next-button">
+              ↪
+            </button>
           </>
         )}
+        {!data && (
+          <section className="no-art-piece">
+            Il n'y a aucune œuvre à valider.
+          </section>
+        )}
       </section>
-      <button type="button" className="next-button">
-        ↪
-      </button>
     </main>
   );
 }

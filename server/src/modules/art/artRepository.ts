@@ -34,6 +34,12 @@ class artRepository {
     const [result] = await databaseClient.query<Result>(query, [id]);
     return result.affectedRows;
   }
+
+  async delete(id: number) {
+    const query = "DELETE FROM art_piece WHERE id = ?";
+    const [result] = await databaseClient.query<Result>(query, [id]);
+    return result.affectedRows;
+  }
 }
 
 export default new artRepository();
