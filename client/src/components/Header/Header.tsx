@@ -1,16 +1,11 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useUser } from "../../context/UserContext";
 import Navbar from "../Navbar/Navbar";
 
-interface IdentificationI {
-  is_admin: number;
-}
-
 function Header() {
-  const [identification, setIdentification] = useState<IdentificationI | null>(
-    null,
-  );
+  const { user, setUser } = useUser();
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -35,15 +30,14 @@ function Header() {
         }
 
         const data = await response.json();
-        setIdentification(data.decodedToken);
+        setUser(data.decodedToken);
       } catch (error) {
         console.error("Erreur lors de la vérification de connexion:", error);
       }
     };
 
     verifyToken();
-  }, []);
-
+  }, [setUser]);
   return (
     <>
       <section className="headerClass">
@@ -53,8 +47,8 @@ function Header() {
           className="Logo_street"
           src="images/STREET_LOGO.png"
         />
-        {identification ? (
-          identification.is_admin === 1 ? (
+        {user ? (
+          user.is_admin === 1 ? (
             <Link to="/test">
               <img
                 className="user-picture"
@@ -62,7 +56,7 @@ function Header() {
                 alt="picture-user"
               />
             </Link>
-          ) : identification.is_admin === 0 ? (
+          ) : user.is_admin === 0 ? (
             <Link to="/test">
               <img
                 className="user-picture"
