@@ -5,11 +5,11 @@ import UsersStats from "../../components/Statistics/UsersStats/UsersStats.compon
 function StatisticsPage() {
   return (
     <main className="stats-main-container">
-      <div className="stats-container">
+      <section className="stats-container">
         <h1>Statistiques du site</h1>
         <ArtPieceStats />
         <UsersStats />
-      </div>
+      </section>
     </main>
   );
 }

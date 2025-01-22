@@ -1,6 +1,10 @@
 .stats-main-container {
   display: flex;
   justify-content: center;
+  background-image: url("./background_statistic.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
 }
 
 .stats-container {
