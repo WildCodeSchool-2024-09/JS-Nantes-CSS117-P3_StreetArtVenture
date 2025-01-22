@@ -1,7 +1,5 @@
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
-dotenv.config({ path: "./server/.env" });
 import type { RequestHandler } from "express";
+import jwt from "jsonwebtoken";
 import userRepository from "./userRepository";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
@@ -14,6 +12,7 @@ const verifyToken: RequestHandler = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, JWT_SECRET as string);
+
     req.body.decodedToken = decoded;
     res.status(200).json({ token, decodedToken: decoded });
   } catch (error) {
@@ -34,6 +33,7 @@ const verifyUser: RequestHandler = async (req, res, next) => {
           id: user[0].id,
           email: user[0].email,
           is_admin: user[0].is_admin,
+          is_ban: user[0].is_ban,
         },
         JWT_SECRET,
         { expiresIn: reminder },
@@ -76,4 +76,54 @@ const update: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { verifyUser, verifyToken, read, update };
+const deleteUser: RequestHandler = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await userRepository.delete(Number.parseInt(id));
+  if (!user.length) {
+    res.sendStatus(404);
+  } else {
+    res.json(user);
+  }
+};
+
+const patch: RequestHandler = async (req, res, net) => {
+  const { id } = req.params;
+  const {
+    name,
+    firstname,
+    lastname,
+    email,
+    zipcode,
+    adress,
+    city,
+    password,
+    points,
+    is_admin,
+    is_ban,
+    creation_date,
+    last_connection,
+  } = req.body;
+  const user = await userRepository.patchName({
+    id: Number.parseInt(id),
+    name,
+    firstname,
+    lastname,
+    email,
+    zipcode,
+    adress,
+    city,
+    password,
+    points,
+    is_admin,
+    is_ban,
+    creation_date,
+    last_connection,
+  });
+  if (!user.length) {
+    res.sendStatus(404);
+  } else {
+    res.json(user);
+  }
+};
+
+export default { verifyUser, verifyToken, read, update, deleteUser, patch };

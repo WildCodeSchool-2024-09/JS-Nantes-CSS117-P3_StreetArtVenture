@@ -5,19 +5,18 @@ import "leaflet.awesome-markers/dist/leaflet.awesome-markers.css";
 import "./map.component.css";
 import "leaflet.awesome-markers";
 import type { LatLngExpression } from "leaflet";
-import type { ArtPiece } from "../../types/art_piece";
-
-interface MapComponentProps {
-  position: number[];
-  centerMarker?: number[];
-  markerList: ArtPiece[] | null;
-}
+import { useState } from "react";
+import type { MapComponentProps } from "./Map.types";
+import WebcamCapture from "./Print";
 
 function MapComponent({
   position,
   centerMarker,
   markerList,
 }: MapComponentProps) {
+  const [openCapture, setOpenCapture] = useState(false);
+
+  const handleButtonClick = () => setOpenCapture(!openCapture);
   // customize Icon current position
   const CenterMarkerIcon = L.AwesomeMarkers.icon({
     markerColor: "red",
@@ -67,6 +66,20 @@ function MapComponent({
             </Popup>
           </Marker>
         ))}
+
+        <button
+          type="button"
+          className="round-button"
+          onClick={handleButtonClick}
+        >
+          +
+        </button>
+        {openCapture && (
+          <WebcamCapture
+            openCapture={openCapture}
+            setOpenCapture={setOpenCapture}
+          />
+        )}
       </MapContainer>
     )
   );
