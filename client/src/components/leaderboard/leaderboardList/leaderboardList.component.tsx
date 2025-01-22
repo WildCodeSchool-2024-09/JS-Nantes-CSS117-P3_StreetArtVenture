@@ -3,12 +3,7 @@ import type { User } from "../../../types/user";
 import "./leaderboardList.component.css";
 import { format } from "date-fns";
 import AdminModal from "../admin/AdminModal.component";
-
-interface LeaderboardListProps {
-  data: User[];
-  fetchMore: () => void;
-  refreshData: () => void;
-}
+import type { LeaderboardListProps } from "../leaderboard";
 
 function LeaderboardList({
   refreshData,
