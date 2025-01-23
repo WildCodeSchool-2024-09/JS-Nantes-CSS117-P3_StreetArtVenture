@@ -18,13 +18,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+import type { Request, Response } from "express";
 import artActions from "./modules/art/artActions";
 import artPieceActions from "./modules/art_piece/artPieceActions";
 import authActions from "./modules/auth/authActions";
 import leaderboardActions from "./modules/leaderboard/leaderboardActions";
 import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
-import type { Request, Response } from "express";
 
 /* ************************** PUBLIC ACTIONS ************************** */
 
