@@ -23,23 +23,29 @@ class artRepository {
     return rows as ArtPiece[];
   }
   async updateValidation(
-    name: string,
-    adress: string,
-    city: string,
     pos_x: number,
     pos_y: number,
+    name: string,
     path: string,
+    userId: number,
+    city: string,
+    address: string,
   ) {
-    const query =
-      "UPDATE art_piece SET name = ?,adress = ?, city = ?, coordinates = POINT(? ?), picture_path = ?";
+    const query = `
+    INSERT INTO art_piece 
+    (name, adress, city, coordinates, is_validated, is_covered, picture_path, description, points_value) 
+    VALUES (?, ?, ?, POINT(?, ?), 0, 0, ?, NULL, NULL)
+  `;
 
     const [result] = await databaseClient.query<Result>(query, [
       name,
-      adress,
+      address,
       city,
       pos_x,
       pos_y,
       path,
+      null,
+      null,
     ]);
     return result.affectedRows;
   }

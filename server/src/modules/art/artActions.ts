@@ -24,12 +24,13 @@ const browseAround: RequestHandler = async (req, res, next) => {
 
 const updateAccepted: RequestHandler = async (req, res, next) => {
   try {
-    const pos_x = req.body.coordinates[0];
-    const pos_y = req.body.coordinates[1];
-    const name = req.body.name;
-    const path = req.body.path;
+    const pos_x = req.body.coordinates.latLong[0];
+    const pos_y = req.body.coordinates.latLong[1];
+    const name = req.body.fileName;
+    const path = req.body.filePath;
     const userId = req.body.userId;
-    const mout = req.body.mout;
+    const city = req.body.coordinates.city;
+    const address = req.body.coordinates.address;
 
     const affectedRows = await artRepository.updateValidation(
       pos_x,
@@ -37,7 +38,8 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
       name,
       path,
       userId,
-      mout,
+      city,
+      address,
     );
     if (!affectedRows) {
       res.sendStatus(404);

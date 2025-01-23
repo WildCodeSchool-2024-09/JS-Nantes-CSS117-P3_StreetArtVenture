@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./Print.css";
-import type { WebcamCaptureProps, Coordinates } from "./Map.types";
 import { useUser } from "../../context/UserContext";
+import type { Coordinates, WebcamCaptureProps } from "./Map.types";
 
 const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   openCapture,
@@ -29,11 +29,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
         setShowPicture(true);
 
         if (position) {
-          const apiKey = process.env.OPEN_CAGE;
-
           try {
             const response = await fetch(
-              `https://api.opencagedata.com/geocode/v1/json?q=${position[0]}%2C${position[1]}&key=${apiKey}`,
+              `https://nominatim.openstreetmap.org/reverse?lat=${position[0]}&lon=${position[1]}&zoom=18&format=jsonv2`,
             );
             if (!response.ok) {
               throw new Error("Erreur lors de la récupération des données");
@@ -42,8 +40,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
 
             setCoordinates({
               latLong: [position[0], position[1]],
-              city: "Paris",
-              adress: data[0],
+              city:
+                data.address.city || data.address.suburb || "Ville inconnue",
+              address: data.address.road || "Adresse inconnue",
             });
           } catch (error) {
             console.error("Erreur de géocodage :", error);
@@ -78,18 +77,22 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
 
       if (response.ok) {
         const data = await response.json();
-        formData.append("coordinates", JSON.stringify(coordinates));
-        formData.append("fileName", JSON.stringify(data.fileName));
-        formData.append("filePath", JSON.stringify(data.filePath));
+
         if (user) {
-          formData.append("userId", JSON.stringify(user.id));
         }
-        console.log(formData);
         const toSend = await fetch(
           `${import.meta.env.VITE_API_URL}/art/newArt`,
           {
             method: "POST",
-            body: formData,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              coordinates: coordinates,
+              fileName: data.fileName,
+              filePath: data.filePath,
+              userId: user ? user.id : null,
+            }),
           },
         );
         if (!toSend) {

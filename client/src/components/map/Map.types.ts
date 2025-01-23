@@ -15,5 +15,5 @@ export type MapComponentProps = {
 export type Coordinates = {
   latLong: number[];
   city: string;
-  adress: string;
+  address: string;
 };

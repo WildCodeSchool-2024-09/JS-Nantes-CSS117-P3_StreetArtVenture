@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 import { useEffect } from "react";
-import Navbar from "../Navbar/Navbar";
 import { useUser } from "../../context/UserContext";
+import Navbar from "../Navbar/Navbar";
 
 function Header() {
   const { user, setUser } = useUser();
