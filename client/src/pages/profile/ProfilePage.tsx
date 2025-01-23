@@ -32,7 +32,9 @@ function ProfilePage() {
   useEffect(() => {
     // get user informations to pre-fill the inputs
     async function fetchUserData() {
-      const res = await fetch(`http://localhost:3310/user/${USER_ID}`);
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/${USER_ID}`,
+      );
       const userData = await res.json();
       setData(userData[0]);
       reset(userData[0]);
@@ -47,7 +49,7 @@ function ProfilePage() {
     }
 
     // TODO: Ajouter logique pour envoyer les nouvelles informations au backend
-    fetch(`http://localhost:3310/user/${USER_ID}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${USER_ID}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -62,6 +64,7 @@ function ProfilePage() {
     <main className="profile-main-container">
       <div className="profile-form-container">
         <h1>Changez les informations de votre profil</h1>
+        <img src="forme_blanche.png" alt="element graphique" />
         <form id="edit-profile" onSubmit={handleSubmit(onSubmit)}>
           {Object.keys(data).map((key, index) => {
             return (

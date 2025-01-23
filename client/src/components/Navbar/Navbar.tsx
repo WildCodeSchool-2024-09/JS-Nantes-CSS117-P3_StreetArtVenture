@@ -16,10 +16,10 @@ function Navbar() {
               <Link className="link_nav" to="/test">
                 Jouer
               </Link>
-              <Link className="link_nav" to="/test">
+              <Link className="link_nav" to="/connexion">
                 Connexion
               </Link>
-              <Link className="link_nav" to="/test">
+              <Link className="link_nav" to="/leaderboard">
                 Classement
               </Link>
               <Link className="link_nav" to="/test">

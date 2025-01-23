@@ -23,6 +23,10 @@
   display: block;
 }
 
+.user-picture {
+  width: 60px;
+}
+
 @media screen and (max-width: 600px) {
   .Logo_street {
     height: 90px;
@@ -30,24 +34,30 @@
   }
   .link_connecter {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 18px;
   }
   .headerClass {
     padding: 25px;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 450px) {
   .headerClass {
     justify-content: space-evenly;
-    gap: 20px;
+    gap: 15px;
+    padding: 20px;
+    height: 100px;
   }
+
   .Logo_street {
     margin-left: 1px;
+    height: 70px;
   }
   .link_connecter {
-    font-weight: 500;
-    font-size: 14px;
     display: none;
+  }
+  .user-picture {
+    height: 40px;
+    width: 40px;
   }
 }

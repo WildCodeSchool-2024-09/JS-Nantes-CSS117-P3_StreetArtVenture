@@ -32,7 +32,7 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
   }
 };
 
-const edit: RequestHandler = async (req, res, next) => {
+const editArtPiece: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
     const artValidation = await artRepository.approveArtPiece(id);
@@ -60,4 +60,9 @@ const denyArtPiece: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseAround, unvalidatedArtPiece, edit, denyArtPiece };
+export default {
+  browseAround,
+  unvalidatedArtPiece,
+  editArtPiece,
+  denyArtPiece,
+};
