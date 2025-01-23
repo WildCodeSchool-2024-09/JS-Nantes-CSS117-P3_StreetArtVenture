@@ -9,6 +9,7 @@ import MapPage from "../pages/map/MapPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import StatisticsPage from "../pages/statistics/StatisticsPage";
 
+console.warn("hello");
 const routes = [
   {
     path: "/",
