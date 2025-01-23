@@ -35,7 +35,7 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
-    const artValidation = await artRepository.update(id);
+    const artValidation = await artRepository.approveArtPiece(id);
     if (!artValidation) {
       res.sendStatus(404);
     } else {
@@ -46,10 +46,10 @@ const edit: RequestHandler = async (req, res, next) => {
   }
 };
 
-const deniedArtPiece: RequestHandler = async (req, res, next) => {
+const denyArtPiece: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
-    const deniedArt = await artRepository.delete(id);
+    const deniedArt = await artRepository.deleteArtPiece(id);
     if (deniedArt === 0) {
       res.sendStatus(404);
     } else {
@@ -60,4 +60,4 @@ const deniedArtPiece: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseAround, unvalidatedArtPiece, edit, deniedArtPiece };
+export default { browseAround, unvalidatedArtPiece, edit, denyArtPiece };

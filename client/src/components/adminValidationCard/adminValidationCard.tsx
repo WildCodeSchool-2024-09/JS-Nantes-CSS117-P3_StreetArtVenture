@@ -2,11 +2,6 @@ import type { ArtPiece } from "../../types/art_piece";
 import "../adminValidationCard/adminValidationCard.css";
 import { useEffect, useState } from "react";
 
-// - onclick fonction qui va fetch quand on click sur le bouton
-// - creer ta route /art_piece/validate/:id
-// - creer ton action ou tu recuper l'id dans req.params.id
-// - creer repository ou tu fais la requete sql avec l'id donne en param
-
 export function AdminValidationBoard() {
   const [data, setData] = useState<ArtPiece | null>(null);
 
@@ -48,7 +43,7 @@ export function AdminValidationBoard() {
     }
   }
 
-  async function handleDenied() {
+  async function handleDeny() {
     if (!data || !data.id) {
       alert("Aucune œuvre à valider.");
       return;
@@ -133,7 +128,7 @@ export function AdminValidationBoard() {
                 Valider
               </button>
               <button
-                onClick={handleDenied}
+                onClick={handleDeny}
                 type="button"
                 className="brown-button-admin"
               >

@@ -29,13 +29,13 @@ class artRepository {
     return row as ArtPiece[];
   }
 
-  async update(id: number) {
+  async approveArtPiece(id: number) {
     const query = "UPDATE art_piece SET is_validated = TRUE WHERE id = ?";
     const [result] = await databaseClient.query<Result>(query, [id]);
     return result.affectedRows;
   }
 
-  async delete(id: number) {
+  async deleteArtPiece(id: number) {
     const query = "DELETE FROM art_piece WHERE id = ?";
     const [result] = await databaseClient.query<Result>(query, [id]);
     return result.affectedRows;
