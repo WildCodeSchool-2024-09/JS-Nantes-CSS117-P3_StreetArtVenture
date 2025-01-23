@@ -3,9 +3,10 @@ import { Home } from "../components/Home/Home";
 import { AdminValidationBoard } from "../components/adminValidationCard/adminValidationCard";
 import Gallery from "../components/gallery/Gallery";
 import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
-import LeaderboardPage from "../pages/leaderboard/leaderboardPage";
-import MapPage from "../pages/map/mapPage";
-import ProfilePage from "../pages/profile/profilePage";
+import Lost from "../components/lost/Lost";
+import LeaderboardPage from "../pages/leaderboard/LeaderboardPage";
+import MapPage from "../pages/map/MapPage";
+import ProfilePage from "../pages/profile/ProfilePage";
 import StatisticsPage from "../pages/statistics/StatisticsPage";
 
 const routes = [
@@ -49,6 +50,10 @@ const routes = [
   {
     path: "/statistics",
     element: <StatisticsPage />,
+  },
+  {
+    path: "/lost",
+    element: <Lost />,
   },
 ];
 

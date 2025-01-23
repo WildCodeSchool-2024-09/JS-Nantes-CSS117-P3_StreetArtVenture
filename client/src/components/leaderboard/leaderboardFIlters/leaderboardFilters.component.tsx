@@ -11,7 +11,9 @@ function LeaderboardFilters({
   // Fetch the name of the different city to get the select options
   useEffect(() => {
     async function fetchCities() {
-      const res = await fetch("http://localhost:3310/leaderboard/getCities");
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/leaderboard/getCities`,
+      );
       const cities = await res.json();
       setSelectData(cities);
     }
