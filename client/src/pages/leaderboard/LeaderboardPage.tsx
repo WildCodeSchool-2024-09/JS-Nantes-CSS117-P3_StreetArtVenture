@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import LeaderboardFilters from "../../components/leaderboard/leaderboardFIlters/leaderboardFilters.component";
-import LeaderboardList from "../../components/leaderboard/leaderboardList/leaderboardList.component";
+import LeaderboardFilters from "../../components/leaderboard/leaderboardFIlters/LeaderboardFilters.component";
+import LeaderboardList from "../../components/leaderboard/leaderboardList/LeaderboardList.component";
 import "./leaderboardPage.css";
 import LeaderboardUserData from "../../components/leaderboard/leaderboardUserData/leaderboardUserData.component";
 import type { User } from "../../types/user";
@@ -33,6 +33,7 @@ function LeaderboardPage() {
 
   // Filter management function
   useEffect(() => {
+    // Every change in a filter waits 800ms to fetch to not send useless requests on every letter written
     const handler = setTimeout(() => {
       async function fetchLeaderboard() {
         setPage(0);

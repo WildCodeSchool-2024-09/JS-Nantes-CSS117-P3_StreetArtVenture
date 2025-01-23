@@ -31,8 +31,8 @@ function LeaderboardList({
 
   const handleAdminAction = async (id: number, type: "rename" | "ban") => {
     setIsPopupOpen(type);
-    const usrdata = data.filter((el) => el.id === id);
-    setPoppedUser(usrdata[0]);
+    const userData = data.filter((el) => el.id === id);
+    setPoppedUser(userData[0]);
   };
 
   // handle admin actions ban or rename
