@@ -7,7 +7,7 @@ function Lost() {
       <section className="lost-page-background">
         <div className="h1-circle-lost">
           <h1 className="signalement-text">Signalement</h1>
-          <span className="circle">
+          <span className="circle-lost">
             <p>2</p>
           </span>
         </div>

@@ -178,7 +178,7 @@
     font-family: var(--primary-font);
   }
 
-  .circle {
+  .circle-lost {
     margin: 10px 0 0 150px;
     width: 32px;
     height: 32px;
@@ -186,7 +186,7 @@
     border-radius: 50%;
   }
 
-  .circle > p {
+  .circle-lost > p {
     margin-top: 5px;
     margin-left: 10px;
     font-size: 19px;
