@@ -21,14 +21,17 @@ import artActions from "./modules/art/artActions";
 import artPieceActions from "./modules/art_piece/artPieceActions";
 import authActions from "./modules/auth/authActions";
 import leaderboardActions from "./modules/leaderboard/leaderboardActions";
+import reportedArtPieceActions from "./modules/reported_art_piece/reportedArtPieceActions";
 import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
+// import { getUserSignalement } from "./modules/reported_art_piece/reportedArtPieceActions";
 
 /* ************************** PUBLIC ACTIONS ************************** */
 
 /* ************************** LOGGED USERS ACTIONS ************************** */
 // router.use(authActions.verifyToken); TODO uncomment after login implementation
 
+router.get("/user/signalement", reportedArtPieceActions.getUserSignalement);
 router.get("/art/findArtPiecesAround", artActions.browseAround);
 router.get("/art/getCities", artPieceActions.getCities);
 router.get("/leaderboard/getCities", leaderboardActions.getCities);
@@ -55,5 +58,4 @@ router.post("/api/upload", upload.single("image"), (req, res) => {
 
 router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
-
 export default router;
