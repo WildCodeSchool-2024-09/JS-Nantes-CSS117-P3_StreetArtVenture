@@ -78,8 +78,6 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
       if (response.ok) {
         const data = await response.json();
 
-        if (user) {
-        }
         const toSend = await fetch(
           `${import.meta.env.VITE_API_URL}/art/newArt`,
           {
@@ -97,7 +95,6 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
         );
         if (!toSend) {
           console.error("echec de l'envoi");
-        } else {
         }
 
         setOpenCapture(!openCapture);

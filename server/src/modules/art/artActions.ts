@@ -1,4 +1,7 @@
+import path from "node:path";
 import type { RequestHandler } from "express";
+import type { Request, Response } from "express";
+import multer from "multer";
 
 // Import access to data
 import artRepository from "./artRepository";
@@ -22,15 +25,47 @@ const browseAround: RequestHandler = async (req, res, next) => {
   }
 };
 
+//
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/assets/images");
+  },
+
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + path.extname(file.originalname);
+    cb(null, uniqueName);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+const savePicture = upload.single("image");
+
+const multerAndSkully = (req: Request, res: Response): void => {
+  if (!req.file) {
+    res.status(400).json({ error: "Aucune image envoyée" });
+    return;
+  }
+
+  const fileName = req.file.filename;
+  const filePath = `/assets/images/${fileName}`;
+
+  res.json({ message: "Image Uploaded", fileName, filePath });
+};
+
 const updateAccepted: RequestHandler = async (req, res, next) => {
   try {
-    const pos_x = req.body.coordinates.latLong[0];
-    const pos_y = req.body.coordinates.latLong[1];
-    const name = req.body.fileName;
-    const path = req.body.filePath;
-    const userId = req.body.userId;
-    const city = req.body.coordinates.city;
-    const address = req.body.coordinates.address;
+    const {
+      coordinates: {
+        latLong: [pos_x, pos_y],
+        city,
+        address,
+      },
+      fileName: name,
+      filePath: path,
+      userId,
+    } = req.body;
 
     const affectedRows = await artRepository.updateValidation(
       pos_x,
@@ -51,4 +86,4 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseAround, updateAccepted };
+export default { browseAround, updateAccepted, multerAndSkully, savePicture };

@@ -1,24 +1,4 @@
-import path from "node:path";
 import express from "express";
-import multer from "multer";
-
-const router = express.Router();
-router.use(express.json());
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/assets/images");
-  },
-
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + path.extname(file.originalname);
-    cb(null, uniqueName);
-  },
-});
-
-const upload = multer({ storage: storage });
-
-import type { Request, Response } from "express";
 import artActions from "./modules/art/artActions";
 import artPieceActions from "./modules/art_piece/artPieceActions";
 import authActions from "./modules/auth/authActions";
@@ -26,6 +6,8 @@ import leaderboardActions from "./modules/leaderboard/leaderboardActions";
 import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
 
+const router = express.Router();
+router.use(express.json());
 /* ************************** PUBLIC ACTIONS ************************** */
 
 /* ************************** LOGGED USERS ACTIONS ************************** */
@@ -49,21 +31,7 @@ router.get("/user/:id", userActions.read);
 router.delete("/user/:id", userActions.deleteUser);
 router.get("/statistics/user", statisticsActions.getUserStatistics);
 router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
-router.post(
-  "/api/upload",
-  upload.single("image"),
-  (req: Request, res: Response): void => {
-    if (!req.file) {
-      res.status(400).json({ error: "Aucune image envoyée" });
-      return;
-    }
-
-    const fileName = req.file.filename;
-    const filePath = `/assets/images/${fileName}`;
-
-    res.json({ message: "Image Uploaded", fileName, filePath });
-  },
-);
+router.post("/api/upload", artActions.savePicture, artActions.multerAndSkully);
 router.post("/art/newArt", artActions.updateAccepted);
 /* ******************************************************************** */
 

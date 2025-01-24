@@ -15,11 +15,11 @@
   z-index: 0;
 }
 .leaflet-tile-pane {
-  z-index: 0 !important;
+  z-index: 0;
 }
 .leaflet-marker-icon {
-  z-index: 0 !important;
+  z-index: 0;
 }
 .leaflet-popup {
-  z-index: 0 !important;
+  z-index: 0;
 }
