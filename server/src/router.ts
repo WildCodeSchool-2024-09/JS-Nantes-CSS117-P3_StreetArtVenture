@@ -1,22 +1,4 @@
-import path from "node:path";
 import express from "express";
-import multer from "multer";
-
-const router = express.Router();
-router.use(express.json());
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/assets/images");
-  },
-
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
-
 import artActions from "./modules/art/artActions";
 import artPieceActions from "./modules/art_piece/artPieceActions";
 import authActions from "./modules/auth/authActions";
@@ -25,6 +7,8 @@ import leaderboardActions from "./modules/leaderboard/leaderboardActions";
 import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
 
+const router = express.Router();
+router.use(express.json());
 /* ************************** PUBLIC ACTIONS ************************** */
 
 /* ************************** LOGGED USERS ACTIONS ************************** */
@@ -48,10 +32,8 @@ router.get("/user/:id", userActions.read);
 router.delete("/user/:id", userActions.deleteUser);
 router.get("/statistics/user", statisticsActions.getUserStatistics);
 router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
-router.post("/api/upload", upload.single("image"), (req, res) => {
-  res.send({ message: "Image Uploaded" });
-});
-
+router.post("/api/upload", artActions.savePicture, artActions.multerAndSkully);
+router.post("/art/newArt", artActions.updateAccepted);
 /* ******************************************************************** */
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);

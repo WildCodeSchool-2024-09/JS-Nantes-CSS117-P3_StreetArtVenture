@@ -1,23 +1,54 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./Print.css";
-import type { WebcamCaptureProps } from "./Map.types";
+import { useUser } from "../../context/UserContext";
+import type { Coordinates, WebcamCaptureProps } from "./Map.types";
 
 const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   openCapture,
   setOpenCapture,
+  position,
 }) => {
+  const { user } = useUser();
   const [previsualisation, setPrevisualisation] = useState(true);
   const [showPicture, setShowPicture] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [coordinates, setCoordinates] = useState<Coordinates | null>(null);
   const webcamRef = useRef<Webcam | null>(null);
 
-  const capturePhoto = () => {
+  const capturePhoto = async () => {
     if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
       setCapturedImage(imageSrc);
       setPrevisualisation(false);
       setShowPicture(true);
+      if (webcamRef.current) {
+        const imageSrc = webcamRef.current.getScreenshot();
+        setCapturedImage(imageSrc);
+        setPrevisualisation(false);
+        setShowPicture(true);
+
+        if (position) {
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${position[0]}&lon=${position[1]}&zoom=18&format=jsonv2`,
+            );
+            if (!response.ok) {
+              throw new Error("Erreur lors de la récupération des données");
+            }
+            const data = await response.json();
+
+            setCoordinates({
+              latLong: [position[0], position[1]],
+              city:
+                data.address.city || data.address.suburb || "Ville inconnue",
+              address: data.address.road || "Adresse inconnue",
+            });
+          } catch (error) {
+            console.error("Erreur de géocodage :", error);
+          }
+        }
+      }
     }
   };
 
@@ -35,7 +66,6 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
 
     const formData = new FormData();
     formData.append("image", file);
-
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/upload`,
@@ -46,6 +76,27 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
       );
 
       if (response.ok) {
+        const data = await response.json();
+
+        const toSend = await fetch(
+          `${import.meta.env.VITE_API_URL}/art/newArt`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              coordinates: coordinates,
+              fileName: data.fileName,
+              filePath: data.filePath,
+              userId: user ? user.id : null,
+            }),
+          },
+        );
+        if (!toSend) {
+          console.error("echec de l'envoi");
+        }
+
         setOpenCapture(!openCapture);
       }
     } catch (error) {
