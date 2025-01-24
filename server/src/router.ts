@@ -31,7 +31,7 @@ import userActions from "./modules/user/userActions";
 /* ************************** LOGGED USERS ACTIONS ************************** */
 // router.use(authActions.verifyToken); TODO uncomment after login implementation
 
-router.get("/user/reported", reportedArtPieceActions.getUserSignalement);
+router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
 router.get("/art/findArtPiecesAround", artActions.browseAround);
 router.get("/art/getCities", artPieceActions.getCities);
 router.get("/leaderboard/getCities", leaderboardActions.getCities);
