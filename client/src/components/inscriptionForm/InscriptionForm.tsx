@@ -16,12 +16,50 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
     confirmPassword: string;
   };
 
+  const onSubmit = async (data: InscriptionFormValues) => {
+    const {
+      email,
+      firstName,
+      userName,
+      lastName,
+      adresse,
+      city,
+      postal,
+      password,
+    } = data;
+    try {
+      const response = await fetch("http://localhost:3310/user/registration", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: userName,
+          email: email,
+          firstname: firstName,
+          lastname: lastName,
+          zipcode: postal,
+          city: city,
+          password: password,
+          adresse: adresse,
+          adress: adresse,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Échec de l'inscription");
+      }
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Erreur lors de l'inscription:", error);
+    }
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<InscriptionFormValues>();
-  const onSubmit = () => {};
+
   return (
     <main className="main-inscription-form">
       <form onSubmit={handleSubmit(onSubmit)}>
