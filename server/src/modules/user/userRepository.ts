@@ -47,11 +47,9 @@ class UserRepository {
   async isUserYet(name: string, email: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
       "select email, name from user where email = ? or name = ?",
-      [name, email],
+      [email, name],
     );
-    if (rows.length !== 0) {
-      return null;
-    }
+
     return rows as User[];
   }
 
@@ -60,7 +58,7 @@ class UserRepository {
     firstname: string,
     lastname: string,
     email: string,
-    zipcode: number,
+    zipcode: string,
     adress: string,
     city: string,
     password: string,

@@ -1,10 +1,12 @@
 import "../inscriptionForm/InscriptionForm.css";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import validationRules from "./ValidationRules";
 
 const InscriptionForm: React.FC = (): React.ReactNode => {
+  const navigate = useNavigate();
   type InscriptionFormValues = {
+    name: string;
     firstName: string;
     userName: string;
     email: string;
@@ -28,27 +30,29 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
       password,
     } = data;
     try {
-      const response = await fetch("http://localhost:3310/user/registration", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/registration`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            name: userName,
+            firstname: firstName,
+            lastname: lastName,
+            zipcode: postal,
+            city: city,
+            password: password,
+            adress: adresse,
+          }),
         },
-        body: JSON.stringify({
-          userName: userName,
-          email: email,
-          firstname: firstName,
-          lastname: lastName,
-          zipcode: postal,
-          city: city,
-          password: password,
-          adresse: adresse,
-          adress: adresse,
-        }),
-      });
+      );
       if (!response.ok) {
-        throw new Error("Échec de l'inscription");
+        throw new Error("Impossible de s'inscire");
       }
-      window.location.href = "/";
+      navigate("/");
     } catch (error) {
       console.error("Erreur lors de l'inscription:", error);
     }

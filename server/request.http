@@ -14,5 +14,21 @@ GET http://localhost:3310/api/art
 #   );
 //**--****--**//
 
-GET http://localhost:3310/user/1 HTTP/1.1
+GET http://localhost:3310/user/101 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzM3Mzg3MTU5LCJleHAiOjE3Mzc0NzM1NTl9.CI7wgzS3qoKXdOZPmEsShMzdgzvXBi69uu6p0Eu6-rg
+
+###
+
+POST http://localhost:3310/user/registration HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Juliayrfdrrwrwr",
+	"email": "jguliafdfg@mail.com",
+	"firstname": "Jules",
+	"lastname": "Belhassen",
+	"zipcode":"44000",
+	"city":"Nantes",
+	"password":"jgulia@mail.com",
+	"adress": "2 rue des carmelites"
+}

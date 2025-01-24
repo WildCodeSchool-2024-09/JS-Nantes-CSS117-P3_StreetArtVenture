@@ -131,7 +131,7 @@ const deleteUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-const patch: RequestHandler = async (req, res, net) => {
+const patch: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
   const {
     name,
