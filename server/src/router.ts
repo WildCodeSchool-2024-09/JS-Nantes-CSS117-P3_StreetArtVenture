@@ -20,6 +20,7 @@ const upload = multer({ storage: storage });
 import artActions from "./modules/art/artActions";
 import artPieceActions from "./modules/art_piece/artPieceActions";
 import authActions from "./modules/auth/authActions";
+import itemActions from "./modules/item/itemActions";
 import leaderboardActions from "./modules/leaderboard/leaderboardActions";
 import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
@@ -53,7 +54,9 @@ router.post("/api/upload", upload.single("image"), (req, res) => {
 });
 
 /* ******************************************************************** */
-
+router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
+router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
+router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
 

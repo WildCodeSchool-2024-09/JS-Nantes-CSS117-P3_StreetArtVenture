@@ -1,6 +1,6 @@
 import databaseClient from "../../../database/client";
 
-import type { Rows } from "../../../database/client";
+import type { Result, Rows } from "../../../database/client";
 import type { ArtPiece } from "../../types/express/artPiece";
 
 class artRepository {
@@ -21,6 +21,24 @@ class artRepository {
 
     // Return the array of items
     return rows as ArtPiece[];
+  }
+
+  async unvalidatedArtPiece() {
+    const query = "SELECT * FROM art_piece WHERE is_validated = FALSE LIMIT 1";
+    const [row] = await databaseClient.query<Rows>(query);
+    return row as ArtPiece[];
+  }
+
+  async approveArtPiece(id: number) {
+    const query = "UPDATE art_piece SET is_validated = TRUE WHERE id = ?";
+    const [result] = await databaseClient.query<Result>(query, [id]);
+    return result.affectedRows;
+  }
+
+  async deleteArtPiece(id: number) {
+    const query = "DELETE FROM art_piece WHERE id = ?";
+    const [result] = await databaseClient.query<Result>(query, [id]);
+    return result.affectedRows;
   }
 }
 
