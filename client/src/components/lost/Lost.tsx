@@ -7,7 +7,7 @@ function Lost() {
   const [signalement, setSignalement] = useState<LostI[]>([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/user/signalement`)
+    fetch(`${import.meta.env.VITE_API_URL}/user/reported`)
       .then((res) => res.json())
       .then((data) => {
         setSignalement(data);
