@@ -4,8 +4,10 @@ import artPieceActions from "./modules/art_piece/artPieceActions";
 import authActions from "./modules/auth/authActions";
 import itemActions from "./modules/item/itemActions";
 import leaderboardActions from "./modules/leaderboard/leaderboardActions";
+import reportedArtPieceActions from "./modules/reported_art_piece/reportedArtPieceActions";
 import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
+// import { getUserSignalement } from "./modules/reported_art_piece/reportedArtPieceActions";
 
 const router = express.Router();
 router.use(express.json());
@@ -14,6 +16,7 @@ router.use(express.json());
 /* ************************** LOGGED USERS ACTIONS ************************** */
 // router.use(authActions.verifyToken); TODO uncomment after login implementation
 
+router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
 router.get("/art/findArtPiecesAround", artActions.browseAround);
 router.get("/art/getCities", artPieceActions.getCities);
 router.get("/leaderboard/getCities", leaderboardActions.getCities);
@@ -40,5 +43,4 @@ router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
-
 export default router;
