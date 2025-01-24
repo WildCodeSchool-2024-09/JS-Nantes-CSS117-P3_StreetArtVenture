@@ -29,7 +29,7 @@
 .circle-lost {
   display: flex;
   margin: 0 0 0 160px;
-  width: 30px;
+  width: 40px;
   height: 40px;
   background-color: #d9d9d9;
   border-radius: 50%;
@@ -130,7 +130,7 @@
 
 .my-right-button-lost,
 .my-left-button-lost {
-  background-color: #4caf50;
+  background-color: #22b573;
   border-radius: 100%;
   border: none;
   height: 80px;
@@ -159,7 +159,7 @@
   align-items: center;
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 1423px) {
   .lost-page-background {
     background-image: url("./background-grey.jpg");
     background-size: cover;
@@ -173,21 +173,20 @@
   }
 
   .signalement-text {
-    margin: 10px 10px 0 0;
+    display: flex;
     color: black;
     font-family: var(--primary-font);
   }
 
   .circle-lost {
-    margin: 10px 0 0 150px;
-    width: 32px;
-    height: 32px;
+    margin: 8px 0 0 150px;
+    width: 42px;
+    height: 42px;
     background-color: #d9d9d9;
     border-radius: 50%;
   }
 
   .circle-lost > p {
-    margin-top: 5px;
     margin-left: 10px;
     font-size: 19px;
     color: #ff1717;
@@ -196,6 +195,8 @@
   .works-consulting {
     line-height: 5vh;
     margin: 20px 0 0 50px;
+    display: flex;
+    justify-content: center;
   }
 
   .trait-h1-lost {
@@ -247,7 +248,6 @@
     height: 20em;
     background-color: #22b573;
     border-radius: 24px;
-    margin-left: 10px;
   }
 
   .block-green-reported-work {
@@ -257,7 +257,7 @@
   }
   .my-right-button-lost,
   .my-left-button-lost {
-    background-color: #4caf50;
+    background-color: #22b573;
     border-radius: 100%;
     border: none;
     height: 80px;

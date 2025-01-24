@@ -1,14 +1,27 @@
 import "./lost.css";
+import { useEffect, useState } from "react";
 import traith1lost from "/trait-h1-artwork.tsx.png";
+import type { LostI } from "./LostType";
 
 function Lost() {
+  const [signalement, setSignalement] = useState<LostI[]>([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/user/signalement`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSignalement(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <>
       <section className="lost-page-background">
         <div className="h1-circle-lost">
           <h1 className="signalement-text">Signalement</h1>
           <span className="circle-lost">
-            <p>2</p>
+            <p>{signalement.length}</p>
           </span>
         </div>
 
