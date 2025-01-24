@@ -19,5 +19,11 @@ class StatsRepository {
     );
     return rows as Testtype[];
   }
+  async getPlayerStatistics() {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT name FROM user WHERE points = (SELECT MAX(points) FROM user)",
+    );
+    return rows as Testtype[];
+  }
 }
 export default new StatsRepository();
