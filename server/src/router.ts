@@ -2,6 +2,7 @@ import express from "express";
 import artActions from "./modules/art/artActions";
 import artPieceActions from "./modules/art_piece/artPieceActions";
 import authActions from "./modules/auth/authActions";
+import itemActions from "./modules/item/itemActions";
 import leaderboardActions from "./modules/leaderboard/leaderboardActions";
 import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
@@ -34,7 +35,9 @@ router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
 router.post("/api/upload", artActions.savePicture, artActions.multerAndSkully);
 router.post("/art/newArt", artActions.updateAccepted);
 /* ******************************************************************** */
-
+router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
+router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
+router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
 

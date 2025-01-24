@@ -25,6 +25,44 @@ const browseAround: RequestHandler = async (req, res, next) => {
   }
 };
 
+const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
+  try {
+    const items = await artRepository.unvalidatedArtPiece();
+    res.json(items);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+const editArtPiece: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const artValidation = await artRepository.approveArtPiece(id);
+    if (!artValidation) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).send("Art piece has been validated !");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const denyArtPiece: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const deniedArt = await artRepository.deleteArtPiece(id);
+    if (deniedArt === 0) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).send("Art piece has been denied !");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 //
 
 const storage = multer.diskStorage({
@@ -86,4 +124,12 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseAround, updateAccepted, multerAndSkully, savePicture };
+export default {
+  browseAround,
+  updateAccepted,
+  multerAndSkully,
+  savePicture,
+  unvalidatedArtPiece,
+  editArtPiece,
+  denyArtPiece,
+};
