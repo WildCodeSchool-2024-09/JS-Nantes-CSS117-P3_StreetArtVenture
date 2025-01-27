@@ -2,12 +2,12 @@ const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
   // On récupère notre JWT dans le localstorage
   const token = localStorage.getItem("authToken");
 
-  // On défini les headers d'authentification si ils existent
+  // On défini le header d'authentification si il existe
   const authHeaders: Record<string, string> = token
     ? { Authorization: `Bearer ${token}` }
     : {};
 
-  // On les ajoute avec les headers passé en paramètre
+  // On l'ajoute avec les headers passé en paramètre
   const mergedHeaders = {
     "Content-Type": "application/json",
     ...authHeaders,
