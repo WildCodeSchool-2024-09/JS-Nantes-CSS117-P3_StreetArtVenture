@@ -1,10 +1,9 @@
 import "./lost.css";
 import { useEffect, useState } from "react";
 import traith1lost from "/trait-h1-artwork.tsx.png";
-// import type { LostI } from "./LostType";
 
 function Lost() {
-  const [nbsignalement, setNbSignalement] = useState<number>(0);
+  const [nbSignalement, setNbSignalement] = useState<number>(0);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/user/reporting`)
@@ -20,7 +19,7 @@ function Lost() {
         <div className="h1-circle-lost">
           <h1 className="signalement-text">Signalement</h1>
           <span className="circle-lost">
-            <p>{nbsignalement}</p>
+            <p>{nbSignalement}</p>
           </span>
         </div>
 
