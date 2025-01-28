@@ -1,3 +1,6 @@
 node_modules
 coverage
 .env
+.getArt.http
+.request.http
+.signalement.http
