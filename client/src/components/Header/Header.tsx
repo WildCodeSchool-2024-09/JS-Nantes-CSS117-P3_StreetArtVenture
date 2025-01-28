@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import { useEffect } from "react";
 import { useUser } from "../../context/UserContext";
+import { setContextFromToken } from "../../utils/setContextFromToken";
 import Navbar from "../Navbar/Navbar";
 
 function Header() {
@@ -9,37 +10,7 @@ function Header() {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    if (!token) {
-      console.warn("No token found");
-      return;
-    }
-
-    const verifyToken = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/user/verifyToken`,
-          {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({ token }),
-          },
-        );
-
-        if (!response.ok) {
-          console.error("Echec de la validation du token.");
-          return;
-        }
-
-        const data = await response.json();
-        setUser(data.decodedToken);
-      } catch (error) {
-        console.error("Erreur lors de la vérification de connexion:", error);
-      }
-    };
-
-    verifyToken();
+    setContextFromToken(token, setUser);
   }, [setUser]);
   return (
     <>
