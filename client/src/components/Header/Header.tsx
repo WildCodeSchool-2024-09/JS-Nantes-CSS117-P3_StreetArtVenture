@@ -16,14 +16,16 @@ function Header() {
     <>
       <section className="headerClass">
         <Navbar />
-        <img
-          alt="logo Street Art Venture"
-          className="Logo_street"
-          src="images/STREET_LOGO.png"
-        />
+        <Link to="/">
+          <img
+            alt="logo Street Art Venture"
+            className="Logo_street"
+            src="images/STREET_LOGO.png"
+          />
+        </Link>
         {user ? (
           user.is_admin === 1 ? (
-            <Link to="/test">
+            <Link to="/profile">
               <img
                 className="user-picture"
                 src="/images/admin_profil.png"
@@ -31,7 +33,7 @@ function Header() {
               />
             </Link>
           ) : user.is_admin === 0 ? (
-            <Link to="/test">
+            <Link to="/profile">
               <img
                 className="user-picture"
                 src="/images/user_profil.png"
