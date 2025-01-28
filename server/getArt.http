@@ -1,1 +1,1 @@
-GET http://localhost:3310/art/getArt
+GET http://localhost:3310/user/reporting
