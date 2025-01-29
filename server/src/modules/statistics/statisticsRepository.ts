@@ -1,10 +1,7 @@
 import { verify } from "node:crypto";
 import databaseClient from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
-
-interface TestType {
-  jsp: string;
-}
+import type { TestType } from "./statisticsType";
 
 class StatsRepository {
   async getUserStatistics() {
