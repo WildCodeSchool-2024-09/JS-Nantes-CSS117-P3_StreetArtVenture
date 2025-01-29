@@ -22,7 +22,7 @@ type User = {
 class UserRepository {
   async read(id: number) {
     const [row] = await databaseClient.query<Rows>(
-      "SELECT name, firstname, lastname, email, zipcode, city, adress FROM user WHERE id = ?",
+      "SELECT pseudo, firstname, lastname, email, zipcode, city, adress FROM user WHERE id = ?",
       [id],
     );
     return row as User[];
@@ -46,7 +46,7 @@ class UserRepository {
 
   async isUserYet(name: string, email: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
-      "select email, name from user where email = ? or name = ?",
+      "select email, pseudo from user where email = ? or pseudo = ?",
       [email, name],
     );
 
