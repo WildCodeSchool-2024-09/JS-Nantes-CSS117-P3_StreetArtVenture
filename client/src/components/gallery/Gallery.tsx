@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import "./gallery.css";
-import backgroundimage from "/background-grey.jpg";
-import traith1 from "/trait-h1-artwork.tsx.png";
 import type { CardI } from "./GalleryType";
 
 function Gallery() {
@@ -31,19 +29,13 @@ function Gallery() {
   return (
     <>
       <section className="artwork-page">
-        <img
-          className="background-gray"
-          src={backgroundimage}
-          alt="background gray if from lighter to darker"
-        />
-
         <div className="white-card">
           <h1>Galerie d'oeuvre</h1>
 
           <img
             className="traith1"
-            src={traith1}
-            alt="background gray if from lighter to darker"
+            src="/separator.png"
+            alt="élément graphique"
           />
 
           <select className="city" name="city" onChange={handleSelect}>
@@ -58,13 +50,13 @@ function Gallery() {
                 <img
                   className="galerie-oeuvre"
                   src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
-                  alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
+                  alt=""
                 />
 
-                <div className="streetart" key={card.name}>
+                <div className="streetart_title" key={card.name}>
                   {card.name}
                 </div>
-                <div className="streetart" key={card.adress}>
+                <div key={card.adress}>
                   {card.adress}, {card.city}
                 </div>
               </div>

@@ -1,35 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
-
-.background-gray {
-  width: 100%;
-  height: 118ch;
+.artwork-page {
+  display: flex;
+  background-image: url("/background-grey.jpg");
+  background-size: cover;
+  justify-content: center;
+  padding: 70px;
 }
 .white-card {
-  height: 650px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
+  background-color: #ffffffbb;
   border-radius: 10px;
-  padding: 20px;
-  margin-top: 6ch;
-  width: 850px;
+  padding: 30px;
   text-align: center;
-  opacity: 0.7;
+  width: 1250px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
 }
 .white-card h1 {
-  font-family: "Bangers", cursive;
-  font-size: 50px;
+  font-family: var(--secondary-font);
+  font-size: 65px;
   color: black;
+  font-weight: 500;
 }
 .traith1 {
-  display: block;
-  margin: 15px auto;
-  color: black;
+  width: 140px;
 }
 section.artwork-page .city {
   background-color: black;
+  font-family: var(--primary-font);
   color: white;
   padding: 5px;
   border-radius: 23px;
@@ -38,90 +36,43 @@ section.artwork-page .city {
   margin-bottom: 10px;
   text-align: center;
 }
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
+
 .container-owerflow {
-  height: 25em;
-  overflow: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
 }
-.galerie-oeuvre {
-  height: 8em;
-}
+
 .green-container {
   height: 20em;
   background-color: #22b573;
   border-radius: 15px;
-  margin-top: 2ch;
-  padding: 3ch;
+  padding: 20px;
   width: 15em;
-  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-family: var(--primary-font);
+  gap: 15px;
 }
 .galerie-oeuvre {
-  height: 10em;
-  width: 25ch;
+  height: 150px;
+  width: 200px;
+  object-fit: cover;
 }
-@media screen and (max-width: 415px) {
-  .background-gray {
-    height: 85vh;
+
+.streetart_title {
+  font-size: 24px;
+  font-weight: 600;
+}
+@media screen and (max-width: 750px) {
+  .artwork-page {
+    padding: 40px;
   }
-  .white-card {
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
-    width: 300px;
-    opacity: 0.7;
-    height: 600px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+}
+@media screen and (max-width: 400px) {
   .white-card h1 {
-    font-family: "Bangers", cursive;
-    font-size: 36px;
-    color: black;
-  }
-  .traith1 {
-    margin-top: 30px;
-    color: black;
-  }
-  section.artwork-page .city {
-    background-color: black;
-    color: white;
-    padding: 5px;
-    border-radius: 23px;
-    width: 10em;
-    height: 4ch;
-    text-align: center;
-  }
-
-  .container-owerflow {
-    height: 25em;
-    overflow: auto;
-  }
-  .galerie-oeuvre {
-    height: 10em;
-    width: 25ch;
-  }
-  .green-container {
-    height: 18em;
-    background-color: #22b573;
-    border-radius: 15px;
-    margin-top: 2ch;
-    padding: ch;
-
-    margin-right: 5px;
-  }
-  .streetart {
-    margin-top: 20px;
+    font-size: 50px;
   }
 }
