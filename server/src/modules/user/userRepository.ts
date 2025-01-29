@@ -1,23 +1,7 @@
 import { verify } from "node:crypto";
 import databaseClient from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
-
-type User = {
-  id: number;
-  pseudo: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  zipcode: number;
-  adress: string;
-  city: string;
-  password: string;
-  points: number;
-  is_admin: boolean;
-  is_ban: boolean;
-  creation_date: Date;
-  last_connection: Date;
-};
+import type User from "../user/userTypes";
 
 class UserRepository {
   async read(id: number) {
