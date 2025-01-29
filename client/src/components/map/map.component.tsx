@@ -17,8 +17,9 @@ function MapComponent({
 }: MapComponentProps) {
   const [openCapture, setOpenCapture] = useState(false);
   const handleSuccess = () => {
-    console.warn("hello");
-    toast.error("Félicitations ! Votre découverte a été envoyée.");
+    toast.success(
+      "Félicitations ! Votre découverte a été envoyée et est maintenant en attente de validation !",
+    );
   };
 
   const handleButtonClick = () => setOpenCapture(!openCapture);
@@ -92,10 +93,9 @@ function MapComponent({
               onSuccess={handleSuccess}
             />
           )}
-          <ToastContainer position="bottom-right" />
-          <p className="custom-toast"> maerl</p>
         </MapContainer>
-        <p className="custom-toast"> maerl</p>
+
+        <ToastContainer position="bottom-right" />
       </>
     )
   );

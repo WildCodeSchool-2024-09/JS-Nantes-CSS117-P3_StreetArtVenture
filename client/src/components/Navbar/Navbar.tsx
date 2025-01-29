@@ -1,11 +1,23 @@
 import { useState } from "react";
 import "./Navbar.css";
 import Hamburger from "hamburger-react";
+import { useEffect } from "react";
+
 import { Link } from "react-router-dom";
+import type { Usernav } from "../../context/UserContextType";
 
-function Navbar() {
+function Navbar({ user }: Usernav) {
   const [isOpen, setOpen] = useState(false);
+  const [alternator, setAlternator] = useState([true, false]);
 
+  useEffect(() => {
+    setAlternator(() => (!user ? [true, false] : [false, true]));
+  }, [user]);
+
+  const handleDeconnection = () => {
+    localStorage.removeItem("authToken");
+    window.location.href = "/";
+  };
   return (
     <>
       <section className="hamburger">
@@ -16,9 +28,11 @@ function Navbar() {
               <Link className="link_nav" to="/map">
                 Jouer
               </Link>
-              <Link className="link_nav" to="/connexion">
-                Connexion
-              </Link>
+              {alternator[0] && (
+                <Link className="link_nav" to="/connexion">
+                  Connexion
+                </Link>
+              )}
               <Link className="link_nav" to="/leaderboard">
                 Classement
               </Link>
@@ -31,6 +45,15 @@ function Navbar() {
               <Link className="link_nav" to="/test">
                 Paramètres
               </Link>
+              {alternator[1] && (
+                <button
+                  type="button"
+                  className="link_nav nav-button"
+                  onClick={handleDeconnection}
+                >
+                  Se déconnecter
+                </button>
+              )}
               <img src="/forme_blanche.png" alt="forme graphique" />
             </ul>
           </div>

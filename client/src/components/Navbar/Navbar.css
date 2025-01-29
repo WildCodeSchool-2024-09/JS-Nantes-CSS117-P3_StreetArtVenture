@@ -26,6 +26,11 @@
   letter-spacing: 0.8px;
 }
 
+.nav-button {
+  background-color: #1e1e1eea;
+  border: none;
+  cursor: pointer;
+}
 .section_ul img {
   width: 100px;
   margin-top: 10px;

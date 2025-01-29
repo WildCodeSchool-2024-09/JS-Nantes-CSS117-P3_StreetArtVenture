@@ -11,3 +11,6 @@ export type Usertype = {
   user: User | null;
   setUser: (user: User | null) => void;
 };
+export type Usernav = {
+  user: User | null;
+};

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./Print.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useUser } from "../../context/UserContext";
 import type { Coordinates, WebcamCaptureProps } from "./Map.types";
 
@@ -102,8 +102,8 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
         if (!toSend.ok) {
           failedNotify();
         }
-        onSuccess();
         setOpenCapture(!openCapture);
+        onSuccess();
       }
     } catch (error) {
       failedNotify();
@@ -155,7 +155,6 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
           </button>
         </form>
       )}
-      <ToastContainer />
     </div>
   );
 };
