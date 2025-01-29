@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import traith1lost from "/trait-h1-artwork.tsx.png";
 
 function Lost() {
-  const [nbSignalement, setNbSignalement] = useState<number>(0);
+  const [nbReported, setNbReported] = useState<number>(0);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/user/reporting`)
       .then((res) => res.json())
       .then((data) => {
-        setNbSignalement(data[0].nb_signalements);
+        setNbReported(data[0].nb_signalements);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -19,7 +19,7 @@ function Lost() {
         <div className="h1-circle-lost">
           <h1 className="signalement-text">Signalement</h1>
           <span className="circle-lost">
-            <p>{nbSignalement}</p>
+            <p>{nbReported}</p>
           </span>
         </div>
 
@@ -37,12 +37,14 @@ function Lost() {
             <p className="title-street-art">Titre street art</p>
             <p className="coordinates-gps">Coordonnées GPS</p>
             <p className="description-work-lost">Description :</p>
-            <button className="btn-validation-lost" type="button">
-              Validation
-            </button>
-            <button className="btn-refusal-lost" type="button">
-              Refus
-            </button>
+            <div>
+              <button className="btn-validation-lost" type="button">
+                Validation
+              </button>
+              <button className="btn-refusal-lost" type="button">
+                Refus
+              </button>
+            </div>
           </section>
           <section className="block-compared-artwork-lost">
             <p className="reported-work">Oeuvre comparée</p>
