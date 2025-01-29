@@ -54,7 +54,7 @@ class UserRepository {
   }
 
   async userInscription(
-    name: string,
+    pseudo: string,
     firstname: string,
     lastname: string,
     email: string,
@@ -64,15 +64,15 @@ class UserRepository {
     password: string,
   ): Promise<number | null> {
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO user (name, firstname, lastname, email, zipcode, city, adress, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [name, firstname, lastname, email, zipcode, city, adress, password],
+      "INSERT INTO user (pseudo, firstname, lastname, email, zipcode, city, adress, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [pseudo, firstname, lastname, email, zipcode, city, adress, password],
     );
     return result.insertId || null;
   }
 
   async update(id: number, data: User) {
     const query = `UPDATE user SET
-    name = ?,
+    pseudo = ?,
     firstname = ?,
     lastname = ?,
     email = ?,
