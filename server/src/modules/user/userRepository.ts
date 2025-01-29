@@ -4,7 +4,7 @@ import type { Result, Rows } from "../../../database/client";
 
 type User = {
   id: number;
-  name: string;
+  pseudo: string;
   firstname: string;
   lastname: string;
   email: string;
@@ -81,7 +81,7 @@ class UserRepository {
     city = ?
     WHERE id = ?`;
     const [row] = await databaseClient.query<Rows>(query, [
-      data.name,
+      data.pseudo,
       data.firstname,
       data.lastname,
       data.email,

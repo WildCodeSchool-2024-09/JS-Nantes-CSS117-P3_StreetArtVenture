@@ -1,7 +1,7 @@
-type InscriptionFormTypes = {
-  firstName: string;
-  userName: string;
+type InscriptionFormValues = {
+  pseudo: string;
   email: string;
+  firstName: string;
   lastName: string;
   adresse: string;
   city: string;
@@ -10,4 +10,4 @@ type InscriptionFormTypes = {
   confirmPassword: string;
 };
 
-export default InscriptionFormTypes;
+export default InscriptionFormValues;

@@ -45,10 +45,10 @@ const verifyUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-const inscription: RequestHandler = async (req, res, next) => {
+const registration: RequestHandler = async (req, res, next) => {
   try {
     const {
-      name,
+      pseudo,
       email,
       firstname,
       lastname,
@@ -57,14 +57,14 @@ const inscription: RequestHandler = async (req, res, next) => {
       password,
       adress,
     } = req.body;
-    const isUser = await userRepository.isUserYet(name, email);
+    const isUser = await userRepository.isUserYet(pseudo, email);
 
     if (isUser?.length) {
       res.status(409).json({ message: "Cet utilisateur existe deja", isUser });
     }
     {
       const insertId = await userRepository.userInscription(
-        name,
+        pseudo,
         firstname,
         lastname,
         email,
@@ -134,7 +134,7 @@ const deleteUser: RequestHandler = async (req, res, next) => {
 const patch: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
   const {
-    name,
+    pseudo,
     firstname,
     lastname,
     email,
@@ -150,7 +150,7 @@ const patch: RequestHandler = async (req, res, next) => {
   } = req.body;
   const user = await userRepository.patchName({
     id: Number.parseInt(id),
-    name,
+    pseudo,
     firstname,
     lastname,
     email,
@@ -178,5 +178,5 @@ export default {
   update,
   deleteUser,
   patch,
-  inscription,
+  registration,
 };

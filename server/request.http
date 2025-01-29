@@ -23,7 +23,7 @@ POST http://localhost:3310/user/registration HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Juliayrfdrrwrwr",
+  "pseudo": "Juliayrfdrrwrwr",
 	"email": "jguliafdfg@mail.com",
 	"firstname": "Jules",
 	"lastname": "Belhassen",
