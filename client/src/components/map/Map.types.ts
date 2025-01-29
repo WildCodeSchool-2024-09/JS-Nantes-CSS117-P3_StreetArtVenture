@@ -4,6 +4,7 @@ export type WebcamCaptureProps = {
   openCapture: boolean;
   setOpenCapture: React.Dispatch<React.SetStateAction<boolean>>;
   position: number[] | null;
+  onSuccess: () => void;
 };
 
 export type MapComponentProps = {

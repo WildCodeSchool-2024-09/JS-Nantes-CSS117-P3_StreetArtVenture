@@ -127,3 +127,7 @@ div:has(.new-shot:hover) .shadow {
   z-index: 2;
   margin-top: 50px;
 }
+
+.toast-test {
+  position: "bottom-right";
+}
