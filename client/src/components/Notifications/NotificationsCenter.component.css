@@ -1,0 +1,44 @@
+/* container notification-center + profile picture */
+.headerClass > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* style button notification-center */
+.headerClass > div > div > button {
+  background: none;
+  border: none;
+}
+
+.headerClass > div > div > button > img {
+  width: 60px;
+}
+
+/* style list notifications */
+.headerClass > div > div > ul {
+  position: absolute;
+  width: 33vw;
+  right: 0;
+  background-color: white;
+  list-style: none;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+.headerClass > div > div > ul > li {
+  padding: 8px;
+  border: 1px solid rgba(128, 128, 128, 0.666);
+}
+
+/* style new notification */
+.headerClass > div > div > ul > .notification-new {
+  background-color: rgb(237, 195, 203);
+}
+
+/* style seen notification */
+.headerClass > div > div > ul > .notification-seen {
+  background-color: rgb(176, 139, 145) k;
+}

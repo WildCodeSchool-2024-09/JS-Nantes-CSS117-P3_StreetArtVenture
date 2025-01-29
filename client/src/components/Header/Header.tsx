@@ -3,6 +3,7 @@ import "./Header.css";
 import { useEffect } from "react";
 import { useUser } from "../../context/UserContext";
 import Navbar from "../Navbar/Navbar";
+import NotificationsCenter from "../Notifications/NotificationsCenter.component";
 
 function Header() {
   const { user, setUser } = useUser();
@@ -50,27 +51,30 @@ function Header() {
           className="Logo_street"
           src="images/STREET_LOGO.png"
         />
+
         {user ? (
           user.is_admin === 1 ? (
-            <Link to="/test">
-              <img
-                className="user-picture"
-                src="/images/admin_profil.png"
-                alt="picture-user"
-              />
-            </Link>
-          ) : user.is_admin === 0 ? (
-            <Link to="/test">
-              <img
-                className="user-picture"
-                src="/images/user_profil.png"
-                alt="picture-user"
-              />
-            </Link>
+            <div>
+              <NotificationsCenter />
+              <Link to="/test">
+                <img
+                  className="user-picture"
+                  src="/images/admin_profil.png"
+                  alt="picture-user"
+                />
+              </Link>
+            </div>
           ) : (
-            <Link className="link_connecter" to="/connexion">
-              Connexion
-            </Link>
+            <div>
+              <NotificationsCenter />
+              <Link to="/test">
+                <img
+                  className="user-picture"
+                  src="/images/user_profil.png"
+                  alt="picture-user"
+                />
+              </Link>
+            </div>
           )
         ) : (
           <Link className="link_connecter" to="/connexion">
