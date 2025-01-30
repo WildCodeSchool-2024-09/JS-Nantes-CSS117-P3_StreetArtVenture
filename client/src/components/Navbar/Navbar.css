@@ -3,7 +3,7 @@
   width: 50px;
 }
 
-.section_ul {
+.section-ul {
   z-index: 1;
   position: absolute;
   width: 270px;
@@ -17,7 +17,7 @@
   margin-top: 15px;
 }
 
-.link_nav {
+.link-nav {
   font-family: var(--secondary-font);
   color: white;
   font-weight: 100;
@@ -31,12 +31,12 @@
   border: none;
   cursor: pointer;
 }
-.section_ul img {
+.section-ul img {
   width: 100px;
   margin-top: 10px;
   margin-left: 30px;
 }
 
-.link_nav:hover {
+.link-nav:hover {
   color: #4ed060;
 }

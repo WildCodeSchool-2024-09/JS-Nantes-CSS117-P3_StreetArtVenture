@@ -23,47 +23,45 @@ function Navbar() {
     navigate("/");
   };
   return (
-    <>
-      <section className="hamburger">
-        <Hamburger toggled={isOpen} toggle={setOpen} size={50} />
-        {isOpen && (
-          <div>
-            <ul className="section_ul">
-              <Link className="link_nav" to="/map">
-                Jouer
+    <section className="hamburger">
+      <Hamburger toggled={isOpen} toggle={setOpen} size={50} />
+      {isOpen && (
+        <div>
+          <ul className="section-ul">
+            <Link className="link-nav" to="/map">
+              Jouer
+            </Link>
+            {alternator[0] && (
+              <Link className="link-nav" to="/connexion">
+                Connexion
               </Link>
-              {alternator[0] && (
-                <Link className="link_nav" to="/connexion">
-                  Connexion
-                </Link>
-              )}
-              <Link className="link_nav" to="/leaderboard">
-                Classement
-              </Link>
-              <Link className="link_nav" to="/gallery">
-                Les Oeuvres
-              </Link>
-              <Link className="link_nav" to="/test">
-                Admin
-              </Link>
-              <Link className="link_nav" to="/test">
-                Paramètres
-              </Link>
-              {alternator[1] && (
-                <button
-                  type="button"
-                  className="link_nav nav-button"
-                  onClick={handleDeconnection}
-                >
-                  Se déconnecter
-                </button>
-              )}
-              <img src="/forme_blanche.png" alt="forme graphique" />
-            </ul>
-          </div>
-        )}
-      </section>
-    </>
+            )}
+            <Link className="link-nav" to="/leaderboard">
+              Classement
+            </Link>
+            <Link className="link-nav" to="/gallery">
+              Les Oeuvres
+            </Link>
+            <Link className="link-nav" to="/test">
+              Admin
+            </Link>
+            <Link className="link-nav" to="/test">
+              Paramètres
+            </Link>
+            {alternator[1] && (
+              <button
+                type="button"
+                className="link-nav nav-button"
+                onClick={handleDeconnection}
+              >
+                Se déconnecter
+              </button>
+            )}
+            <img src="/forme_blanche.png" alt="forme graphique" />
+          </ul>
+        </div>
+      )}
+    </section>
   );
 }
 

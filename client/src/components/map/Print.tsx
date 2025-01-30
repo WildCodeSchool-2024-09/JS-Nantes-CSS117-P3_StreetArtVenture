@@ -19,7 +19,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   const webcamRef = useRef<Webcam | null>(null);
 
   const geoNotify = () =>
-    toast("Merci d'activer la géolocalisation afin d'accèder à cette option");
+    toast("Merci d'activer la géolocalisation afin d'accéder à cette option");
   const failedNotify = () => toast("Echec lors de l'envoi du fichier");
 
   const capturePhoto = async () => {
