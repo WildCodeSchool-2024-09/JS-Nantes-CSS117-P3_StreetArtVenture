@@ -1,4 +1,4 @@
-.headerClass {
+.header-class {
   background-image: url("images/black_grunge.jpg");
   background-size: cover;
   height: 130px;
@@ -36,13 +36,13 @@
     font-weight: 500;
     font-size: 18px;
   }
-  .headerClass {
+  .header-class {
     padding: 25px;
   }
 }
 
 @media screen and (max-width: 450px) {
-  .headerClass {
+  .header-class {
     justify-content: space-evenly;
     gap: 15px;
     padding: 20px;

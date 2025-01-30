@@ -15,7 +15,7 @@ function Header() {
   }, [setUser]);
   return (
     <>
-      <section className="headerClass">
+      <section className="header-class">
         <Navbar />
         <Link to="/">
           <img
