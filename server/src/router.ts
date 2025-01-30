@@ -33,6 +33,7 @@ router.get(
 );
 router.get("/user/:id", userActions.read);
 router.delete("/user/:id", userActions.deleteUser);
+router.get("/artPiece", artActions.readAll);
 router.get("/statistics/user", statisticsActions.getUserStatistics);
 router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
 router.post("/api/upload", artActions.savePicture, artActions.multerAndSkully);

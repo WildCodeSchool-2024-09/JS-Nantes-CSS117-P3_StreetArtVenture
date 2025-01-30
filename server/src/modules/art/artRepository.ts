@@ -4,6 +4,16 @@ import type { Result, Rows } from "../../../database/client";
 import type { ArtPiece } from "../../types/express/artPiece";
 
 class artRepository {
+  async readAll() {
+    const query =
+      "SELECT name, adress, city, coordinates, is_validated, is_covered, picture_path, description, points_value  FROM art_piece";
+    // Execute the SQL SELECT query to retrieve all art pieces
+    const [rows] = await databaseClient.query<Rows>(query);
+
+    // Return the array of art pieces
+    return rows as ArtPiece[];
+  }
+
   async browseAround(lat: number, lng: number, radius?: number) {
     const query = `SELECT 
     *,
