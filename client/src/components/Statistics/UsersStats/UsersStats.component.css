@@ -1,10 +1,10 @@
-.bloc_user {
+.bloc-user {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-.user_stats {
+.user-stats {
   display: flex;
   gap: 24px;
   color: white;
@@ -14,31 +14,31 @@
   align-items: center;
 }
 
-.green_stats {
+.green-stats {
   color: #94be72;
   font-family: var(--secondary-font);
   font-size: 50px;
 }
 
-.green_stats_2 {
+.green-stats-2 {
   color: #39b54a;
   font-family: var(--secondary-font);
   font-size: 50px;
 }
 
 @media screen and (max-width: 600px) {
-  .user_stats {
+  .user-stats {
     gap: 20px;
     font-size: 28px;
     flex-direction: column;
     text-align: center;
   }
 
-  .green_stats {
+  .green-stats {
     font-size: 28px;
   }
 
-  .green_stats_2 {
+  .green-stats-2 {
     font-size: 28px;
   }
 }

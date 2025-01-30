@@ -7,7 +7,7 @@ function StatisticsPage() {
     <main className="stats-main-container">
       <section className="stats-container">
         <h1>Statistiques du site</h1>
-        <img src="forme_blanche.png" alt="forme garphique blanche" />
+        <img src="forme_blanche.png" alt="forme graphique blanche" />
         <UsersStats />
         <ArtPieceStats />
         <img src="stats_graf.png" alt="statistique graphique" />

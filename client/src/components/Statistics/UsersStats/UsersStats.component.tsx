@@ -32,19 +32,17 @@ function UsersStats() {
   }
 
   return (
-    <span>
-      <div className="bloc_user">
-        <section className="user_stats">
-          <p>Nombre d'utilisateurs :</p>
-          <p className="green_stats">{data.nb_users}</p>
-        </section>
+    <div className="bloc-user">
+      <section className="user-stats">
+        <p>Nombre d'utilisateurs :</p>
+        <p className="green-stats">{data.nb_users}</p>
+      </section>
 
-        <section className="user_stats">
-          <p>Meilleur joueur :</p>
-          <p className="green_stats_2">{player.name}</p>
-        </section>
-      </div>
-    </span>
+      <section className="user-stats">
+        <p>Meilleur joueur :</p>
+        <p className="green-stats-2">{player.name}</p>
+      </section>
+    </div>
   );
 }
 
