@@ -6,7 +6,7 @@ import type { ArtPiece } from "../../types/express/artPiece";
 class artRepository {
   async readAll() {
     const query =
-      "SELECT name, adress, city, coordinates, is_validated, is_covered, picture_path, description, points_value  FROM art_piece";
+      "SELECT id, name, adress, city, coordinates, is_validated, is_covered, picture_path, description, points_value  FROM art_piece";
     // Execute the SQL SELECT query to retrieve all art pieces
     const [rows] = await databaseClient.query<Rows>(query);
 
