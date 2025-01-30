@@ -1,4 +1,4 @@
-.lost-page-background {
+/* .lost-page-background {
   background-image: url("./background-grey.jpg");
   background-size: cover;
   height: 715px;
@@ -88,7 +88,6 @@
 
 .block-green-reported-work {
   width: 39vh;
-  height: 25em;
   background-color: #22b573;
   border-radius: 24px;
   order: 2;
@@ -252,7 +251,6 @@
 
   .block-green-reported-work {
     width: 39vh;
-    height: 30em;
     background-color: #22b573;
   }
   .my-right-button-lost,
@@ -285,4 +283,4 @@
     justify-content: center;
     align-items: center;
   }
-}
+} */
