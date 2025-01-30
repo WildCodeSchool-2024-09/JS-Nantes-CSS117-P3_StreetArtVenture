@@ -27,44 +27,38 @@ function Gallery() {
       : card;
 
   return (
-    <>
-      <section className="artwork-page">
-        <div className="white-card">
-          <h1>Galerie d'oeuvre</h1>
+    <section className="artwork-page">
+      <div className="white-card">
+        <h1>Galerie d'oeuvre</h1>
 
-          <img
-            className="traith1"
-            src="/separator.png"
-            alt="élément graphique"
-          />
+        <img src="/separator.png" alt="élément graphique séparateur" />
 
-          <select className="city" name="city" onChange={handleSelect}>
-            <option>Votre ville</option>
-            {cities.map((cities) => (
-              <option key={cities.city}>{cities.city}</option>
-            ))}
-          </select>
-          <div className="container-owerflow">
-            {filtereArray.map((card) => (
-              <div className="green-container" key={card.id}>
-                <img
-                  className="galerie-oeuvre"
-                  src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
-                  alt=""
-                />
+        <select className="city" name="city" onChange={handleSelect}>
+          <option>Votre ville</option>
+          {cities.map((cities) => (
+            <option key={cities.city}>{cities.city}</option>
+          ))}
+        </select>
+        <section className="container-owerflow">
+          {filtereArray.map((card) => (
+            <div className="green-container" key={card.id}>
+              <img
+                className="galerie-oeuvre"
+                src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
+                alt="oeuvre de street art"
+              />
 
-                <div className="streetart_title" key={card.name}>
-                  {card.name}
-                </div>
-                <div key={card.adress}>
-                  {card.adress}, {card.city}
-                </div>
+              <div className="streetart_title" key={card.name}>
+                {card.name}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+              <div key={card.adress}>
+                {card.adress}, {card.city}
+              </div>
+            </div>
+          ))}
+        </section>
+      </div>
+    </section>
   );
 }
 
