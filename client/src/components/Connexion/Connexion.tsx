@@ -3,9 +3,12 @@ import type { ConnexionProps } from "./Connexion.types";
 import "./Connexion.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
+import { setContextFromToken } from "../../utils/setContextFromToken";
 
 export const Connexion: React.FC<ConnexionProps> = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -74,7 +77,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
 
       const result = await response.json();
       const token = result.token;
-
+      setContextFromToken(token, setUser);
       localStorage.setItem("authToken", token);
 
       navigate("/");
