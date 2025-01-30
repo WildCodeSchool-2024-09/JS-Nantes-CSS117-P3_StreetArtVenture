@@ -8,6 +8,8 @@ import LeaderboardPage from "../pages/leaderboard/LeaderboardPage";
 import MapPage from "../pages/map/MapPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import StatisticsPage from "../pages/statistics/StatisticsPage";
+import AdminProtectedRoute from "./AdminProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 const routes = [
   {
@@ -15,45 +17,54 @@ const routes = [
     element: <Home />,
   },
   {
-    path: "/profile",
-    element: <ProfilePage />,
-  },
-  {
-    path: "/map",
-    element: <MapPage />,
-  },
-  {
     path: "/login",
     element: <Connexion />,
   },
-  {
-    path: "/leaderboard",
-    element: <LeaderboardPage />,
-  },
-
   {
     path: "/register",
     element: <InscriptionForm />,
   },
   {
-    path: "/connexion",
-    element: <Connexion />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/map",
+        element: <MapPage />,
+      },
+      {
+        path: "/leaderboard",
+        element: <LeaderboardPage />,
+      },
+      {
+        path: "/connexion",
+        element: <Connexion />,
+      },
+      {
+        path: "/gallery",
+        element: <Gallery />,
+      },
+    ],
   },
   {
-    path: "/adminvalidation",
-    element: <AdminValidationBoard />,
-  },
-  {
-    path: "/gallery",
-    element: <Gallery />,
-  },
-  {
-    path: "/statistics",
-    element: <StatisticsPage />,
-  },
-  {
-    path: "/lost",
-    element: <Lost />,
+    element: <AdminProtectedRoute />,
+    children: [
+      {
+        path: "/adminvalidation",
+        element: <AdminValidationBoard />,
+      },
+      {
+        path: "/statistics",
+        element: <StatisticsPage />,
+      },
+      {
+        path: "/lost",
+        element: <Lost />,
+      },
+    ],
   },
 ];
 

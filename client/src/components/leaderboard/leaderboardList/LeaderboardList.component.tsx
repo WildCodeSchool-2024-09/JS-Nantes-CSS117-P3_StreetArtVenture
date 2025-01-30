@@ -3,12 +3,7 @@ import type { User } from "../../../types/user";
 import "./leaderboardList.component.css";
 import { format } from "date-fns";
 import AdminModal from "../admin/AdminModal.component";
-
-interface LeaderboardListProps {
-  data: User[];
-  fetchMore: () => void;
-  refreshData: () => void;
-}
+import type { LeaderboardListProps } from "../leaderboard";
 
 function LeaderboardList({
   refreshData,
@@ -21,6 +16,7 @@ function LeaderboardList({
   const [poppedUser, setPoppedUser] = useState<null | User>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // triggers fetchmore function prop when container is scrolled to the bottom
   const handleScroll = async () => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
@@ -35,10 +31,11 @@ function LeaderboardList({
 
   const handleAdminAction = async (id: number, type: "rename" | "ban") => {
     setIsPopupOpen(type);
-    const usrdata = data.filter((el) => el.id === id);
-    setPoppedUser(usrdata[0]);
+    const userData = data.filter((el) => el.id === id);
+    setPoppedUser(userData[0]);
   };
 
+  // handle admin actions ban or rename
   async function handleAdminConfirmation(
     method: "DELETE" | "PATCH",
     e?: FormEvent,

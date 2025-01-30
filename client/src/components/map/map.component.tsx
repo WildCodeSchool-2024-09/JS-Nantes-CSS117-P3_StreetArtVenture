@@ -78,6 +78,7 @@ function MapComponent({
           <WebcamCapture
             openCapture={openCapture}
             setOpenCapture={setOpenCapture}
+            position={position}
           />
         )}
       </MapContainer>

@@ -1,10 +1,6 @@
 import { type ChangeEvent, useEffect, useState } from "react";
 import "./leaderboardFilters.component.css";
-
-interface LeaderboardFiltersProps {
-  handleFormChange: (params: { city: string; name: string }) => void;
-  formData: { city: string; name: string };
-}
+import type { LeaderboardFiltersProps } from "../leaderboard";
 
 function LeaderboardFilters({
   handleFormChange,
@@ -12,6 +8,7 @@ function LeaderboardFilters({
 }: LeaderboardFiltersProps) {
   const [selectData, setSelectData] = useState([]);
 
+  // Fetch the name of the different city to get the select options
   useEffect(() => {
     async function fetchCities() {
       const res = await fetch(
