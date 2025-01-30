@@ -3,11 +3,12 @@ import "./Navbar.css";
 import Hamburger from "hamburger-react";
 import { useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
 function Navbar() {
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
 
   const [isOpen, setOpen] = useState(false);
   const [alternator, setAlternator] = useState([true, false]);
@@ -19,7 +20,7 @@ function Navbar() {
   const handleDeconnection = () => {
     localStorage.removeItem("authToken");
     setUser(null);
-    window.location.href = "/";
+    navigate("/");
   };
   return (
     <>
