@@ -11,7 +11,7 @@ const read: RequestHandler = async (req, res, next) => {
 
     // If the notifications are not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the notifications in JSON format
-    if (notifications == null) {
+    if (!notifications) {
       res.sendStatus(404);
     } else {
       res.json(notifications);
