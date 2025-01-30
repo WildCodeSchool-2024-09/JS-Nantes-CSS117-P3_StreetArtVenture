@@ -17,10 +17,15 @@ function Navbar() {
     setAlternator(() => (!user ? [true, false] : [false, true]));
   }, [user]);
 
+  const handleLinkClick = () => {
+    setOpen(false);
+  };
+
   const handleDeconnection = () => {
     localStorage.removeItem("authToken");
     setUser(null);
     navigate("/");
+    setOpen(false);
   };
   return (
     <section className="hamburger">
@@ -28,24 +33,35 @@ function Navbar() {
       {isOpen && (
         <div>
           <ul className="section-ul">
-            <Link className="link-nav" to="/map">
+            <Link className="link-nav" to="/map" onClick={handleLinkClick}>
               Jouer
             </Link>
             {alternator[0] && (
-              <Link className="link-nav" to="/connexion">
+              <Link
+                className="link-nav"
+                to="/connexion"
+                onClick={handleLinkClick}
+              >
                 Connexion
               </Link>
             )}
-            <Link className="link-nav" to="/leaderboard">
+            <Link className="link-nav" to="/register" onClick={handleLinkClick}>
+              S'inscrire
+            </Link>
+            <Link
+              className="link-nav"
+              to="/leaderboard"
+              onClick={handleLinkClick}
+            >
               Classement
             </Link>
-            <Link className="link-nav" to="/gallery">
+            <Link className="link-nav" to="/gallery" onClick={handleLinkClick}>
               Les Oeuvres
             </Link>
-            <Link className="link-nav" to="/test">
+            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
               Admin
             </Link>
-            <Link className="link-nav" to="/test">
+            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
               Paramètres
             </Link>
             {alternator[1] && (
@@ -64,5 +80,4 @@ function Navbar() {
     </section>
   );
 }
-
 export default Navbar;
