@@ -4,9 +4,11 @@ import Hamburger from "hamburger-react";
 import { useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import type { Usernav } from "../../context/UserContextType";
+import { useUser } from "../../context/UserContext";
 
-function Navbar({ user }: Usernav) {
+function Navbar() {
+  const { user, setUser } = useUser();
+
   const [isOpen, setOpen] = useState(false);
   const [alternator, setAlternator] = useState([true, false]);
 
@@ -16,6 +18,7 @@ function Navbar({ user }: Usernav) {
 
   const handleDeconnection = () => {
     localStorage.removeItem("authToken");
+    setUser(null);
     window.location.href = "/";
   };
   return (

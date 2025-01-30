@@ -15,7 +15,7 @@ function Header() {
   return (
     <>
       <section className="headerClass">
-        <Navbar user={user} />
+        <Navbar />
         <Link to="/">
           <img
             alt="logo Street Art Venture"
