@@ -1,5 +1,6 @@
 import { type ChangeEvent, useEffect, useState } from "react";
 import "./leaderboardFilters.component.css";
+import { fetchWithAuth } from "../../../utils/api";
 import type { LeaderboardFiltersProps } from "../leaderboard";
 
 function LeaderboardFilters({
@@ -11,7 +12,7 @@ function LeaderboardFilters({
   // Fetch the name of the different city to get the select options
   useEffect(() => {
     async function fetchCities() {
-      const res = await fetch(
+      const res = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/leaderboard/getCities`,
       );
       const cities = await res.json();
