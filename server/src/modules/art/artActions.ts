@@ -6,6 +6,19 @@ import multer from "multer";
 // Import access to data
 import artRepository from "./artRepository";
 
+const readAll: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch all art pieces
+    const items = await artRepository.readAll();
+
+    // Respond with the items in JSON format
+    res.json(items);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 const browseAround: RequestHandler = async (req, res, next) => {
   try {
     const { latitude, longitude, radius } = req.query;
@@ -125,6 +138,7 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
 };
 
 export default {
+  readAll,
   browseAround,
   updateAccepted,
   multerAndSkully,
