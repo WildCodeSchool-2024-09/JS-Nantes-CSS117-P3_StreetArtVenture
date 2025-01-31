@@ -4,6 +4,7 @@ import { AdminValidationBoard } from "../components/adminValidationCard/adminVal
 import Gallery from "../components/gallery/Gallery";
 import InscriptionForm from "../components/inscriptionForm/InscriptionForm";
 import Lost from "../components/lost/Lost";
+import AdminArtPieceListPage from "../pages/adminArtPieceList/AdminArtPieceListPage";
 import LeaderboardPage from "../pages/leaderboard/LeaderboardPage";
 import MapPage from "../pages/map/MapPage";
 import ProfilePage from "../pages/profile/ProfilePage";
@@ -63,6 +64,10 @@ const routes = [
       {
         path: "/lost",
         element: <Lost />,
+      },
+      {
+        path: "/art-piece-list",
+        element: <AdminArtPieceListPage />,
       },
     ],
   },
