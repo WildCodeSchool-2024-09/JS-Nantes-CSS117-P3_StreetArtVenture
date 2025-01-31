@@ -58,7 +58,7 @@ function Gallery() {
                 <img
                   className="galerie-oeuvre"
                   src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
-                  alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
+                  alt={`Art street, ${card.picture_path}`}
                 />
 
                 <div className="streetart" key={card.name}>
