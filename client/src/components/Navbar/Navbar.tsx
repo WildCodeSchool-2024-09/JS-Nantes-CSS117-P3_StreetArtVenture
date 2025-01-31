@@ -2,9 +2,12 @@ import { useState } from "react";
 import "./Navbar.css";
 import Hamburger from "hamburger-react";
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 function Navbar() {
   const [isOpen, setOpen] = useState(false);
+
+  const { user } = useUser();
 
   const handleLinkClick = () => {
     setOpen(false);
@@ -46,15 +49,41 @@ function Navbar() {
                 to="/gallery"
                 onClick={handleLinkClick}
               >
-                Les Oeuvres
-              </Link>
-              <Link className="link_nav" to="/test" onClick={handleLinkClick}>
-                Admin
-              </Link>
-              <Link className="link_nav" to="/test" onClick={handleLinkClick}>
-                Paramètres
+                Galerie
               </Link>
               <img src="/forme_blanche.png" alt="forme graphique" />
+              {!!user?.is_admin && (
+                <>
+                  <Link
+                    className="link_nav"
+                    to="/art-piece-list"
+                    onClick={handleLinkClick}
+                  >
+                    Liste des oeuvres
+                  </Link>
+                  <Link
+                    className="link_nav"
+                    to="/lost"
+                    onClick={handleLinkClick}
+                  >
+                    Signalements
+                  </Link>
+                  <Link
+                    className="link_nav"
+                    to="/adminvalidation"
+                    onClick={handleLinkClick}
+                  >
+                    Validation
+                  </Link>
+                  <Link
+                    className="link_nav"
+                    to="/statistics"
+                    onClick={handleLinkClick}
+                  >
+                    Statistiques
+                  </Link>
+                </>
+              )}
             </ul>
           </div>
         )}
