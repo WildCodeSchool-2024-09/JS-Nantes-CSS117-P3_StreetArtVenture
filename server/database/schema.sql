@@ -170,12 +170,12 @@ VALUES
   ('Oeil du Cyclone', "/assets/images/art_piece_1.jpg", 'Hôtel de Ville', "Angers",  POINT(47.474834, -0.549197), FALSE, FALSE, 'Graffiti représentant un œil immense, vision du monde moderne vu comme un cyclone.', 10),
   ('Dans le Vent', "/assets/images/art_piece_1.jpg", 'Rue de la Croix de Lorette', "Angers",  POINT(47.472874, -0.552905), TRUE, FALSE, 'Oeuvre inspirée par la légèreté du vent, avec des formes abstraites.', 100),
   ('Ultime Danse', "/assets/images/art_piece_1.jpg", 'Place du Général Leclerc', "Angers",  POINT(47.470958, -0.553544), FALSE, FALSE, 'Peinture murale qui capture un mouvement de danse effréné.', 20),
-  ('Changement des Époques', "/assets/images/art_piece_1.jpg", 'Rue de la Fonderie', "Angers",  POINT(47.472273, -0.551391), TRUE, FALSE, 'Graffiti qui dépeint les changements sociaux et les transitions culturelles.', 50);
+  ('Changement des Époques', "/assets/images/streetartbuilding.jpeg", 'Rue de la Fonderie', "Angers",  POINT(47.472273, -0.551391), TRUE, FALSE, 'Graffiti qui dépeint les changements sociaux et les transitions culturelles.', 50);
 
 INSERT INTO reported_art_piece (art_piece_id, picture_path, user_id, timestamp)
 VALUES
   (3,"/assets/images/streetartreported-compared.jpeg", 45, '2020-03-15 09:23:00'),
-  (18,"/assets/images/streetartreported-compared.jpeg", 29, '2021-07-21 14:12:00'),
+  (18,"/assets/images/streetart-woman.jpeg", 29, '2021-07-21 14:12:00'),
   (10,"/assets/images/streetartreported-compared.jpeg", 72, '2022-01-09 17:45:00'),
   (8,"/assets/images/streetartreported-compared.jpeg", 11, '2022-11-05 11:30:00'),
   (1,"/assets/images/streetartreported-compared.jpeg", 58, '2023-04-10 16:05:00'),
