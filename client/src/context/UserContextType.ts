@@ -2,7 +2,7 @@ export type User = {
   id: number;
   email: string;
   isAdmin: number;
-  is_ban: number;
+  isBanned: number;
   iat: number;
   exp: number;
 };

@@ -14,7 +14,7 @@ type User = {
   password: string;
   points: number;
   isAdmin: boolean;
-  is_ban: boolean;
+  isBanned: boolean;
   creation_date: Date;
   last_connection: Date;
 };
