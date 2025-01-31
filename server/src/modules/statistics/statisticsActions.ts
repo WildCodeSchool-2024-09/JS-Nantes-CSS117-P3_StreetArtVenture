@@ -21,4 +21,18 @@ const getArtPiecesStatistics: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { getUserStatistics, getArtPiecesStatistics };
+const getPlayerStatistics: RequestHandler = async (req, res, next) => {
+  try {
+    const stats = await statisticsRepository.getPlayerStatistics();
+    if (!stats) res.sendStatus(404);
+    else res.json(stats);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default {
+  getUserStatistics,
+  getArtPiecesStatistics,
+  getPlayerStatistics,
+};

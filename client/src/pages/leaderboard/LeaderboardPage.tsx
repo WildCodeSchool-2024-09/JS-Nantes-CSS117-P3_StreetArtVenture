@@ -2,15 +2,10 @@ import { useEffect, useState } from "react";
 import LeaderboardFilters from "../../components/leaderboard/leaderboardFIlters/LeaderboardFilters.component";
 import LeaderboardList from "../../components/leaderboard/leaderboardList/LeaderboardList.component";
 import "./leaderboardPage.css";
-import LeaderboardUserData from "../../components/leaderboard/leaderboardUserData/leaderboardUserData.component";
+import LeaderboardUserData from "../../components/leaderboard/leaderboardUserData/LeaderboardUserData.component";
+import { useUser } from "../../context/UserContext";
 import type { User } from "../../types/user";
-
-// TODO UNE FOIS LE SYSTÈME DE CONNEXION MIS EN PLACE
-// Utiliser l'id du user connecté, pour l'instant écrit en brut
-const USER_ID = 5;
-// TODO UNE FOIS LE SYSTÈME DE CONNEXION MIS EN PLACE
-// créer une variable qui determine si l'utilisateur connecté est un admin
-const isAdmin = true;
+import { fetchWithAuth } from "../../utils/api";
 
 function LeaderboardPage() {
   const [data, setData] = useState<null | User[]>(null);
@@ -18,18 +13,20 @@ function LeaderboardPage() {
   const [filters, setFilters] = useState({ city: "", name: "" });
   const [page, setPage] = useState(0);
 
+  const { user } = useUser();
+  const isAdmin = user?.isAdmin;
   // On mount, fetch without filters the top 10 + user data
   useEffect(() => {
     async function fetchUserData() {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/leaderboard/getUserData/${USER_ID}`,
+      const res = await fetchWithAuth(
+        `${import.meta.env.VITE_API_URL}/leaderboard/getUserData/${user?.id}`,
       );
-      const user = await res.json();
-      setUserData(user[0]);
+      const leaderboardUserData = await res.json();
+      setUserData(leaderboardUserData[0]);
     }
     fetchUserData();
     fetchDefaultLeaderboard();
-  }, []);
+  }, [user]);
 
   // Filter management function
   useEffect(() => {
@@ -40,7 +37,7 @@ function LeaderboardPage() {
         const query = isAdmin
           ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`
           : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`;
-        const res = await fetch(query);
+        const res = await fetchWithAuth(query);
         const users = await res.json();
         setData(users);
       }
@@ -50,7 +47,7 @@ function LeaderboardPage() {
     return () => {
       clearTimeout(handler);
     };
-  }, [filters]);
+  }, [filters, isAdmin]);
 
   // Scroll management function
   async function fetchMore() {
@@ -58,7 +55,7 @@ function LeaderboardPage() {
     const query = isAdmin
       ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`
       : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`;
-    const res = await fetch(query);
+    const res = await fetchWithAuth(query);
     const users = await res.json();
     if (users) {
       let newData = data as User[];
@@ -74,7 +71,7 @@ function LeaderboardPage() {
     const endpoint = isAdmin
       ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard`
       : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard`;
-    const res = await fetch(endpoint);
+    const res = await fetchWithAuth(endpoint);
     const users = await res.json();
     setData(users);
   }

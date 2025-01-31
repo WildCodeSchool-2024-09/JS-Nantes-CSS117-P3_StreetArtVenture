@@ -1,28 +1,12 @@
 import { verify } from "node:crypto";
 import databaseClient from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
-
-type User = {
-  id: number;
-  name: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  zipcode: number;
-  adress: string;
-  city: string;
-  password: string;
-  points: number;
-  isAdmin: boolean;
-  isBanned: boolean;
-  creation_date: Date;
-  last_connection: Date;
-};
+import type User from "../user/userTypes";
 
 class UserRepository {
   async read(id: number) {
     const [row] = await databaseClient.query<Rows>(
-      "SELECT name, firstname, lastname, email, zipcode, city, adress FROM user WHERE id = ?",
+      "SELECT pseudo, firstname, lastname, email, zipcode, city, adress FROM user WHERE id = ?",
       [id],
     );
     return row as User[];
@@ -44,9 +28,35 @@ class UserRepository {
     return rows as User[];
   }
 
+  async isUserYet(name: string, email: string): Promise<User[] | null> {
+    const [rows] = await databaseClient.query<Rows>(
+      "select email, pseudo from user where email = ? or pseudo = ?",
+      [email, name],
+    );
+
+    return rows as User[];
+  }
+
+  async userInscription(
+    pseudo: string,
+    firstname: string,
+    lastname: string,
+    email: string,
+    zipcode: string,
+    adress: string,
+    city: string,
+    password: string,
+  ): Promise<number | null> {
+    const [result] = await databaseClient.query<Result>(
+      "INSERT INTO user (pseudo, firstname, lastname, email, zipcode, city, adress, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [pseudo, firstname, lastname, email, zipcode, city, adress, password],
+    );
+    return result.insertId || null;
+  }
+
   async update(id: number, data: User) {
     const query = `UPDATE user SET
-    name = ?,
+    pseudo = ?,
     firstname = ?,
     lastname = ?,
     email = ?,
@@ -55,7 +65,7 @@ class UserRepository {
     city = ?
     WHERE id = ?`;
     const [row] = await databaseClient.query<Rows>(query, [
-      data.name,
+      data.pseudo,
       data.firstname,
       data.lastname,
       data.email,
@@ -89,4 +99,5 @@ class UserRepository {
     return row as User[];
   }
 }
+
 export default new UserRepository();

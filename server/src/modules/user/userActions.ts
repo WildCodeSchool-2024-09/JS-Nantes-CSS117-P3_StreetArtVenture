@@ -45,6 +45,51 @@ const verifyUser: RequestHandler = async (req, res, next) => {
   }
 };
 
+const registration: RequestHandler = async (req, res, next) => {
+  try {
+    const {
+      pseudo,
+      email,
+      firstname,
+      lastname,
+      zipcode,
+      city,
+      password,
+      adress,
+    } = req.body;
+    const isUser = await userRepository.isUserYet(pseudo, email);
+
+    if (isUser?.length) {
+      res.status(409).json({ message: "Cet utilisateur existe deja", isUser });
+    }
+    {
+      const insertId = await userRepository.userInscription(
+        pseudo,
+        firstname,
+        lastname,
+        email,
+        zipcode,
+        adress,
+        city,
+        password,
+      );
+
+      if (!insertId) {
+        res.status(500).json({
+          message:
+            "Il y a eu un probleme lors de votre inscription, veuillez reessayer",
+        });
+      } else {
+        res
+          .status(201)
+          .json({ insertId, message: "Utilisateur créé avec succès" });
+      }
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const read: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific user based on the provided ID
@@ -86,10 +131,10 @@ const deleteUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-const patch: RequestHandler = async (req, res, net) => {
+const patch: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
   const {
-    name,
+    pseudo,
     firstname,
     lastname,
     email,
@@ -105,7 +150,7 @@ const patch: RequestHandler = async (req, res, net) => {
   } = req.body;
   const user = await userRepository.patchName({
     id: Number.parseInt(id),
-    name,
+    pseudo,
     firstname,
     lastname,
     email,
@@ -126,4 +171,12 @@ const patch: RequestHandler = async (req, res, net) => {
   }
 };
 
-export default { verifyUser, verifyToken, read, update, deleteUser, patch };
+export default {
+  verifyUser,
+  verifyToken,
+  read,
+  update,
+  deleteUser,
+  patch,
+  registration,
+};
