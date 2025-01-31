@@ -24,7 +24,7 @@ function Header() {
           />
         </Link>
         {user ? (
-          user.is_admin === 1 ? (
+          user.isAdmin === 1 ? (
             <Link to="/profile">
               <img
                 className="user-picture"
@@ -32,7 +32,7 @@ function Header() {
                 alt="picture-user"
               />
             </Link>
-          ) : user.is_admin === 0 ? (
+          ) : user.isAdmin === 0 ? (
             <Link to="/profile">
               <img
                 className="user-picture"

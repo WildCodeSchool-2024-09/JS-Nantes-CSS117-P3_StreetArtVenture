@@ -52,7 +52,7 @@ function Navbar() {
                 Galerie
               </Link>
               <img src="/forme_blanche.png" alt="forme graphique" />
-              {!!user?.is_admin && (
+              {!!user?.isAdmin && (
                 <>
                   <Link
                     className="link_nav"

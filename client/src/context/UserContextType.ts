@@ -1,7 +1,7 @@
 export type User = {
   id: number;
   email: string;
-  is_admin: number;
+  isAdmin: number;
   is_ban: number;
   iat: number;
   exp: number;
