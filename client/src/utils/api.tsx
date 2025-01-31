@@ -1,4 +1,4 @@
-const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
+export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
   // On récupère notre JWT dans le localstorage
   const token = localStorage.getItem("authToken");
 
