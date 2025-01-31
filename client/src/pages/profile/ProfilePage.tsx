@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import "./profilePage.css";
+import { useUser } from "../../context/UserContext";
 import type { UserProfileData } from "../../types/user";
+import { fetchWithAuth } from "../../utils/api";
 import validationRules from "./ValidationRules";
-
-// TODO UNE FOIS LE SYSTÈME DE CONNEXION MIS EN PLACE
-// Utiliser l'id du user connecté, pour l'instant écrit en brut
-const USER_ID = 5;
 
 function ProfilePage() {
   const [isLocked, setIsLocked] = useState(true);
   const [data, setData] = useState<null | UserProfileData>(null);
+
+  const { user } = useUser();
 
   const {
     register,
@@ -32,15 +32,15 @@ function ProfilePage() {
   useEffect(() => {
     // get user informations to pre-fill the inputs
     async function fetchUserData() {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/user/${USER_ID}`,
+      const res = await fetchWithAuth(
+        `${import.meta.env.VITE_API_URL}/user/${user?.id}`,
       );
       const userData = await res.json();
       setData(userData[0]);
       reset(userData[0]);
     }
     fetchUserData();
-  }, [reset]);
+  }, [reset, user]);
 
   const onSubmit: SubmitHandler<UserProfileData> = (formData) => {
     if (isLocked) {
@@ -48,8 +48,7 @@ function ProfilePage() {
       return;
     }
 
-    // TODO: Ajouter logique pour envoyer les nouvelles informations au backend
-    fetch(`${import.meta.env.VITE_API_URL}/user/${USER_ID}`, {
+    fetchWithAuth(`${import.meta.env.VITE_API_URL}/user/${user?.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
