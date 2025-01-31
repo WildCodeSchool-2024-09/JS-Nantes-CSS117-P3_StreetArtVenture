@@ -35,8 +35,12 @@ router.get("/user/:id", userActions.read);
 router.delete("/user/:id", userActions.deleteUser);
 router.get("/statistics/user", statisticsActions.getUserStatistics);
 router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
+router.get("/statistics/player", statisticsActions.getPlayerStatistics);
+
 router.post("/api/upload", artActions.savePicture, artActions.multerAndSkully);
+
 router.post("/art/newArt", artActions.updateAccepted);
+
 /* ******************************************************************** */
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
