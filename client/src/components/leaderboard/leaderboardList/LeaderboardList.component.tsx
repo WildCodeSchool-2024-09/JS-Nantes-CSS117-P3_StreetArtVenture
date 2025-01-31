@@ -2,6 +2,7 @@ import { type FormEvent, useRef, useState } from "react";
 import type { User } from "../../../types/user";
 import "./leaderboardList.component.css";
 import { format } from "date-fns";
+import { fetchWithAuth } from "../../../utils/api";
 import AdminModal from "../admin/AdminModal.component";
 import type { LeaderboardListProps } from "../leaderboard";
 
@@ -45,20 +46,26 @@ function LeaderboardList({
       const form = e?.target as HTMLFormElement;
       const input = form.elements[0] as HTMLInputElement;
       if (method === "PATCH" && !input.value) return;
-      await fetch(`${import.meta.env.VITE_API_URL}/user/${poppedUser?.id}`, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
+      await fetchWithAuth(
+        `${import.meta.env.VITE_API_URL}/user/${poppedUser?.id}`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: input.value }),
         },
-        body: JSON.stringify({ name: input.value }),
-      });
+      );
     } else
-      await fetch(`${import.meta.env.VITE_API_URL}/user/${poppedUser?.id}`, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
+      await fetchWithAuth(
+        `${import.meta.env.VITE_API_URL}/user/${poppedUser?.id}`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
     setIsPopupOpen(false);
     setPoppedUser(null);
     refreshData();

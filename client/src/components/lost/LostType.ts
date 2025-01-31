@@ -4,6 +4,7 @@ export type CoordinateI = {
 };
 
 export type LostI = {
+  picture_path: number;
   art_piece_id: number;
   user_id: number;
   timestamp: string;
