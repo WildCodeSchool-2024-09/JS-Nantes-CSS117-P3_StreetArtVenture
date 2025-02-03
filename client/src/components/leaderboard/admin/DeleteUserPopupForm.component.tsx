@@ -7,7 +7,7 @@ function DeleteUserPopupForm({
 }: DeleteUserPopupFormProps) {
   return (
     <>
-      <p>es-tu sûr de vouloir bannir l'utilisateur {poppedUser.name}</p>
+      <p>es-tu sûr de vouloir bannir l'utilisateur {poppedUser.username}</p>
       <button
         onClick={() => {
           setIsPopupOpen(false);

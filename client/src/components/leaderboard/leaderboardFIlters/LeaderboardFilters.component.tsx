@@ -26,7 +26,7 @@ function LeaderboardFilters({
   ) {
     e.target.localName === "select"
       ? handleFormChange({ ...formData, city: e.target.value })
-      : handleFormChange({ ...formData, name: e.target.value });
+      : handleFormChange({ ...formData, username: e.target.value });
   }
 
   return (
@@ -56,9 +56,9 @@ function LeaderboardFilters({
       <input
         className="montserrat"
         onChange={handleChange}
-        value={formData.name}
+        value={formData.username}
         type="text"
-        placeholder="Pseudo"
+        placeholder="Pseudonyme"
       />
     </div>
   );

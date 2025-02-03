@@ -10,7 +10,7 @@ const isAdmin: RequestHandler = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
       id: number;
-      name: string;
+      username: string;
       role: string;
       exp: number;
     };

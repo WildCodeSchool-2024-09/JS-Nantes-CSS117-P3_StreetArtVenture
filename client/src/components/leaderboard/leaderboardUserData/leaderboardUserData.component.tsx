@@ -7,7 +7,7 @@ function LeaderboardUserData({ data }: { data: User }) {
       <hr className="leaderboard-page-separator" />
       <ul className="leaderboard-informations-container leaderboard-page-user-ranking">
         <li className="montserrat">{data.rank}</li>
-        <li className="montserrat">{data.name}</li>
+        <li className="montserrat">{data.username}</li>
         <li className="montserrat">{data.points}</li>
       </ul>
     </>
