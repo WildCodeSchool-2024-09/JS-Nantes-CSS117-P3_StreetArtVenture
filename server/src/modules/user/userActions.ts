@@ -32,8 +32,8 @@ const verifyUser: RequestHandler = async (req, res, next) => {
         {
           id: user[0].id,
           email: user[0].email,
-          is_admin: user[0].is_admin,
-          is_ban: user[0].is_ban,
+          isAdmin: user[0].isAdmin,
+          isBanned: user[0].isBanned,
         },
         JWT_SECRET,
         { expiresIn: reminder },
@@ -143,8 +143,8 @@ const patch: RequestHandler = async (req, res, next) => {
     city,
     password,
     points,
-    is_admin,
-    is_ban,
+    isAdmin,
+    isBanned,
     creation_date,
     last_connection,
   } = req.body;
@@ -159,8 +159,8 @@ const patch: RequestHandler = async (req, res, next) => {
     city,
     password,
     points,
-    is_admin,
-    is_ban,
+    isAdmin,
+    isBanned,
     creation_date,
     last_connection,
   });

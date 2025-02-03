@@ -14,7 +14,7 @@ function LeaderboardPage() {
   const [page, setPage] = useState(0);
 
   const { user } = useUser();
-  const isAdmin = user?.is_admin;
+  const isAdmin = user?.isAdmin;
   // On mount, fetch without filters the top 10 + user data
   useEffect(() => {
     async function fetchUserData() {
