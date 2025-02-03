@@ -1,8 +1,8 @@
 export type User = {
   id: number;
   email: string;
-  is_admin: number;
-  is_ban: number;
+  isAdmin: number;
+  isBanned: number;
   iat: number;
   exp: number;
 };

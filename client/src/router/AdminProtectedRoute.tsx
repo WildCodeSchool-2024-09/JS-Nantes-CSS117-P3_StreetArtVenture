@@ -18,7 +18,7 @@ const AdminProtectedRoute = () => {
         },
       );
       const result = await req.json();
-      if (!result || !result.decodedToken || !result.decodedToken.is_admin)
+      if (!result || !result.decodedToken || !result.decodedToken.isAdmin)
         return setAuth(false);
       setAuth(true);
     }
