@@ -3,8 +3,9 @@ export interface ArtPiece {
   name: string;
   adress: string;
   coordinates: { x: number; y: number };
-  is_validated: boolean;
-  is_covered: boolean;
+  city: string;
+  is_validated: number;
+  is_covered: number;
   description: string;
   points_value: number | null;
   picture_path: string;
