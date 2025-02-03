@@ -6,8 +6,8 @@ const validationRules = {
       message: "Le nom d'utilisateur doit contenir moins de 25 caractères",
     },
     minLength: {
-      value: 4,
-      message: "Le nom d'utilisateur doit contenir au moins 4 caractères",
+      value: 3,
+      message: "Le nom d'utilisateur doit contenir au moins 3 caractères",
     },
   },
 
@@ -74,7 +74,7 @@ const validationRules = {
   password: {
     required: "Vous n'avez pas renseigné votre mot de passe",
     pattern: {
-      value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
+      value: /^(?=.*\d)(?=.*[\W_]).{5,}$/,
       message:
         "Votre mot de passe doit contenir au minimum 5 caracteres dont 1 caractere special et 1 chiffre",
     },
