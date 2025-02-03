@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./Print.css";
-import { toast } from "react-toastify";
 import { useUser } from "../../context/UserContext";
+import useToast from "../../utils/useToast";
 import type { Coordinates, WebcamCaptureProps } from "./Map.types";
 
 const WebcamCapture: React.FC<WebcamCaptureProps> = ({
@@ -11,16 +11,14 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   position,
   onSuccess,
 }) => {
+  const { information, failed } = useToast();
+
   const { user } = useUser();
   const [previsualisation, setPrevisualisation] = useState(true);
   const [showPicture, setShowPicture] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [coordinates, setCoordinates] = useState<Coordinates | null>(null);
   const webcamRef = useRef<Webcam | null>(null);
-
-  const geoNotify = () =>
-    toast("Merci d'activer la géolocalisation afin d'accéder à cette option");
-  const failedNotify = () => toast("Echec lors de l'envoi du fichier");
 
   const capturePhoto = async () => {
     if (webcamRef.current) {
@@ -51,7 +49,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
               address: data.address.road || "Adresse inconnue",
             });
           } catch (error) {
-            geoNotify();
+            information(
+              "Merci d'activer la géolocalisation afin d'accéder à cette option",
+            );
           }
         }
       }
@@ -100,13 +100,13 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
           },
         );
         if (!toSend.ok) {
-          failedNotify();
+          failed("Echec lors de l'envoi du fichier");
         }
         setOpenCapture(!openCapture);
         onSuccess();
       }
     } catch (error) {
-      failedNotify();
+      failed("Echec lors de l'envoi du fichier");
       console.error("Erreur réseau :", error);
     }
   };
