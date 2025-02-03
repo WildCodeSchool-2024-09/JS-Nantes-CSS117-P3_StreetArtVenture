@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import "./gallery.css";
-import backgroundimage from "/background-grey.jpg";
-import traith1 from "/trait-h1-artwork.tsx.png";
 import type { CardI } from "./GalleryType";
 
 function Gallery() {
@@ -29,50 +27,41 @@ function Gallery() {
       : card;
 
   return (
-    <>
-      <section className="artwork-page">
+    <main className="artwork-page">
+      <div className="galery-main-container">
+        <h1>GALERIE D’œuvres</h1>
         <img
-          className="background-gray"
-          src={backgroundimage}
+          className="traith1"
+          src="/trait-h1-artwork.tsx.png"
           alt="background gray if from lighter to darker"
         />
 
-        <div className="white-card">
-          <h1>Galerie d'oeuvre</h1>
+        <select className="city" name="city" onChange={handleSelect}>
+          <option>Ville</option>
+          {cities.map((cities) => (
+            <option key={cities.city}>{cities.city}</option>
+          ))}
+        </select>
+        <ul className="gallery-card-container">
+          {filtereArray.map((card) => (
+            <li className="gallery-card" key={card.id}>
+              <img
+                className="galerie-oeuvre"
+                src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
+                alt={`${card.description || "art piece"}`}
+              />
 
-          <img
-            className="traith1"
-            src={traith1}
-            alt="background gray if from lighter to darker"
-          />
-
-          <select className="city" name="city" onChange={handleSelect}>
-            <option>Votre ville</option>
-            {cities.map((cities) => (
-              <option key={cities.city}>{cities.city}</option>
-            ))}
-          </select>
-          <div className="container-owerflow">
-            {filtereArray.map((card) => (
-              <div className="green-container" key={card.id}>
-                <img
-                  className="galerie-oeuvre"
-                  src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
-                  alt='The street art piece features the phrase "Life is a miracle, enjoy it!" in a stylish cursive font on a brick wall. The bold, black and white lettering adds a visually striking artistic flair to the message'
-                />
-
-                <div className="streetart" key={card.name}>
-                  {card.name}
-                </div>
-                <div className="streetart" key={card.adress}>
-                  {card.adress}, {card.city}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+              <p className="streetart" key={card.name}>
+                {card.name}
+              </p>
+              <p className="streetart" key={card.adress}>
+                {card.adress}, {card.city}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </main>
   );
 }
 

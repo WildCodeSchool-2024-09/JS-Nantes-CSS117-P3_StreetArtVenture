@@ -11,7 +11,7 @@ class ArtPieceRepository {
   async getCities() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await databaseClient.query<Rows>(
-      "select city FROM user GROUP BY city",
+      "select city FROM art_piece GROUP BY city",
     );
 
     // Return the array of items
