@@ -2,7 +2,7 @@ import databaseClient from "../../../database/client";
 
 import type { Result, Rows } from "../../../database/client";
 
-import type { ReportedArtPIece } from "../reported_art_piece/types/reportedArtPiece";
+import type { ReportedArtPIece } from "./reportedArtPiece.d.ts";
 
 class ReportedArtPieceRepository {
   async readAll() {
