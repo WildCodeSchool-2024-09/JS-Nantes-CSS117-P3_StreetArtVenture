@@ -112,5 +112,5 @@
 .my-left-button-lost > img {
   transform: rotate(180deg);
 }
-@media screen and (max-width: 874px) {
-}
+/* @media screen and (max-width: 874px) {
+} */

@@ -57,8 +57,6 @@ function Lost() {
       if (!response.ok) {
         throw new Error("Erreur lors de la validation du signalement.");
       }
-
-      console.log("Signalement validé avec succès.");
     } catch (error) {
       console.error(error);
     } finally {
@@ -80,9 +78,6 @@ function Lost() {
       if (!response.ok) {
         throw new Error("Erreur lors du refus du signalement.");
       }
-
-      console.log("Signalement refusé avec succès.");
-
       const itemToUpdate = reported.find(
         (item) => item.art_piece_id === art_piece_id,
       );
