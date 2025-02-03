@@ -29,71 +29,75 @@ function Lost() {
     fetchReportedData();
   }, []);
 
-  const validateReport = async (artPieceId: number) => {
-    if (isLoading) return;
-    setIsLoading(true);
+  const updateReportedData = (updatedData: LostI[]) => {
+    setReported((prevReported) =>
+      prevReported.filter(
+        (item) =>
+          !updatedData.some(
+            (updatedItem) => updatedItem.art_piece_id === item.art_piece_id,
+          ),
+      ),
+    );
+  };
 
+  const validateReport = async (art_piece_id: number) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/user/reporting`,
+        `${import.meta.env.VITE_API_URL}/reports/validate/${art_piece_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: "validated" }),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la validation du signalement.");
+      }
+
+      console.log("Signalement validé avec succès.");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      refuseReport(art_piece_id);
+      setIsLoading(false);
+    }
+  };
+
+  const refuseReport = async (art_piece_id: number) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/reports/refuse/${art_piece_id}`,
         {
           method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
         },
       );
 
-      if (response.ok) {
-        const updatedReports = reported.map((report) =>
-          report.art_piece_id === artPieceId
-            ? { ...report, is_covered: true }
-            : report,
-        );
-        setReported(updatedReports);
-        alert("Signalement validé !");
+      if (!response.ok) {
+        throw new Error("Erreur lors du refus du signalement.");
+      }
+
+      console.log("Signalement refusé avec succès.");
+
+      const itemToUpdate = reported.find(
+        (item) => item.art_piece_id === art_piece_id,
+      );
+      if (itemToUpdate) {
+        updateReportedData([itemToUpdate]);
       } else {
-        throw new Error("Erreur lors de la validation du signalement");
+        console.error("Signalement introuvable.");
       }
     } catch (error) {
-      console.error("Erreur :", error);
-      alert("Une erreur est survenue lors de la validation.");
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const refuseReport = async (artPieceId: number) => {
-    if (isLoading) return;
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/user/reporting`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      if (response.ok) {
-        const updatedReports = reported.filter(
-          (report) => report.art_piece_id !== artPieceId,
-        );
-        setReported(updatedReports);
-        alert("Signalement refusé et ticket supprimé !");
-      } else {
-        throw new Error("Erreur lors du refus du signalement");
-      }
-    } catch (error) {
-      console.error("Erreur :", error);
-      alert("Une erreur est survenue lors du refus.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
   const handleClickInc = () => {
     if (changeCard < reported.length - 1) {
       setChangeCard(changeCard + 1);
@@ -137,8 +141,8 @@ function Lost() {
                     alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
                   />
                 </figcaption>
-                ;{(() => {
-                  const coordinates = reported[changeCard].coordinates
+                {(() => {
+                  const coordinates: string = reported[changeCard].coordinates
                     ? `Lat: ${reported[changeCard].coordinates.x}, Long: ${reported[changeCard].coordinates.y}`
                     : "Coordonnées non disponibles";
 
@@ -173,7 +177,7 @@ function Lost() {
                   className="btn-validation-lost"
                   type="button"
                   onClick={() =>
-                    validateReport(reported[reported.length - 1].art_piece_id)
+                    validateReport(reported[changeCard].art_piece_id)
                   }
                   disabled={isLoading}
                 >
@@ -183,7 +187,7 @@ function Lost() {
                   className="btn-refusal-lost"
                   type="button"
                   onClick={() =>
-                    refuseReport(reported[reported.length - 1].picture_path)
+                    refuseReport(reported[changeCard].art_piece_id)
                   }
                   disabled={isLoading}
                 >
