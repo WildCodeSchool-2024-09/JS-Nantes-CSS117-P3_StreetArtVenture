@@ -25,7 +25,7 @@ function Header() {
           />
         </Link>
         {user ? (
-          user.is_admin === 1 ? (
+          user.isAdmin === 1 ? (
             <div>
               <NotificationsCenter />
               <Link to="/profile">

@@ -9,8 +9,8 @@ type User = {
   city: string;
   password: string;
   points: number;
-  is_admin: boolean;
-  is_ban: boolean;
+  isAdmin: boolean;
+  isBanned: boolean;
   creation_date: Date;
   last_connection: Date;
 };

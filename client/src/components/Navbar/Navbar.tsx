@@ -74,6 +74,34 @@ function Navbar() {
               </button>
             )}
             <img src="/forme_blanche.png" alt="forme graphique" />
+            {!!user?.isAdmin && (
+              <>
+                <Link
+                  className="link-nav"
+                  to="/art-piece-list"
+                  onClick={handleLinkClick}
+                >
+                  Liste des oeuvres
+                </Link>
+                <Link className="link-nav" to="/lost" onClick={handleLinkClick}>
+                  Signalements
+                </Link>
+                <Link
+                  className="link-nav"
+                  to="/adminvalidation"
+                  onClick={handleLinkClick}
+                >
+                  Validation
+                </Link>
+                <Link
+                  className="link-nav"
+                  to="/statistics"
+                  onClick={handleLinkClick}
+                >
+                  Statistiques
+                </Link>
+              </>
+            )}
           </ul>
         </div>
       )}
