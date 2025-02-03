@@ -9,7 +9,7 @@ export interface User {
   adress: string;
   password: string;
   points: number;
-  is_admin: number;
+  isAdmin: number;
   creation_date: string;
   last_connection: string;
   rank?: number;
