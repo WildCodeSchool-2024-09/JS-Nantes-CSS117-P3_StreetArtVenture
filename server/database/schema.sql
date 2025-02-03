@@ -57,7 +57,7 @@ CREATE TABLE notifications (
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
-INSERT INTO user(name, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection) VALUES
+INSERT INTO user(pseudo, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection) VALUES
 ('Kertzmann', 'Maddison', 'Kreiger', 'Dewayne21@hotmail.com', '29177-3438', 'Angers', '6501 W North Street', '$argon2id$v=19$m=65536,t=3,p=4$TTMj2Hg8pdN4/z19TChASw$Jv3ly5Ir+lqP9OLanvlpK2aXjSClQvZdkLEPPYqOo48', 1276, true, '2023-01-14 13:22:26', '2024-05-10 00:46:34'),
 ('Cronin-OReilly', 'Brennon', 'Grant', 'Blaze_Konopelski@yahoo.com', '67946', 'Nantes', '3387 Auer Estate', '$argon2id$v=19$m=65536,t=3,p=4$wtwGeUcr5I58Rhk+17nS3g$1bKMjIB0AoiAI9vKUTXAMcJ3ag7s2yi5eD9J2oS7OuE', 1754, true, '2024-01-10 20:38:10', '2024-08-26 19:03:58'),
 ('Rmn44', 'Romain', 'Lemonnier', 'lemonnier.romain13@gmail.com', '44000', 'Nantes', '442 Heller Path', 'lemonnier44400', 2582, true, '2024-02-28 10:06:58', '2024-12-07 10:18:33'),

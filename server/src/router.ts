@@ -32,6 +32,8 @@ router.get(
   "/leaderboard/admin/getLeaderboard",
   leaderboardActions.getAdminLeaderboard,
 );
+router.patch("/reports/validate/:id", reportedArtPieceActions.validate);
+router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse);
 router.get("/user/:id", userActions.read);
 router.delete("/user/:id", userActions.deleteUser);
 router.get("/artPiece", artActions.readAll);
