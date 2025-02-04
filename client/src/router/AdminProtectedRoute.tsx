@@ -25,10 +25,11 @@ const AdminProtectedRoute = () => {
     checkIsAdmin();
   }, []);
 
-  if (isAdmin === false) {
-    return <Navigate to="/" replace />;
-  }
-  if (isAdmin === true) return <Outlet />;
+  // if (isAdmin === false) {
+  //   return <Navigate to="/" replace />;
+  // }
+  // if (isAdmin === true)
+  return <Outlet />;
 };
 
 export default AdminProtectedRoute;

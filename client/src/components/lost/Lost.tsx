@@ -2,11 +2,19 @@ import "./lost.css";
 import { useEffect, useState } from "react";
 import traith1lost from "/trait-h1-artwork.tsx.png";
 import type { LostI } from "./LostType";
+import { toast } from "react-toastify";
 
 function Lost() {
   const [reported, setReported] = useState<LostI[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [changeCard, setChangeCard] = useState(0);
+
+  const updateReportedData = (art_piece_id: number) => {
+    setReported((prev) =>
+      prev.filter((item) => item.art_piece_id !== art_piece_id),
+    );
+    setChangeCard((prev) => (prev > 0 ? prev - 1 : 0));
+  };
 
   useEffect(() => {
     const fetchReportedData = async () => {
@@ -19,25 +27,27 @@ function Lost() {
         if (data && Array.isArray(data)) {
           setReported(data);
         } else {
-          console.error("Données invalides reçues", data);
+          toast.error("Données invalides reçues");
         }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des signalements", error);
+      } catch {
+        toast.error("Erreur lors de la récupération des signalements");
       }
     };
 
     fetchReportedData();
   }, []);
 
-  const updateReportedData = (updatedData: LostI[]) => {
-    setReported((prevReported) =>
-      prevReported.filter(
-        (item) =>
-          !updatedData.some(
-            (updatedItem) => updatedItem.art_piece_id === item.art_piece_id,
-          ),
-      ),
+  const handleValidate = async (art_piece_id: number) => {
+    const currentIndex = reported.findIndex(
+      (item) => item.art_piece_id === art_piece_id,
     );
+
+    if (currentIndex === -1 || currentIndex === reported.length - 1) {
+      toast.error("Vous avez atteint la fin de la liste de signalements.");
+      return;
+    }
+
+    await validateReport(art_piece_id);
   };
 
   const validateReport = async (art_piece_id: number) => {
@@ -47,20 +57,19 @@ function Lost() {
         `${import.meta.env.VITE_API_URL}/reports/validate/${art_piece_id}`,
         {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ status: "validated" }),
         },
       );
 
       if (!response.ok) {
-        throw new Error("Erreur lors de la validation du signalement.");
+        toast.error("Erreur lors de la validation du signalement.");
+        return;
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
+      toast.error("Erreur lors de la validation du signalement.");
     } finally {
-      refuseReport(art_piece_id);
+      await refuseReport(art_piece_id);
       setIsLoading(false);
     }
   };
@@ -70,24 +79,24 @@ function Lost() {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/reports/refuse/${art_piece_id}`,
-        {
-          method: "DELETE",
-        },
+        { method: "DELETE" },
       );
 
       if (!response.ok) {
-        throw new Error("Erreur lors du refus du signalement.");
+        toast.error("Erreur lors du refus du signalement.");
+        return;
       }
-      const itemToUpdate = reported.find(
+
+      const itemExists = reported.some(
         (item) => item.art_piece_id === art_piece_id,
       );
-      if (itemToUpdate) {
-        updateReportedData([itemToUpdate]);
+      if (itemExists) {
+        updateReportedData(art_piece_id);
       } else {
-        console.error("Signalement introuvable.");
+        toast.error("Signalement introuvable.");
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
+      toast.error("Erreur lors du refus du signalement.");
     } finally {
       setIsLoading(false);
     }
@@ -105,6 +114,21 @@ function Lost() {
     });
   };
 
+  let contentInfo = null;
+  if (reported.length > 0) {
+    const currentReport = reported[changeCard];
+    const coordinates = currentReport.coordinates
+      ? `Lat: ${currentReport.coordinates.x}, Long: ${currentReport.coordinates.y}`
+      : "Coordonnées non disponibles";
+    // Fonction qui renvoie les coordonnées et le titre du street art disponible, et un message "Coordonnées non disponibles" si aucune coordonnée n'est disponible à l'affichage.
+    contentInfo = (
+      <div className="content-info" key={currentReport.art_piece_id}>
+        <p className="title-street-art">{currentReport.art_piece_name}</p>
+        <p className="coordinates-gps">{coordinates}</p>
+      </div>
+    );
+  }
+
   return (
     <section className="lost-page-background">
       <div className="h1-circle-lost">
@@ -121,7 +145,7 @@ function Lost() {
         <img
           className="brushstroke-h1-lost"
           src={traith1lost}
-          alt="a black brushstroke under the text"
+          alt="Un trait de pinceau noir sous le texte"
         />
 
         <section className="block-green">
@@ -136,23 +160,9 @@ function Lost() {
                     alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
                   />
                 </figcaption>
-                {(() => {
-                  const coordinates: string = reported[changeCard].coordinates
-                    ? `Lat: ${reported[changeCard].coordinates.x}, Long: ${reported[changeCard].coordinates.y}`
-                    : "Coordonnées non disponibles";
 
-                  return (
-                    <div
-                      className="content-info"
-                      key={reported[changeCard].art_piece_id}
-                    >
-                      <p className="title-street-art">
-                        {reported[changeCard].art_piece_name}
-                      </p>
-                      <p className="coordinates-gps">{coordinates}</p>
-                    </div>
-                  );
-                })()}
+                {contentInfo}
+
                 <figcaption className="compared-art">
                   <p className="text-work">Comparaison</p>
                   <img
@@ -172,7 +182,7 @@ function Lost() {
                   className="btn-validation-lost"
                   type="button"
                   onClick={() =>
-                    validateReport(reported[changeCard].art_piece_id)
+                    handleValidate(reported[changeCard].art_piece_id)
                   }
                   disabled={isLoading}
                 >
@@ -202,7 +212,7 @@ function Lost() {
             <img
               className="arrow-left-lost arrow"
               src="https://thypix.com/wp-content/uploads/2020/04/white-arrow-2.png"
-              alt="arrow white with border black"
+              alt="Flèche blanche avec bordure noire"
             />
           </button>
 
