@@ -49,6 +49,10 @@ router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
-router.post("/user/registration", userActions.registration);
+router.post(
+  "/user/registration",
+  userActions.hashPassword,
+  userActions.registration,
+);
 
 export default router;
