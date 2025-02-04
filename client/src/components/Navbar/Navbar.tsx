@@ -1,95 +1,111 @@
 import { useState } from "react";
 import "./Navbar.css";
 import Hamburger from "hamburger-react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
 function Navbar() {
-  const [isOpen, setOpen] = useState(false);
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
 
-  const { user } = useUser();
+  const [isOpen, setOpen] = useState(false);
+  const [alternator, setAlternator] = useState([true, false]);
+
+  useEffect(() => {
+    setAlternator(() => (!user ? [true, false] : [false, true]));
+  }, [user]);
 
   const handleLinkClick = () => {
     setOpen(false);
   };
 
+  const handleDeconnection = () => {
+    localStorage.removeItem("authToken");
+    setUser(null);
+    navigate("/");
+    setOpen(false);
+  };
   return (
-    <>
-      <section className="hamburger">
-        <Hamburger toggled={isOpen} toggle={setOpen} size={50} />
-        {isOpen && (
-          <div>
-            <ul className="section_ul">
-              <Link className="link_nav" to="/map" onClick={handleLinkClick}>
-                Jouer
-              </Link>
+    <section className="hamburger">
+      <Hamburger toggled={isOpen} toggle={setOpen} size={50} />
+      {isOpen && (
+        <div>
+          <ul className="section-ul">
+            <Link className="link-nav" to="/map" onClick={handleLinkClick}>
+              Jouer
+            </Link>
+            {alternator[0] && (
               <Link
-                className="link_nav"
+                className="link-nav"
                 to="/connexion"
                 onClick={handleLinkClick}
               >
                 Connexion
               </Link>
-              <Link
-                className="link_nav"
-                to="/register"
-                onClick={handleLinkClick}
+            )}
+            <Link className="link-nav" to="/register" onClick={handleLinkClick}>
+              S'inscrire
+            </Link>
+            <Link
+              className="link-nav"
+              to="/leaderboard"
+              onClick={handleLinkClick}
+            >
+              Classement
+            </Link>
+            <Link className="link-nav" to="/gallery" onClick={handleLinkClick}>
+              Les Oeuvres
+            </Link>
+            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
+              Admin
+            </Link>
+            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
+              Paramètres
+            </Link>
+            {alternator[1] && (
+              <button
+                type="button"
+                className="link-nav nav-button"
+                onClick={handleDeconnection}
               >
-                S'inscrire
-              </Link>
-              <Link
-                className="link_nav"
-                to="/leaderboard"
-                onClick={handleLinkClick}
-              >
-                Classement
-              </Link>
-              <Link
-                className="link_nav"
-                to="/gallery"
-                onClick={handleLinkClick}
-              >
-                Galerie
-              </Link>
-              <img src="/forme_blanche.png" alt="forme graphique" />
-              {!!user?.isAdmin && (
-                <>
-                  <Link
-                    className="link_nav"
-                    to="/art-piece-list"
-                    onClick={handleLinkClick}
-                  >
-                    Liste des oeuvres
-                  </Link>
-                  <Link
-                    className="link_nav"
-                    to="/lost"
-                    onClick={handleLinkClick}
-                  >
-                    Signalements
-                  </Link>
-                  <Link
-                    className="link_nav"
-                    to="/adminvalidation"
-                    onClick={handleLinkClick}
-                  >
-                    Validation
-                  </Link>
-                  <Link
-                    className="link_nav"
-                    to="/statistics"
-                    onClick={handleLinkClick}
-                  >
-                    Statistiques
-                  </Link>
-                </>
-              )}
-            </ul>
-          </div>
-        )}
-      </section>
-    </>
+                Se déconnecter
+              </button>
+            )}
+            <img src="/forme_blanche.png" alt="forme graphique" />
+            {!!user?.isAdmin && (
+              <>
+                <Link
+                  className="link-nav"
+                  to="/art-piece-list"
+                  onClick={handleLinkClick}
+                >
+                  Liste des oeuvres
+                </Link>
+                <Link className="link-nav" to="/lost" onClick={handleLinkClick}>
+                  Signalements
+                </Link>
+                <Link
+                  className="link-nav"
+                  to="/adminvalidation"
+                  onClick={handleLinkClick}
+                >
+                  Validation
+                </Link>
+                <Link
+                  className="link-nav"
+                  to="/statistics"
+                  onClick={handleLinkClick}
+                >
+                  Statistiques
+                </Link>
+              </>
+            )}
+          </ul>
+        </div>
+      )}
+    </section>
   );
 }
-
 export default Navbar;

@@ -2,13 +2,17 @@ import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./Print.css";
 import { useUser } from "../../context/UserContext";
+import useToast from "../../utils/useToast";
 import type { Coordinates, WebcamCaptureProps } from "./Map.types";
 
 const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   openCapture,
   setOpenCapture,
   position,
+  onSuccess,
 }) => {
+  const { information, failed } = useToast();
+
   const { user } = useUser();
   const [previsualisation, setPrevisualisation] = useState(true);
   const [showPicture, setShowPicture] = useState(false);
@@ -45,7 +49,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
               address: data.address.road || "Adresse inconnue",
             });
           } catch (error) {
-            console.error("Erreur de géocodage :", error);
+            information(
+              "Merci d'activer la géolocalisation afin d'accéder à cette option",
+            );
           }
         }
       }
@@ -93,13 +99,14 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
             }),
           },
         );
-        if (!toSend) {
-          console.error("echec de l'envoi");
+        if (!toSend.ok) {
+          failed("Echec lors de l'envoi du fichier");
         }
-
         setOpenCapture(!openCapture);
+        onSuccess();
       }
     } catch (error) {
+      failed("Echec lors de l'envoi du fichier");
       console.error("Erreur réseau :", error);
     }
   };

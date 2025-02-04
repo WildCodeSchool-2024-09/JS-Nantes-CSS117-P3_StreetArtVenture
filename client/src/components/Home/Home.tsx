@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
           <h2 className="bangers-regular  center title-size">LE JEU</h2>
           <img
             className="separator-noir"
-            src="/public/separator.png"
+            src="/separator.png"
             alt="visual separator"
           />
           <p className="home-p --primary-font  ">
@@ -77,7 +77,7 @@ export const Home: React.FC = () => {
           </h2>
           <img
             className="separator-noir"
-            src="/public/forme_blanche.png"
+            src="/forme_blanche.png"
             alt="visual separator"
           />
           <p className="--primary-font white  home-p">
@@ -104,7 +104,7 @@ export const Home: React.FC = () => {
           </h2>
           <img
             className="separator-noir"
-            src="/public/forme_blanche.png"
+            src="/forme_blanche.png"
             alt="visual separator"
           />
           <p className="--primary-font white home-p">
