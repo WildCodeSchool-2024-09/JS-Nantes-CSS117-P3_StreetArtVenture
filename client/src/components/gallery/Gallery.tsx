@@ -45,7 +45,7 @@ function Gallery() {
               <img
                 className="galery-art"
                 src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
-                alt="oeuvre de street art"
+                alt={`Art street, ${card.picture_path}`}
               />
 
               <div className="streetart-title" key={card.name}>
