@@ -117,7 +117,7 @@
 .my-left-button-lost > img {
   transform: rotate(180deg);
 }
-@media screen and (max-width: 600px) and (max-width: 375px) {
+@media screen and (max-width: 600px) {
   .works-consulting {
     text-align: center;
   }
