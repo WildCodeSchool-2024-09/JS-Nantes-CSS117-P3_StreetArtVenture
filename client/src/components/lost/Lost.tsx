@@ -1,8 +1,8 @@
 import "./lost.css";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import traith1lost from "/trait-h1-artwork.tsx.png";
 import type { LostI } from "./LostType";
-import { toast } from "react-toastify";
 
 function Lost() {
   const [reported, setReported] = useState<LostI[]>([]);
