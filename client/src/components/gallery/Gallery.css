@@ -37,7 +37,7 @@ section.artwork-page .city {
   text-align: center;
 }
 
-.container-owerflow {
+.container-overflow {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -56,13 +56,13 @@ section.artwork-page .city {
   font-family: var(--primary-font);
   gap: 15px;
 }
-.galerie-oeuvre {
+.galery-art {
   height: 150px;
   width: 200px;
   object-fit: cover;
 }
 
-.streetart_title {
+.streetart-title {
   font-size: 24px;
   font-weight: 600;
 }

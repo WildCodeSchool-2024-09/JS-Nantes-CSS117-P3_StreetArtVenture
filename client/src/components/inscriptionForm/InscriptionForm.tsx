@@ -1,19 +1,54 @@
 import "../inscriptionForm/InscriptionForm.css";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import type InscriptionFormValues from "./InscriptionFormTypes";
 import validationRules from "./ValidationRules";
 
-const InscriptionForm: React.FC = (): React.ReactNode => {
-  type InscriptionFormValues = {
-    firstName: string;
-    userName: string;
-    email: string;
-    lastName: string;
-    adresse: string;
-    city: string;
-    postal: number;
-    password: string;
-    confirmPassword: string;
+const InscriptionForm = () => {
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: InscriptionFormValues) => {
+    const {
+      pseudo,
+      email,
+      firstName,
+      lastName,
+      adresse,
+      city,
+      postal,
+      password,
+    } = data;
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/registration`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            pseudo: pseudo,
+            email: email,
+            firstname: firstName,
+            lastname: lastName,
+            zipcode: postal,
+            city: city,
+            password: password,
+            adress: adresse,
+          }),
+        },
+      );
+      if (!response.ok) {
+        throw new Error("Impossible de s'inscire");
+      }
+      toast.success("Inscription réussie ! Bienvenue 🎉");
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    } catch (error) {
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
+    }
   };
 
   const {
@@ -21,9 +56,10 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
     handleSubmit,
     formState: { errors },
   } = useForm<InscriptionFormValues>();
-  const onSubmit = () => {};
+
   return (
     <main className="main-inscription-form">
+      <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
         <h2>Inscription</h2>
         {/* ................INPUT USERNAME....................... */}
@@ -32,12 +68,10 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
           <input
             id="user-name"
             type="text"
-            {...register("userName", validationRules.userName)}
+            {...register("pseudo", validationRules.userName)}
           />
-          {errors.userName && (
-            <p className="inscription-error-message">
-              {errors.userName.message}
-            </p>
+          {errors.pseudo && (
+            <p className="inscription-error-message">{errors.pseudo.message}</p>
           )}
         </section>
         {/* ................INPUT EMAIL....................... */}
@@ -150,14 +184,14 @@ const InscriptionForm: React.FC = (): React.ReactNode => {
         </section>
         {/* ...................ESPACE ENTRE INPUT && BUTTONS....................... */}
         <button type="submit">S'inscrire</button>
-        <p className="register-yet">
+        <section className="register-yet">
           Déjà inscrit ?
           <p>
             <NavLink id="nav-link" to="/Connexion">
               Se connecter
             </NavLink>
           </p>
-        </p>
+        </section>
       </form>
     </main>
   );

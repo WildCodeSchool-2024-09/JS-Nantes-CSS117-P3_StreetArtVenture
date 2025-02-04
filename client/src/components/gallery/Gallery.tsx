@@ -21,7 +21,7 @@ function Gallery() {
     setSelectedValue(event.target.value);
   }
 
-  const filtereArray =
+  const filteredArray =
     selectedValue !== "Votre ville"
       ? card.filter((el) => el.city.includes(selectedValue))
       : card;
@@ -39,16 +39,16 @@ function Gallery() {
             <option key={cities.city}>{cities.city}</option>
           ))}
         </select>
-        <section className="container-owerflow">
-          {filtereArray.map((card) => (
+        <section className="container-overflow">
+          {filteredArray.map((card) => (
             <div className="green-container" key={card.id}>
               <img
-                className="galerie-oeuvre"
+                className="galery-art"
                 src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
                 alt="oeuvre de street art"
               />
 
-              <div className="streetart_title" key={card.name}>
+              <div className="streetart-title" key={card.name}>
                 {card.name}
               </div>
               <div key={card.adress}>

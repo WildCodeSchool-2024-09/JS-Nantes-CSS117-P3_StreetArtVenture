@@ -32,13 +32,58 @@ const verifyUser: RequestHandler = async (req, res, next) => {
         {
           id: user[0].id,
           email: user[0].email,
-          is_admin: user[0].is_admin,
-          is_ban: user[0].is_ban,
+          isAdmin: user[0].isAdmin,
+          isBanned: user[0].isBanned,
         },
         JWT_SECRET,
         { expiresIn: reminder },
       );
       res.status(200).json({ token });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const registration: RequestHandler = async (req, res, next) => {
+  try {
+    const {
+      pseudo,
+      email,
+      firstname,
+      lastname,
+      zipcode,
+      city,
+      password,
+      adress,
+    } = req.body;
+    const isUser = await userRepository.isUserYet(pseudo, email);
+
+    if (isUser?.length) {
+      res.status(409).json({ message: "Cet utilisateur existe deja", isUser });
+    }
+    {
+      const insertId = await userRepository.userInscription(
+        pseudo,
+        firstname,
+        lastname,
+        email,
+        zipcode,
+        adress,
+        city,
+        password,
+      );
+
+      if (!insertId) {
+        res.status(500).json({
+          message:
+            "Il y a eu un probleme lors de votre inscription, veuillez reessayer",
+        });
+      } else {
+        res
+          .status(201)
+          .json({ insertId, message: "Utilisateur créé avec succès" });
+      }
     }
   } catch (err) {
     next(err);
@@ -86,10 +131,10 @@ const deleteUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-const patch: RequestHandler = async (req, res, net) => {
+const patch: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
   const {
-    name,
+    pseudo,
     firstname,
     lastname,
     email,
@@ -98,14 +143,14 @@ const patch: RequestHandler = async (req, res, net) => {
     city,
     password,
     points,
-    is_admin,
-    is_ban,
+    isAdmin,
+    isBanned,
     creation_date,
     last_connection,
   } = req.body;
   const user = await userRepository.patchName({
     id: Number.parseInt(id),
-    name,
+    pseudo,
     firstname,
     lastname,
     email,
@@ -114,8 +159,8 @@ const patch: RequestHandler = async (req, res, net) => {
     city,
     password,
     points,
-    is_admin,
-    is_ban,
+    isAdmin,
+    isBanned,
     creation_date,
     last_connection,
   });
@@ -126,4 +171,12 @@ const patch: RequestHandler = async (req, res, net) => {
   }
 };
 
-export default { verifyUser, verifyToken, read, update, deleteUser, patch };
+export default {
+  verifyUser,
+  verifyToken,
+  read,
+  update,
+  deleteUser,
+  patch,
+  registration,
+};
