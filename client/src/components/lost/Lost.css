@@ -1,288 +1,132 @@
 .lost-page-background {
   background-image: url("./background-grey.jpg");
   background-size: cover;
-  height: 715px;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  background-position: center;
+  height: 85vh;
   overflow-y: auto;
 }
 
-.lost-page-background::before {
-  content: "Image de fond gris représentant un thème de signalement";
-  position: absolute;
-  clip: rect(0, 0, 0, 0);
+.report-text {
+  margin: 50px;
+  font-size: 40px;
 }
-
-.signalement-text {
-  display: flex;
-  margin-top: 5px;
-  width: 20px;
-  color: black;
-  font-family: var(--primary-font);
-}
-
 .h1-circle-lost {
   display: flex;
+  align-items: center;
 }
-
 .circle-lost {
-  display: flex;
-  margin: 0 0 0 160px;
-  width: 30px;
+  align-items: center;
+  width: 40px;
   height: 40px;
   background-color: #d9d9d9;
   border-radius: 50%;
 }
-
 .circle-lost > p {
-  font-size: 19px;
+  font-size: 20px;
   color: #ff1717;
-  margin: 10px 0 0 10px;
+  padding: 10px 0 0 10px;
 }
-
-.trait-h1-lost {
+.works-consulting {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.brushstroke-h1-lost {
   display: none;
 }
-
-.works-consulting {
-  margin: 40px 0 0 60px;
-}
-
 .block-green {
   display: flex;
   justify-content: center;
+  width: 80%;
+  max-width: 900px;
+
+  background-color: #22b573;
+  border-radius: 24px;
+}
+.container {
+  display: flex;
+  justify-content: space-evenly;
   align-items: center;
-  flex-direction: row-reverse;
-  gap: 50px;
+  flex-direction: row;
+}
+.street-art {
+  width: 200px;
+  height: 150px;
+}
+.reported-content {
+  font-size: 30px;
+}
+.text-work {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0 40px 0;
+  color: #ffff;
+}
+.content-info {
+  font-size: 20px;
+  margin-top: 90px;
+  color: #ffff;
+}
+.arrow {
+  width: 50px;
+  height: auto;
 }
 
+.next-refusal-button {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.btn-validation-lost,
+.btn-refusal-lost {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+.center-page {
+  display: grid;
+  place-items: center;
+}
 .btn-validation-lost,
 .btn-refusal-lost {
   background-color: #c5b88a;
   color: white;
   font-size: 16px;
   font-family: Arial, sans-serif;
-  padding: 10px 20px;
   border: none;
   border-radius: 10px;
-  margin: 100px 0 0 55px;
   width: 130px;
 }
-
-.btn-validation-lost {
-  margin-left: 20px;
-}
-
-.btn-next-lost {
-  background-color: #c5b88a;
-  color: white;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  margin: 295px 0 0 220px;
-  width: 130px;
-}
-
-.block-green-reported-work {
-  width: 39vh;
-  height: 25em;
-  background-color: #22b573;
-  border-radius: 24px;
-  order: 2;
-}
-
-.description-work-lost {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 180px;
-  color: #ffffff;
-  font-size: 20px;
-}
-.title-street-art {
-  display: none;
-}
-.coordinates-gps {
-  display: none;
-}
-.block-compared-artwork-lost {
-  width: 39vh;
-  height: 25em;
-  background-color: #22b573;
-  border-radius: 24px;
-  order: 1;
-}
-
-.reported-work {
-  margin: 10px;
-  font-size: 20px;
-  color: #ffffff;
-}
-
-.compared-work {
-  margin: 10px;
-  font-size: 20px;
-  color: #ffffff;
-}
-
 .my-right-button-lost,
 .my-left-button-lost {
-  background-color: #4caf50;
-  border-radius: 100%;
+  background-color: #22b573;
+  border-radius: 50%;
   border: none;
   height: 80px;
   width: 80px;
-  margin: 30px;
+  margin: 29px;
+  cursor: pointer;
 }
-.arrow-right-lost,
+.my-right-button-lost > img,
 .my-left-button-lost > img {
   height: 40px;
-  margin-right: 50px;
 }
-
-.arrow-right-lost {
-  margin-left: 5px;
-}
-
-.arrow-left-lost {
-  margin-left: 5px;
+.my-left-button-lost > img {
   transform: rotate(180deg);
 }
-
-.button-lost {
-  gap: 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@media screen and (max-width: 390px) {
-  .lost-page-background {
-    background-image: url("./background-grey.jpg");
-    background-size: cover;
-    height: 165vw;
-    overflow-y: auto;
-  }
-
-  .lost-page-background::before {
-    content: "Image de fond gris représentant un thème de signalement";
-    position: absolute;
-  }
-
-  .signalement-text {
-    margin: 10px 10px 0 0;
-    color: black;
-    font-family: var(--primary-font);
-  }
-
-  .circle-lost {
-    margin: 10px 0 0 150px;
-    width: 32px;
-    height: 32px;
-    background-color: #d9d9d9;
-    border-radius: 50%;
-  }
-
-  .circle-lost > p {
-    margin-top: 5px;
-    margin-left: 10px;
-    font-size: 19px;
-    color: #ff1717;
-  }
-
+@media screen and (max-width: 600px) {
   .works-consulting {
-    line-height: 5vh;
-    margin: 20px 0 0 50px;
+    text-align: center;
   }
-
-  .trait-h1-lost {
-    display: block;
-    width: 15vh;
-    margin: 20px 0 0 13vh;
-  }
-
-  .block-green {
+  .h1-circle-lost {
     display: flex;
-    flex-direction: column-reverse;
-    margin-top: 20px;
+    align-items: center;
   }
-
   .btn-validation-lost,
   .btn-refusal-lost {
-    background-color: #c5b88a;
-    color: white;
-    height: 40px;
-    width: 120px;
-    border-radius: 10px;
-    margin: 125px 20px 0 22px;
-  }
-
-  .btn-next-lost {
-    background-color: #c5b88a;
-    color: white;
-    margin: 225px 0 0 190px;
-  }
-
-  .description-work-lost {
-    margin-top: 60px;
-  }
-  .title-street-art {
-    display: block;
-    margin: 55px 0 0 200px;
-    font-size: 20px;
-    color: #ffffff;
-  }
-  .coordinates-gps {
-    display: block;
-    margin: 55px 0 0 200px;
-    font-size: 20px;
-    color: #ffffff;
-  }
-
-  .block-compared-artwork-lost {
-    width: 39vh;
-    height: 20em;
-    background-color: #22b573;
-    border-radius: 24px;
-    margin-left: 10px;
-  }
-
-  .block-green-reported-work {
-    width: 39vh;
-    height: 30em;
-    background-color: #22b573;
-  }
-  .my-right-button-lost,
-  .my-left-button-lost {
-    background-color: #4caf50;
-    border-radius: 100%;
-    border: none;
-    height: 80px;
-    width: 80px;
-    margin: 30px;
-  }
-  .arrow-right-lost,
-  .my-left-button-lost > img {
-    height: 40px;
-    margin-right: 50px;
-  }
-
-  .arrow-right-lost {
-    margin-left: 5px;
-  }
-
-  .arrow-left-lost {
-    margin-left: 5px;
-    transform: rotate(180deg);
-  }
-
-  .button-lost {
-    gap: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100px;
   }
 }
