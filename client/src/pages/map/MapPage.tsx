@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import CityCoordinates from "../../components/cityCoordinates/cityCoordinates.component";
-import MapComponent from "../../components/map/map.component";
-
 import "./MapPage.css";
+import MapComponent from "../../components/map/MapComponent";
 import type { ArtPiece } from "../../types/art_piece";
 
 function MapPage() {
