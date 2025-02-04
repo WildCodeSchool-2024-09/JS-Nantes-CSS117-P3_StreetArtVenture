@@ -93,16 +93,16 @@ function Lost() {
     }
   };
 
-  const handleClickInc = () => {
-    if (changeCard < reported.length - 1) {
-      setChangeCard(changeCard + 1);
-    }
-  };
-
-  const handleClickDec = () => {
-    if (changeCard > 0) {
-      setChangeCard(changeCard - 1);
-    }
+  const handleClick = (direction: "increment" | "decrement") => {
+    setChangeCard((prev) => {
+      if (direction === "increment" && prev < reported.length - 1) {
+        return prev + 1;
+      }
+      if (direction === "decrement" && prev > 0) {
+        return prev - 1;
+      }
+      return prev;
+    });
   };
 
   return (
@@ -197,7 +197,7 @@ function Lost() {
           <button
             className="my-left-button-lost"
             type="button"
-            onClick={handleClickDec}
+            onClick={() => handleClick("decrement")}
           >
             <img
               className="arrow-left-lost arrow"
@@ -209,7 +209,7 @@ function Lost() {
           <button
             className="my-right-button-lost"
             type="button"
-            onClick={handleClickInc}
+            onClick={() => handleClick("increment")}
           >
             <img
               className="arrow-right-lost arrow"
