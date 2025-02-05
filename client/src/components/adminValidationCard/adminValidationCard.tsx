@@ -31,6 +31,7 @@ export function AdminValidationBoard() {
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({ userId: data.user_id }),
         },
       );
       if (response.ok) {
@@ -56,6 +57,7 @@ export function AdminValidationBoard() {
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({ userId: data.user_id }),
         },
       );
       if (response.ok) {
