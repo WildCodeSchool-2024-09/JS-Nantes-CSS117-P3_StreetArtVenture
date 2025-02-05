@@ -57,7 +57,7 @@ CREATE TABLE notifications (
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
-INSERT INTO user(pseudo, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection)
+INSERT INTO user(username, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection)
 VALUES
   ('Kertzmann', 'Maddison', 'Kreiger', 'testadmin@account.com', '29177-3438', 'Angers', '6501 W North Street', '123', 1276, true, '2023-01-14 13:22:26', '2024-05-10 00:46:34'),
   ('Cronin-OReilly', 'Brennon', 'Grant', 'testuser@account.com', '67946', 'Nantes', '3387 Auer Estate', '123', 1754, true, '2024-01-10 20:38:10', '2024-08-26 19:03:58'),
