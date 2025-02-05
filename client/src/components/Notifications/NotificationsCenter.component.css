@@ -20,6 +20,7 @@
 .header-class > div > div > ul {
   position: absolute;
   width: 33vw;
+  min-width: 200px;
   right: 0;
   background-color: white;
   list-style: none;
@@ -31,6 +32,7 @@
 .header-class > div > div > ul > li {
   padding: 8px;
   border: 1px solid rgba(128, 128, 128, 0.666);
+  font-family: Montserrat, serif;
 }
 
 /* style new notification */
