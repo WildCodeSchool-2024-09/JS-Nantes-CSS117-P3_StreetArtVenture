@@ -171,6 +171,25 @@ const patch: RequestHandler = async (req, res, next) => {
   }
 };
 
+const isSeen: RequestHandler = async (req, res) => {
+  const { userId, artId } = req.body;
+  const answer = await userRepository.artVerification(userId, artId);
+  if (answer.length === 0) {
+    res.sendStatus(404);
+  }
+  res.json(answer);
+};
+
+const addpoint: RequestHandler = async (req, res, next) => {
+  const { userId, artId } = req.body;
+  const answer = await userRepository.addpoint(userId, artId);
+  if (answer === 0) {
+    res.sendStatus(404);
+  }
+  res.json(answer);
+  next;
+};
+
 export default {
   verifyUser,
   verifyToken,
@@ -179,4 +198,6 @@ export default {
   deleteUser,
   patch,
   registration,
+  isSeen,
+  addpoint,
 };
