@@ -1,4 +1,8 @@
 export interface JWTPayload {
-  userId: number;
-  isAdmin?: true;
+  id: number;
+  email: string;
+  isAdmin: number;
+  isBanned: number;
+  iat: number;
+  exp: number;
 }
