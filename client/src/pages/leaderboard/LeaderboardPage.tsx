@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LeaderboardFilters from "../../components/leaderboard/leaderboardFIlters/LeaderboardFilters.component";
 import LeaderboardList from "../../components/leaderboard/leaderboardList/LeaderboardList.component";
 import "./leaderboardPage.css";
-import LeaderboardUserData from "../../components/leaderboard/leaderboardUserData/leaderboardUserData.component";
+import LeaderboardUserData from "../../components/leaderboard/leaderboardUserData/LeaderboardUserData.component";
 import { useUser } from "../../context/UserContext";
 import type { User } from "../../types/user";
 import { fetchWithAuth } from "../../utils/api";
