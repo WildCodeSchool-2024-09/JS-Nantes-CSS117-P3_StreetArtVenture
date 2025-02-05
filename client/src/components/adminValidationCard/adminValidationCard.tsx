@@ -1,4 +1,5 @@
 import type { ArtPiece } from "../../types/art_piece";
+import { fetchWithAuth } from "../../utils/api";
 import "../adminValidationCard/adminValidationCard.css";
 import { useEffect, useState } from "react";
 
@@ -24,13 +25,16 @@ export function AdminValidationBoard() {
       return;
     }
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/art/artPieceValidation/${data.id}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            pointsValue: data.points_value,
+          }),
         },
       );
       if (response.ok) {

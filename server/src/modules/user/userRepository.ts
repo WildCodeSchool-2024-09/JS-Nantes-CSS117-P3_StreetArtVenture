@@ -98,6 +98,15 @@ class UserRepository {
     ]);
     return row as User[];
   }
+
+  async addCreationPoints(userId: number, artPieceValue: number) {
+    const query = "UPDATE user SET points = points + ? WHERE id = ?";
+    const [result] = await databaseClient.query<Result>(query, [
+      artPieceValue,
+      userId,
+    ]);
+    return result.affectedRows;
+  }
 }
 
 export default new UserRepository();
