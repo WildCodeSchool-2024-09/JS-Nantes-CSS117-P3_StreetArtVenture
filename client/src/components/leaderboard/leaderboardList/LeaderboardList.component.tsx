@@ -81,7 +81,7 @@ function LeaderboardList({
       ref={scrollContainerRef}
       className="leaderboard-user-container custom-scrollbar"
     >
-      {data.map((el, index) => (
+      {data.map((el: User, index) => (
         <ul key={el.id} className="leaderboard-informations-container">
           <li className="montserrat">
             <p>{index + 1}</p>
@@ -90,7 +90,7 @@ function LeaderboardList({
             <p>{format(new Date(el.last_connection), "HH:mm dd/MM/yyyy")}</p>
           )}
           <li className="montserrat">
-            <p>{el.name}</p>
+            <p>{el.username}</p>
           </li>
           {el.last_connection && (
             <button

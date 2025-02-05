@@ -12,7 +12,7 @@ function RenameUserPopupForm({
         handleAdminConfirmation("PATCH", e);
       }}
     >
-      <input type="text" defaultValue={poppedUser.name} />
+      <input type="text" defaultValue={poppedUser.username} />
       <input type="submit" value="Renommer" />
     </form>
   );

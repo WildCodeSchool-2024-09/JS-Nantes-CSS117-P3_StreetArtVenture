@@ -49,8 +49,8 @@ function NotificationsCenter() {
             notifications?.find(
               (notification) => notification.viewed_at === null,
             )
-              ? "https://www.svgrepo.com/show/528343/letter-unread.svg"
-              : "https://www.svgrepo.com/show/528344/letter.svg"
+              ? "/images/notification-bell-new.svg"
+              : "/images/notification-bell.svg"
           }
         />
       </button>
@@ -68,7 +68,7 @@ function NotificationsCenter() {
                   key={notification.id}
                 >
                   <p>
-                    {`Votre tentative d'ajout d'oeuvre créé le : ${new Date(notification.created_at).toLocaleDateString("fr-FR")} à 
+                    {`Votre demande d'ajout d'oeuvre du ${new Date(notification.created_at).toLocaleDateString("fr-FR")},
               ${new Date(notification.created_at).toLocaleTimeString("fr-FR", {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -79,7 +79,7 @@ function NotificationsCenter() {
               );
             })
           ) : (
-            <p>Vous n'avez aucune notifications</p>
+            <li>Vous n'avez aucune notifications</li>
           )}
         </ul>
       )}

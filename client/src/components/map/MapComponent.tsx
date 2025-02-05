@@ -2,7 +2,7 @@ import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.awesome-markers/dist/leaflet.awesome-markers.css";
-import "./MapComponent.css";
+import "./Mapcomponent.css";
 import "leaflet.awesome-markers";
 import type { LatLngExpression } from "leaflet";
 import { useState } from "react";

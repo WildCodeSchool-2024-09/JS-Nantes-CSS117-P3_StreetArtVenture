@@ -6,7 +6,7 @@ import type User from "../user/userTypes";
 class UserRepository {
   async read(id: number) {
     const [row] = await databaseClient.query<Rows>(
-      "SELECT pseudo, firstname, lastname, email, zipcode, city, adress FROM user WHERE id = ?",
+      "SELECT username, firstname, lastname, email, zipcode, city, adress FROM user WHERE id = ?",
       [id],
     );
     return row as User[];
@@ -19,7 +19,7 @@ class UserRepository {
 
   async verifyUser(email: string, password: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
-      "select id, is_admin, is_ban, email from user where email = ? and password = ?",
+      "select id, is_admin AS isAdmin, is_ban AS isBanned, email from user where email = ? and password = ?",
       [email, password],
     );
     if (rows.length === 0) {
@@ -28,17 +28,17 @@ class UserRepository {
     return rows as User[];
   }
 
-  async isUserYet(name: string, email: string): Promise<User[] | null> {
+  async isUserYet(username: string, email: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
-      "select email, pseudo from user where email = ? or pseudo = ?",
-      [email, name],
+      "select email, username from user where email = ? or username = ?",
+      [email, username],
     );
 
     return rows as User[];
   }
 
   async userInscription(
-    pseudo: string,
+    username: string,
     firstname: string,
     lastname: string,
     email: string,
@@ -48,15 +48,15 @@ class UserRepository {
     password: string,
   ): Promise<number | null> {
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO user (pseudo, firstname, lastname, email, zipcode, city, adress, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [pseudo, firstname, lastname, email, zipcode, city, adress, password],
+      "INSERT INTO user (username, firstname, lastname, email, zipcode, city, adress, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [username, firstname, lastname, email, zipcode, city, adress, password],
     );
     return result.insertId || null;
   }
 
   async update(id: number, data: User) {
     const query = `UPDATE user SET
-    pseudo = ?,
+    username = ?,
     firstname = ?,
     lastname = ?,
     email = ?,
@@ -65,7 +65,7 @@ class UserRepository {
     city = ?
     WHERE id = ?`;
     const [row] = await databaseClient.query<Rows>(query, [
-      data.pseudo,
+      data.username,
       data.firstname,
       data.lastname,
       data.email,
@@ -128,6 +128,13 @@ WHERE u.id = ?`;
       return result.affectedRows;
     }
   }
+  async addCreationPoints(userId: number, artPieceValue: number) {
+    const query = "UPDATE user SET points = points + ? WHERE id = ?";
+    const [result] = await databaseClient.query<Result>(query, [
+      artPieceValue,
+      userId,
+    ]);
+    return result.affectedRows;
+  }
 }
-
 export default new UserRepository();

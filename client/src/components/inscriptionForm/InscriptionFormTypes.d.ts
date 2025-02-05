@@ -1,5 +1,5 @@
 type InscriptionFormValues = {
-  pseudo: string;
+  username: string;
   email: string;
   firstName: string;
   lastName: string;
