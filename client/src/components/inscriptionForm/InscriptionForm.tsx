@@ -10,7 +10,7 @@ const InscriptionForm = () => {
 
   const onSubmit = async (data: InscriptionFormValues) => {
     const {
-      pseudo,
+      username,
       email,
       firstName,
       lastName,
@@ -28,7 +28,7 @@ const InscriptionForm = () => {
             "Content-type": "application/json",
           },
           body: JSON.stringify({
-            pseudo: pseudo,
+            username: username,
             email: email,
             firstname: firstName,
             lastname: lastName,
@@ -68,10 +68,12 @@ const InscriptionForm = () => {
           <input
             id="user-name"
             type="text"
-            {...register("pseudo", validationRules.userName)}
+            {...register("username", validationRules.userName)}
           />
-          {errors.pseudo && (
-            <p className="inscription-error-message">{errors.pseudo.message}</p>
+          {errors.username && (
+            <p className="inscription-error-message">
+              {errors.username.message}
+            </p>
           )}
         </section>
         {/* ................INPUT EMAIL....................... */}

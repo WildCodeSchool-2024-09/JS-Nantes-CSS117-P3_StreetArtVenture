@@ -6,5 +6,5 @@ export interface ArtPieceDataType {
 }
 
 export interface PlayerDataType {
-  name: string;
+  username: string;
 }

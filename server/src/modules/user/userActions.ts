@@ -50,7 +50,7 @@ const verifyUser: RequestHandler = async (req, res, next) => {
 const registration: RequestHandler = async (req, res, next) => {
   try {
     const {
-      pseudo,
+      username,
       email,
       firstname,
       lastname,
@@ -59,14 +59,14 @@ const registration: RequestHandler = async (req, res, next) => {
       password,
       adress,
     } = req.body;
-    const isUser = await userRepository.isUserYet(pseudo, email);
+    const isUser = await userRepository.isUserYet(username, email);
 
     if (isUser?.length) {
       res.status(409).json({ message: "Cet utilisateur existe deja", isUser });
     }
     {
       const insertId = await userRepository.userInscription(
-        pseudo,
+        username,
         firstname,
         lastname,
         email,
@@ -148,7 +148,7 @@ const hashPassword: RequestHandler = async (req, res, next) => {
 const patch: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
   const {
-    pseudo,
+    username,
     firstname,
     lastname,
     email,
@@ -164,7 +164,7 @@ const patch: RequestHandler = async (req, res, next) => {
   } = req.body;
   const user = await userRepository.patchName({
     id: Number.parseInt(id),
-    pseudo,
+    username,
     firstname,
     lastname,
     email,

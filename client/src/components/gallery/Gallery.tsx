@@ -27,38 +27,41 @@ function Gallery() {
       : card;
 
   return (
-    <section className="artwork-page">
-      <div className="white-card">
-        <h1>Galerie d'oeuvre</h1>
-
-        <img src="/separator.png" alt="élément graphique séparateur" />
+    <main className="artwork-page">
+      <div className="galery-main-container">
+        <h1>GALERIE D’œuvres</h1>
+        <img
+          className="traith1"
+          src="/trait-h1-artwork.tsx.png"
+          alt="background gray if from lighter to darker"
+        />
 
         <select className="city" name="city" onChange={handleSelect}>
-          <option>Votre ville</option>
+          <option>Ville</option>
           {cities.map((cities) => (
             <option key={cities.city}>{cities.city}</option>
           ))}
         </select>
-        <section className="container-overflow">
+        <ul className="gallery-card-container">
           {filteredArray.map((card) => (
-            <div className="green-container" key={card.id}>
+            <li className="gallery-card" key={card.id}>
               <img
-                className="galery-art"
+                className="galerie-oeuvre"
                 src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
-                alt={`Art street, ${card.picture_path}`}
+                alt={`${card.description || "art piece"}`}
               />
 
-              <div className="streetart-title" key={card.name}>
+              <p className="streetart" key={card.name}>
                 {card.name}
-              </div>
-              <div key={card.adress}>
+              </p>
+              <p className="streetart" key={card.adress}>
                 {card.adress}, {card.city}
-              </div>
-            </div>
+              </p>
+            </li>
           ))}
-        </section>
+        </ul>
       </div>
-    </section>
+    </main>
   );
 }
 
