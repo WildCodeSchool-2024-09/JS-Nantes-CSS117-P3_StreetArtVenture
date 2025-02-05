@@ -1,5 +1,5 @@
 const validationRules = {
-  name: {
+  username: {
     required: "Vous n'avez pas renseigné votre nom d'utilisateur",
     maxLength: {
       value: 25,

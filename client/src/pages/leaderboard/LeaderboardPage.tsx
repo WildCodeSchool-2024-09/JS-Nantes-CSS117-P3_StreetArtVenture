@@ -10,7 +10,7 @@ import { fetchWithAuth } from "../../utils/api";
 function LeaderboardPage() {
   const [data, setData] = useState<null | User[]>(null);
   const [userData, setUserData] = useState<null | User>(null);
-  const [filters, setFilters] = useState({ city: "", name: "" });
+  const [filters, setFilters] = useState({ city: "", username: "" });
   const [page, setPage] = useState(0);
 
   const { user } = useUser();
@@ -35,8 +35,8 @@ function LeaderboardPage() {
       async function fetchLeaderboard() {
         setPage(0);
         const query = isAdmin
-          ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`
-          : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${0 * 10}`;
+          ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&username=${filters.username}&offset=${0 * 10}`
+          : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&username=${filters.username}&offset=${0 * 10}`;
         const res = await fetchWithAuth(query);
         const users = await res.json();
         setData(users);
@@ -53,8 +53,8 @@ function LeaderboardPage() {
   async function fetchMore() {
     const newPage = page + 1;
     const query = isAdmin
-      ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`
-      : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&name=${filters.name}&offset=${newPage * 10}`;
+      ? `${import.meta.env.VITE_API_URL}/leaderboard/admin/getLeaderboard?city=${filters.city}&username=${filters.username}&offset=${newPage * 10}`
+      : `${import.meta.env.VITE_API_URL}/leaderboard/getLeaderboard?city=${filters.city}&username=${filters.username}&offset=${newPage * 10}`;
     const res = await fetchWithAuth(query);
     const users = await res.json();
     if (users) {

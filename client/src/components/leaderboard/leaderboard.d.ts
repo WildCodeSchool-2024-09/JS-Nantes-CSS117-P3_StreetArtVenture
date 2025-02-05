@@ -1,6 +1,6 @@
 export interface LeaderboardFiltersProps {
-  handleFormChange: (params: { city: string; name: string }) => void;
-  formData: { city: string; name: string };
+  handleFormChange: (params: { city: string; username: string }) => void;
+  formData: { city: string; username: string };
 }
 
 export interface LeaderboardListProps {

@@ -1,6 +1,6 @@
 CREATE TABLE user (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  pseudo VARCHAR(100) NOT NULL,
+  username VARCHAR(100) NOT NULL,
   firstname VARCHAR(100) NOT NULL,
   lastname VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE user (
   is_ban BOOLEAN NOT NULL DEFAULT FALSE,
   creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   last_connection TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  UNIQUE (pseudo, email)
+  UNIQUE (username, email)
 );
 
 CREATE TABLE art_piece (
@@ -57,7 +57,7 @@ CREATE TABLE notifications (
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
-INSERT INTO user(pseudo, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection)
+INSERT INTO user(username, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection)
 VALUES
   ('Kertzmann', 'Maddison', 'Kreiger', 'testadmin@account.com', '29177-3438', 'Angers', '6501 W North Street', '123', 1276, true, '2023-01-14 13:22:26', '2024-05-10 00:46:34'),
   ('Cronin-OReilly', 'Brennon', 'Grant', 'testuser@account.com', '67946', 'Nantes', '3387 Auer Estate', '123', 1754, true, '2024-01-10 20:38:10', '2024-08-26 19:03:58'),

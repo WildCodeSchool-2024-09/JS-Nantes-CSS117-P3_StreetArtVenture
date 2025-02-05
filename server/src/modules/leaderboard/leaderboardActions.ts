@@ -19,11 +19,11 @@ const getCities: RequestHandler = async (req, res, next) => {
 
 const getLeaderboard: RequestHandler = async (req, res, next) => {
   try {
-    const { city, name, offset } = req.query;
-    // Fetch top 10 from (optionnal) city and name, optionnal offset
+    const { city, username, offset } = req.query;
+    // Fetch top 10 from (optionnal) city and username, optionnal offset
     const users = await leaderboardRepository.getLeaderboard(
       city as string,
-      name as string,
+      username as string,
       offset as string,
     );
 
@@ -49,11 +49,11 @@ const getUserData: RequestHandler = async (req, res, next) => {
 
 const getAdminLeaderboard: RequestHandler = async (req, res, next) => {
   try {
-    const { city, name, offset } = req.query;
-    // Fetch top 10 from (optionnal) city and name, optionnal offset admin version
+    const { city, username, offset } = req.query;
+    // Fetch top 10 from (optionnal) city and username, optionnal offset admin version
     const users = await leaderboardRepository.getAdminLeaderboard(
       city as string,
-      name as string,
+      username as string,
       offset as string,
     );
 

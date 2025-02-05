@@ -40,7 +40,7 @@ function UsersStats() {
 
       <section className="user-stats">
         <p>Meilleur joueur :</p>
-        <p className="green-stats-2">{player.name}</p>
+        <p className="green-stats-2">{player.username}</p>
       </section>
     </div>
   );
