@@ -21,7 +21,7 @@ function Gallery() {
     setSelectedValue(event.target.value);
   }
 
-  const filtereArray =
+  const filteredArray =
     selectedValue !== "Votre ville"
       ? card.filter((el) => el.city.includes(selectedValue))
       : card;
@@ -43,7 +43,7 @@ function Gallery() {
           ))}
         </select>
         <ul className="gallery-card-container">
-          {filtereArray.map((card) => (
+          {filteredArray.map((card) => (
             <li className="gallery-card" key={card.id}>
               <img
                 className="galerie-oeuvre"

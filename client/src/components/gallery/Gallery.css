@@ -63,13 +63,13 @@
   font-weight: 600;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 600px) {
   .gallery-card {
     width: 45%;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 375px) {
   .gallery-card {
     width: 90%;
   }
