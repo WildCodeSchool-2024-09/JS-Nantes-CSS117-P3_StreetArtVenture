@@ -90,7 +90,7 @@ const InscriptionForm = () => {
         </section>
         {/* ...................INPUT PRENOMS....................... */}
         <section className="form-group">
-          <label htmlFor="name"> Prénoms </label>
+          <label htmlFor="name"> Prénom </label>
           <input
             id="name"
             type="text"
@@ -104,7 +104,7 @@ const InscriptionForm = () => {
         </section>
         {/* ...................INPUT NOMS....................... */}
         <section className="form-group">
-          <label htmlFor="last-name"> Noms </label>
+          <label htmlFor="last-name"> Nom </label>
           <input
             id="last-name"
             type="text"
