@@ -2,8 +2,7 @@ import path from "node:path";
 import type { RequestHandler } from "express";
 import type { Request, Response } from "express";
 import multer from "multer";
-
-// Import access to data
+import notificationsRepository from "../notifications/notificationsRepository";
 import artRepository from "./artRepository";
 
 const readAll: RequestHandler = async (req, res, next) => {
@@ -55,6 +54,8 @@ const editArtPiece: RequestHandler = async (req, res, next) => {
     if (!artValidation) {
       res.sendStatus(404);
     } else {
+      const { userId } = req.body;
+      if (userId) notificationsRepository.update(id, userId, 1);
       res.status(200).send("Art piece has been validated !");
     }
   } catch (err) {
@@ -69,14 +70,14 @@ const denyArtPiece: RequestHandler = async (req, res, next) => {
     if (deniedArt === 0) {
       res.sendStatus(404);
     } else {
+      const { userId } = req.body;
+      if (userId) notificationsRepository.update(id, userId, 0);
       res.status(200).send("Art piece has been denied !");
     }
   } catch (err) {
     next(err);
   }
 };
-
-//
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -118,7 +119,7 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
       userId,
     } = req.body;
 
-    const affectedRows = await artRepository.updateValidation(
+    const artPieceId = await artRepository.updateValidation(
       pos_x,
       pos_y,
       name,
@@ -127,9 +128,11 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
       city,
       address,
     );
-    if (!affectedRows) {
+    if (!artPieceId) {
       res.sendStatus(404);
     } else {
+      // Create notification with default values waiting for admin validation
+      notificationsRepository.create(artPieceId, userId);
       res.sendStatus(204);
     }
   } catch (err) {
