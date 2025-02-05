@@ -1,78 +1,76 @@
 .artwork-page {
-  display: flex;
-  background-image: url("/background-grey.jpg");
-  background-size: cover;
-  justify-content: center;
-  padding: 70px;
+  background-image: url("/public/background-grey.jpg");
+  padding-top: 30px;
 }
-.white-card {
-  background-color: #ffffffbb;
-  border-radius: 10px;
-  padding: 30px;
-  text-align: center;
-  width: 1250px;
+
+.galery-main-container {
+  background-color: #ffffff8a;
+  margin: auto;
+  padding: 15px 5%;
+  width: 90%;
   display: flex;
   flex-direction: column;
-  gap: 25px;
   align-items: center;
+  gap: 15px;
+  border-radius: 20px;
 }
-.white-card h1 {
-  font-family: var(--secondary-font);
-  font-size: 65px;
-  color: black;
-  font-weight: 500;
-}
-.white-card > img {
-  width: 140px;
-}
-section.artwork-page .city {
-  background-color: black;
-  font-family: var(--primary-font);
-  color: white;
-  padding: 5px;
-  border-radius: 23px;
-  width: 10em;
-  height: 4ch;
-  margin-bottom: 10px;
+
+.galery-main-container > h1 {
+  font-family: Bangers, monospace;
+  font-weight: 100;
+  font-size: clamp(2em, 6vw, 4.5em);
   text-align: center;
 }
 
-.container-overflow {
+.galery-main-container > img,
+.galery-main-container > select {
+  width: auto;
+}
+
+.gallery-card-container {
+  gap: 5%;
+  margin-top: 15px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
 }
 
-.green-container {
-  height: 20em;
-  background-color: #22b573;
-  border-radius: 15px;
-  padding: 20px;
-  width: 15em;
+.gallery-card {
+  color: white;
   display: flex;
   flex-direction: column;
-  color: white;
-  font-family: var(--primary-font);
-  gap: 15px;
-}
-.galery-art {
-  height: 150px;
-  width: 200px;
-  object-fit: cover;
+  align-items: center;
+  background-color: #22b573;
+  padding: 10px;
+  width: 30%;
+  gap: 10px;
+  border-radius: 15px;
+  list-style: none;
+  margin-bottom: 30px;
 }
 
-.streetart-title {
-  font-size: 24px;
+.gallery-card > img {
+  width: 100%;
+}
+
+.gallery-card > p {
+  font-family: Montserrat, monospace;
+  font-weight: 200;
+  font-size: 0.75em;
+  text-align: center;
+}
+
+.gallery-card > :nth-child(2) {
   font-weight: 600;
 }
-@media screen and (max-width: 750px) {
-  .artwork-page {
-    padding: 40px;
+
+@media screen and (max-width: 600px) {
+  .gallery-card {
+    width: 45%;
   }
 }
-@media screen and (max-width: 400px) {
-  .white-card h1 {
-    font-size: 50px;
+
+@media screen and (max-width: 375px) {
+  .gallery-card {
+    width: 90%;
   }
 }
