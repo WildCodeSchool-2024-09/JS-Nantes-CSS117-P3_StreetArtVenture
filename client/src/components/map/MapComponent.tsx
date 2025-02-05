@@ -2,10 +2,11 @@ import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.awesome-markers/dist/leaflet.awesome-markers.css";
-import "./map.component.css";
+import "./Mapcomponent.css";
 import "leaflet.awesome-markers";
 import type { LatLngExpression } from "leaflet";
 import { useState } from "react";
+import useToast from "../../utils/useToast";
 import type { MapComponentProps } from "./Map.types";
 import WebcamCapture from "./Print";
 
@@ -15,6 +16,7 @@ function MapComponent({
   markerList,
 }: MapComponentProps) {
   const [openCapture, setOpenCapture] = useState(false);
+  const { success } = useToast();
 
   const handleButtonClick = () => setOpenCapture(!openCapture);
   // customize Icon current position
@@ -79,6 +81,11 @@ function MapComponent({
             openCapture={openCapture}
             setOpenCapture={setOpenCapture}
             position={position}
+            onSuccess={() =>
+              success(
+                "Félicitations ! Votre découverte a été envoyée et est maintenant en attente de validation !",
+              )
+            }
           />
         )}
       </MapContainer>
