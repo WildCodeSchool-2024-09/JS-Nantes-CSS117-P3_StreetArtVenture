@@ -190,8 +190,9 @@ const isSeen: RequestHandler = async (req, res) => {
   const answer = await userRepository.artVerification(userId, artId);
   if (answer.length === 0) {
     res.sendStatus(404);
+  } else {
+    res.json(answer);
   }
-  res.json(answer);
 };
 
 const addpoint: RequestHandler = async (req, res, next) => {
@@ -199,8 +200,9 @@ const addpoint: RequestHandler = async (req, res, next) => {
   const answer = await userRepository.addpoint(userId, artId);
   if (answer === 0) {
     res.sendStatus(404);
+  } else {
+    res.json(answer);
   }
-  res.json(answer);
   next;
 };
 

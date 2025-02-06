@@ -65,11 +65,7 @@ function MapComponent({
           failed("Erreur lors de l'envoie de la requête");
         }
         const data = await response.json();
-        if (data[0].has_viewed === 1) {
-          setIsViewed(false);
-        } else {
-          setIsViewed(true);
-        }
+        setIsViewed(data[0].has_viewed === 1);
       } catch (error) {
         failed("Erreur lors de l'envoie de la requête");
       }
