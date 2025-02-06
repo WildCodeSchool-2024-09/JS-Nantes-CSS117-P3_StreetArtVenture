@@ -1,4 +1,6 @@
+import argon2d from "argon2";
 import type { RequestHandler } from "express";
+
 import jwt from "jsonwebtoken";
 import userRepository from "./userRepository";
 
@@ -48,7 +50,7 @@ const verifyUser: RequestHandler = async (req, res, next) => {
 const registration: RequestHandler = async (req, res, next) => {
   try {
     const {
-      pseudo,
+      username,
       email,
       firstname,
       lastname,
@@ -57,14 +59,14 @@ const registration: RequestHandler = async (req, res, next) => {
       password,
       adress,
     } = req.body;
-    const isUser = await userRepository.isUserYet(pseudo, email);
+    const isUser = await userRepository.isUserYet(username, email);
 
     if (isUser?.length) {
       res.status(409).json({ message: "Cet utilisateur existe deja", isUser });
     }
     {
       const insertId = await userRepository.userInscription(
-        pseudo,
+        username,
         firstname,
         lastname,
         email,
@@ -131,10 +133,22 @@ const deleteUser: RequestHandler = async (req, res, next) => {
   }
 };
 
+const hashPassword: RequestHandler = async (req, res, next) => {
+  try {
+    const hashedPassword = await argon2d.hash(req.body.password);
+
+    req.body.password = hashedPassword;
+
+    next();
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 const patch: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
   const {
-    pseudo,
+    username,
     firstname,
     lastname,
     email,
@@ -150,7 +164,7 @@ const patch: RequestHandler = async (req, res, next) => {
   } = req.body;
   const user = await userRepository.patchName({
     id: Number.parseInt(id),
-    pseudo,
+    username,
     firstname,
     lastname,
     email,
@@ -179,4 +193,5 @@ export default {
   deleteUser,
   patch,
   registration,
+  hashPassword,
 };
