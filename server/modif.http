@@ -1,0 +1,10 @@
+PATCH http://localhost:3310/art/artPieceModification/ 
+Content-Type: application/json
+
+{
+  "name": "Nouvelle Oeuvre",
+  "city": "Nantes",
+  "coordinates": { "x": 47.202962, "y": -1.575121 },
+  "description": "Une magnifique œuvre d'art",
+  "points_value": 50
+}

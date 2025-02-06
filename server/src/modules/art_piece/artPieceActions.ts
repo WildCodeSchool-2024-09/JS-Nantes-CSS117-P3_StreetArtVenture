@@ -11,4 +11,17 @@ const getCities: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { getCities };
+const readAll: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch all art pieces
+    const items = await artPieceRepository.readAll();
+
+    // Respond with the items in JSON format
+    res.json(items);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+export default { getCities, readAll };

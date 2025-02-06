@@ -24,6 +24,15 @@ class ArtPieceRepository {
     );
     return rows as ArtCard[];
   }
+  async readAll() {
+    // Execute the SQL SELECT query to retrieve all items from the "item" table
+    const [rows] = await databaseClient.query<Rows>(
+      "select name, city, coordinates, description, points_value FROM art_piece",
+    );
+
+    // Return the array of items
+    return rows as ArtPiece[];
+  }
 }
 
 export default new ArtPieceRepository();
