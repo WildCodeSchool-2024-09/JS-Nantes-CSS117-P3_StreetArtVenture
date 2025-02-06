@@ -151,8 +151,12 @@ function MapComponent({
               <p className="popup-coordinates">Lattitude {el.coordinates.x}</p>
               <p className="popup-coordinates">Longitude {el.coordinates.y}</p>
               {isViewed && (
-                <button type="button" onClick={() => handleAddPoint(el.id)}>
-                  eye
+                <button
+                  className="green-button montserrat"
+                  type="button"
+                  onClick={() => handleAddPoint(el.id)}
+                >
+                  Trouvé !
                 </button>
               )}
             </Popup>
