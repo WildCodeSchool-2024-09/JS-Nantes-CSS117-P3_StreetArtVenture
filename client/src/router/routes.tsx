@@ -22,6 +22,10 @@ const routes = [
     element: <Connexion />,
   },
   {
+    path: "/connexion",
+    element: <Connexion />,
+  },
+  {
     path: "/register",
     element: <InscriptionForm />,
   },
@@ -39,10 +43,6 @@ const routes = [
       {
         path: "/leaderboard",
         element: <LeaderboardPage />,
-      },
-      {
-        path: "/connexion",
-        element: <Connexion />,
       },
       {
         path: "/gallery",

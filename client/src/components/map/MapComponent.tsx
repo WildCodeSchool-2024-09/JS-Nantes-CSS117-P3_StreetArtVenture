@@ -42,7 +42,7 @@ function MapComponent({
       const latLongArt = L.latLng(artLong, artLat);
       const latLongUser = L.latLng(centerMarker[0], centerMarker[1]);
       const distance = latLongArt.distanceTo(latLongUser);
-      if (distance > 11150) {
+      if (distance > 50) {
         setIsViewed(false);
         return;
       }
