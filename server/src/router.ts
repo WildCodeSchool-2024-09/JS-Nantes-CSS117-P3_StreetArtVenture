@@ -14,7 +14,7 @@ router.use(express.json());
 /* ************************** PUBLIC ACTIONS ************************** */
 
 /* ************************** LOGGED USERS ACTIONS ************************** */
-//router.use(authActions.verifyToken);
+router.use(authActions.verifyToken);
 router.get("/notifications/:id", notificationsActions.read);
 router.patch("/notifications/:id", notificationsActions.setRead);
 router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
@@ -26,7 +26,7 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 router.patch("/user/:id", userActions.patch); // TODO US-36
 
 /* ************************** ADMIN ACTIONS ************************** */
-//router.use(authActions.verifyAdmin);
+router.use(authActions.verifyAdmin);
 router.patch("/art/artPieceModification/", artPieceActions.readAll);
 router.get(
   "/leaderboard/admin/getLeaderboard",
