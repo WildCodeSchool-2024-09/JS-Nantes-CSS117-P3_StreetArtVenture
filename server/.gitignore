@@ -4,3 +4,4 @@ coverage
 .getArt.http
 .signalement.http
 .request.http
+.modif.http
