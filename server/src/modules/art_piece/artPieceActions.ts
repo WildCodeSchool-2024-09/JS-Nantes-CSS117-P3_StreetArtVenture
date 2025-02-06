@@ -11,7 +11,7 @@ const getCities: RequestHandler = async (req, res, next) => {
   }
 };
 
-const readAll: RequestHandler = async (req, res, next) => {
+const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all art pieces
     const items = await artPieceRepository.readAll();
@@ -24,4 +24,4 @@ const readAll: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { getCities, readAll };
+export default { getCities, browse };

@@ -27,7 +27,7 @@ router.patch("/user/:id", userActions.patch); // TODO US-36
 
 /* ************************** ADMIN ACTIONS ************************** */
 router.use(authActions.verifyAdmin);
-router.patch("/art/artPieceModification/", artPieceActions.readAll);
+router.patch("/art/artPieceModification/", artPieceActions.browse);
 router.get(
   "/leaderboard/admin/getLeaderboard",
   leaderboardActions.getAdminLeaderboard,
