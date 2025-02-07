@@ -68,7 +68,7 @@ function Lost() {
         failed("Erreur lors de la validation du signalement.");
         return;
       }
-      success("la validation approuvé");
+      success("la validation est approuvé");
     } catch {
       failed("Erreur lors de la validation du signalement.");
     } finally {
@@ -89,14 +89,14 @@ function Lost() {
         failed("Erreur lors du refus du signalement.");
         return;
       }
-      success("Refus approuvé");
+      success("Le refus est approuvé");
       const itemExists = reported.some(
         (item) => item.art_piece_id === art_piece_id,
       );
       if (itemExists) {
         updateReportedData(art_piece_id);
       } else {
-        failed("Signalement introuvable.");
+        failed("Le signalement est introuvable.");
       }
     } catch {
       failed("Erreur lors du refus du signalement.");
