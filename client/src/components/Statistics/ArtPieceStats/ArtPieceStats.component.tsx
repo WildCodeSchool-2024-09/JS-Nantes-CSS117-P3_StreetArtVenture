@@ -1,5 +1,6 @@
 import "./ArtPieceStats.component.css";
 import { useEffect, useState } from "react";
+import { fetchWithAuth } from "../../../utils/api";
 import type { ArtPieceDataType } from "../Statistics";
 
 function ArtPieceStats() {
@@ -10,7 +11,7 @@ function ArtPieceStats() {
   }, []);
 
   async function fetchArtPiecesData() {
-    const req = await fetch(
+    const req = await fetchWithAuth(
       `${import.meta.env.VITE_API_URL}/statistics/art_piece`,
     );
     const stats = await req.json();

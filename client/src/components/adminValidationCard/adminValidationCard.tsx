@@ -8,7 +8,7 @@ export function AdminValidationBoard() {
 
   useEffect(() => {
     const fetchArtPiece = async () => {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/art/latestArtPieceUnvelidated`,
       );
       const data = await response.json();
@@ -53,7 +53,7 @@ export function AdminValidationBoard() {
       return;
     }
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/art/artPieceDenied/${data.id}`,
         {
           method: "DELETE",
@@ -76,7 +76,7 @@ export function AdminValidationBoard() {
 
   const handleBan = async () => {
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/user/verifyUser`,
         {
           method: "PATCH",
