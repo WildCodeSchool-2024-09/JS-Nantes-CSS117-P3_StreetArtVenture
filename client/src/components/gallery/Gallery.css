@@ -2,7 +2,16 @@
   background-image: url("/background-grey.jpg");
   padding-top: 30px;
 }
-
+.city {
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 23px;
+  width: 10em;
+  height: 4ch;
+  margin-bottom: 10px;
+  text-align: center;
+}
 .galery-main-container {
   background-color: #ffffff8a;
   margin: auto;
