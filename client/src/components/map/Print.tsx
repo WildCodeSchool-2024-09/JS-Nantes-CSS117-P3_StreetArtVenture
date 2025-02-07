@@ -1,3 +1,5 @@
+import { fetchWithAuth } from "../../utils/api";
+
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import "./Print.css";
@@ -84,7 +86,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
       if (response.ok) {
         const data = await response.json();
 
-        const toSend = await fetch(
+        const toSend = await fetchWithAuth(
           `${import.meta.env.VITE_API_URL}/art/newArt`,
           {
             method: "POST",
