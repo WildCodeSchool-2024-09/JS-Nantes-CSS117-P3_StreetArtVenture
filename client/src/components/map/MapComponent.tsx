@@ -7,6 +7,7 @@ import "leaflet.awesome-markers";
 import type { LatLngExpression } from "leaflet";
 import { useState } from "react";
 import { useUser } from "../../context/UserContext";
+import { fetchWithAuth } from "../../utils/api";
 import useToast from "../../utils/useToast";
 import type { MapComponentProps, PointButtonVerification } from "./Map.types";
 import WebcamCapture from "./Print";
@@ -47,7 +48,7 @@ function MapComponent({
         return;
       }
       try {
-        const response = await fetch(
+        const response = await fetchWithAuth(
           `${import.meta.env.VITE_API_URL}/user/artVerification`,
           {
             method: "POST",
@@ -65,7 +66,9 @@ function MapComponent({
           failed("Erreur lors de l'envoie de la requête");
         }
         const data = await response.json();
-        setIsViewed(data[0].has_viewed === 1);
+        if (data) {
+          setIsViewed(true);
+        }
       } catch (error) {
         failed("Erreur lors de l'envoie de la requête");
       }
@@ -75,7 +78,7 @@ function MapComponent({
   const handleAddPoint = async (artId: number) => {
     if (user) {
       try {
-        const response = await fetch(
+        const response = await fetchWithAuth(
           `${import.meta.env.VITE_API_URL}/user/addpoint`,
           {
             method: "POST",
