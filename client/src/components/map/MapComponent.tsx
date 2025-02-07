@@ -17,14 +17,14 @@ function MapComponent({
 }: MapComponentProps) {
   const [openCapture, setOpenCapture] = useState(false);
   const { success } = useToast();
-
   const handleButtonClick = () => setOpenCapture(!openCapture);
-  // customize Icon current position
+
+  // Custom icon for the current position
   const CenterMarkerIcon = L.AwesomeMarkers.icon({
     markerColor: "red",
   });
 
-  // customize Icon art pieces
+  // Custom icon for art pieces
   const defaultIcon = L.AwesomeMarkers.icon({
     markerColor: "cadetblue",
   });
@@ -63,8 +63,7 @@ function MapComponent({
                 alt="art"
               />
               <h4 className="popup-title">{el.name}</h4>
-              <p className="popup-coordinates">Lattitude {el.coordinates.x}</p>
-              <p className="popup-coordinates">Longitude {el.coordinates.y}</p>
+              <p className="popup-coordinates">{el.adress}</p>
             </Popup>
           </Marker>
         ))}
