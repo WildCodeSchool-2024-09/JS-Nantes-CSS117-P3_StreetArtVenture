@@ -2,8 +2,8 @@ import "./lost.css";
 import { useEffect, useState } from "react";
 import traith1lost from "/trait-h1-artwork.tsx.png";
 import { fetchWithAuth } from "../../utils/api";
-import type { LostI } from "./LostType";
 import useToast from "../../utils/useToast";
+import type { LostI } from "./LostType";
 
 function Lost() {
   const { success, failed } = useToast();
