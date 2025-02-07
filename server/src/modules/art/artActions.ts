@@ -2,8 +2,8 @@ import path from "node:path";
 import type { RequestHandler } from "express";
 import type { Request, Response } from "express";
 import multer from "multer";
-
-// Import access to data
+import type { JWTPayload } from "../../types/express/auth";
+import userRepository from "../user/userRepository";
 import artRepository from "./artRepository";
 
 const readAll: RequestHandler = async (req, res, next) => {
@@ -50,12 +50,24 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
 
 const editArtPiece: RequestHandler = async (req, res, next) => {
   try {
-    const id = Number(req.params.id);
-    const artValidation = await artRepository.approveArtPiece(id);
+    const artPieceId = req.params.id;
+    const artValidation = await artRepository.approveArtPiece(artPieceId);
     if (!artValidation) {
       res.sendStatus(404);
     } else {
-      res.status(200).send("Art piece has been validated !");
+      const userId = (req.auth as JWTPayload).id;
+      const pointsGiven = await userRepository.addCreationPoints(
+        userId,
+        req.body.pointsValue,
+      );
+      if (pointsGiven)
+        res.status(200).send("Art piece has been validated and points given!");
+      else
+        res
+          .status(202)
+          .send(
+            "Art piece has been validated but there was a problem with points distribution",
+          );
     }
   } catch (err) {
     next(err);
@@ -75,8 +87,6 @@ const denyArtPiece: RequestHandler = async (req, res, next) => {
     next(err);
   }
 };
-
-//
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

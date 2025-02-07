@@ -1,4 +1,6 @@
+import argon2d from "argon2";
 import type { RequestHandler } from "express";
+
 import jwt from "jsonwebtoken";
 import userRepository from "./userRepository";
 
@@ -131,6 +133,18 @@ const deleteUser: RequestHandler = async (req, res, next) => {
   }
 };
 
+const hashPassword: RequestHandler = async (req, res, next) => {
+  try {
+    const hashedPassword = await argon2d.hash(req.body.password);
+
+    req.body.password = hashedPassword;
+
+    next();
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 const patch: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
   const {
@@ -179,4 +193,5 @@ export default {
   deleteUser,
   patch,
   registration,
+  hashPassword,
 };
