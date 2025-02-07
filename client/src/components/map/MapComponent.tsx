@@ -95,8 +95,6 @@ function MapComponent({
         setIsViewed(false);
       } catch (error) {
         failed("Erreur lors de l'attribution de points' :");
-
-        console.error("Echec lors de l'envoi de points", error);
       }
     }
   };

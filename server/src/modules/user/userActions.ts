@@ -195,7 +195,7 @@ const isSeen: RequestHandler = async (req, res) => {
   }
 };
 
-const addpoint: RequestHandler = async (req, res, next) => {
+const addpoint: RequestHandler = async (req, res) => {
   const { userId, artId } = req.body;
   const answer = await userRepository.addpoint(userId, artId);
   if (answer === 0) {
@@ -203,7 +203,6 @@ const addpoint: RequestHandler = async (req, res, next) => {
   } else {
     res.json(answer);
   }
-  next;
 };
 
 export default {
