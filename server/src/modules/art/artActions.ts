@@ -2,7 +2,9 @@ import path from "node:path";
 import type { RequestHandler } from "express";
 import type { Request, Response } from "express";
 import multer from "multer";
+import type { JWTPayload } from "../../types/express/auth";
 import notificationsRepository from "../notifications/notificationsRepository";
+import userRepository from "../user/userRepository";
 import artRepository from "./artRepository";
 
 const readAll: RequestHandler = async (req, res, next) => {
@@ -49,14 +51,25 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
 
 const editArtPiece: RequestHandler = async (req, res, next) => {
   try {
-    const id = Number(req.params.id);
-    const artValidation = await artRepository.approveArtPiece(id);
+    const artPieceId = req.params.id;
+    const artValidation = await artRepository.approveArtPiece(artPieceId);
     if (!artValidation) {
       res.sendStatus(404);
     } else {
-      const { userId } = req.body;
-      if (userId) notificationsRepository.update(id, userId, 1);
-      res.status(200).send("Art piece has been validated !");
+      const userId = (req.auth as JWTPayload).id;
+      if (userId) notificationsRepository.update(artPieceId, userId, 1);
+      const pointsGiven = await userRepository.addCreationPoints(
+        userId,
+        req.body.pointsValue,
+      );
+      if (pointsGiven)
+        res.status(200).send("Art piece has been validated and points given!");
+      else
+        res
+          .status(202)
+          .send(
+            "Art piece has been validated but there was a problem with points distribution",
+          );
     }
   } catch (err) {
     next(err);
@@ -71,7 +84,7 @@ const denyArtPiece: RequestHandler = async (req, res, next) => {
       res.sendStatus(404);
     } else {
       const { userId } = req.body;
-      if (userId) notificationsRepository.update(id, userId, 0);
+      if (userId) notificationsRepository.update(`${id}`, userId, 0);
       res.status(200).send("Art piece has been denied !");
     }
   } catch (err) {

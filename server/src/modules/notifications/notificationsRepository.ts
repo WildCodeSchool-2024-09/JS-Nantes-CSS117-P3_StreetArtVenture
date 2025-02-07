@@ -12,7 +12,7 @@ class notificationsRepository {
 
     return result.affectedRows;
   }
-  async update(artPieceId: number, userId: string, status: number) {
+  async update(artPieceId: string, userId: number, status: number) {
     const query =
       "UPDATE notifications SET status = ? WHERE art_piece_id = ? AND user_id = ?";
     const [result] = await databaseClient.query<Result>(query, [

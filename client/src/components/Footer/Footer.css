@@ -19,7 +19,7 @@
   color: white;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 600px) {
   .footer-section img {
     height: 60px;
   }
