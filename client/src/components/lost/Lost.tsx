@@ -2,6 +2,7 @@ import "./lost.css";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import traith1lost from "/trait-h1-artwork.tsx.png";
+import { fetchWithAuth } from "../../utils/api";
 import type { LostI } from "./LostType";
 
 function Lost() {
@@ -19,7 +20,7 @@ function Lost() {
   useEffect(() => {
     const fetchReportedData = async () => {
       try {
-        const response = await fetch(
+        const response = await fetchWithAuth(
           `${import.meta.env.VITE_API_URL}/user/reporting`,
         );
         const data = await response.json();
@@ -53,7 +54,7 @@ function Lost() {
   const validateReport = async (art_piece_id: number) => {
     setIsLoading(true);
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/reports/validate/${art_piece_id}`,
         {
           method: "PATCH",
@@ -77,7 +78,7 @@ function Lost() {
   const refuseReport = async (art_piece_id: number) => {
     setIsLoading(true);
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/reports/refuse/${art_piece_id}`,
         { method: "DELETE" },
       );

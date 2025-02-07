@@ -3,6 +3,7 @@ import CityCoordinates from "../../components/cityCoordinates/cityCoordinates.co
 import "./MapPage.css";
 import MapComponent from "../../components/map/MapComponent";
 import type { ArtPiece } from "../../types/art_piece";
+import { fetchWithAuth } from "../../utils/api";
 
 function MapPage() {
   const [position, setPosition] = useState<
@@ -36,7 +37,7 @@ function MapPage() {
   // fetch all art_pieces around lattitude and longitude given
   async function getData(lat: number, lng: number) {
     // parameter radius (optionnal) can be added if we want a wider or narrower radius
-    const res = await fetch(
+    const res = await fetchWithAuth(
       `${import.meta.env.VITE_API_URL}/art/findArtPiecesAround?latitude=${lat}&longitude=${lng}`,
     );
     const newData = await res.json();
