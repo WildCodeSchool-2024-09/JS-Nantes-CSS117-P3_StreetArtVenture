@@ -9,6 +9,7 @@ import LeaderboardPage from "../pages/leaderboard/LeaderboardPage";
 import MapPage from "../pages/map/MapPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import StatisticsPage from "../pages/statistics/StatisticsPage";
+import NoRouteHandler from "./404Handler/404Handler";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -66,6 +67,10 @@ const routes = [
         element: <AdminArtPieceListPage />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NoRouteHandler />,
   },
 ];
 
