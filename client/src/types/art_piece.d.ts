@@ -1,6 +1,7 @@
 export interface ArtPiece {
   id: number;
   name: string;
+  user_id: number;
   adress: string;
   coordinates: { x: number; y: number };
   city: string;
