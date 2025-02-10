@@ -1,7 +1,7 @@
 import "./UsersStats.component.css";
 import { useEffect, useState } from "react";
-import type { PlayerDataType, UserDataType } from "../Statistics";
 import { fetchWithAuth } from "../../../utils/api";
+import type { PlayerDataType, UserDataType } from "../Statistics";
 
 function UsersStats() {
   const [data, setData] = useState<null | UserDataType>(null);
