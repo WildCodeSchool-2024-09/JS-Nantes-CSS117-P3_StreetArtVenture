@@ -105,6 +105,7 @@ class UserRepository {
     WHERE user_id = ? AND art_piece_id = ?
 ) AS has_viewed`;
 
+
     const [row] = await databaseClient.query<Rows>(query, [userId, artId]);
     return row;
   }
@@ -128,6 +129,15 @@ WHERE u.id = ?`;
       return result.affectedRows;
     }
   }
+
+  async deductPointsFromRecovery(artPieceId: string) {
+    const query =
+      "UPDATE user u JOIN viewed_art_piece v ON u.id = v.user_id JOIN art_piece a ON v.art_piece_id = a.id SET u.points = u.points - ROUND(a.points_value/3) WHERE a.id = ?";
+    const [result] = await databaseClient.query<Result>(query, [artPieceId]);
+    return result.affectedRows;
+  }
+
+
   async addCreationPoints(userId: number, artPieceValue: number) {
     const query = "UPDATE user SET points = points + ? WHERE id = ?";
     const [result] = await databaseClient.query<Result>(query, [
