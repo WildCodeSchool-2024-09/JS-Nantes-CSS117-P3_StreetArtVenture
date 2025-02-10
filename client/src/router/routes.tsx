@@ -18,7 +18,7 @@ const routes = [
     element: <Home />,
   },
   {
-    path: "/gallery",
+    path: "/galerie",
     element: <Gallery />,
   },
   {
@@ -26,22 +26,22 @@ const routes = [
     element: <Connexion />,
   },
   {
-    path: "/register",
+    path: "/inscription",
     element: <InscriptionForm />,
   },
   {
-    path: "/leaderboard",
+    path: "/classement",
     element: <LeaderboardPage />,
   },
   {
     element: <ProtectedRoute />,
     children: [
       {
-        path: "/profile",
+        path: "/profil",
         element: <ProfilePage />,
       },
       {
-        path: "/map",
+        path: "/carte",
         element: <MapPage />,
       },
     ],
@@ -50,19 +50,19 @@ const routes = [
     element: <AdminProtectedRoute />,
     children: [
       {
-        path: "/adminvalidation",
+        path: "/validation",
         element: <AdminValidationBoard />,
       },
       {
-        path: "/statistics",
+        path: "/statistiques",
         element: <StatisticsPage />,
       },
       {
-        path: "/lost",
+        path: "/signalements",
         element: <Lost />,
       },
       {
-        path: "/art-piece-list",
+        path: "/admin/galerie",
         element: <AdminArtPieceListPage />,
       },
     ],

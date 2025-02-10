@@ -33,7 +33,7 @@ function Navbar() {
       {isOpen && (
         <div>
           <ul className="section-ul">
-            <Link className="link-nav" to="/map" onClick={handleLinkClick}>
+            <Link className="link-nav" to="/carte" onClick={handleLinkClick}>
               Jouer
             </Link>
             {alternator[0] && (
@@ -48,7 +48,7 @@ function Navbar() {
             {alternator[0] && (
               <Link
                 className="link-nav"
-                to="/register"
+                to="/inscription"
                 onClick={handleLinkClick}
               >
                 S'inscrire
@@ -57,19 +57,13 @@ function Navbar() {
 
             <Link
               className="link-nav"
-              to="/leaderboard"
+              to="/classement"
               onClick={handleLinkClick}
             >
               Classement
             </Link>
-            <Link className="link-nav" to="/gallery" onClick={handleLinkClick}>
+            <Link className="link-nav" to="/galerie" onClick={handleLinkClick}>
               Les Oeuvres
-            </Link>
-            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
-              Admin
-            </Link>
-            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
-              Paramètres
             </Link>
             {alternator[1] && (
               <button
@@ -85,24 +79,28 @@ function Navbar() {
               <>
                 <Link
                   className="link-nav"
-                  to="/art-piece-list"
+                  to="/admin/galerie"
                   onClick={handleLinkClick}
                 >
                   Liste des oeuvres
                 </Link>
-                <Link className="link-nav" to="/lost" onClick={handleLinkClick}>
+                <Link
+                  className="link-nav"
+                  to="/signalements"
+                  onClick={handleLinkClick}
+                >
                   Signalements
                 </Link>
                 <Link
                   className="link-nav"
-                  to="/adminvalidation"
+                  to="/validation"
                   onClick={handleLinkClick}
                 >
                   Validation
                 </Link>
                 <Link
                   className="link-nav"
-                  to="/statistics"
+                  to="/statistiques"
                   onClick={handleLinkClick}
                 >
                   Statistiques
