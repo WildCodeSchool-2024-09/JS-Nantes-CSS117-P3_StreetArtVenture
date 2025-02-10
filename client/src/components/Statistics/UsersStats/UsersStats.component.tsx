@@ -1,5 +1,6 @@
 import "./UsersStats.component.css";
 import { useEffect, useState } from "react";
+import { fetchWithAuth } from "../../../utils/api";
 import type { PlayerDataType, UserDataType } from "../Statistics";
 
 function UsersStats() {
@@ -10,8 +11,8 @@ function UsersStats() {
     async function fetchData() {
       try {
         const [userRes, playerRes] = await Promise.all([
-          fetch(`${import.meta.env.VITE_API_URL}/statistics/user`),
-          fetch(`${import.meta.env.VITE_API_URL}/statistics/player`),
+          fetchWithAuth(`${import.meta.env.VITE_API_URL}/statistics/user`),
+          fetchWithAuth(`${import.meta.env.VITE_API_URL}/statistics/player`),
         ]);
 
         const userStats = await userRes.json();
