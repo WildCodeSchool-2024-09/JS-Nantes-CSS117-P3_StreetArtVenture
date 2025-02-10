@@ -3,6 +3,7 @@ import type { RequestHandler } from "express";
 import type { Request, Response } from "express";
 import multer from "multer";
 import type { JWTPayload } from "../../types/express/auth";
+import notificationsRepository from "../notifications/notificationsRepository";
 import userRepository from "../user/userRepository";
 import artRepository from "./artRepository";
 
@@ -88,6 +89,7 @@ const editArtPiece: RequestHandler = async (req, res, next) => {
       res.sendStatus(404);
     } else {
       const userId = (req.auth as JWTPayload).id;
+      if (userId) notificationsRepository.update(artPieceId, userId, 1);
       const pointsGiven = await userRepository.addCreationPoints(
         userId,
         req.body.pointsValue,
@@ -113,6 +115,8 @@ const denyArtPiece: RequestHandler = async (req, res, next) => {
     if (deniedArt === 0) {
       res.sendStatus(404);
     } else {
+      const { userId } = req.body;
+      if (userId) notificationsRepository.update(`${id}`, userId, 0);
       res.status(200).send("Art piece has been denied !");
     }
   } catch (err) {
@@ -160,7 +164,7 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
       userId,
     } = req.body;
 
-    const affectedRows = await artRepository.updateValidation(
+    const artPieceId = await artRepository.updateValidation(
       pos_x,
       pos_y,
       name,
@@ -169,9 +173,11 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
       city,
       address,
     );
-    if (!affectedRows) {
+    if (!artPieceId) {
       res.sendStatus(404);
     } else {
+      // Create notification with default values waiting for admin validation
+      notificationsRepository.create(artPieceId, userId);
       res.sendStatus(204);
     }
   } catch (err) {

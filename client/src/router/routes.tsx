@@ -18,12 +18,20 @@ const routes = [
     element: <Home />,
   },
   {
-    path: "/login",
+    path: "/gallery",
+    element: <Gallery />,
+  },
+  {
+    path: "/connexion",
     element: <Connexion />,
   },
   {
     path: "/register",
     element: <InscriptionForm />,
+  },
+  {
+    path: "/leaderboard",
+    element: <LeaderboardPage />,
   },
   {
     element: <ProtectedRoute />,
@@ -35,18 +43,6 @@ const routes = [
       {
         path: "/map",
         element: <MapPage />,
-      },
-      {
-        path: "/leaderboard",
-        element: <LeaderboardPage />,
-      },
-      {
-        path: "/connexion",
-        element: <Connexion />,
-      },
-      {
-        path: "/gallery",
-        element: <Gallery />,
       },
     ],
   },

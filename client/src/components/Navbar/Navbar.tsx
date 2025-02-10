@@ -45,9 +45,16 @@ function Navbar() {
                 Connexion
               </Link>
             )}
-            <Link className="link-nav" to="/register" onClick={handleLinkClick}>
-              S'inscrire
-            </Link>
+            {alternator[0] && (
+              <Link
+                className="link-nav"
+                to="/register"
+                onClick={handleLinkClick}
+              >
+                S'inscrire
+              </Link>
+            )}
+
             <Link
               className="link-nav"
               to="/leaderboard"
