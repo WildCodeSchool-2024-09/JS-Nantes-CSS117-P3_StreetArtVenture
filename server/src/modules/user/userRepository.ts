@@ -28,6 +28,15 @@ class UserRepository {
     return rows as User[];
   }
 
+  async readPasswordHash(email: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "select id, password, is_admin AS isAdmin, is_ban AS isBanned from user where email = ? ",
+      [email],
+    );
+
+    return rows as User[];
+  }
+
   async isUserYet(username: string, email: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
       "select email, username from user where email = ? or username = ?",
@@ -42,14 +51,23 @@ class UserRepository {
     firstname: string,
     lastname: string,
     email: string,
-    zipcode: string,
+    zipcodeemail: string,
     adress: string,
     city: string,
     password: string,
   ): Promise<number | null> {
     const [result] = await databaseClient.query<Result>(
       "INSERT INTO user (username, firstname, lastname, email, zipcode, city, adress, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [username, firstname, lastname, email, zipcode, city, adress, password],
+      [
+        username,
+        firstname,
+        lastname,
+        email,
+        zipcodeemail,
+        city,
+        adress,
+        password,
+      ],
     );
     return result.insertId || null;
   }

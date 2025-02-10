@@ -22,28 +22,51 @@ const verifyToken: RequestHandler = async (req, res, next) => {
   }
 };
 
-const verifyUser: RequestHandler = async (req, res, next) => {
+const verifyUser: RequestHandler = async (req, res, next): Promise<void> => {
   try {
     const { email, password, reminder } = req.body;
-    const user = await userRepository.verifyUser(email, password);
 
-    if (user == null) {
-      res.status(404).json({ message: "utilisateur non trouvé" });
-    } else {
-      const token = jwt.sign(
-        {
-          id: user[0].id,
-          email: user[0].email,
-          isAdmin: user[0].isAdmin,
-          isBanned: user[0].isBanned,
-        },
-        JWT_SECRET,
-        { expiresIn: reminder },
-      );
-      res.status(200).json({ token });
+    if (!email || !password) {
+      res.status(400).json({ message: "Email et mot de passe requis" });
+      return;
     }
+
+    // 🔹 Récupérer l'utilisateur depuis la base de données
+    const userArray = await userRepository.readPasswordHash(email);
+
+    if (!userArray || userArray.length === 0) {
+      res.status(404).json({ message: "Utilisateur non trouvé" });
+      return;
+    }
+
+    const user = userArray[0]; // Extraction du premier utilisateur
+    const passwordHash = user.password; // Supposons que c'est bien le hash stocké
+
+    // 🔹 Vérifier le mot de passe avec Argon2
+    const isPasswordValid = await argon2d.verify(passwordHash, password);
+
+    if (!isPasswordValid) {
+      res.status(401).json({ message: "Mot de passe incorrect" });
+      return;
+    }
+
+    // 🔹 Générer le token JWT
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        isBanned: user.isBanned,
+      },
+      JWT_SECRET,
+      { expiresIn: reminder },
+    );
+
+    res.status(200).json({ token });
+    return;
   } catch (err) {
     next(err);
+    return;
   }
 };
 

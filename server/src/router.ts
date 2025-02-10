@@ -13,8 +13,10 @@ const router = express.Router();
 router.use(express.json());
 /* ************************** PUBLIC ACTIONS ************************** */
 
+router.post("/user/verify", userActions.hashPassword, userActions.verifyUser);
+
 /* ************************** LOGGED USERS ACTIONS ************************** */
-router.use(authActions.verifyToken);
+// router.use(authActions.verifyToken);
 router.get("/notifications/:id", notificationsActions.read);
 router.patch("/notifications/:id", notificationsActions.setRead);
 router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
@@ -26,7 +28,7 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
 router.patch("/user/:id", userActions.patch); // TODO US-36
 
 /* ************************** ADMIN ACTIONS ************************** */
-router.use(authActions.verifyAdmin);
+// router.use(authActions.verifyAdmin);
 
 router.get(
   "/leaderboard/admin/getLeaderboard",
@@ -47,7 +49,6 @@ router.post("/art/newArt", artActions.updateAccepted);
 /* ******************************************************************** */
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
-router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
 router.post(
   "/user/registration",

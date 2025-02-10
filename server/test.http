@@ -1,0 +1,8 @@
+POST http://localhost:3310/user/verify
+Content-Type: application/json
+
+{
+  "email" : "testadmin@account.com",
+  "password" :"12321JHjhazdjka",
+  "reminder" : "600"
+}
