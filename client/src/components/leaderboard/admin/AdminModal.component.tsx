@@ -20,20 +20,23 @@ function AdminModal({
                 handleAdminConfirmation={handleAdminConfirmation}
               />
             ) : (
-              <DeleteUserForm
-                poppedUser={poppedUser}
-                setIsPopupOpen={setIsPopupOpen}
-                handleAdminConfirmation={handleAdminConfirmation}
-              />
+              <div className="button-ban-refusal">
+                <DeleteUserForm
+                  poppedUser={poppedUser}
+                  setIsPopupOpen={setIsPopupOpen}
+                  handleAdminConfirmation={handleAdminConfirmation}
+                />
+                <button
+                  className="leaderboard-popup-button-false"
+                  type="button"
+                  onClick={() => {
+                    setIsPopupOpen(false);
+                  }}
+                >
+                  Annuler
+                </button>
+              </div>
             )}
-            <button
-              type="button"
-              onClick={() => {
-                setIsPopupOpen(false);
-              }}
-            >
-              Annuler
-            </button>
           </div>
         </div>
       )}
