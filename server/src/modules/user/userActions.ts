@@ -31,7 +31,6 @@ const verifyUser: RequestHandler = async (req, res, next): Promise<void> => {
       return;
     }
 
-    // 🔹 Récupérer l'utilisateur depuis la base de données
     const userArray = await userRepository.readPasswordHash(email);
 
     if (!userArray || userArray.length === 0) {
@@ -39,10 +38,9 @@ const verifyUser: RequestHandler = async (req, res, next): Promise<void> => {
       return;
     }
 
-    const user = userArray[0]; // Extraction du premier utilisateur
-    const passwordHash = user.password; // Supposons que c'est bien le hash stocké
+    const user = userArray[0];
+    const passwordHash = user.password;
 
-    // 🔹 Vérifier le mot de passe avec Argon2
     const isPasswordValid = await argon2d.verify(passwordHash, password);
 
     if (!isPasswordValid) {
@@ -50,7 +48,6 @@ const verifyUser: RequestHandler = async (req, res, next): Promise<void> => {
       return;
     }
 
-    // 🔹 Générer le token JWT
     const token = jwt.sign(
       {
         id: user.id,
