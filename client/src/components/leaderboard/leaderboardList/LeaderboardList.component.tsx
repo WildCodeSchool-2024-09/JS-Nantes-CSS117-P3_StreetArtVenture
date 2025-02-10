@@ -53,7 +53,7 @@ function LeaderboardList({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: input.value }),
+          body: JSON.stringify({ username: input.value }),
         },
       );
     } else
