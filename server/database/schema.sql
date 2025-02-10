@@ -19,6 +19,7 @@ CREATE TABLE user (
 CREATE TABLE art_piece (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,
+  user_id INT UNSIGNED NOT NULL,
   adress VARCHAR(255),
   city VARCHAR(100) NOT NULL,
   coordinates POINT NOT NULL,
@@ -26,7 +27,8 @@ CREATE TABLE art_piece (
   is_covered BOOLEAN DEFAULT FALSE NOT NULL,
   picture_path VARCHAR(255) NULL,
   description VARCHAR(255),
-  points_value INT DEFAULT NULL
+  points_value INT DEFAULT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE viewed_art_piece (
@@ -50,11 +52,13 @@ CREATE TABLE reported_art_piece (
 
 CREATE TABLE notifications (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  art_piece_id INT UNSIGNED NOT NULL,
   user_id INT UNSIGNED NOT NULL,
   status BOOLEAN DEFAULT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   viewed_at TIMESTAMP DEFAULT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (art_piece_id) REFERENCES art_piece(id) ON DELETE CASCADE
 );
 
 INSERT INTO user(username, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection)
@@ -160,28 +164,28 @@ VALUES
   ('Walter', 'Brain', 'Gislason', 'Keely20@hotmail.com', '65144-2179', 'Angers', '2871 Marquardt Stream', '$argon2id$v=19$m=65536,t=3,p=4$O4UShHhPcGHe2D4n60EUzg$pO4O3+vASeVKjY5SsdmxiWMVlVvIeUB66mDVHaB+wJ8', 429, false, '2022-10-19 04:18:03', '2023-05-30 08:49:52'),
   ('Lang', 'Mylene', 'Kub', 'Kayley5@gmail.com', '41643', 'Nantes', '512 Marlon Trafficway', '$argon2id$v=19$m=65536,t=3,p=4$AWaJ+cMkvIbktfOAmJbx+Q$jPXe6FUFCwsSDDlqhF3wi6jVjEqqZw8PRslf0L4Omxo', 1102, false, '2023-10-23 19:43:10', '2024-01-30 01:51:16');
 
-INSERT INTO art_piece (name, picture_path , adress, city, coordinates, is_validated, is_covered, description, points_value)
+INSERT INTO art_piece (name, user_id, picture_path , adress, city, coordinates, is_validated, is_covered, description, points_value)
 VALUES
-  ('La Reine allongée', "/assets/images/femme_noir_blanc.jpg", 'Quai Marquis d Aiguillon', "Nantes" , POINT(47.202962, -1.575121), TRUE, FALSE, 'Caricature de femme alongée sur un plateau repas', 10),
-  ('La scène Michelet', "/assets/images/foudre_rouge.jpg", 'Boulevard Henry Orrion', "Nantes", POINT(47.232994, -1.557009), FALSE, FALSE, 'Oeuvre mural pour décorer le café/concert La Scene Michelet', 20),
-  ('Crash c.13', "/assets/images/dessin_enfant.jpg", 'Rue de la Guyane', "Nantes", POINT(47.200271, -1.572050), TRUE, TRUE, 'Oeuvre colorée représentant différentes thématiques', 35),
-  ('Homme nu accroupi', "/assets/images/homme_nu_cubisme.jpg", 'Rue de la Résistance', "Nantes", POINT(47.202587, -1.544862), TRUE, FALSE, 'Homme nu accroupi dans le style cubisme', 10),
-  ('Space Rat', "/assets/images/super_rat.jpg", 'Boulevard Benoni Goullin', "Nantes", POINT(47.201747, -1.549328), FALSE, FALSE, "Représentation d un super héro Rat venu de l'espace", 100),
-  ('Sortez Masqués !', "/assets/images/sortez_masques.jpg", 'Boulevard Benoît Frachon', "Nantes", POINT(47.206570, -1.575707), TRUE, FALSE, 'Oeuvre reprenant différentes figures populaires masqués', 20),
-  ('Explorateur des Abysses', "/assets/images/scaphandre.jpg", '62 Quai Président Wilson', "Nantes", POINT(47.199606 , -1.572901), FALSE, TRUE, 'scaphandrier coupant les chaînes de bateau', 50),
-  ('Montagnes du Yéti', "/assets/images/yeti_cache.jpg", 'Quai Président Wilson', "Nantes", POINT(47.199579, -1.562708), TRUE, TRUE, "Fresque mural d'un yéti géant caché dans les montagnes", 100),
-  ('Rue Biesse', "/assets/images/biesse_jaune.jpg", '1 Quai Hoche', "Nantes", POINT(47.206852, -1.549282), FALSE, FALSE, 'Oeuvre pour illustrer le dynamisme de la rue Biesse', 50),
-  ('Da Ginger Ninja', "/assets/images/fat_kick_ass.jpg", '5 Boulevard Babin Chevaye', "Nantes", POINT(47.205206 , -1.551547), TRUE, FALSE, 'Oeuvre représentant un enfant jouant au ninja', 10),
-  ("Le surf c'est la mort", "/assets/images/surf_mort.jpg", '8 Rue Cambon', "Bordeaux", POINT(44.826580, -0.554063), TRUE, FALSE, "Composition abstraite sur le surf", 10),
-  ("L'ours et la femme", "/assets/images/ours_femme.jpg", '87 Quai des Queyries', "Bordeaux", POINT(44.849994, -0.559689), FALSE, FALSE, "Illustration d'un ours élégant et d'une femme triste", 20),
-  ('Femme liberée', "/assets/images/femme_bleue.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.848883, -0.559600), TRUE, TRUE, "Illustration d'une femme heureuse et libérée sur fond de motifs arabiques", 50),
-  ('King of the Bongo', "/assets/images/bongo.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.850083, -0.560258), TRUE, FALSE, "Calligraphie noire et blanche de gorille", 60),
-  ('RIP Nemo', "/assets/images/nemo.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.850108, -0.560192), FALSE, FALSE, "Oeuvre satirique sur le triste destin de Némo", 20),
-  ('Rouge à Levre', "/assets/images/rouge_levre.jpg", '30 Rue Claude Bonnier', "Bordeaux",  POINT(44.836944 , -0.587500), TRUE, TRUE, "Oeuvre photo-réaliste d'un homme s'appliquant du rouge à levres", 50),
-  ("Jeu d'échecs", "/assets/images/echecs.jpg", '36 rue Buhan', "Bordeaux",  POINT(44.836000, -0.570000), FALSE, FALSE, "Fresque fantastique illustrant un plateau d'échecs", 40),
-  ('De Niro', "/assets/images/Deniro.jpg", 'Rue du Maréchal Niel', "Bordeaux",  POINT(44.849815 , -0.559568), TRUE, FALSE, "Portrait réaliste de Robert De Niro", 50),
-  ('Souvenir de vacances', "/assets/images/photo.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.849861 , -0.559792), FALSE, FALSE, "Montage illustrant une femme et ses photos souvenirs de vacances", 20),
-  ('Al Pacino', "/assets/images/Pacino.jpg", '12 Rue du Maréchal Niel', "Bordeaux",  POINT(44.849823, -0.559558), TRUE, FALSE, "Portrait réaliste de Al Pacino", 50);
+  ('La Reine allongée', 1, "/assets/images/femme_noir_blanc.jpg", 'Quai Marquis d Aiguillon', "Nantes" , POINT(47.202962, -1.575121), TRUE, FALSE, 'Caricature de femme alongée sur un plateau repas', 10),
+  ('La scène Michelet', 1, "/assets/images/foudre_rouge.jpg", 'Boulevard Henry Orrion', "Nantes", POINT(47.232994, -1.557009), TRUE, FALSE, 'Oeuvre mural pour décorer le café/concert La Scene Michelet', 20),
+  ('Crash c.13', 2, "/assets/images/dessin_enfant.jpg", 'Rue de la Guyane', "Nantes", POINT(47.200271, -1.572050), TRUE, TRUE, 'Oeuvre colorée représentant différentes thématiques', 35),
+  ('Homme nu accroupi', 1, "/assets/images/homme_nu_cubisme.jpg", 'Rue de la Résistance', "Nantes", POINT(47.202587, -1.544862), TRUE, FALSE, 'Homme nu accroupi dans le style cubisme', 10),
+  ('Space Rat', 1, "/assets/images/super_rat.jpg", 'Boulevard Benoni Goullin', "Nantes", POINT(47.201747, -1.549328), TRUE, FALSE, "Représentation d un super héro Rat venu de l'espace", 100),
+  ('Sortez Masqués !', 2, "/assets/images/sortez_masques.jpg", 'Boulevard Benoît Frachon', "Nantes", POINT(47.206570, -1.575707), TRUE, FALSE, 'Oeuvre reprenant différentes figures populaires masqués', 20),
+  ('Explorateur des Abysses', 1, "/assets/images/scaphandre.jpg", '62 Quai Président Wilson', "Nantes", POINT(47.199606 , -1.572901), TRUE, TRUE, 'scaphandrier coupant les chaînes de bateau', 50),
+  ('Montagnes du Yéti', 2, "/assets/images/yeti_cache.jpg", 'Quai Président Wilson', "Nantes", POINT(47.199579, -1.562708), TRUE, TRUE, "Fresque mural d'un yéti géant caché dans les montagnes", 100),
+  ('Rue Biesse', 1, "/assets/images/biesse_jaune.jpg", '1 Quai Hoche', "Nantes", POINT(47.206852, -1.549282), TRUE, FALSE, 'Oeuvre pour illustrer le dynamisme de la rue Biesse', 50),
+  ('Da Ginger Ninja', 2, "/assets/images/fat_kick_ass.jpg", '5 Boulevard Babin Chevaye', "Nantes", POINT(47.205206 , -1.551547), TRUE, FALSE, 'Oeuvre représentant un enfant jouant au ninja', 10),
+  ("Le surf c'est la mort", 1, "/assets/images/surf_mort.jpg", '8 Rue Cambon', "Bordeaux", POINT(44.826580, -0.554063), TRUE, FALSE, "Composition abstraite sur le surf", 10),
+  ("L'ours et la femme", 1, "/assets/images/ours_femme.jpg", '87 Quai des Queyries', "Bordeaux", POINT(44.849994, -0.559689), TRUE, FALSE, "Illustration d'un ours élégant et d'une femme triste", 20),
+  ('Femme liberée', 2, "/assets/images/femme_bleue.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.848883, -0.559600), TRUE, TRUE, "Illustration d'une femme heureuse et libérée sur fond de motifs arabiques", 50),
+  ('King of the Bongo', 1, "/assets/images/bongo.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.850083, -0.560258), TRUE, FALSE, "Calligraphie noire et blanche de gorille", 60),
+  ('RIP Nemo', 1, "/assets/images/nemo.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.850108, -0.560192), TRUE, FALSE, "Oeuvre satirique sur le triste destin de Némo", 20),
+  ('Rouge à Levre', 1, "/assets/images/rouge_levre.jpg", '30 Rue Claude Bonnier', "Bordeaux",  POINT(44.836944 , -0.587500), TRUE, TRUE, "Oeuvre photo-réaliste d'un homme s'appliquant du rouge à levres", 50),
+  ("Jeu d'échecs", 1, "/assets/images/echecs.jpg", '36 rue Buhan', "Bordeaux",  POINT(44.836000, -0.570000), TRUE, FALSE, "Fresque fantastique illustrant un plateau d'échecs", 40),
+  ('De Niro', 1, "/assets/images/Deniro.jpg", 'Rue du Maréchal Niel', "Bordeaux",  POINT(44.849815 , -0.559568), TRUE, FALSE, "Portrait réaliste de Robert De Niro", 50),
+  ('Souvenir de vacances', 1, "/assets/images/photo.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.849861 , -0.559792), FALSE, FALSE, "Montage illustrant une femme et ses photos souvenirs de vacances", 20),
+  ('Al Pacino', 1, "/assets/images/Pacino.jpg", '12 Rue du Maréchal Niel', "Bordeaux",  POINT(44.849823, -0.559558), TRUE, FALSE, "Portrait réaliste de Al Pacino", 50);
 
 INSERT INTO reported_art_piece (art_piece_id, picture_path, user_id, timestamp)
 VALUES
@@ -205,9 +209,9 @@ VALUES
   (12, 4, '2022-12-17 15:10:00'),
   (3, 34, '2024-01-15 08:20:00');
 
-INSERT INTO notifications(user_id, status, created_at, viewed_at)
+INSERT INTO notifications(art_piece_id, user_id, status, created_at, viewed_at)
 VALUES
-  (1, 0, '2024-03-15 09:23:00', '2024-03-16 09:23:00'),
-  (1, 0, '2025-03-15 09:23:00', '2025-03-16 10:23:00'),
-  (1, 1, '2025-03-15 12:23:00', NULL),
-  (1, 1, '2025-03-15 09:23:00', NULL);
+  (5, 1, 0, '2024-03-15 09:23:00', '2024-03-16 09:23:00'),
+  (4, 1, 0, '2025-03-15 09:23:00', '2025-03-16 10:23:00'),
+  (3, 1, 1, '2025-03-15 12:23:00', NULL),
+  (2, 1, 1, '2025-03-15 09:23:00', NULL);

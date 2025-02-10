@@ -61,9 +61,6 @@ app.use(express.json());
 // Import the API router
 import router from "./router";
 
-// Mount the API router under the "/api" endpoint
-app.use(router);
-
 /* ************************************************************************* */
 
 // Production-ready setup: What is it for?
@@ -83,6 +80,9 @@ const publicFolderPath = path.join(__dirname, "../../server/public");
 if (fs.existsSync(publicFolderPath)) {
   app.use(express.static(publicFolderPath));
 }
+
+// Mount the API router under the "/api" endpoint
+app.use(router);
 
 // Serve client resources
 

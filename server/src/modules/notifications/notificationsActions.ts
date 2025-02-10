@@ -31,7 +31,7 @@ const setRead: RequestHandler = async (req, res, next) => {
     if (!affectedNotifications) {
       res.sendStatus(404);
     } else {
-      res.status(200).send(affectedNotifications);
+      res.sendStatus(200).send(affectedNotifications);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware

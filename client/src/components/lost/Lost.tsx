@@ -1,10 +1,12 @@
 import "./lost.css";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import traith1lost from "/trait-h1-artwork.tsx.png";
+import { fetchWithAuth } from "../../utils/api";
+import useToast from "../../utils/useToast";
 import type { LostI } from "./LostType";
 
 function Lost() {
+  const { success, failed } = useToast();
   const [reported, setReported] = useState<LostI[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [changeCard, setChangeCard] = useState(0);
@@ -19,7 +21,7 @@ function Lost() {
   useEffect(() => {
     const fetchReportedData = async () => {
       try {
-        const response = await fetch(
+        const response = await fetchWithAuth(
           `${import.meta.env.VITE_API_URL}/user/reporting`,
         );
         const data = await response.json();
@@ -27,15 +29,15 @@ function Lost() {
         if (data && Array.isArray(data)) {
           setReported(data);
         } else {
-          toast.error("Données invalides reçues");
+          failed("Données invalides reçues");
         }
       } catch {
-        toast.error("Erreur lors de la récupération des signalements");
+        failed("Erreur lors de la récupération des signalements");
       }
     };
 
     fetchReportedData();
-  }, []);
+  }, [failed]);
 
   const handleValidate = async (art_piece_id: number) => {
     const currentIndex = reported.findIndex(
@@ -43,7 +45,7 @@ function Lost() {
     );
 
     if (currentIndex === -1 || currentIndex === reported.length - 1) {
-      toast.error("Vous avez atteint la fin de la liste de signalements.");
+      failed("Vous avez atteint la fin de la liste de signalements.");
       return;
     }
 
@@ -53,7 +55,7 @@ function Lost() {
   const validateReport = async (art_piece_id: number) => {
     setIsLoading(true);
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/reports/validate/${art_piece_id}`,
         {
           method: "PATCH",
@@ -63,11 +65,12 @@ function Lost() {
       );
 
       if (!response.ok) {
-        toast.error("Erreur lors de la validation du signalement.");
+        failed("Erreur lors de la validation du signalement.");
         return;
       }
+      success("la validation est approuvé");
     } catch {
-      toast.error("Erreur lors de la validation du signalement.");
+      failed("Erreur lors de la validation du signalement.");
     } finally {
       await refuseReport(art_piece_id);
       setIsLoading(false);
@@ -77,26 +80,26 @@ function Lost() {
   const refuseReport = async (art_piece_id: number) => {
     setIsLoading(true);
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/reports/refuse/${art_piece_id}`,
         { method: "DELETE" },
       );
 
       if (!response.ok) {
-        toast.error("Erreur lors du refus du signalement.");
+        failed("Erreur lors du refus du signalement.");
         return;
       }
-
+      success("Le refus est approuvé");
       const itemExists = reported.some(
         (item) => item.art_piece_id === art_piece_id,
       );
       if (itemExists) {
         updateReportedData(art_piece_id);
       } else {
-        toast.error("Signalement introuvable.");
+        failed("Le signalement est introuvable.");
       }
     } catch {
-      toast.error("Erreur lors du refus du signalement.");
+      failed("Erreur lors du refus du signalement.");
     } finally {
       setIsLoading(false);
     }

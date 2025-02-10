@@ -1,16 +1,19 @@
 import type { RequestHandler } from "express";
+import userRepository from "../user/userRepository";
 import reportedArtPieceRepository from "./reportedArtPieceRepository";
 
 const validate: RequestHandler = async (req, res) => {
   try {
-    const artPieceId = Number.parseInt(req.params.id);
+    const artPieceId = req.params.id;
 
     const result = await reportedArtPieceRepository.validateReport(artPieceId);
 
     if (result === 0) {
       res.sendStatus(404);
     } else {
-      res.sendStatus(204);
+      // On enlève une partie des points des gens qui ont vu l'oeuvre
+      userRepository.deductPointsFromRecovery(artPieceId);
+      res.sendStatus(200);
     }
   } catch (err) {
     console.error(err);
