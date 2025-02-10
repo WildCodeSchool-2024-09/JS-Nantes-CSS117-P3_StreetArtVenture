@@ -65,12 +65,6 @@ function Navbar() {
             <Link className="link-nav" to="/gallery" onClick={handleLinkClick}>
               Les Oeuvres
             </Link>
-            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
-              Admin
-            </Link>
-            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
-              Paramètres
-            </Link>
             {alternator[1] && (
               <button
                 type="button"
