@@ -7,8 +7,13 @@ import "leaflet.awesome-markers";
 import type { LatLngExpression } from "leaflet";
 import { useState } from "react";
 import { useUser } from "../../context/UserContext";
+import { fetchWithAuth } from "../../utils/api";
 import useToast from "../../utils/useToast";
-import type { MapComponentProps, PointButtonVerification } from "./Map.types";
+import type {
+  MapComponentProps,
+  PointButtonVerification,
+  RoleType,
+} from "./Map.types";
 import WebcamCapture from "./Print";
 
 function MapComponent({
@@ -18,10 +23,31 @@ function MapComponent({
 }: MapComponentProps) {
   const [openCapture, setOpenCapture] = useState(false);
   const [isViewed, setIsViewed] = useState<boolean>(false);
+  const [isReported, setIsReported] = useState<boolean>(false);
+
   const { success, failed } = useToast();
   const { user } = useUser();
+  const [role, setRole] = useState<RoleType | "add">("add");
+  const [artId, setArtId] = useState<number | null>(null);
+  const [succesMsg, setSuccesMsg] = useState<string>("");
 
-  const handleButtonClick = () => setOpenCapture(!openCapture);
+  const handleReport = (id: number) => {
+    setRole("signalment");
+    setArtId(id);
+    setSuccesMsg(
+      "Votre signalement a bien été envoyé ! Merci de contribuer au bon fonctionnement de Street Art Venture !",
+    );
+
+    setOpenCapture(!openCapture);
+  };
+
+  const handleButtonClick = () => {
+    setRole("add");
+    setSuccesMsg(
+      "Félicitations ! Votre découverte a bien été envoyée et est maintenant en attente de validation !",
+    );
+    setOpenCapture(!openCapture);
+  };
   // customize Icon current position
   const CenterMarkerIcon = L.AwesomeMarkers.icon({
     markerColor: "red",
@@ -32,42 +58,71 @@ function MapComponent({
     markerColor: "cadetblue",
   });
 
-  const isAlreadySeen = async ({
-    artId,
-    artLong,
-    artLat,
-  }: PointButtonVerification) => {
+  const isWithinDistance = (artLong: number, artLat: number) => {
     setIsViewed(false);
+    setIsReported(false);
+
     if (user && centerMarker) {
       const latLongArt = L.latLng(artLong, artLat);
       const latLongUser = L.latLng(centerMarker[0], centerMarker[1]);
       const distance = latLongArt.distanceTo(latLongUser);
       if (distance > 50) {
         setIsViewed(false);
-        return;
+        return false;
       }
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/user/artVerification`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userId: user.id,
-              artId: artId,
-            }),
-          },
-        );
+      return true;
+    }
+  };
 
-        if (!response.ok) {
+  const isAlreadySeen = async ({
+    artId,
+    artLong,
+    artLat,
+  }: PointButtonVerification) => {
+    if (user && centerMarker) {
+      setIsViewed(false);
+      if (isWithinDistance(artLong, artLat)) {
+        try {
+          const response = await fetchWithAuth(
+            `${import.meta.env.VITE_API_URL}/user/artVerification`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: user.id,
+                artId: artId,
+              }),
+            },
+          );
+
+          if (!response.ok) {
+            failed("Erreur lors de l'envoie de la requête");
+          }
+          const data = await response.json();
+          if (!data[0].has_viewed) setIsViewed(true);
+
+          setIsReported(false);
+          const report = await fetchWithAuth(
+            `${import.meta.env.VITE_API_URL}/user/reportVerification`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: user.id,
+                artId: artId,
+              }),
+            },
+          );
+
+          const newData = await report.json();
+          if (!newData[0].has_viewed) setIsReported(true);
+        } catch (error) {
           failed("Erreur lors de l'envoie de la requête");
         }
-        const data = await response.json();
-        setIsViewed(data[0].has_viewed === 1);
-      } catch (error) {
-        failed("Erreur lors de l'envoie de la requête");
       }
     }
   };
@@ -75,7 +130,7 @@ function MapComponent({
   const handleAddPoint = async (artId: number) => {
     if (user) {
       try {
-        const response = await fetch(
+        const response = await fetchWithAuth(
           `${import.meta.env.VITE_API_URL}/user/addpoint`,
           {
             method: "POST",
@@ -136,6 +191,15 @@ function MapComponent({
             icon={defaultIcon}
           >
             <Popup>
+              {isReported && (
+                <button
+                  className="green-button montserrat"
+                  type="button"
+                  onClick={() => handleReport(el.id)}
+                >
+                  Signaler
+                </button>
+              )}
               <img
                 className="popup-image"
                 src={`${import.meta.env.VITE_API_URL}${el.picture_path}`}
@@ -166,14 +230,12 @@ function MapComponent({
         </button>
         {openCapture && (
           <WebcamCapture
+            type={role}
             openCapture={openCapture}
             setOpenCapture={setOpenCapture}
             position={position}
-            onSuccess={() =>
-              success(
-                "Félicitations ! Votre découverte a été envoyée et est maintenant en attente de validation !",
-              )
-            }
+            artPieceId={artId}
+            onSuccess={() => success(succesMsg)}
           />
         )}
       </MapContainer>

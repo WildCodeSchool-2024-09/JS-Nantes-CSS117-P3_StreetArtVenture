@@ -33,6 +33,11 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData); //
 router.patch("/user/:id", userActions.patch); // TODO US-36
 router.get("/art/findArtPiecesAround", artActions.browseAround); //
 router.post("/art/newArt", artActions.updateAccepted); //
+router.post("/art/newReport", artActions.report); //
+
+router.post("/user/artVerification", userActions.isSeen);
+router.post("/user/reportVerification", userActions.isReported);
+router.post("/user/addpoint", userActions.addpoint);
 /* ************************** ADMIN ACTIONS ************************** */
 router.use(authActions.verifyAdmin);
 

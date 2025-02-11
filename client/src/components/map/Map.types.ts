@@ -1,10 +1,22 @@
 import type { ArtPiece } from "../../types/art_piece";
 
+export type Role = {
+  add: {
+    role: string;
+  };
+  signalment: {
+    role: string;
+  };
+};
+export type RoleType = keyof Role;
+
 export type WebcamCaptureProps = {
   openCapture: boolean;
   setOpenCapture: React.Dispatch<React.SetStateAction<boolean>>;
   position: number[] | null;
   onSuccess: () => void;
+  type: RoleType;
+  artPieceId?: number | null;
 };
 
 export type MapComponentProps = {
