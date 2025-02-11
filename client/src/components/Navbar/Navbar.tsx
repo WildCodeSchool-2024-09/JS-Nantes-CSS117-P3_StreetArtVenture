@@ -45,9 +45,16 @@ function Navbar() {
                 Connexion
               </Link>
             )}
-            <Link className="link-nav" to="/register" onClick={handleLinkClick}>
-              S'inscrire
-            </Link>
+            {alternator[0] && (
+              <Link
+                className="link-nav"
+                to="/register"
+                onClick={handleLinkClick}
+              >
+                S'inscrire
+              </Link>
+            )}
+
             <Link
               className="link-nav"
               to="/leaderboard"
@@ -57,12 +64,6 @@ function Navbar() {
             </Link>
             <Link className="link-nav" to="/gallery" onClick={handleLinkClick}>
               Les Oeuvres
-            </Link>
-            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
-              Admin
-            </Link>
-            <Link className="link-nav" to="/test" onClick={handleLinkClick}>
-              Paramètres
             </Link>
             {alternator[1] && (
               <button
