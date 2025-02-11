@@ -24,16 +24,17 @@ router.post(
   userActions.hashPassword,
   userActions.registration,
 );
-router.patch("/user/:id", userActions.patch);
-router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData);
-router.get("/art/findArtPiecesAround", artActions.browseAround);
 
 /* ************************** LOGGED USER ACTIONS ************************** */
 router.use(authActions.verifyToken);
-
-router.get("/notifications/:id", notificationsActions.read);
-router.patch("/notifications/:id", notificationsActions.setRead);
-
+router.get("/notifications/:id", notificationsActions.read); //
+router.patch("/notifications/:id", notificationsActions.setRead); //
+router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData); //
+router.patch("/user/:id", userActions.patch); // TODO US-36
+router.get("/art/findArtPiecesAround", artActions.browseAround); //
+router.post("/art/newArt", artActions.updateAccepted); //
+router.post("/user/artVerification", userActions.isSeen);
+router.post("/user/addpoint", userActions.addpoint);
 router.get("/user/:id", userActions.read);
 
 /* ************************** ADMIN ACTIONS ************************** */

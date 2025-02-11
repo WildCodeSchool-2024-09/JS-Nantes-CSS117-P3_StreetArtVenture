@@ -26,6 +26,10 @@ const routes = [
     element: <Connexion />,
   },
   {
+    path: "/connexion",
+    element: <Connexion />,
+  },
+  {
     path: "/register",
     element: <InscriptionForm />,
   },
