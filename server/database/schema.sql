@@ -185,7 +185,19 @@ VALUES
   ("Jeu d'échecs", 1, "/assets/images/echecs.jpg", '36 rue Buhan', "Bordeaux",  POINT(44.836000, -0.570000), TRUE, FALSE, "Fresque fantastique illustrant un plateau d'échecs", 40),
   ('De Niro', 1, "/assets/images/Deniro.jpg", 'Rue du Maréchal Niel', "Bordeaux",  POINT(44.849815 , -0.559568), TRUE, FALSE, "Portrait réaliste de Robert De Niro", 50),
   ('Souvenir de vacances', 1, "/assets/images/photo.jpg", '87 Quai des Queyries', "Bordeaux",  POINT(44.849861 , -0.559792), FALSE, FALSE, "Montage illustrant une femme et ses photos souvenirs de vacances", 20),
-  ('Al Pacino', 1, "/assets/images/Pacino.jpg", '12 Rue du Maréchal Niel', "Bordeaux",  POINT(44.849823, -0.559558), TRUE, FALSE, "Portrait réaliste de Al Pacino", 50);
+  ('Al Pacino', 1, "/assets/images/Pacino.jpg", '12 Rue du Maréchal Niel', "Bordeaux",  POINT(44.849823, -0.559558), TRUE, FALSE, "Portrait réaliste de Al Pacino", 50),
+  ('Hangar à Bananes',1,"/assets/images/hangar.jpg", '32 Boulevard des Antilles', 'Nantes',POINT(47.202459, -1.571978), TRUE, FALSE, 'Illustration cartoon sur le thème de Nantes', 45),
+  ('Ultra Nantes 99',1,"/assets/images/nantes.jpg", '44093 Boulevard Professeur Jacques Monod', 'Nantes',POINT(47.254551, -1.522346), TRUE, FALSE, 'Graffiti des ultras du Fc Nantes', 25),
+  ('Gravité mecanique',1,"/assets/images/mur_voiture.jpg", '38 Rue La Noue Bras de Fer', 'Nantes',POINT(47.207000, -1.564000), TRUE, FALSE, 'Grande illustration de voitures tombants du ciel', 85),
+  ('la Japonaise',1,'/assets/images/japonaise.jpg', '21 Boulevard Gaston Doumergue', 'Nantes', POINT(47.207523, -1.547344), TRUE, FALSE, 'Oeuvre dans le style traditionnel japonais', 30),
+  ('Chevalier à la banane',1,'/assets/images/chevalier.jpg', "79 Rue d'Allonville", 'Nantes', POINT(47.222000, -1.536000), TRUE, FALSE, "Graffiti satirique d'un chevalier adoubé par une banane", 40),
+  ('Ben Alpha',1,'/assets/images/femme-futur.jpg', 'FFQ4+XP', 'Angers',POINT(47.490000, -0.543000), TRUE, FALSE, "Oeuvre futuriste d 'une femme ", 50),
+  ("Cabane dans l'arbre",1,'/assets/images/arbre-maison.jpg', '75 Bd Saint-Michel', 'Angers', POINT(47.473537, -0.543996), TRUE, FALSE,"Illustration d'une grande cabane dans un arbre", 55),
+  ('0-49',1,'/assets/images/smiley.jpg', '9 Rue Cordelle', 'Angers',POINT(47.471546, -0.550995), TRUE, FALSE, 'Oeuvre cartoon abstraite et colorée', 30),
+  ('Tourbillon de la vie',1,'/assets/images/tourbillon.jpg', '2 Rue Jeanne Moreau', 'Angers', POINT(47.472000, -0.553000), TRUE, FALSE, "Poeme illustré d'un couple sur un banc", 50),
+('Ama la musica',1, '/assets/images/musica.jpg', '124 Rue Henriette Bicard', 'Angers', POINT(47.484573, -0.533542), TRUE, FALSE, 'Composition colorée et musicale contre le fascisme', 20),
+('Neon tribu',1,'/assets/images/mohican.jpg', '3 Rue Chopin', 'Angers',POINT(47.478783, -0.551675), TRUE, FALSE,"Oeuvre futuriste jaune et violette d 'inspiration amer'indien", 35),
+('Green Gorilla',1,'/assets/images/gorilla.jpg', '50 Boulevard du Doyenné', 'Angers', POINT(47.489170, -0.535235), TRUE, FALSE, "Gorille vert equipé d'une camisole dans le style cartoon", 25);
 
 INSERT INTO reported_art_piece (art_piece_id, picture_path, user_id, timestamp)
 VALUES
