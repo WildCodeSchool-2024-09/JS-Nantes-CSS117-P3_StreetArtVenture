@@ -52,7 +52,7 @@ router.delete("/user/:id", userActions.deleteUser);
 router.get("/statistics/user", statisticsActions.getUserStatistics);
 router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
 router.get("/statistics/player", statisticsActions.getPlayerStatistics);
-router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
+router.get("/report/reporting", reportedArtPieceActions.getUserSignalement);
 router.post("/art/newArt", artActions.updateAccepted);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);

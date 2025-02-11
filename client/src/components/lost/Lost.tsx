@@ -22,7 +22,7 @@ function Lost() {
     const fetchReportedData = async () => {
       try {
         const response = await fetchWithAuth(
-          `${import.meta.env.VITE_API_URL}/user/reporting`,
+          `${import.meta.env.VITE_API_URL}/report/reporting`,
         );
         const data = await response.json();
 
@@ -40,15 +40,6 @@ function Lost() {
   }, [failed]);
 
   const handleValidate = async (art_piece_id: number) => {
-    const currentIndex = reported.findIndex(
-      (item) => item.art_piece_id === art_piece_id,
-    );
-
-    if (currentIndex === -1 || currentIndex === reported.length - 1) {
-      failed("Vous avez atteint la fin de la liste de signalements.");
-      return;
-    }
-
     await validateReport(art_piece_id);
   };
 
@@ -68,11 +59,12 @@ function Lost() {
         failed("Erreur lors de la validation du signalement.");
         return;
       }
-      success("la validation est approuvé");
+
+      success("La validation est approuvée");
+      updateReportedData(art_piece_id); // Supprime l'élément validé
     } catch {
       failed("Erreur lors de la validation du signalement.");
     } finally {
-      await refuseReport(art_piece_id);
       setIsLoading(false);
     }
   };
@@ -89,15 +81,9 @@ function Lost() {
         failed("Erreur lors du refus du signalement.");
         return;
       }
+
       success("Le refus est approuvé");
-      const itemExists = reported.some(
-        (item) => item.art_piece_id === art_piece_id,
-      );
-      if (itemExists) {
-        updateReportedData(art_piece_id);
-      } else {
-        failed("Le signalement est introuvable.");
-      }
+      updateReportedData(art_piece_id);
     } catch {
       failed("Erreur lors du refus du signalement.");
     } finally {
@@ -123,7 +109,7 @@ function Lost() {
     const coordinates = currentReport.coordinates
       ? `Lat: ${currentReport.coordinates.x}, Long: ${currentReport.coordinates.y}`
       : "Coordonnées non disponibles";
-    // Fonction qui renvoie les coordonnées et le titre du street art disponible, et un message "Coordonnées non disponibles" si aucune coordonnée n'est disponible à l'affichage.
+
     contentInfo = (
       <div className="content-info" key={currentReport.art_piece_id}>
         <p className="title-street-art">{currentReport.art_piece_name}</p>
@@ -153,31 +139,33 @@ function Lost() {
 
         <section className="block-green">
           <div className="container">
-            {reported.length > 0 ? (
-              <>
-                <figcaption className="reported-content">
-                  <p className="text-work">Oeuvre signalée</p>
-                  <img
-                    className="street-art"
-                    src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
-                    alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
-                  />
-                </figcaption>
+            <div className="container-data-base">
+              {reported.length > 0 ? (
+                <>
+                  <figcaption className="reported-content">
+                    <p className="text-work">Oeuvre signalée</p>
+                    <img
+                      className="street-art"
+                      src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
+                      alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
+                    />
+                  </figcaption>
 
-                {contentInfo}
+                  {contentInfo}
 
-                <figcaption className="compared-art">
-                  <p className="text-work">Comparaison</p>
-                  <img
-                    className="street-art"
-                    src={`${import.meta.env.VITE_API_URL}${reported[changeCard].report_img_path}`}
-                    alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
-                  />
-                </figcaption>
-              </>
-            ) : (
-              <p>Aucune œuvre d'art signalée.</p>
-            )}
+                  <figcaption className="compared-art">
+                    <p className="text-work">Comparaison</p>
+                    <img
+                      className="street-art"
+                      src={`${import.meta.env.VITE_API_URL}${reported[changeCard].report_img_path}`}
+                      alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
+                    />
+                  </figcaption>
+                </>
+              ) : (
+                <p>Aucune œuvre d'art signalée.</p>
+              )}
+            </div>
 
             {reported.length > 0 && (
               <div className="next-refusal-button">
