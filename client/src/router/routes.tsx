@@ -9,6 +9,7 @@ import LeaderboardPage from "../pages/leaderboard/LeaderboardPage";
 import MapPage from "../pages/map/MapPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import StatisticsPage from "../pages/statistics/StatisticsPage";
+import NoRouteHandler from "./404Handler/404Handler";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -18,7 +19,7 @@ const routes = [
     element: <Home />,
   },
   {
-    path: "/gallery",
+    path: "/galerie",
     element: <Gallery />,
   },
   {
@@ -26,26 +27,22 @@ const routes = [
     element: <Connexion />,
   },
   {
-    path: "/connexion",
-    element: <Connexion />,
-  },
-  {
-    path: "/register",
+    path: "/inscription",
     element: <InscriptionForm />,
   },
   {
-    path: "/leaderboard",
+    path: "/classement",
     element: <LeaderboardPage />,
   },
   {
     element: <ProtectedRoute />,
     children: [
       {
-        path: "/profile",
+        path: "/profil",
         element: <ProfilePage />,
       },
       {
-        path: "/map",
+        path: "/carte",
         element: <MapPage />,
       },
     ],
@@ -54,22 +51,26 @@ const routes = [
     element: <AdminProtectedRoute />,
     children: [
       {
-        path: "/adminvalidation",
+        path: "/validation",
         element: <AdminValidationBoard />,
       },
       {
-        path: "/statistics",
+        path: "/statistiques",
         element: <StatisticsPage />,
       },
       {
-        path: "/lost",
+        path: "/signalements",
         element: <Lost />,
       },
       {
-        path: "/art-piece-list",
+        path: "/admin/galerie",
         element: <AdminArtPieceListPage />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NoRouteHandler />,
   },
 ];
 

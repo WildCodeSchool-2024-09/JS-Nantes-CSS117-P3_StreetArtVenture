@@ -105,7 +105,6 @@ class UserRepository {
     WHERE user_id = ? AND art_piece_id = ?
 ) AS has_viewed`;
 
-
     const [row] = await databaseClient.query<Rows>(query, [userId, artId]);
     return row;
   }
@@ -136,7 +135,6 @@ WHERE u.id = ?`;
     const [result] = await databaseClient.query<Result>(query, [artPieceId]);
     return result.affectedRows;
   }
-
 
   async addCreationPoints(userId: number, artPieceValue: number) {
     const query = "UPDATE user SET points = points + ? WHERE id = ?";
