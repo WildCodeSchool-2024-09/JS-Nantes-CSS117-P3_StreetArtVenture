@@ -1,6 +1,6 @@
 .artwork-page {
   background-image: url("/public/background-grey.jpg");
-  padding-top: 30px;
+  padding: 60px;
 }
 .city {
   background-color: black;
@@ -11,23 +11,23 @@
   height: 4ch;
   margin-bottom: 10px;
   text-align: center;
+  font-family: var(--primary-font);
 }
 .galery-main-container {
   background-color: #ffffff8a;
   margin: auto;
-  padding: 32px;
-  width: 90%;
+  padding: 42px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 24px;
   border-radius: 20px;
 }
 
 .galery-main-container > h1 {
-  font-family: Bangers, monospace;
+  font-family: var(--secondary-font);
   font-weight: 100;
-  font-size: clamp(2em, 6vw, 4.5em);
+  font-size: 60px;
   text-align: center;
 }
 
@@ -37,10 +37,12 @@
 }
 
 .gallery-card-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(auto-fit, minmax(400px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+
   gap: 24px;
+
+  justify-content: center;
 }
 
 .gallery-card {
@@ -58,6 +60,8 @@
 
 .gallery-card > img {
   width: 95%;
+  object-fit: cover;
+  height: 300px;
 }
 
 .gallery-card > p {
@@ -72,13 +76,21 @@
 }
 
 @media screen and (max-width: 600px) {
-  .gallery-card {
-    width: 45%;
+  .galery-main-container > h1 {
+    font-size: 48px;
+  }
+  .artwork-page {
+    padding: 32px;
   }
 }
 
 @media screen and (max-width: 450px) {
   .gallery-card {
-    width: 90%;
+    padding: 10px;
+    height: 300px;
+    font-size: 14px;
+  }
+  .galery-main-container {
+    padding: 24px;
   }
 }
