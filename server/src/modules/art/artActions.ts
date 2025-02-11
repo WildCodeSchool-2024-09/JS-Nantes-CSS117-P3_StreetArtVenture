@@ -84,7 +84,13 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
 const editArtPiece: RequestHandler = async (req, res, next) => {
   try {
     const artPieceId = req.params.id;
-    const artValidation = await artRepository.approveArtPiece(artPieceId);
+    const { ArtTitle, comment, userId, pointsValue } = req.body;
+    const artValidation = await artRepository.approveArtPiece(
+      artPieceId,
+      ArtTitle,
+      comment,
+      pointsValue,
+    );
     if (!artValidation) {
       res.sendStatus(404);
     } else {
