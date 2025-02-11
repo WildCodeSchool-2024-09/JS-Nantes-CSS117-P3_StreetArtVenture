@@ -168,12 +168,12 @@ INSERT INTO art_piece (name, user_id, picture_path , adress, city, coordinates, 
 VALUES
   ('La Reine allongée', 1, "/assets/images/femme_noir_blanc.jpg", 'Quai Marquis d Aiguillon', "Nantes" , POINT(47.202962, -1.575121), TRUE, FALSE, 'Caricature de femme alongée sur un plateau repas', 10),
   ('La scène Michelet', 1, "/assets/images/foudre_rouge.jpg", 'Boulevard Henry Orrion', "Nantes", POINT(47.232994, -1.557009), TRUE, FALSE, 'Oeuvre mural pour décorer le café/concert La Scene Michelet', 20),
-  ('Crash c.13', 2, "/assets/images/dessin_enfant.jpg", 'Rue de la Guyane', "Nantes", POINT(47.200271, -1.572050), TRUE, TRUE, 'Oeuvre colorée représentant différentes thématiques', 35),
+  ('Crash c.13', 2, "/assets/images/dessin_enfant.jpg", 'Rue de la Guyane', "Nantes", POINT(47.200271, -1.572050), TRUE, FALSE, 'Oeuvre colorée représentant différentes thématiques', 35),
   ('Homme nu accroupi', 1, "/assets/images/homme_nu_cubisme.jpg", 'Rue de la Résistance', "Nantes", POINT(47.202587, -1.544862), TRUE, FALSE, 'Homme nu accroupi dans le style cubisme', 10),
   ('Space Rat', 1, "/assets/images/super_rat.jpg", 'Boulevard Benoni Goullin', "Nantes", POINT(47.201747, -1.549328), TRUE, FALSE, "Représentation d un super héro Rat venu de l'espace", 100),
   ('Sortez Masqués !', 2, "/assets/images/sortez_masques.jpg", 'Boulevard Benoît Frachon', "Nantes", POINT(47.206570, -1.575707), TRUE, FALSE, 'Oeuvre reprenant différentes figures populaires masqués', 20),
-  ('Explorateur des Abysses', 1, "/assets/images/scaphandre.jpg", '62 Quai Président Wilson', "Nantes", POINT(47.199606 , -1.572901), TRUE, TRUE, 'scaphandrier coupant les chaînes de bateau', 50),
-  ('Montagnes du Yéti', 2, "/assets/images/yeti_cache.jpg", 'Quai Président Wilson', "Nantes", POINT(47.199579, -1.562708), TRUE, TRUE, "Fresque mural d'un yéti géant caché dans les montagnes", 100),
+  ('Explorateur des Abysses', 1, "/assets/images/scaphandre.jpg", '62 Quai Président Wilson', "Nantes", POINT(47.199606 , -1.572901), TRUE, FALSE, 'scaphandrier coupant les chaînes de bateau', 50),
+  ('Montagnes du Yéti', 2, "/assets/images/yeti_cache.jpg", 'Quai Président Wilson', "Nantes", POINT(47.199579, -1.562708), TRUE, FALSE, "Fresque mural d'un yéti géant caché dans les montagnes", 100),
   ('Rue Biesse', 1, "/assets/images/biesse_jaune.jpg", '1 Quai Hoche', "Nantes", POINT(47.206852, -1.549282), TRUE, FALSE, 'Oeuvre pour illustrer le dynamisme de la rue Biesse', 50),
   ('Da Ginger Ninja', 2, "/assets/images/fat_kick_ass.jpg", '5 Boulevard Babin Chevaye', "Nantes", POINT(47.205206 , -1.551547), TRUE, FALSE, 'Oeuvre représentant un enfant jouant au ninja', 10),
   ("Le surf c'est la mort", 1, "/assets/images/surf_mort.jpg", '8 Rue Cambon', "Bordeaux", POINT(44.826580, -0.554063), TRUE, FALSE, "Composition abstraite sur le surf", 10),
@@ -189,18 +189,18 @@ VALUES
 
 INSERT INTO reported_art_piece (art_piece_id, picture_path, user_id, timestamp)
 VALUES
-  (3,"/assets/images/streetartreported-compared.jpeg", 45, '2020-03-15 09:23:00'),
-  (6,"/assets/images/streetart-woman.jpeg", 29, '2021-07-21 14:12:00'),
-  (10,"/assets/images/streetartreported-compared.jpeg", 41, '2022-01-09 17:45:00'),
-  (8,"/assets/images/streetartreported-compared.jpeg", 11, '2022-11-05 11:30:00'),
-  (1,"/assets/images/streetartreported-compared.jpeg", 58, '2023-04-10 16:05:00'),
-  (11,"/assets/images/streetartreported-compared.jpeg", 13, '2023-08-18 13:22:00'),
-  (7,"/assets/images/streetartreported-compared.jpeg", 16, '2020-06-25 10:40:00'),
-  (5,"/assets/images/streetartreported-compared.jpeg", 63, '2021-10-03 18:55:00'),
-  (5,"/assets/images/streetartreported-compared.jpeg", 8, '2021-10-03 18:55:00'),
-  (5,"/assets/images/streetartreported-compared.jpeg", 6, '2021-10-03 18:55:00'),
-  (12,"/assets/images/streetartreported-compared.jpeg", 4, '2022-12-17 15:10:00'),
-  (3,"/assets/images/streetartreported-compared.jpeg", 34, '2024-01-15 08:20:00');
+  (15,"/assets/images/streetartreported-compared.jpeg", 45, '2020-03-15 09:23:00'),
+  (15,"/assets/images/streetart-woman.jpeg", 29, '2021-07-21 14:12:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 41, '2022-01-09 17:45:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 11, '2022-11-05 11:30:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 58, '2023-04-10 16:05:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 13, '2023-08-18 13:22:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 16, '2020-06-25 10:40:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 63, '2021-10-03 18:55:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 8, '2021-10-03 18:55:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 6, '2021-10-03 18:55:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 4, '2022-12-17 15:10:00'),
+  (15,"/assets/images/streetartreported-compared.jpeg", 34, '2024-01-15 08:20:00');
 
 INSERT INTO viewed_art_piece (art_piece_id, user_id, timestamp)
 VALUES

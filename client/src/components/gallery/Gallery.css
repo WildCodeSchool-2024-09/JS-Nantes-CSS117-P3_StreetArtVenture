@@ -15,7 +15,7 @@
 .galery-main-container {
   background-color: #ffffff8a;
   margin: auto;
-  padding: 15px 5%;
+  padding: 32px;
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -37,10 +37,10 @@
 }
 
 .gallery-card-container {
-  gap: 5%;
-  margin-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
 }
 
 .gallery-card {
@@ -49,16 +49,15 @@
   flex-direction: column;
   align-items: center;
   background-color: #22b573;
-  padding: 10px;
-  width: 30%;
+  padding: 14px;
+  height: auto;
   gap: 10px;
   border-radius: 15px;
   list-style: none;
-  margin-bottom: 30px;
 }
 
 .gallery-card > img {
-  width: 100%;
+  width: 95%;
 }
 
 .gallery-card > p {
