@@ -28,7 +28,7 @@ function Header() {
           user.isAdmin === 1 ? (
             <div>
               <NotificationsCenter />
-              <Link to="/profile">
+              <Link to="/profil">
                 <img
                   className="user-picture"
                   src="/images/admin_profil.png"
