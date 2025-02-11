@@ -1,0 +1,8 @@
+.no-route-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: calc(100vh - 100px - 130px);
+}
