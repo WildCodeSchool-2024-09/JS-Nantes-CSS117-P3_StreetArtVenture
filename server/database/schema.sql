@@ -189,18 +189,18 @@ VALUES
 
 INSERT INTO reported_art_piece (art_piece_id, picture_path, user_id, timestamp)
 VALUES
-  (15,"/assets/images/streetartreported-compared.jpeg", 45, '2020-03-15 09:23:00'),
-  (15,"/assets/images/streetart-woman.jpeg", 29, '2021-07-21 14:12:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 41, '2022-01-09 17:45:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 11, '2022-11-05 11:30:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 58, '2023-04-10 16:05:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 13, '2023-08-18 13:22:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 16, '2020-06-25 10:40:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 63, '2021-10-03 18:55:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 8, '2021-10-03 18:55:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 6, '2021-10-03 18:55:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 4, '2022-12-17 15:10:00'),
-  (15,"/assets/images/streetartreported-compared.jpeg", 34, '2024-01-15 08:20:00');
+  (3,"/assets/images/streetartreported-compared.jpeg", 45, '2020-03-15 09:23:00'),
+  (6,"/assets/images/streetart-woman.jpeg", 29, '2021-07-21 14:12:00'),
+  (10,"/assets/images/streetartreported-compared.jpeg", 41, '2022-01-09 17:45:00'),
+  (8,"/assets/images/streetartreported-compared.jpeg", 11, '2022-11-05 11:30:00'),
+  (1,"/assets/images/streetartreported-compared.jpeg", 58, '2023-04-10 16:05:00'),
+  (11,"/assets/images/streetartreported-compared.jpeg", 13, '2023-08-18 13:22:00'),
+  (7,"/assets/images/streetartreported-compared.jpeg", 16, '2020-06-25 10:40:00'),
+  (5,"/assets/images/streetartreported-compared.jpeg", 63, '2021-10-03 18:55:00'),
+  (5,"/assets/images/streetartreported-compared.jpeg", 8, '2021-10-03 18:55:00'),
+  (5,"/assets/images/streetartreported-compared.jpeg", 6, '2021-10-03 18:55:00'),
+  (12,"/assets/images/streetartreported-compared.jpeg", 4, '2022-12-17 15:10:00'),
+  (3,"/assets/images/streetartreported-compared.jpeg", 34, '2024-01-15 08:20:00');
 
 INSERT INTO viewed_art_piece (art_piece_id, user_id, timestamp)
 VALUES
