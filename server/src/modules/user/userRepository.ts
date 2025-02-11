@@ -51,23 +51,14 @@ class UserRepository {
     firstname: string,
     lastname: string,
     email: string,
-    zipcodeemail: string,
+    zipcode: string,
     adress: string,
     city: string,
     password: string,
   ): Promise<number | null> {
     const [result] = await databaseClient.query<Result>(
       "INSERT INTO user (username, firstname, lastname, email, zipcode, city, adress, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [
-        username,
-        firstname,
-        lastname,
-        email,
-        zipcodeemail,
-        city,
-        adress,
-        password,
-      ],
+      [username, firstname, lastname, email, zipcode, city, adress, password],
     );
     return result.insertId || null;
   }
