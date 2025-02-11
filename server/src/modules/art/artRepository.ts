@@ -61,12 +61,13 @@ class artRepository {
   ) {
     const query = `
     INSERT INTO art_piece 
-    (name, adress, city, coordinates, is_validated, is_covered, picture_path, description, points_value) 
-    VALUES (?, ?, ?, POINT(?, ?), 0, 0, ?, NULL, NULL)
+    (name, user_id, adress, city, coordinates, is_validated, is_covered, picture_path, description, points_value) 
+    VALUES (?, ?, ?, ?, POINT(?, ?), 0, 0, ?, NULL, NULL)
   `;
 
     const [result] = await databaseClient.query<Result>(query, [
       name,
+      userId,
       address,
       city,
       pos_x,
@@ -75,7 +76,7 @@ class artRepository {
       null,
       null,
     ]);
-    return result.affectedRows;
+    return result.insertId;
   }
 
   async reportValidation(path: string, userId: number, artId: number) {
