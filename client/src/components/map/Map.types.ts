@@ -18,3 +18,9 @@ export type Coordinates = {
   city: string;
   address: string;
 };
+
+export type PointButtonVerification = {
+  artLat: number;
+  artLong: number;
+  artId: number;
+};
