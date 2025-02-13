@@ -3,7 +3,6 @@
 import express from "express";
 
 const app = express();
-
 // Configure it
 
 /* ************************************************************************* */
@@ -52,7 +51,7 @@ app.use(
 
 // Uncomment one or more of these options depending on the format of the data sent by your client:
 
-// app.use(express.json());
+app.use(express.json());
 // app.use(express.urlencoded());
 // app.use(express.text());
 // app.use(express.raw());
@@ -61,9 +60,6 @@ app.use(
 
 // Import the API router
 import router from "./router";
-
-// Mount the API router under the "/api" endpoint
-app.use(router);
 
 /* ************************************************************************* */
 
@@ -76,7 +72,6 @@ app.use(router);
 // - Redirecting unhandled requests (e.g., all requests not matching a defined API route) to the client's index.html. This allows the client to handle client-side routing.
 
 import fs from "node:fs";
-import path from "node:path";
 
 // Serve server resources
 
@@ -85,6 +80,9 @@ const publicFolderPath = path.join(__dirname, "../../server/public");
 if (fs.existsSync(publicFolderPath)) {
   app.use(express.static(publicFolderPath));
 }
+
+// Mount the API router under the "/api" endpoint
+app.use(router);
 
 // Serve client resources
 
@@ -100,11 +98,10 @@ if (fs.existsSync(clientBuildPath)) {
   });
 }
 
-/* ************************************************************************* */
-
 // Middleware for Error Logging
 // Important: Error-handling middleware should be defined last, after other app.use() and routes calls.
 
+import path from "node:path";
 import type { ErrorRequestHandler } from "express";
 
 // Define a middleware function to log errors

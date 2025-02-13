@@ -1,0 +1,47 @@
+/* container notification-center + profile picture */
+.header-class > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* style button notification-center */
+.header-class > div > div > button {
+  background: none;
+  border: none;
+  display: none;
+}
+
+.header-class > div > div > button > img {
+  width: 60px;
+}
+
+/* style list notifications */
+.header-class > div > div > ul {
+  position: absolute;
+  width: 33vw;
+  min-width: 200px;
+  right: 0;
+  background-color: white;
+  list-style: none;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+.header-class > div > div > ul > li {
+  padding: 8px;
+  border: 1px solid rgba(128, 128, 128, 0.666);
+  font-family: Montserrat, serif;
+}
+
+/* style new notification */
+.header-class > div > div > ul > .notification-new {
+  background-color: rgb(237, 195, 203);
+}
+
+/* style seen notification */
+.header-class > div > div > ul > .notification-seen {
+  background-color: rgb(176, 139, 145) k;
+}

@@ -1,0 +1,132 @@
+.lost-page-background {
+  background-image: url("./background-grey.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 85vh;
+  overflow-y: auto;
+}
+
+.report-text {
+  margin: 50px;
+  font-size: 40px;
+}
+.h1-circle-lost {
+  display: flex;
+  align-items: center;
+}
+.circle-lost {
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+}
+.circle-lost > p {
+  font-size: 20px;
+  color: #ff1717;
+  padding: 10px 0 0 10px;
+}
+.works-consulting {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.brushstroke-h1-lost {
+  display: none;
+}
+.block-green {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  max-width: 900px;
+
+  background-color: #22b573;
+  border-radius: 24px;
+}
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+}
+.street-art {
+  width: 200px;
+  height: 150px;
+}
+.reported-content {
+  font-size: 30px;
+}
+.text-work {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0 40px 0;
+  color: #ffff;
+}
+.content-info {
+  font-size: 20px;
+  margin-top: 90px;
+  color: #ffff;
+}
+.arrow {
+  width: 50px;
+  height: auto;
+}
+
+.next-refusal-button {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.btn-validation-lost,
+.btn-refusal-lost {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+.center-page {
+  display: grid;
+  place-items: center;
+}
+.btn-validation-lost,
+.btn-refusal-lost {
+  background-color: #c5b88a;
+  color: white;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  border: none;
+  border-radius: 10px;
+  width: 130px;
+}
+.my-right-button-lost,
+.my-left-button-lost {
+  background-color: #22b573;
+  border-radius: 50%;
+  border: none;
+  height: 80px;
+  width: 80px;
+  margin: 29px;
+  cursor: pointer;
+}
+.my-right-button-lost > img,
+.my-left-button-lost > img {
+  height: 40px;
+}
+.my-left-button-lost > img {
+  transform: rotate(180deg);
+}
+@media screen and (max-width: 600px) {
+  .works-consulting {
+    text-align: center;
+  }
+  .h1-circle-lost {
+    display: flex;
+    align-items: center;
+  }
+  .btn-validation-lost,
+  .btn-refusal-lost {
+    width: 100px;
+  }
+}

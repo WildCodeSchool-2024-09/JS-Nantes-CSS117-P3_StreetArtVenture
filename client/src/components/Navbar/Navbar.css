@@ -1,0 +1,41 @@
+.hamburger {
+  color: white;
+  width: 50px;
+}
+
+.section-ul {
+  z-index: 2;
+  position: absolute;
+  width: 270px;
+  background-color: #1e1e1eea;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 30px;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.link-nav {
+  font-family: var(--secondary-font);
+  color: white;
+  font-weight: 100;
+  text-decoration-line: none;
+  font-size: 36px;
+  letter-spacing: 0.8px;
+}
+
+.nav-button {
+  background-color: #1e1e1eea;
+  border: none;
+  cursor: pointer;
+}
+.section-ul img {
+  width: 100px;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.link-nav:hover {
+  color: #4ed060;
+}

@@ -1,0 +1,130 @@
+.camera-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 480px;
+  height: 65vh;
+  z-index: 2;
+  gap: 10px;
+  position: fixed;
+  background-color: rgba(34, 181, 115, 0.7);
+  align-items: center;
+  left: 37%;
+  top: 15%;
+  border-radius: 40px;
+}
+
+.camera {
+  width: 400px;
+  border-radius: 8px;
+}
+.new-shot {
+  width: 400px;
+  margin-top: 30px;
+  border-radius: 8px;
+  z-index: 2;
+  height: 300px;
+  opacity: 0;
+  position: fixed;
+  background-color: rgba(34, 181, 115, 0);
+  left: 39.3%;
+  border: none;
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+}
+.new-shot:hover {
+  opacity: 1;
+}
+div:has(.new-shot:hover) .shadow {
+  filter: brightness(50%);
+}
+
+.button-container {
+  background-color: rgba(34, 181, 115, 0.3);
+  width: 120px;
+  height: 116px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  border: 4px solid white;
+}
+
+.circle-button {
+  background-color: white;
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.overlay {
+  position: relative;
+  width: 400px;
+  height: 344px;
+  --border-style: 8px solid rgb(255, 255, 255);
+  --border-space: 20px;
+}
+
+.overlay-element {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+}
+
+.overlay .top-left {
+  border-left: var(--border-style);
+  border-top: var(--border-style);
+  top: 10px;
+  left: 10px;
+}
+
+.overlay .top-right {
+  border-right: var(--border-style);
+  border-top: var(--border-style);
+  top: 10px;
+  right: 10px;
+}
+
+.overlay .bottom-left {
+  border-left: var(--border-style);
+  border-bottom: var(--border-style);
+  bottom: 55px;
+  left: 10px;
+}
+
+.overlay .bottom-right {
+  border-right: var(--border-style);
+  border-bottom: var(--border-style);
+  bottom: 55px;
+  right: 10px;
+}
+
+.print-button {
+  margin: 12px 0 20px 0;
+  border-radius: 12px;
+  width: 9vw;
+  height: 5vh;
+  font-weight: bolder;
+}
+
+.send-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.p-button {
+  margin-top: 3px;
+  font-size: large;
+}
+.send-img {
+  width: 30px;
+}
+
+.index-test {
+  z-index: 2;
+  margin-top: 50px;
+}
+

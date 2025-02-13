@@ -1,0 +1,44 @@
+.bloc-user {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.user-stats {
+  display: flex;
+  gap: 24px;
+  color: white;
+  font-family: var(--primary-font);
+  font-size: 36px;
+  font-weight: 500;
+  align-items: center;
+}
+
+.green-stats {
+  color: #94be72;
+  font-family: var(--secondary-font);
+  font-size: 50px;
+}
+
+.green-stats-2 {
+  color: #39b54a;
+  font-family: var(--secondary-font);
+  font-size: 50px;
+}
+
+@media screen and (max-width: 600px) {
+  .user-stats {
+    gap: 20px;
+    font-size: 28px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .green-stats {
+    font-size: 28px;
+  }
+
+  .green-stats-2 {
+    font-size: 28px;
+  }
+}

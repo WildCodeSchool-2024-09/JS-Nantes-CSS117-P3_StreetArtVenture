@@ -1,0 +1,96 @@
+.artwork-page {
+  background-image: url("/public/background-grey.jpg");
+  padding: 60px;
+}
+.city {
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 23px;
+  width: 10em;
+  height: 4ch;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: var(--primary-font);
+}
+.galery-main-container {
+  background-color: #ffffff8a;
+  margin: auto;
+  padding: 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  border-radius: 20px;
+}
+
+.galery-main-container > h1 {
+  font-family: var(--secondary-font);
+  font-weight: 100;
+  font-size: 60px;
+  text-align: center;
+}
+
+.galery-main-container > img,
+.galery-main-container > select {
+  width: auto;
+}
+
+.gallery-card-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 24px;
+
+  justify-content: center;
+}
+
+.gallery-card {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #22b573;
+  padding: 14px;
+  height: auto;
+  gap: 10px;
+  border-radius: 15px;
+  list-style: none;
+}
+
+.gallery-card > img {
+  width: 95%;
+  object-fit: cover;
+  height: 300px;
+}
+
+.gallery-card > p {
+  font-family: Montserrat, monospace;
+  font-weight: 200;
+  font-size: 0.75em;
+  text-align: center;
+}
+
+.gallery-card > :nth-child(2) {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 600px) {
+  .galery-main-container > h1 {
+    font-size: 48px;
+  }
+  .artwork-page {
+    padding: 32px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .gallery-card {
+    padding: 10px;
+    height: 300px;
+    font-size: 14px;
+  }
+  .galery-main-container {
+    padding: 24px;
+  }
+}

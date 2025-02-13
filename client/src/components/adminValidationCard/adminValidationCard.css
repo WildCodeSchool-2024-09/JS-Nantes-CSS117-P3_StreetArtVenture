@@ -1,0 +1,131 @@
+.body-admin-validation {
+  justify-items: center;
+  background-image: url("../../../backgroundAdmin.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  padding: 40px;
+  font-family: var(--primary-font);
+}
+
+.main-validation-card {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  background-color: rgba(34, 181, 115, 1);
+  border-radius: 12px;
+  gap: 20px;
+  padding: 20px;
+  width: 450px;
+
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.658);
+}
+
+.new-street-art-photo {
+  width: 380px;
+}
+
+.street-art-info {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 1.2rem;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+}
+
+.points {
+  width: 46px;
+  height: 24px;
+  border-style: none;
+  padding: 4px;
+}
+
+.art-description {
+  height: 100px;
+  width: 100%;
+  border-radius: 8px;
+  border-style: none;
+  padding: 10px;
+  vertical-align: top;
+  box-sizing: border-box;
+  resize: none;
+  font-family: var(--primary-font);
+}
+
+.art-description:focus {
+  border: none;
+  outline: none;
+}
+
+.number-of-points {
+  color: white;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.accepted-or-refused-buttons {
+  display: flex;
+  justify-items: center;
+  gap: 16px;
+  height: 45px;
+}
+
+.brown-button-admin {
+  border-radius: 8px;
+  border-style: none;
+  background-color: rgba(182, 188, 149, 1);
+  color: white;
+  font-size: 1.2rem;
+  padding: 14px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.658);
+  font-family: var(--primary-font);
+}
+
+.brown-button-admin:hover {
+  cursor: pointer;
+}
+
+.admin-validation-message {
+  top: 0%;
+  background-color: rgba(34, 181, 115, 1);
+  font-size: 1.2rem;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  font-family: var(--primary-font);
+}
+
+.next-button {
+  color: rgba(34, 181, 115, 1);
+  font-size: 4rem;
+  font-weight: bold;
+  background: none;
+  border-style: none;
+}
+
+.next-button:hover {
+  cursor: pointer;
+}
+
+.no-art-piece {
+  color: white;
+  text-align: center;
+  font-size: 2.2rem;
+  padding: 28px;
+}
+
+@media screen and (max-width: 450px) {
+  .main-validation-card {
+    width: 80vw;
+  }
+  .new-street-art-photo {
+    width: 70vw;
+  }
+}
