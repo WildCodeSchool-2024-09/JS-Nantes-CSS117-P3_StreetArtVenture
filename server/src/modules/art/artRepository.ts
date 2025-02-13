@@ -62,9 +62,20 @@ class artRepository {
     return row as ArtPiece[];
   }
 
-  async approveArtPiece(id: string) {
-    const query = "UPDATE art_piece SET is_validated = TRUE WHERE id = ?";
-    const [result] = await databaseClient.query<Result>(query, [id]);
+  async approveArtPiece(
+    id: string,
+    ArtTitle: string,
+    comment: string,
+    pointsValue: string,
+  ) {
+    const query =
+      "UPDATE art_piece SET is_validated = TRUE, name = ?, description = ?, points_value = ?  WHERE id = ?";
+    const [result] = await databaseClient.query<Result>(query, [
+      ArtTitle,
+      comment,
+      pointsValue,
+      id,
+    ]);
     return result.affectedRows;
   }
 
