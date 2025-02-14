@@ -39,10 +39,6 @@ function Lost() {
     fetchReportedData();
   }, [failed]);
 
-  const handleValidate = async (art_piece_id: number) => {
-    await validateReport(art_piece_id);
-  };
-
   const validateReport = async (art_piece_id: number) => {
     setIsLoading(true);
     try {
@@ -59,12 +55,19 @@ function Lost() {
         failed("Erreur lors de la validation du signalement.");
         return;
       }
-
-      success("La validation est approuvée");
-      updateReportedData(art_piece_id); // Supprime l'élément validé
+      success("la validation est approuvé");
+      const itemExists = reported.some(
+        (item) => item.art_piece_id === art_piece_id,
+      );
+      if (itemExists) {
+        updateReportedData(art_piece_id);
+      } else {
+        failed("Le signalement est introuvable.");
+      }
     } catch {
       failed("Erreur lors de la validation du signalement.");
     } finally {
+      // actualiser la liste des signalements
       setIsLoading(false);
     }
   };
@@ -81,12 +84,19 @@ function Lost() {
         failed("Erreur lors du refus du signalement.");
         return;
       }
-
       success("Le refus est approuvé");
-      updateReportedData(art_piece_id);
+      const itemExists = reported.some(
+        (item) => item.art_piece_id === art_piece_id,
+      );
+      if (itemExists) {
+        updateReportedData(art_piece_id);
+      } else {
+        failed("Le signalement est introuvable.");
+      }
     } catch {
       failed("Erreur lors du refus du signalement.");
     } finally {
+      // actualiser la liste des signalements
       setIsLoading(false);
     }
   };
@@ -109,7 +119,7 @@ function Lost() {
     const coordinates = currentReport.coordinates
       ? `Lat: ${currentReport.coordinates.x}, Long: ${currentReport.coordinates.y}`
       : "Coordonnées non disponibles";
-
+    // Fonction qui renvoie les coordonnées et le titre du street art disponible, et un message "Coordonnées non disponibles" si aucune coordonnée n'est disponible à l'affichage.
     contentInfo = (
       <div className="content-info" key={currentReport.art_piece_id}>
         <p className="title-street-art">{currentReport.art_piece_name}</p>
@@ -166,14 +176,13 @@ function Lost() {
                 <p>Aucune œuvre d'art signalée.</p>
               )}
             </div>
-
             {reported.length > 0 && (
               <div className="next-refusal-button">
                 <button
                   className="btn-validation-lost"
                   type="button"
                   onClick={() =>
-                    handleValidate(reported[changeCard].art_piece_id)
+                    validateReport(reported[changeCard].art_piece_id)
                   }
                   disabled={isLoading}
                 >
