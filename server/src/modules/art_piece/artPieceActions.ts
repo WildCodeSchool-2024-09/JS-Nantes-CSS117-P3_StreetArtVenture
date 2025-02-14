@@ -18,11 +18,11 @@ const edit: RequestHandler = async (req, res) => {
     const { id } = req.params;
 
     const editArtPiece = await artPieceRepository.update({
-      name,
-      adress,
-      description,
-      points_value,
-      id,
+      name: "",
+      adress: "",
+      description: "",
+      points_value: "",
+      id: "",
       city: "",
       department: "",
       coordinates: "",
