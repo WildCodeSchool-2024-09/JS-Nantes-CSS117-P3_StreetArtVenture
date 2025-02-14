@@ -31,17 +31,9 @@ const verifyUser: RequestHandler = async (req, res, next): Promise<void> => {
       return;
     }
 
-    const userArray = await userRepository.readPasswordHash(email);
+    const userArray = await userRepository.getByEmail(email);
 
-    if (!userArray || userArray.length === 0) {
-      res.status(404).json({ message: "Utilisateur non trouvé" });
-      return;
-    }
-
-    const user = userArray[0];
-    const passwordHash = user.password;
-
-    const isPasswordValid = await argon2d.verify(passwordHash, password);
+    const isPasswordValid = await argon2d.verify(userArray.password, password);
 
     if (!isPasswordValid) {
       res.status(401).json({ message: "Mot de passe incorrect" });
@@ -50,20 +42,18 @@ const verifyUser: RequestHandler = async (req, res, next): Promise<void> => {
 
     const token = jwt.sign(
       {
-        id: user.id,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        isBanned: user.isBanned,
+        id: userArray.id,
+        email: userArray.email,
+        isAdmin: userArray.isAdmin,
+        isBanned: userArray.isBanned,
       },
       JWT_SECRET,
       { expiresIn: reminder },
     );
 
     res.status(200).json({ token });
-    return;
   } catch (err) {
     next(err);
-    return;
   }
 };
 
