@@ -14,6 +14,29 @@ class artRepository {
     return rows as ArtPiece[];
   }
 
+  async update(id: string, updatedFields: Partial<Omit<ArtPiece, "id">>) {
+    // On filtre les éléments absent
+    const fields = Object.keys(updatedFields).filter(
+      (key) => updatedFields[key as keyof typeof updatedFields] !== undefined,
+    );
+
+    // Si il n'y a rien a modifier
+    if (fields.length === 0) {
+      throw new Error("Aucune donnée à mettre à jour.");
+    }
+
+    const setFields = fields.map((field) => `${field} = ?`);
+    const values = fields.map(
+      (field) => updatedFields[field as keyof typeof updatedFields],
+    );
+    values.push(id);
+    const query = `UPDATE art_piece SET ${setFields} WHERE id = ?`;
+
+    const [result] = await databaseClient.query<Result>(query, values);
+
+    return result.affectedRows;
+  }
+
   async browseAround(lat: number, lng: number, radius?: number) {
     const query = `SELECT 
     *,
@@ -39,9 +62,20 @@ class artRepository {
     return row as ArtPiece[];
   }
 
-  async approveArtPiece(id: string) {
-    const query = "UPDATE art_piece SET is_validated = TRUE WHERE id = ?";
-    const [result] = await databaseClient.query<Result>(query, [id]);
+  async approveArtPiece(
+    id: string,
+    ArtTitle: string,
+    comment: string,
+    pointsValue: string,
+  ) {
+    const query =
+      "UPDATE art_piece SET is_validated = TRUE, name = ?, description = ?, points_value = ?  WHERE id = ?";
+    const [result] = await databaseClient.query<Result>(query, [
+      ArtTitle,
+      comment,
+      pointsValue,
+      id,
+    ]);
     return result.affectedRows;
   }
 

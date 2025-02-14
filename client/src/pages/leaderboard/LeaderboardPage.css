@@ -60,7 +60,19 @@
 .leaderboard-no-des {
   display: none;
 }
-
+.button-ban-refusal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.button-ban-refusal > button {
+  background-color: #22b573;
+  border-radius: 20%;
+  border: none;
+  height: 30px;
+  width: 60px;
+}
 @media screen and (max-width: 450px) {
   .leaderboard-filters-container {
     flex-direction: column;
