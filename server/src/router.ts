@@ -56,6 +56,7 @@ router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
 router.post("/art/newArt", artActions.updateAccepted);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
+router.patch("/art/:id", artPieceActions.edit);
 
 /* ******************************************************************** */
 

@@ -8,7 +8,37 @@ const getCities: RequestHandler = async (req, res, next) => {
     res.json({ cities, artCard });
   } catch (err) {
     console.error(err);
+    res.status(500).send("Erreur lors de la récupération des données");
   }
 };
 
-export default { getCities };
+const edit: RequestHandler = async (req, res) => {
+  try {
+    const { name, adress, description, points_value } = req.body;
+    const { id } = req.params;
+
+    const editArtPiece = await artPieceRepository.update({
+      name,
+      adress,
+      description,
+      points_value,
+      id,
+      city: "",
+      department: "",
+      coordinates: "",
+      is_validated: false,
+      is_covered: false,
+    });
+
+    if (editArtPiece) {
+      res.sendStatus(204);
+    } else {
+      res.status(403).send("An error occurred");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur lors de la mise à jour de l'œuvre");
+  }
+};
+
+export default { getCities, edit };

@@ -1,4 +1,5 @@
 export type ArtCard = {
+  points_value: string;
   name: string;
   adress?: string;
   city: string;
@@ -7,4 +8,5 @@ export type ArtCard = {
   is_validated: boolean;
   is_covered: boolean;
   description: string;
+  id?: string;
 };
