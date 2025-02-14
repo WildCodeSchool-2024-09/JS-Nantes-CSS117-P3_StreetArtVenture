@@ -25,7 +25,7 @@ const ProtectedRoute = () => {
   }, []);
 
   if (isAuth === true) return <Outlet />;
-  if (isAuth === false) return <Navigate to="/login" replace />;
+  if (isAuth === false) return <Navigate to="/connexion" replace />;
 };
 
 export default ProtectedRoute;

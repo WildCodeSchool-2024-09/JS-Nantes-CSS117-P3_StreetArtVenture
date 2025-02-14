@@ -20,6 +20,38 @@ const readAll: RequestHandler = async (req, res, next) => {
   }
 };
 
+const update: RequestHandler = async (req, res, next) => {
+  try {
+    async function updateArtPiece() {
+      const { id } = req.params;
+      const updatedFields = req.body;
+
+      if (!id) {
+        return res.status(400).json({ error: "ID invalide." });
+      }
+
+      if (Object.keys(updatedFields).length === 0) {
+        return res
+          .status(400)
+          .json({ error: "Aucune donnée à mettre à jour." });
+      }
+
+      const affectedRows = await artRepository.update(id, updatedFields);
+
+      if (affectedRows === 0) {
+        return res
+          .status(404)
+          .json({ error: "Aucune oeuvre trouvée avec cet ID." });
+      }
+
+      return res.json(affectedRows);
+    }
+    updateArtPiece();
+  } catch (err) {
+    next(err);
+  }
+};
+
 const browseAround: RequestHandler = async (req, res, next) => {
   try {
     const { latitude, longitude, radius } = req.query;
@@ -52,7 +84,13 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
 const editArtPiece: RequestHandler = async (req, res, next) => {
   try {
     const artPieceId = req.params.id;
-    const artValidation = await artRepository.approveArtPiece(artPieceId);
+    const { ArtTitle, comment, userId, pointsValue } = req.body;
+    const artValidation = await artRepository.approveArtPiece(
+      artPieceId,
+      ArtTitle,
+      comment,
+      pointsValue,
+    );
     if (!artValidation) {
       res.sendStatus(404);
     } else {
@@ -174,6 +212,7 @@ const report: RequestHandler = async (req, res, next) => {
 
 export default {
   readAll,
+  update,
   browseAround,
   updateAccepted,
   multerAndSkully,

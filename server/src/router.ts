@@ -7,16 +7,16 @@ import notificationsActions from "./modules/notifications/notificationsActions";
 import reportedArtPieceActions from "./modules/reported_art_piece/reportedArtPieceActions";
 import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
-// import { getUserSignalement } from "./modules/reported_art_piece/reportedArtPieceActions";
 
 const router = express.Router();
 router.use(express.json());
+
 /* ************************** PUBLIC ACTIONS ************************** */
-router.get("/leaderboard/getCities", leaderboardActions.getCities);
-router.get("/leaderboard/getLeaderboard", leaderboardActions.getLeaderboard);
-router.get("/user/:id", userActions.read);
+
 router.get("/art/getCities", artPieceActions.getCities);
+router.get("/leaderboard/getCities", leaderboardActions.getCities);
 router.get("/artPiece", artActions.readAll);
+router.get("/leaderboard/getLeaderboard", leaderboardActions.getLeaderboard);
 router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
 router.post(
@@ -24,8 +24,8 @@ router.post(
   userActions.hashPassword,
   userActions.registration,
 );
-router.post("/api/upload", artActions.savePicture, artActions.multerAndSkully);
-/* ************************** LOGGED USERS ACTIONS ************************** */
+
+/* ************************** LOGGED USER ACTIONS ************************** */
 router.use(authActions.verifyToken);
 router.get("/notifications/:id", notificationsActions.read); //
 router.patch("/notifications/:id", notificationsActions.setRead); //
@@ -38,6 +38,8 @@ router.post("/art/newReport", artActions.report); //
 router.post("/user/reportVerification", userActions.isReported);
 router.post("/user/artVerification", userActions.isSeen);
 router.post("/user/addpoint", userActions.addpoint);
+router.get("/user/:id", userActions.read);
+
 /* ************************** ADMIN ACTIONS ************************** */
 router.use(authActions.verifyAdmin);
 
@@ -45,17 +47,21 @@ router.get(
   "/leaderboard/admin/getLeaderboard",
   leaderboardActions.getAdminLeaderboard,
 );
-router.patch("/art/artPieceValidation/:id", artActions.editArtPiece); //
-router.patch("/reports/validate/:id", reportedArtPieceActions.validate); //
-router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse); //
-router.delete("/user/:id", userActions.deleteUser); //
-router.get("/statistics/user", statisticsActions.getUserStatistics); //
-router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics); //
-router.get("/statistics/player", statisticsActions.getPlayerStatistics); //
-router.get("/user/reporting", reportedArtPieceActions.getUserSignalement); //
+router.patch("/art/:id", artActions.update);
+router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
+router.patch("/reports/validate/:id", reportedArtPieceActions.validate);
+router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse);
+router.delete("/user/:id", userActions.deleteUser);
+router.get("/statistics/user", statisticsActions.getUserStatistics);
+router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
+router.get("/statistics/player", statisticsActions.getPlayerStatistics);
+router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
+router.post("/art/newArt", artActions.updateAccepted);
+router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
+router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
+
 /* ******************************************************************** */
 
-router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece); //
-router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece); //
+router.post("/api/upload", artActions.savePicture, artActions.multerAndSkully);
 
 export default router;
