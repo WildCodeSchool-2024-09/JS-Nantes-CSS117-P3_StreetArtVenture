@@ -133,7 +133,7 @@ export const Connexion: React.FC<ConnexionProps> = () => {
         </button>
         <p className="error-message">{errorMessage}</p>
         <h2 className="white center bangers-regular">Pas encore inscrit ?</h2>
-        <Link className="link-inscription" to="/register">
+        <Link className="link-inscription" to="/inscription">
           S'inscrire
         </Link>
       </form>
