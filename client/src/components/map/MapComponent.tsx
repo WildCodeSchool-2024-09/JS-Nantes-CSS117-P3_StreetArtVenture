@@ -6,8 +6,10 @@ import "./Mapcomponent.css";
 import "leaflet.awesome-markers";
 import type { LatLngExpression } from "leaflet";
 import { useState } from "react";
+import { useUser } from "../../context/UserContext";
+import { fetchWithAuth } from "../../utils/api";
 import useToast from "../../utils/useToast";
-import type { MapComponentProps } from "./Map.types";
+import type { MapComponentProps, PointButtonVerification } from "./Map.types";
 import WebcamCapture from "./Print";
 
 function MapComponent({
@@ -16,7 +18,10 @@ function MapComponent({
   markerList,
 }: MapComponentProps) {
   const [openCapture, setOpenCapture] = useState(false);
-  const { success } = useToast();
+  const [isViewed, setIsViewed] = useState<boolean>(false);
+  const { success, failed } = useToast();
+  const { user } = useUser();
+
   const handleButtonClick = () => setOpenCapture(!openCapture);
 
   // Custom icon for the current position
@@ -28,6 +33,75 @@ function MapComponent({
   const defaultIcon = L.AwesomeMarkers.icon({
     markerColor: "cadetblue",
   });
+
+  const isAlreadySeen = async ({
+    artId,
+    artLong,
+    artLat,
+  }: PointButtonVerification) => {
+    setIsViewed(false);
+    if (user && centerMarker) {
+      const latLongArt = L.latLng(artLong, artLat);
+      const latLongUser = L.latLng(centerMarker[0], centerMarker[1]);
+      const distance = latLongArt.distanceTo(latLongUser);
+      if (distance > 50) {
+        setIsViewed(false);
+        return;
+      }
+      try {
+        const response = await fetchWithAuth(
+          `${import.meta.env.VITE_API_URL}/user/artVerification`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: user.id,
+              artId: artId,
+            }),
+          },
+        );
+
+        if (!response.ok) {
+          failed("Erreur lors de l'envoie de la requête");
+        }
+        const data = await response.json();
+        if (data) {
+          setIsViewed(true);
+        }
+      } catch (error) {
+        failed("Erreur lors de l'envoie de la requête");
+      }
+    }
+  };
+
+  const handleAddPoint = async (artId: number) => {
+    if (user) {
+      try {
+        const response = await fetchWithAuth(
+          `${import.meta.env.VITE_API_URL}/user/addpoint`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId: user.id, artId: artId }),
+          },
+        );
+
+        if (!response.ok) {
+          failed("Erreur lors de l'attribution de points' :");
+        }
+        success(
+          "Bravo ! Vous avez découvert une nouvelle œuvre et gagné des points. Continuez l’exploration !",
+        );
+        setIsViewed(false);
+      } catch (error) {
+        failed("Erreur lors de l'attribution de points' :");
+      }
+    }
+  };
 
   return (
     position && (
@@ -49,6 +123,15 @@ function MapComponent({
         )}
         {markerList?.map((el) => (
           <Marker
+            eventHandlers={{
+              popupopen: async () => {
+                await isAlreadySeen({
+                  artId: el.id,
+                  artLong: el.coordinates.x,
+                  artLat: el.coordinates.y,
+                });
+              },
+            }}
             key={el.id}
             position={{
               lat: el.coordinates.x,
@@ -64,6 +147,17 @@ function MapComponent({
               />
               <h4 className="popup-title">{el.name}</h4>
               <p className="popup-coordinates">{el.adress}</p>
+              <p className="popup-coordinates">Lattitude {el.coordinates.x}</p>
+              <p className="popup-coordinates">Longitude {el.coordinates.y}</p>
+              {isViewed && (
+                <button
+                  className="green-button montserrat"
+                  type="button"
+                  onClick={() => handleAddPoint(el.id)}
+                >
+                  Trouvé !
+                </button>
+              )}
             </Popup>
           </Marker>
         ))}

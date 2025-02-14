@@ -20,7 +20,7 @@ export const Home: React.FC = () => {
           if (!response.ok) {
             navigate("/Connexion");
           }
-          navigate("/map");
+          navigate("/carte");
         });
       } catch (error) {
         navigate("/Connexion");
@@ -90,7 +90,7 @@ export const Home: React.FC = () => {
           </p>
           <button
             type="button"
-            onClick={() => navigate("/gallery")}
+            onClick={() => navigate("/galerie")}
             className="home-button home-green-button montserrat home-p"
           >
             DECOUVRIR
@@ -115,7 +115,7 @@ export const Home: React.FC = () => {
           </p>
           <button
             type="button"
-            onClick={() => navigate("/leaderboard")}
+            onClick={() => navigate("/classement")}
             className="home-button  white-button montserrat green-button-but-white-instead home-p"
           >
             Voir le classement !

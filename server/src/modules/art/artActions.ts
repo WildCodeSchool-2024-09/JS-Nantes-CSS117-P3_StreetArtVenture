@@ -3,6 +3,7 @@ import type { RequestHandler } from "express";
 import type { Request, Response } from "express";
 import multer from "multer";
 import type { JWTPayload } from "../../types/express/auth";
+import notificationsRepository from "../notifications/notificationsRepository";
 import userRepository from "../user/userRepository";
 import artRepository from "./artRepository";
 
@@ -15,6 +16,38 @@ const readAll: RequestHandler = async (req, res, next) => {
     res.json(items);
   } catch (err) {
     // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+const update: RequestHandler = async (req, res, next) => {
+  try {
+    async function updateArtPiece() {
+      const { id } = req.params;
+      const updatedFields = req.body;
+
+      if (!id) {
+        return res.status(400).json({ error: "ID invalide." });
+      }
+
+      if (Object.keys(updatedFields).length === 0) {
+        return res
+          .status(400)
+          .json({ error: "Aucune donnée à mettre à jour." });
+      }
+
+      const affectedRows = await artRepository.update(id, updatedFields);
+
+      if (affectedRows === 0) {
+        return res
+          .status(404)
+          .json({ error: "Aucune oeuvre trouvée avec cet ID." });
+      }
+
+      return res.json(affectedRows);
+    }
+    updateArtPiece();
+  } catch (err) {
     next(err);
   }
 };
@@ -51,11 +84,18 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
 const editArtPiece: RequestHandler = async (req, res, next) => {
   try {
     const artPieceId = req.params.id;
-    const artValidation = await artRepository.approveArtPiece(artPieceId);
+    const { ArtTitle, comment, userId, pointsValue } = req.body;
+    const artValidation = await artRepository.approveArtPiece(
+      artPieceId,
+      ArtTitle,
+      comment,
+      pointsValue,
+    );
     if (!artValidation) {
       res.sendStatus(404);
     } else {
       const userId = (req.auth as JWTPayload).id;
+      if (userId) notificationsRepository.update(artPieceId, userId, 1);
       const pointsGiven = await userRepository.addCreationPoints(
         userId,
         req.body.pointsValue,
@@ -81,6 +121,8 @@ const denyArtPiece: RequestHandler = async (req, res, next) => {
     if (deniedArt === 0) {
       res.sendStatus(404);
     } else {
+      const { userId } = req.body;
+      if (userId) notificationsRepository.update(`${id}`, userId, 0);
       res.status(200).send("Art piece has been denied !");
     }
   } catch (err) {
@@ -128,7 +170,7 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
       userId,
     } = req.body;
 
-    const affectedRows = await artRepository.updateValidation(
+    const artPieceId = await artRepository.updateValidation(
       pos_x,
       pos_y,
       name,
@@ -137,9 +179,11 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
       city,
       address,
     );
-    if (!affectedRows) {
+    if (!artPieceId) {
       res.sendStatus(404);
     } else {
+      // Create notification with default values waiting for admin validation
+      notificationsRepository.create(artPieceId, userId);
       res.sendStatus(204);
     }
   } catch (err) {
@@ -149,6 +193,7 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
 
 export default {
   readAll,
+  update,
   browseAround,
   updateAccepted,
   multerAndSkully,
