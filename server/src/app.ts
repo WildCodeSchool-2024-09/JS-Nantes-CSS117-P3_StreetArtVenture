@@ -72,6 +72,7 @@ import router from "./router";
 // - Redirecting unhandled requests (e.g., all requests not matching a defined API route) to the client's index.html. This allows the client to handle client-side routing.
 
 import fs from "node:fs";
+import path from "node:path";
 
 // Serve server resources
 
@@ -101,7 +102,6 @@ if (fs.existsSync(clientBuildPath)) {
 // Middleware for Error Logging
 // Important: Error-handling middleware should be defined last, after other app.use() and routes calls.
 
-import path from "node:path";
 import type { ErrorRequestHandler } from "express";
 
 // Define a middleware function to log errors
