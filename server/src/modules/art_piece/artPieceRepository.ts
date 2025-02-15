@@ -1,6 +1,6 @@
 import databaseClient from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
-import type { ArtCard } from "./ArtCardType";
+import type { ArtCard, ArtCardChange, ArtPieceGallery } from "./ArtCardType";
 
 interface ArtPiece {
   id: number;
@@ -8,8 +8,7 @@ interface ArtPiece {
 }
 
 class ArtPieceRepository {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  create(body: any) {
+  create(body: ArtPieceGallery) {
     throw new Error("Method not implemented.");
   }
   async getCities() {
@@ -28,7 +27,7 @@ class ArtPieceRepository {
     );
     return rows as ArtCard[];
   }
-  async update(artPiece: ArtCard) {
+  async update(artPiece: ArtCardChange) {
     const [row] = await databaseClient.query<Result>(
       "UPDATE art_piece SET name = ?, adresse = ?, description = ?, points_value = ?  WHERE id =?",
       [
