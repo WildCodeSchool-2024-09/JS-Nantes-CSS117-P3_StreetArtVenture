@@ -1,6 +1,7 @@
 import path from "node:path";
 import type { RequestHandler } from "express";
 import type { Request, Response } from "express";
+import type { JwtPayload } from "jsonwebtoken";
 import multer from "multer";
 import type { JWTPayload } from "../../types/express/auth";
 import notificationsRepository from "../notifications/notificationsRepository";
@@ -54,10 +55,12 @@ const update: RequestHandler = async (req, res, next) => {
 
 const browseAround: RequestHandler = async (req, res, next) => {
   try {
+    const { id } = req.auth as JwtPayload;
     const { latitude, longitude, radius } = req.query;
     if (!latitude || !longitude) res.status(400).send("Missing parameters");
     // Fetch all items
     const items = await artRepository.browseAround(
+      id,
       Number.parseFloat(latitude as string),
       Number.parseFloat(longitude as string),
       Number.parseFloat(radius as string),

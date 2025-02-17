@@ -5,6 +5,7 @@ export interface ArtPiece {
   adress: string;
   coordinates: { x: number; y: number };
   city: string;
+  has_been_viewed: 1 | 0;
   is_validated: number;
   is_covered: number;
   description: string;

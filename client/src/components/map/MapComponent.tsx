@@ -33,6 +33,10 @@ function MapComponent({
     markerColor: "cadetblue",
   });
 
+  const viewedIcon = L.AwesomeMarkers.icon({
+    markerColor: "darkgreen",
+  });
+
   const isAlreadySeen = async ({
     artId,
     artLong,
@@ -136,9 +140,12 @@ function MapComponent({
               lat: el.coordinates.x,
               lng: el.coordinates.y,
             }}
-            icon={defaultIcon}
+            icon={el.has_been_viewed ? viewedIcon : defaultIcon}
           >
             <Popup>
+              {el.has_been_viewed ? (
+                <p>Vous avez déjà vu cette oeuvre</p>
+              ) : null}
               <img
                 className="popup-image"
                 src={`${import.meta.env.VITE_API_URL}${el.picture_path}`}
