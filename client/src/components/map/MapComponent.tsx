@@ -30,7 +30,7 @@ function MapComponent({
 
   // customize Icon art pieces
   const defaultIcon = L.AwesomeMarkers.icon({
-    markerColor: "black",
+    markerColor: "cadetblue",
   });
 
   const isAlreadySeen = async ({
