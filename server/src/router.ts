@@ -62,12 +62,12 @@ router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 
 router.use("/reports", authActions.verifyAdmin);
+router.get("/report/reporting", reportedArtPieceActions.getUserSignalement);
 router.patch("/reports/validate/:id", reportedArtPieceActions.validate);
 router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse);
 
 router.use("/user", authActions.verifyAdmin);
 router.delete("/user/:id", userActions.deleteUser);
-router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
 
 router.use("/statistics", authActions.verifyAdmin);
 router.get("/statistics/user", statisticsActions.getUserStatistics);

@@ -7,6 +7,7 @@ const validate: RequestHandler = async (req, res) => {
     const artPieceId = req.params.id;
 
     const result = await reportedArtPieceRepository.validateReport(artPieceId);
+    reportedArtPieceRepository.refuseReport(Number.parseInt(artPieceId));
 
     if (result === 0) {
       res.sendStatus(404);

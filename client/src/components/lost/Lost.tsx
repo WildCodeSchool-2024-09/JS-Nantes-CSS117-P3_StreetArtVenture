@@ -22,7 +22,7 @@ function Lost() {
     const fetchReportedData = async () => {
       try {
         const response = await fetchWithAuth(
-          `${import.meta.env.VITE_API_URL}/user/reporting`,
+          `${import.meta.env.VITE_API_URL}/report/reporting`,
         );
         const data = await response.json();
 
@@ -38,19 +38,6 @@ function Lost() {
 
     fetchReportedData();
   }, [failed]);
-
-  const handleValidate = async (art_piece_id: number) => {
-    const currentIndex = reported.findIndex(
-      (item) => item.art_piece_id === art_piece_id,
-    );
-
-    if (currentIndex === -1 || currentIndex === reported.length - 1) {
-      failed("Vous avez atteint la fin de la liste de signalements.");
-      return;
-    }
-
-    await validateReport(art_piece_id);
-  };
 
   const validateReport = async (art_piece_id: number) => {
     setIsLoading(true);
@@ -69,10 +56,18 @@ function Lost() {
         return;
       }
       success("la validation est approuvé");
+      const itemExists = reported.some(
+        (item) => item.art_piece_id === art_piece_id,
+      );
+      if (itemExists) {
+        updateReportedData(art_piece_id);
+      } else {
+        failed("Le signalement est introuvable.");
+      }
     } catch {
       failed("Erreur lors de la validation du signalement.");
     } finally {
-      await refuseReport(art_piece_id);
+      // actualiser la liste des signalements
       setIsLoading(false);
     }
   };
@@ -101,6 +96,7 @@ function Lost() {
     } catch {
       failed("Erreur lors du refus du signalement.");
     } finally {
+      // actualiser la liste des signalements
       setIsLoading(false);
     }
   };
@@ -153,39 +149,40 @@ function Lost() {
 
         <section className="block-green">
           <div className="container">
-            {reported.length > 0 ? (
-              <>
-                <figcaption className="reported-content">
-                  <p className="text-work">Oeuvre signalée</p>
-                  <img
-                    className="street-art"
-                    src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
-                    alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
-                  />
-                </figcaption>
+            <div className="container-data-base">
+              {reported.length > 0 ? (
+                <>
+                  <figcaption className="reported-content">
+                    <p className="text-work">Oeuvre signalée</p>
+                    <img
+                      className="street-art"
+                      src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
+                      alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
+                    />
+                  </figcaption>
 
-                {contentInfo}
+                  {contentInfo}
 
-                <figcaption className="compared-art">
-                  <p className="text-work">Comparaison</p>
-                  <img
-                    className="street-art"
-                    src={`${import.meta.env.VITE_API_URL}${reported[changeCard].report_img_path}`}
-                    alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
-                  />
-                </figcaption>
-              </>
-            ) : (
-              <p>Aucune œuvre d'art signalée.</p>
-            )}
-
+                  <figcaption className="compared-art">
+                    <p className="text-work">Comparaison</p>
+                    <img
+                      className="street-art"
+                      src={`${import.meta.env.VITE_API_URL}${reported[changeCard].report_img_path}`}
+                      alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
+                    />
+                  </figcaption>
+                </>
+              ) : (
+                <p>Aucune œuvre d'art signalée.</p>
+              )}
+            </div>
             {reported.length > 0 && (
               <div className="next-refusal-button">
                 <button
                   className="btn-validation-lost"
                   type="button"
                   onClick={() =>
-                    handleValidate(reported[changeCard].art_piece_id)
+                    validateReport(reported[changeCard].art_piece_id)
                   }
                   disabled={isLoading}
                 >
