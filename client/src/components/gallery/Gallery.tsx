@@ -8,8 +8,10 @@ function Gallery() {
   const [card, setCard] = useState<CardI[]>([]);
   const [selectedValue, setSelectedValue] = useState("Votre ville");
 
-  const [inputValue, setInputValue] = useState("");
   const [inputValues, setInputValues] = useState<{
+    title?: string;
+    description?: string;
+    points?: string;
     adress?: string;
     city?: string;
     latitude?: string;
@@ -32,29 +34,16 @@ function Gallery() {
       .catch((err) => console.error(err));
   }, []);
 
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/art/:id`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCities(data.cities);
-        setCard(data.artCard);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-  const fetchLocationData = async (address: string) => {
+  const fetchLocationData = async (adress: string) => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-          address,
-        )}&format=json&addressdetails=1`,
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(adress)}&format=json&addressdetails=1`,
       );
       const data = await response.json();
 
       if (data.length > 0) {
         const lat = data[0].lat;
         const lon = data[0].lon;
-
         const addressObj = data[0].address || {};
 
         const cityName =
@@ -74,27 +63,42 @@ function Gallery() {
       console.error("Erreur lors de la récupération des coordonnées :", error);
     }
   };
+  const handleSubmit = async (artworkId: number) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/art/${artworkId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(inputValues),
+        },
+      );
+
+      if (response.ok) {
+        alert("Mise à jour réussie !");
+      } else {
+        const errorMessage = await response.text();
+        alert(`Erreur lors de la mise à jour: ${errorMessage}`);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la requête :", error);
+    }
+  };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     field: string,
   ) => {
-    setInputValues((prev) => ({ ...prev, [field]: event.target.value }));
-
-    if (field === "adress") {
-      fetchLocationData(event.target.value);
-    }
-  };
-
-  const handleChangeSingle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    const newValue = event.target.value;
+    setInputValues((prev) => ({ ...prev, [field]: newValue }));
   };
 
   const addCard = (artworkId: number) => {
     setCardsByArtwork((prev) => {
-      if (prev[artworkId] && prev[artworkId].length > 0) {
-        return prev;
-      }
+      if (prev[artworkId]?.length > 0) return prev;
       return { ...prev, [artworkId]: [""] };
     });
   };
@@ -136,7 +140,6 @@ function Gallery() {
                 src={`${import.meta.env.VITE_API_URL}${artwork.picture_path}`}
                 alt={artwork.description || "art piece"}
               />
-
               <p className="streetart">{artwork.name}</p>
               <p className="streetart">
                 {artwork.adress}, {artwork.city}
@@ -149,7 +152,7 @@ function Gallery() {
                     onClick={() => addCard(artwork.id)}
                     className="button-change"
                   >
-                    Modifier une carte
+                    Modifier la l'oeuvre d'art
                   </button>
 
                   <div className="card-change">
@@ -158,66 +161,58 @@ function Gallery() {
                       <div key={index} className="div-card">
                         {cardItem}
 
-                        <button
-                          type="button"
-                          onClick={() => removeCard(artwork.id)}
-                          className="remove-card"
-                        >
-                          ✖
-                        </button>
-
-                        {/* Formulaire de modification de l'œuvre */}
                         <form className="form-change-card">
+                          {/* Titre */}
                           <label
-                            htmlFor="textInputTitle"
+                            htmlFor="titleInput"
                             className="block text-gray-700 font-bold mb-2"
                           >
                             Changer le titre de l'œuvre
                           </label>
                           <input
-                            id="textInputTitle"
                             type="text"
-                            value={inputValue}
-                            onChange={handleChangeSingle}
-                            placeholder="Tapez ici..."
+                            value={inputValues.title || ""}
+                            onChange={(e) => handleChange(e, "title")}
+                            placeholder="Titre de l'œuvre"
                             className="input-change-card"
                           />
 
                           <label
-                            htmlFor="textInputDesc"
+                            htmlFor="descInput"
                             className="block text-gray-700 font-bold mb-2"
                           >
                             Changer la description
                           </label>
                           <input
-                            id="textInputDesc"
                             type="text"
-                            value={inputValue}
-                            onChange={handleChangeSingle}
-                            placeholder="Tapez ici..."
+                            value={inputValues.description || ""}
+                            onChange={(e) => handleChange(e, "description")}
+                            placeholder="Description"
                             className="input-change-card"
                           />
 
                           <label
-                            htmlFor="textInputPoints"
+                            htmlFor="pointsInput"
                             className="block text-gray-700 font-bold mb-2"
                           >
                             Changer les points
                           </label>
                           <input
-                            id="textInputPoints"
                             type="text"
-                            value={inputValue}
-                            onChange={handleChangeSingle}
-                            placeholder="Tapez ici..."
+                            value={inputValues.points || ""}
+                            onChange={(e) => handleChange(e, "points")}
+                            placeholder="Points"
                             className="input-change-card"
                           />
 
-                          <button type="submit" className="button-submit">
+                          <button
+                            type="submit"
+                            className="button-submit"
+                            onClick={() => handleSubmit}
+                          >
                             Soumettre
                           </button>
 
-                          {/* Champs pour l'adresse → Coordonnées */}
                           {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
                           <label className="block text-gray-700 font-bold mt-4">
                             Adresse
@@ -251,6 +246,14 @@ function Gallery() {
                             placeholder="Longitude"
                             className="input-change-card"
                           />
+
+                          <button
+                            type="button"
+                            onClick={() => removeCard(artwork.id)}
+                            className="button-x"
+                          >
+                            ✖
+                          </button>
                         </form>
                       </div>
                     ))}

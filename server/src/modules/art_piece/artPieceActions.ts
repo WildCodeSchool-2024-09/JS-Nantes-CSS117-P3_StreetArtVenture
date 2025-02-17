@@ -17,6 +17,8 @@ const edit: RequestHandler = async (req, res) => {
     const { name, adress, description, points_value } = req.body;
     const { id } = req.params;
 
+    console.log({ id });
+
     const editArtPiece = await artPieceRepository.update({
       name,
       adress,

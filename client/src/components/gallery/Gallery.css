@@ -139,6 +139,31 @@
   text-align: center;
 }
 
+.button-change {
+  background-color: #c5b88a;
+  color: #ffff;
+  border: none;
+  border-radius: 50px;
+  width: 20vh;
+  height: 5vh;
+}
+
+.button-submit {
+  background-color: #22b573;
+  color: #ffff;
+  border: none;
+  border-radius: 50px;
+  width: 15vh;
+  height: 5vh;
+}
+.button-x {
+  background-color: #22b573;
+  color: #ffff;
+  border: none;
+  border-radius: 50px;
+  width: 5vh;
+  height: 5vh;
+}
 @media screen and (max-width: 600px) {
   .galery-main-container > h1 {
     font-size: 48px;
