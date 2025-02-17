@@ -190,6 +190,25 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
   }
 };
 
+const report: RequestHandler = async (req, res, next) => {
+  try {
+    const { filePath: path, userId, artId } = req.body;
+
+    const affectedRows = await artRepository.reportValidation(
+      path,
+      userId,
+      artId,
+    );
+    if (!affectedRows) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   readAll,
   update,
@@ -200,4 +219,5 @@ export default {
   unvalidatedArtPiece,
   editArtPiece,
   denyArtPiece,
+  report,
 };
