@@ -42,7 +42,7 @@ class artRepository {
     *,
     ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) / 1000 AS distance_in_km
     FROM art_piece 
-    WHERE ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) <= ? * 1000;`;
+    WHERE ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) <= ? * 1000 AND is_validated = 1;`;
     // Execute the SQL SELECT query to retrieve all art pieces <= 50 km around gps coordinates
     const [rows] = await databaseClient.query<Rows>(query, [
       lat,
@@ -118,6 +118,21 @@ class artRepository {
       null,
     ]);
     return result.insertId;
+  }
+
+  async reportValidation(path: string, userId: number, artId: number) {
+    const query = `
+    INSERT INTO reported_art_piece  
+    (art_piece_id, picture_path, user_id, timestamp)  
+    VALUES (?, ?, ?, NOW())
+  `;
+
+    const [result] = await databaseClient.query<Result>(query, [
+      artId,
+      path,
+      userId,
+    ]);
+    return result.affectedRows;
   }
 }
 
