@@ -151,5 +151,15 @@ WHERE u.id = ?`;
     ]);
     return result.affectedRows;
   }
+
+  async reportVerification(userId: number, artId: number) {
+    const query = `SELECT EXISTS (
+    SELECT 1 
+    FROM reported_art_piece 
+    WHERE user_id = ? AND art_piece_id = ?
+) AS has_viewed`;
+    const [row] = await databaseClient.query<Rows>(query, [userId, artId]);
+    return row;
+  }
 }
 export default new UserRepository();

@@ -112,6 +112,21 @@ class artRepository {
     ]);
     return result.insertId;
   }
+
+  async reportValidation(path: string, userId: number, artId: number) {
+    const query = `
+    INSERT INTO reported_art_piece  
+    (art_piece_id, picture_path, user_id, timestamp)  
+    VALUES (?, ?, ?, NOW())
+  `;
+
+    const [result] = await databaseClient.query<Result>(query, [
+      artId,
+      path,
+      userId,
+    ]);
+    return result.affectedRows;
+  }
 }
 
 export default new artRepository();
