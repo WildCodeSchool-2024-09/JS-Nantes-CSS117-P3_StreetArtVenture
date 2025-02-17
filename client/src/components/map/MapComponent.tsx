@@ -58,6 +58,10 @@ function MapComponent({
     markerColor: "cadetblue",
   });
 
+  const viewedIcon = L.AwesomeMarkers.icon({
+    markerColor: "darkgreen",
+  });
+
   const isWithinDistance = (artLong: number, artLat: number) => {
     setIsViewed(false);
     setIsReported(false);
@@ -188,9 +192,12 @@ function MapComponent({
               lat: el.coordinates.x,
               lng: el.coordinates.y,
             }}
-            icon={defaultIcon}
+            icon={el.has_been_viewed ? viewedIcon : defaultIcon}
           >
             <Popup>
+              {el.has_been_viewed ? (
+                <p>Vous avez déjà vu cette oeuvre</p>
+              ) : null}
               {isReported && (
                 <button
                   className="green-button montserrat"
