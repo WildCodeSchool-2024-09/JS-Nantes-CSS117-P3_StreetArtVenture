@@ -40,8 +40,6 @@ export function AdminValidationBoard() {
 
   const fetchArtPieceByProximity = async () => {
     if (validation) {
-      setComparaisonValidation([]);
-      setIndexBouton(0);
       const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/art/similarAdress`,
         {
@@ -90,7 +88,10 @@ export function AdminValidationBoard() {
           points: 30,
           commentaire: "",
         });
+        setComparaisonValidation([]);
+        setIndexBouton(0);
         fetchArtPiece();
+
         success("L'œuvre a été validée avec succès !");
       } else {
         failed("Échec de la validation. Veuillez réessayer.");
@@ -123,6 +124,8 @@ export function AdminValidationBoard() {
           points: 30,
           commentaire: "",
         });
+        setComparaisonValidation([]);
+        setIndexBouton(0);
         fetchArtPiece();
 
         success("L'œuvre a été refusée avec succès !");
