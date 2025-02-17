@@ -16,6 +16,12 @@
   width: 60px;
 }
 
+@media screen and (max-width: 450px) {
+  .header-class > div > div > button > img {
+    width: 40px;
+  }
+}
+
 /* style list notifications */
 .header-class > div > div > ul {
   position: absolute;
