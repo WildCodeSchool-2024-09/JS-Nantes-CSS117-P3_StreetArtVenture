@@ -42,7 +42,7 @@ class artRepository {
     *,
     ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) / 1000 AS distance_in_km
     FROM art_piece 
-    WHERE ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) <= ? * 1000;`;
+    WHERE is_validated = 1 AND ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) <= ? * 1000;`;
     // Execute the SQL SELECT query to retrieve all art pieces <= 50 km around gps coordinates
     const [rows] = await databaseClient.query<Rows>(query, [
       lat,
