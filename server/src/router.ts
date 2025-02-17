@@ -26,7 +26,14 @@ router.post(
 
 /* ************************** LOGGED USER ACTIONS ************************** */
 router.use(
-  ["/notifications", "/leaderboard", "/art", "/user", "/api/upload"],
+  [
+    "/notifications",
+    "/leaderboard",
+    "/art",
+    "/user",
+    "/api/upload",
+    "/statistics",
+  ],
   authActions.verifyToken,
 );
 
