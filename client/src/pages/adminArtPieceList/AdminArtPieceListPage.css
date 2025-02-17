@@ -1,0 +1,33 @@
+.art-piece-list-admin-main-container {
+  width: 100vw;
+  background-image: url("/public/background-grey.jpg");
+  object-fit: cover;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+}
+
+.art-piece-list-admin-main-container h1 {
+  font-family: var(--secondary-font);
+  font-weight: 400;
+  font-size: 64px;
+  text-align: center;
+}
+
+.art-piece-list-admin-main-container img {
+  width: 150px;
+}
+
+@media screen and (max-width: 600px) {
+  .art-piece-list-admin-main-container h1 {
+    font-size: 48px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .art-piece-list-admin-main-container h1 {
+    font-size: 40px;
+  }
+}
