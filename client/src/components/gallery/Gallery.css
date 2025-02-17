@@ -108,9 +108,20 @@
   color: black;
   font-size: 20px;
 }
+
+.form-change-card input {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
 .form-change-card > label {
   font-weight: bold;
-
   display: block;
 }
 
@@ -118,14 +129,6 @@
   display: flex;
   justify-content: center;
   bottom: 20vh;
-}
-.input-change-card {
-  border-radius: 20px;
-  border: none;
-  height: 40px;
-  width: 300px;
-  padding: 10px;
-  margin-bottom: 15px;
 }
 
 .input-description-change-card {
@@ -172,6 +175,9 @@
     padding: 32px;
   }
 }
+.form-change-card input {
+  width: 25vh;
+}
 
 @media screen and (max-width: 450px) {
   .gallery-card {
@@ -181,5 +187,15 @@
   }
   .galery-main-container {
     padding: 24px;
+  }
+  .form-change-card input {
+    width: 80%;
+  }
+
+  .form-change-card {
+    height: 200vh;
+  }
+  .form-change-card > input {
+    height: auto;
   }
 }

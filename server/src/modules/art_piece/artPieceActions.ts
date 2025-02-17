@@ -1,4 +1,5 @@
 import type { RequestHandler } from "express";
+import type { ArtCardChange } from "./ArtCardType";
 import artPieceRepository from "./artPieceRepository";
 
 const getCities: RequestHandler = async (req, res, next) => {
@@ -14,18 +15,17 @@ const getCities: RequestHandler = async (req, res, next) => {
 
 const edit: RequestHandler = async (req, res) => {
   try {
-    const { name, adress, description, points_value } = req.body;
-    const { id } = req.params;
+    const id = Number(req.params.id);
+    console.warn("aled", id);
+    const { title, description, points } = req.body;
 
-    // console.log({ id });
-
-    const editArtPiece = await artPieceRepository.update({
-      name,
-      adress,
+    const updatedPiece = {
+      name: title,
+      points_value: points,
       description,
-      points_value,
-      id,
-    });
+    } as ArtCardChange;
+
+    const editArtPiece = await artPieceRepository.update(updatedPiece, id);
 
     if (editArtPiece) {
       res.sendStatus(204);

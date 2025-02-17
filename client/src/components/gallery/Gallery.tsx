@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Gallery.css";
 import { useUser } from "../../context/UserContext";
+import { fetchWithAuth } from "../../utils/api";
 import type { CardI } from "./GalleryType";
 
 function Gallery() {
@@ -34,18 +35,26 @@ function Gallery() {
       .catch((err) => console.error(err));
   }, []);
 
+  // let lastRequestTime = 0;
+  // const MIN_REQUEST_INTERVAL = 2000;
+
   // const fetchLocationData = async (adress: string) => {
+  //   const now = Date.now();
+  //   if (now - lastRequestTime < MIN_REQUEST_INTERVAL) {
+  //     console.warn("Trop de requêtes à Nominatim, attendez un peu.");
+  //     return;
+  //   }
+  //   lastRequestTime = now;
+
   //   try {
   //     const response = await fetch(
   //       `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(adress)}&format=json&addressdetails=1`,
   //     );
   //     const data = await response.json();
-
   //     if (data.length > 0) {
   //       const lat = data[0].lat;
   //       const lon = data[0].lon;
   //       const addressObj = data[0].address || {};
-
   //       const cityName =
   //         addressObj.city ||
   //         addressObj.town ||
@@ -58,20 +67,27 @@ function Gallery() {
   //         latitude: lat,
   //         longitude: lon,
   //       }));
+  //     } else {
+  //       console.warn("Aucune donnée trouvée pour cette adresse.");
   //     }
   //   } catch (error) {
   //     console.error("Erreur lors de la récupération des coordonnées :", error);
   //   }
   // };
-  const handleSubmit = async (artworkId: number) => {
+
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>,
+    artworkId: number,
+  ) => {
+    event.preventDefault();
+    // console.log("inputValues",inputValues);
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/art/${artworkId}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(inputValues),
         },
@@ -161,7 +177,11 @@ function Gallery() {
                       <div key={index} className="div-card">
                         {cardItem}
 
-                        <form className="form-change-card">
+                        <form
+                          action="submit"
+                          onSubmit={(e) => handleSubmit(e, artwork.id)}
+                          className="form-change-card"
+                        >
                           {/* Titre */}
                           <label
                             htmlFor="titleInput"
@@ -205,11 +225,7 @@ function Gallery() {
                             className="input-change-card"
                           />
 
-                          <button
-                            type="submit"
-                            className="button-submit"
-                            onClick={() => handleSubmit}
-                          >
+                          <button type="submit" className="button-submit">
                             Soumettre
                           </button>
 

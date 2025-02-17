@@ -27,15 +27,11 @@ class ArtPieceRepository {
     );
     return rows as ArtCard[];
   }
-  async update(artPiece: ArtCardChange) {
+  async update(artPiece: ArtCardChange, id: number) {
+    // TODO: Ajouter addresse une fois que l'api fonctionne
     const [row] = await databaseClient.query<Result>(
-      "UPDATE art_piece SET name = ?, adresse = ?, description = ?, points_value = ?  WHERE id =?",
-      [
-        artPiece.name,
-        artPiece.adress,
-        artPiece.description,
-        artPiece.points_value,
-      ],
+      "UPDATE art_piece SET name = ?, description = ?, points_value = ?  WHERE id = ?",
+      [artPiece.name, artPiece.description, artPiece.points_value, id],
     );
     return row.affectedRows;
   }

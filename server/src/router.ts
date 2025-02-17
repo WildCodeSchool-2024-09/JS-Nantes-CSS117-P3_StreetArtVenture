@@ -44,6 +44,7 @@ router.post("/user/addpoint", userActions.addpoint);
 router.get("/user/:id", userActions.read);
 
 /* ************************** ADMIN ACTIONS ************************** */
+router.patch("/art/:id", artPieceActions.edit);
 router.use(
   ["/reports", "/leaderboard", "/art", "/user", "/statistics", "/api/upload"],
   authActions.verifyAdmin,
@@ -60,7 +61,6 @@ router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
 router.post("/art/newArt", artActions.updateAccepted);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
-router.patch("/art/:id", artPieceActions.edit);
 
 router.use("/reports", authActions.verifyAdmin);
 router.patch("/reports/validate/:id", reportedArtPieceActions.validate);
