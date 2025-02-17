@@ -17,7 +17,7 @@ const verifyToken: RequestHandler = (req, res, next) => {
     }
 
     // Check validity of the token
-    req.auth = jwt.verify(
+    res.locals = jwt.verify(
       token,
       process.env.JWT_SECRET as string,
     ) as JWTPayload;
@@ -30,7 +30,7 @@ const verifyToken: RequestHandler = (req, res, next) => {
 };
 
 const verifyAdmin: RequestHandler = (req, res, next) => {
-  if (!req.auth || !req.auth.isAdmin) res.sendStatus(401);
+  if (!res.locals || !res.locals.isAdmin) res.sendStatus(401);
   else next();
 };
 

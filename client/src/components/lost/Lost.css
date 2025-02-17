@@ -1,5 +1,5 @@
 .lost-page-background {
-  background-image: url("./background-grey.jpg");
+  background-image: url("/background-grey.jpg");
   background-size: cover;
   background-position: center;
   height: 85vh;
