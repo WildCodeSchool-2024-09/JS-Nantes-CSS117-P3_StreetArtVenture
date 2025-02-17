@@ -9,7 +9,6 @@ import statisticsActions from "./modules/statistics/statisticsActions";
 import userActions from "./modules/user/userActions";
 
 const router = express.Router();
-router.use(express.json());
 
 /* ************************** PUBLIC ACTIONS ************************** */
 
@@ -26,39 +25,57 @@ router.post(
 );
 
 /* ************************** LOGGED USER ACTIONS ************************** */
-router.use(authActions.verifyToken);
+router.use(
+  ["/notifications", "/leaderboard", "/art", "/user", "/api/upload"],
+  authActions.verifyToken,
+);
+
 router.get("/notifications/:id", notificationsActions.read); //
 router.patch("/notifications/:id", notificationsActions.setRead); //
+
 router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData); //
-router.patch("/user/:id", userActions.patch); // TODO US-36
+
 router.get("/art/findArtPiecesAround", artActions.browseAround); //
 router.post("/art/newArt", artActions.updateAccepted); //
 router.post("/art/newReport", artActions.report); //
 
 router.post("/user/reportVerification", userActions.isReported);
+
+router.patch("/user/:id", userActions.patch); // TODO US-36
 router.post("/user/artVerification", userActions.isSeen);
 router.post("/user/addpoint", userActions.addpoint);
 router.get("/user/:id", userActions.read);
 
 /* ************************** ADMIN ACTIONS ************************** */
-router.use(authActions.verifyAdmin);
+router.use(
+  ["/reports", "/leaderboard", "/art", "/user", "/statistics", "/api/upload"],
+  authActions.verifyAdmin,
+);
 
 router.get(
   "/leaderboard/admin/getLeaderboard",
   leaderboardActions.getAdminLeaderboard,
 );
+
+router.use("/art", authActions.verifyAdmin);
 router.patch("/art/:id", artActions.update);
 router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
-router.patch("/reports/validate/:id", reportedArtPieceActions.validate);
-router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse);
-router.delete("/user/:id", userActions.deleteUser);
-router.get("/statistics/user", statisticsActions.getUserStatistics);
-router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
-router.get("/statistics/player", statisticsActions.getPlayerStatistics);
-router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
 router.post("/art/newArt", artActions.updateAccepted);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
+
+router.use("/reports", authActions.verifyAdmin);
+router.patch("/reports/validate/:id", reportedArtPieceActions.validate);
+router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse);
+
+router.use("/user", authActions.verifyAdmin);
+router.delete("/user/:id", userActions.deleteUser);
+router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
+
+router.use("/statistics", authActions.verifyAdmin);
+router.get("/statistics/user", statisticsActions.getUserStatistics);
+router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
+router.get("/statistics/player", statisticsActions.getPlayerStatistics);
 
 /* ******************************************************************** */
 

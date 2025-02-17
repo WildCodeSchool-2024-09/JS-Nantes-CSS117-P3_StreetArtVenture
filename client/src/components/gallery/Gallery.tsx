@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./gallery.css";
+import "./Gallery.css";
 import type { CardI } from "./GalleryType";
 
 function Gallery() {
