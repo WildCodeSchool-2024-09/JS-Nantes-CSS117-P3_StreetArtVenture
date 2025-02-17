@@ -22,31 +22,27 @@ const readAll: RequestHandler = async (req, res, next) => {
 
 const update: RequestHandler = async (req, res, next) => {
   try {
-    async function updateArtPiece() {
-      const { id } = req.params;
-      const updatedFields = req.body;
+    const { id } = req.params;
+    const updatedFields = req.body;
 
-      if (!id) {
-        return res.status(400).json({ error: "ID invalide." });
-      }
-
-      if (Object.keys(updatedFields).length === 0) {
-        return res
-          .status(400)
-          .json({ error: "Aucune donnée à mettre à jour." });
-      }
-
-      const affectedRows = await artRepository.update(id, updatedFields);
-
-      if (affectedRows === 0) {
-        return res
-          .status(404)
-          .json({ error: "Aucune oeuvre trouvée avec cet ID." });
-      }
-
-      return res.json(affectedRows);
+    if (!id) {
+      res.status(400).json({ error: "ID invalide." });
+      return;
     }
-    updateArtPiece();
+
+    if (Object.keys(updatedFields).length === 0) {
+      res.status(400).json({ error: "Aucune donnée à mettre à jour." });
+      return;
+    }
+
+    const affectedRows = await artRepository.update(id, updatedFields);
+
+    if (affectedRows === 0) {
+      res.status(404).json({ error: "Aucune oeuvre trouvée avec cet ID." });
+      return;
+    }
+
+    res.json(affectedRows);
   } catch (err) {
     next(err);
   }
@@ -94,7 +90,7 @@ const editArtPiece: RequestHandler = async (req, res, next) => {
     if (!artValidation) {
       res.sendStatus(404);
     } else {
-      const userId = (req.auth as JWTPayload).id;
+      const userId = (res.locals as JWTPayload).id;
       if (userId) notificationsRepository.update(artPieceId, userId, 1);
       const pointsGiven = await userRepository.addCreationPoints(
         userId,
