@@ -51,7 +51,7 @@ const update: RequestHandler = async (req, res, next) => {
 
 const browseAround: RequestHandler = async (req, res, next) => {
   try {
-    const { id } = req.auth as JwtPayload;
+    const { id } = res.locals as JwtPayload;
     const { latitude, longitude, radius } = req.query;
     if (!latitude || !longitude) res.status(400).send("Missing parameters");
     // Fetch all items
