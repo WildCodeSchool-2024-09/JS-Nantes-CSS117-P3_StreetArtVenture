@@ -75,6 +75,19 @@ router.get("/statistics/user", statisticsActions.getUserStatistics);
 router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
 router.get("/statistics/player", statisticsActions.getPlayerStatistics);
 
+router.use("/reports", authActions.verifyAdmin);
+router.patch("/reports/validate/:id", reportedArtPieceActions.validate);
+router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse);
+
+router.use("/user", authActions.verifyAdmin);
+router.delete("/user/:id", userActions.deleteUser);
+router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
+
+router.use("/statistics", authActions.verifyAdmin);
+router.get("/statistics/user", statisticsActions.getUserStatistics);
+router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
+router.get("/statistics/player", statisticsActions.getPlayerStatistics);
+
 /* ******************************************************************** */
 
 router.post("/api/upload", artActions.savePicture, artActions.multerAndSkully);
