@@ -13,7 +13,8 @@
 }
 
 .header-class > div > div > button > img {
-  width: 60px;
+  width: 45px;
+  margin: 4px;
 }
 
 @media screen and (max-width: 450px) {
@@ -28,7 +29,7 @@
   width: 33vw;
   min-width: 200px;
   right: 0;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   list-style: none;
   display: flex;
   flex-wrap: nowrap;
@@ -37,9 +38,13 @@
 }
 
 .header-class > div > div > ul > li {
-  padding: 8px;
-  border: 1px solid rgba(128, 128, 128, 0.666);
+  padding: 12px;
+  border: 2px solid rgba(22, 22, 22, 0.666);
   font-family: Montserrat, serif;
+  background-color: #39b54a;
+  color: white;
+  border-radius: 12px 0px;
+  font-weight: 500;
 }
 
 /* style new notification */
@@ -49,5 +54,18 @@
 
 /* style seen notification */
 .header-class > div > div > ul > .notification-seen {
-  background-color: rgb(176, 139, 145) k;
+  background-color: rgb(176, 139, 145);
+}
+
+@media screen and (max-width: 600px) {
+  .header-class > div > div > button > img {
+    width: 35px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header-class > div > div > button > img {
+    width: 28px;
+    margin: 0;
+  }
 }

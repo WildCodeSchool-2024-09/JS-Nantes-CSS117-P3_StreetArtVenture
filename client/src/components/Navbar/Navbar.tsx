@@ -29,7 +29,7 @@ function Navbar() {
   };
   return (
     <section className="hamburger">
-      <Hamburger toggled={isOpen} toggle={setOpen} size={50} />
+      <Hamburger toggled={isOpen} toggle={setOpen} size={40} />
       {isOpen && (
         <div>
           <ul className="section-ul">
