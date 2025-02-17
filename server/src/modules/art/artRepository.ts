@@ -62,6 +62,13 @@ class artRepository {
     return row as ArtPiece[];
   }
 
+  async similarAdress(adress: string, id: number) {
+    const query =
+      "SELECT * FROM art_piece WHERE adress = ? AND id != ? AND is_validated = 1";
+    const [row] = await databaseClient.query<Rows>(query, [adress, id]);
+    return row as ArtPiece[];
+  }
+
   async approveArtPiece(
     id: string,
     ArtTitle: string,

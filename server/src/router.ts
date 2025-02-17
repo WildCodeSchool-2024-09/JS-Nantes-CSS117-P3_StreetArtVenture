@@ -54,6 +54,7 @@ router.get("/statistics/art_piece", statisticsActions.getArtPiecesStatistics);
 router.get("/statistics/player", statisticsActions.getPlayerStatistics);
 router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
 router.post("/art/newArt", artActions.updateAccepted);
+router.post("/art/similarAdress", artActions.similarAdress);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 

@@ -213,7 +213,7 @@ function Lost() {
             onClick={() => handleClick("decrement")}
           >
             <img
-              className="arrow-left-lost arrow"
+              className="arrow-left-lost arrow-lost"
               src="https://thypix.com/wp-content/uploads/2020/04/white-arrow-2.png"
               alt="Flèche blanche avec bordure noire"
             />
@@ -225,7 +225,7 @@ function Lost() {
             onClick={() => handleClick("increment")}
           >
             <img
-              className="arrow-right-lost arrow"
+              className="arrow-right-lost arrow-lost"
               src="https://thypix.com/wp-content/uploads/2020/04/white-arrow-2.png"
               alt="arrow white with border black"
             />
