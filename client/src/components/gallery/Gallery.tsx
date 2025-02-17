@@ -7,10 +7,19 @@ function Gallery() {
   const [cities, setCities] = useState<{ city: string }[]>([]);
   const [card, setCard] = useState<CardI[]>([]);
   const [selectedValue, setSelectedValue] = useState("Votre ville");
+
   const [inputValue, setInputValue] = useState("");
+  const [inputValues, setInputValues] = useState<{
+    adress?: string;
+    city?: string;
+    latitude?: string;
+    longitude?: string;
+  }>({});
+
   const [cardsByArtwork, setCardsByArtwork] = useState<{
     [key: number]: string[];
   }>({});
+
   const { user } = useUser();
 
   useEffect(() => {
@@ -23,11 +32,79 @@ function Gallery() {
       .catch((err) => console.error(err));
   }, []);
 
-  function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectedValue(event.target.value);
-  }
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/art/:id`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCities(data.cities);
+        setCard(data.artCard);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const fetchLocationData = async (address: string) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          address,
+        )}&format=json&addressdetails=1`,
+      );
+      const data = await response.json();
+
+      if (data.length > 0) {
+        const lat = data[0].lat;
+        const lon = data[0].lon;
+
+        const addressObj = data[0].address || {};
+
+        const cityName =
+          addressObj.city ||
+          addressObj.town ||
+          addressObj.village ||
+          "Ville inconnue";
+
+        setInputValues((prev) => ({
+          ...prev,
+          city: cityName,
+          latitude: lat,
+          longitude: lon,
+        }));
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des coordonnées :", error);
+    }
+  };
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    field: string,
+  ) => {
+    setInputValues((prev) => ({ ...prev, [field]: event.target.value }));
+
+    if (field === "adress") {
+      fetchLocationData(event.target.value);
+    }
+  };
+
+  const handleChangeSingle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+  };
+
+  const addCard = (artworkId: number) => {
+    setCardsByArtwork((prev) => {
+      if (prev[artworkId] && prev[artworkId].length > 0) {
+        return prev;
+      }
+      return { ...prev, [artworkId]: [""] };
+    });
+  };
+
+  const removeCard = (artworkId: number) => {
+    setCardsByArtwork((prev) => {
+      const updated = { ...prev };
+      delete updated[artworkId];
+      return updated;
+    });
   };
 
   const filteredArray =
@@ -35,30 +112,19 @@ function Gallery() {
       ? card.filter((el) => el.city.includes(selectedValue))
       : card;
 
-  const addCard = (artworkId: number) => {
-    setCardsByArtwork((prev) => {
-      if (prev[artworkId] && prev[artworkId].length > 0) {
-        return prev;
-      }
-
-      return { ...prev, [artworkId]: [""] };
-    });
-  };
-
   return (
     <main className="artwork-page">
       <div className="galery-main-container">
         <h1>GALERIE D’œuvres</h1>
-        <img
-          className="traith1"
-          src="/trait-h1-artwork.tsx.png"
-          alt="background gray if from lighter to darker"
-        />
 
-        <select className="city" name="city" onChange={handleSelect}>
+        <select
+          className="city"
+          name="city"
+          onChange={(e) => setSelectedValue(e.target.value)}
+        >
           <option>Ville</option>
-          {cities.map((cities) => (
-            <option key={cities.city}>{cities.city}</option>
+          {cities.map((cityObj) => (
+            <option key={cityObj.city}>{cityObj.city}</option>
           ))}
         </select>
 
@@ -68,13 +134,11 @@ function Gallery() {
               <img
                 className="galerie-oeuvre"
                 src={`${import.meta.env.VITE_API_URL}${artwork.picture_path}`}
-                alt={`${artwork.description || "art piece"}`}
+                alt={artwork.description || "art piece"}
               />
 
-              <p className="streetart" key={artwork.name}>
-                {artwork.name}
-              </p>
-              <p className="streetart" key={artwork.adress}>
+              <p className="streetart">{artwork.name}</p>
+              <p className="streetart">
                 {artwork.adress}, {artwork.city}
               </p>
 
@@ -85,75 +149,108 @@ function Gallery() {
                     onClick={() => addCard(artwork.id)}
                     className="button-change"
                   >
-                    Ajouter une carte
+                    Modifier une carte
                   </button>
 
                   <div className="card-change">
-                    {cardsByArtwork[artwork.id]?.map((card) => (
-                      <div key={card} className="div-card">
-                        {card}
+                    {cardsByArtwork[artwork.id]?.map((cardItem, index) => (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+                      <div key={index} className="div-card">
+                        {cardItem}
+
+                        <button
+                          type="button"
+                          onClick={() => removeCard(artwork.id)}
+                          className="remove-card"
+                        >
+                          ✖
+                        </button>
+
+                        {/* Formulaire de modification de l'œuvre */}
                         <form className="form-change-card">
                           <label
-                            htmlFor="textInput"
+                            htmlFor="textInputTitle"
                             className="block text-gray-700 font-bold mb-2"
                           >
-                            Changer le titre de l'oeuvre
+                            Changer le titre de l'œuvre
                           </label>
                           <input
-                            id="textInput"
+                            id="textInputTitle"
                             type="text"
                             value={inputValue}
-                            onChange={handleChange}
+                            onChange={handleChangeSingle}
                             placeholder="Tapez ici..."
                             className="input-change-card"
                           />
 
                           <label
-                            htmlFor="textInput"
+                            htmlFor="textInputDesc"
                             className="block text-gray-700 font-bold mb-2"
-                          >
-                            Changer l'adresse de l'oeuvre
-                          </label>
-                          <input
-                            id="textInput"
-                            type="text"
-                            value={inputValue}
-                            onChange={handleChange}
-                            placeholder="Tapez ici..."
-                            className="input-change-card"
-                          />
-                          <label
-                            htmlFor="textInput"
-                            className="input-change-card"
                           >
                             Changer la description
                           </label>
                           <input
-                            id="textInput"
+                            id="textInputDesc"
                             type="text"
                             value={inputValue}
-                            onChange={handleChange}
+                            onChange={handleChangeSingle}
                             placeholder="Tapez ici..."
                             className="input-change-card"
                           />
 
                           <label
-                            htmlFor="textInput"
+                            htmlFor="textInputPoints"
                             className="block text-gray-700 font-bold mb-2"
                           >
                             Changer les points
                           </label>
                           <input
-                            id="textInput"
+                            id="textInputPoints"
                             type="text"
                             value={inputValue}
-                            onChange={handleChange}
+                            onChange={handleChangeSingle}
                             placeholder="Tapez ici..."
                             className="input-change-card"
                           />
+
                           <button type="submit" className="button-submit">
                             Soumettre
                           </button>
+
+                          {/* Champs pour l'adresse → Coordonnées */}
+                          {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
+                          <label className="block text-gray-700 font-bold mt-4">
+                            Adresse
+                          </label>
+                          <input
+                            type="text"
+                            value={inputValues.adress || ""}
+                            onChange={(e) => handleChange(e, "adress")}
+                            placeholder="Adresse"
+                            className="input-change-card"
+                          />
+
+                          <input
+                            type="text"
+                            value={inputValues.city || ""}
+                            readOnly
+                            placeholder="Ville détectée"
+                            className="input-change-card"
+                          />
+                          <input
+                            type="text"
+                            value={inputValues.latitude || ""}
+                            readOnly
+                            placeholder="Latitude"
+                            className="input-change-card"
+                          />
+                          <input
+                            type="text"
+                            value={inputValues.longitude || ""}
+                            readOnly
+                            placeholder="Longitude"
+                            className="input-change-card"
+                          />
                         </form>
                       </div>
                     ))}
