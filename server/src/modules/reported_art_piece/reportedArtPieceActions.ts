@@ -14,6 +14,8 @@ const validate: RequestHandler = async (req, res) => {
     } else {
       // On enlève une partie des points des gens qui ont vu l'oeuvre
       userRepository.deductPointsFromRecovery(artPieceId);
+      // On ajoute ces points à ceux qui ont report la disparition
+      userRepository.gainPointsFromRecovery(artPieceId);
       res.sendStatus(200);
     }
   } catch (err) {
