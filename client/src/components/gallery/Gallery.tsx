@@ -34,35 +34,35 @@ function Gallery() {
       .catch((err) => console.error(err));
   }, []);
 
-  const fetchLocationData = async (adress: string) => {
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(adress)}&format=json&addressdetails=1`,
-      );
-      const data = await response.json();
+  // const fetchLocationData = async (adress: string) => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(adress)}&format=json&addressdetails=1`,
+  //     );
+  //     const data = await response.json();
 
-      if (data.length > 0) {
-        const lat = data[0].lat;
-        const lon = data[0].lon;
-        const addressObj = data[0].address || {};
+  //     if (data.length > 0) {
+  //       const lat = data[0].lat;
+  //       const lon = data[0].lon;
+  //       const addressObj = data[0].address || {};
 
-        const cityName =
-          addressObj.city ||
-          addressObj.town ||
-          addressObj.village ||
-          "Ville inconnue";
+  //       const cityName =
+  //         addressObj.city ||
+  //         addressObj.town ||
+  //         addressObj.village ||
+  //         "Ville inconnue";
 
-        setInputValues((prev) => ({
-          ...prev,
-          city: cityName,
-          latitude: lat,
-          longitude: lon,
-        }));
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération des coordonnées :", error);
-    }
-  };
+  //       setInputValues((prev) => ({
+  //         ...prev,
+  //         city: cityName,
+  //         latitude: lat,
+  //         longitude: lon,
+  //       }));
+  //     }
+  //   } catch (error) {
+  //     console.error("Erreur lors de la récupération des coordonnées :", error);
+  //   }
+  // };
   const handleSubmit = async (artworkId: number) => {
     try {
       const response = await fetch(
