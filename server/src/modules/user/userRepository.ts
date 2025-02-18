@@ -28,6 +28,15 @@ class UserRepository {
     return rows as User[];
   }
 
+  async getByEmail(email: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "select id, password, is_admin AS isAdmin, is_ban AS isBanned from user where email = ? ",
+      [email],
+    );
+
+    return rows[0] as User;
+  }
+
   async isUserYet(username: string, email: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
       "select email, username from user where email = ? or username = ?",
