@@ -1,41 +1,57 @@
 .body-admin-validation {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
   justify-items: center;
   background-image: url("../../../backgroundAdmin.jpg");
   background-size: cover;
   background-position: center;
   width: 100vw;
-  padding: 40px;
   font-family: var(--primary-font);
+  padding: 40px 15% 40px 15%;
 }
 
 .main-validation-card {
   display: flex;
   flex-direction: column;
-  justify-items: center;
   align-items: center;
   background-color: rgba(34, 181, 115, 1);
   border-radius: 12px;
-  gap: 20px;
   padding: 20px;
-  width: 450px;
-
+  width: 25vw;
+  height: 82vh;
   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.658);
 }
 
 .new-street-art-photo {
-  width: 380px;
+  height: 45%;
+  width: 95%;
+  border-radius: 8px;
+  margin-bottom: 1.5%;
 }
-
+.form-validation-container {
+  height: 40%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
 .street-art-info {
+  color: white;
   display: flex;
   flex-direction: column;
-  color: white;
-  font-size: 1.2rem;
-  justify-content: center;
+  justify-content: space-around;
   text-align: center;
-  gap: 24px;
+  font-size: 1.2rem;
+  margin-bottom: 2%;
+}
+.description {
+  height: 70%;
+  width: 20vw;
 }
 
+.input-validation {
+  border-radius: 8px;
+}
 .points {
   width: 46px;
   height: 24px;
@@ -43,34 +59,15 @@
   padding: 4px;
 }
 
-.art-description {
-  height: 100px;
-  width: 100%;
-  border-radius: 8px;
-  border-style: none;
-  padding: 10px;
-  vertical-align: top;
-  box-sizing: border-box;
-  resize: none;
-  font-family: var(--primary-font);
+.validation-button-container {
+  height: 30%;
 }
-
-.art-description:focus {
-  border: none;
-  outline: none;
-}
-
-.number-of-points {
-  color: white;
-  text-align: center;
-  font-size: 1.4rem;
-}
-
 .accepted-or-refused-buttons {
   display: flex;
-  justify-items: center;
+  flex-direction: row;
+  justify-content: center;
   gap: 16px;
-  height: 45px;
+  height: 18%;
 }
 
 .brown-button-admin {
@@ -128,4 +125,89 @@
   .new-street-art-photo {
     width: 70vw;
   }
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1vh;
+  width: 4vw;
+  margin-top: 22%;
+  position: relative;
+  background-color: rgb(0, 0, 0);
+  border-radius: 20px;
+}
+
+.arrow::before,
+.arrow::after {
+  content: "";
+  position: absolute;
+  width: 2vh;
+  height: 2vh;
+  border: solid black;
+  border-width: 1vh 1vh 0 0;
+}
+
+.arrow::before {
+  transform: rotate(223deg);
+  left: -2vh;
+}
+
+.arrow::after {
+  transform: rotate(45deg);
+  right: -2vh;
+}
+
+.comparaison-container {
+  justify-content: space-evenly;
+  position: relative;
+}
+
+.comparaison-container p {
+  font-size: 19px;
+  color: white;
+  margin-bottom: 10px;
+  font-family: var(--primary-font);
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+}
+
+.comparaison-container h1 {
+  color: white;
+  font-family: var(--primary-font);
+  font-weight: 600;
+  font-style: normal;
+  padding-bottom: 0%;
+}
+
+.arrow-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: 2%;
+}
+
+.validation-arrow-button {
+  height: 10vh;
+  width: 10vh;
+  border-radius: 100%;
+  border: none;
+}
+
+.validation-arrow-image {
+  height: 6vh;
+  margin: -6%;
+}
+
+.rotation {
+  rotate: 180deg;
+}
+
+.index-validation {
+  position: absolute;
+  top: 3%;
+  right: 0%;
+  z-index: 1;
 }

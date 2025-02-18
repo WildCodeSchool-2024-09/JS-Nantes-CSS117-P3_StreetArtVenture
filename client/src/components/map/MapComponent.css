@@ -15,15 +15,31 @@
 .leaflet-popup-content {
   display: flex;
   flex-direction: column;
+  gap: 6px;
+
   align-items: center;
 }
 
+.popup-title {
+  font-size: 16px;
+}
+
+.popup-coordinates {
+  font-size: 12px;
+}
+
+.leaflet-popup-content-wrapper {
+  background-color: #0d0d0d;
+  color: white;
+  font-family: var(--primary-font);
+  padding: 6px;
+}
 .leaflet-popup-content > p {
   margin: 0;
 }
 
 .round-button {
-  background-color: #22b573;
+  background-color: #39b54a;
   color: white;
   font-size: 50px;
   font-weight: bold;
@@ -34,7 +50,6 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding-bottom: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   position: fixed;

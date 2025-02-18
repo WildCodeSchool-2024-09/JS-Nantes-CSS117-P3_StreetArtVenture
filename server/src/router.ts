@@ -26,7 +26,7 @@ router.post(
 
 /* ************************** LOGGED USER ACTIONS ************************** */
 router.use(
-  ["/notifications", "/leaderboard", "/art", "/user"],
+  ["/notifications", "/leaderboard", "/art", "/user", "/statistics"],
   authActions.verifyToken,
 );
 
@@ -61,6 +61,7 @@ router.use("/art", authActions.verifyAdmin);
 router.patch("/art/:id", artActions.update);
 router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
 router.post("/art/newArt", artActions.updateAccepted);
+router.post("/art/similarAdress", artActions.similarAdress);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 
