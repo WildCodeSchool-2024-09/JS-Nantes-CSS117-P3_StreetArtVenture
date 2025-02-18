@@ -26,7 +26,14 @@ router.post(
 
 /* ************************** LOGGED USER ACTIONS ************************** */
 router.use(
-  ["/notifications", "/leaderboard", "/art", "/user", "/api/upload"],
+  [
+    "/notifications",
+    "/leaderboard",
+    "/art",
+    "/user",
+    "/api/upload",
+    "/statistics",
+  ],
   authActions.verifyToken,
 );
 
@@ -37,6 +44,9 @@ router.get("/leaderboard/getUserData/:id", leaderboardActions.getUserData); //
 
 router.get("/art/findArtPiecesAround", artActions.browseAround); //
 router.post("/art/newArt", artActions.updateAccepted); //
+router.post("/art/newReport", artActions.report); //
+
+router.post("/user/reportVerification", userActions.isReported);
 
 router.patch("/user/:id", userActions.patch); // TODO US-36
 router.post("/user/artVerification", userActions.isSeen);
@@ -59,6 +69,7 @@ router.use("/art", authActions.verifyAdmin);
 router.patch("/art/:id", artActions.update);
 router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
 router.post("/art/newArt", artActions.updateAccepted);
+router.post("/art/similarAdress", artActions.similarAdress);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 

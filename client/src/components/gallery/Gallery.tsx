@@ -123,7 +123,7 @@ function Gallery() {
   };
 
   const filteredArray =
-    selectedValue !== "Votre ville"
+    selectedValue !== "Ville"
       ? card.filter((el) => el.city.includes(selectedValue))
       : card;
 

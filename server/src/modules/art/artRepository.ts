@@ -37,16 +37,29 @@ class artRepository {
     return result.affectedRows;
   }
 
-  async browseAround(lat: number, lng: number, radius?: number) {
+  async browseAround(
+    userId: number,
+    lat: number,
+    lng: number,
+    radius?: number,
+  ) {
     const query = `SELECT 
-    *,
-    ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) / 1000 AS distance_in_km
-    FROM art_piece 
-    WHERE ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) <= ? * 1000 AND is_validated = 1;`;
+    a.*,
+    ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) / 1000 AS distance_in_km,
+    CASE
+      WHEN v.art_piece_id IS NOT NULL THEN 1
+      ELSE 0
+    END AS has_been_viewed
+    FROM art_piece a
+    LEFT JOIN viewed_art_piece v
+      ON a.id = v.art_piece_id
+      AND v.user_id = ? 
+    WHERE ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) <= ? * 1000 AND a.is_validated = 1;`;
     // Execute the SQL SELECT query to retrieve all art pieces <= 50 km around gps coordinates
     const [rows] = await databaseClient.query<Rows>(query, [
       lat,
       lng,
+      userId,
       lat,
       lng,
       radius || 50,
@@ -59,6 +72,13 @@ class artRepository {
   async unvalidatedArtPiece() {
     const query = "SELECT * FROM art_piece WHERE is_validated = FALSE LIMIT 1";
     const [row] = await databaseClient.query<Rows>(query);
+    return row as ArtPiece[];
+  }
+
+  async similarAdress(adress: string, id: number) {
+    const query =
+      "SELECT * FROM art_piece WHERE adress = ? AND id != ? AND is_validated = 1";
+    const [row] = await databaseClient.query<Rows>(query, [adress, id]);
     return row as ArtPiece[];
   }
 
@@ -111,6 +131,21 @@ class artRepository {
       null,
     ]);
     return result.insertId;
+  }
+
+  async reportValidation(path: string, userId: number, artId: number) {
+    const query = `
+    INSERT INTO reported_art_piece  
+    (art_piece_id, picture_path, user_id, timestamp)  
+    VALUES (?, ?, ?, NOW())
+  `;
+
+    const [result] = await databaseClient.query<Result>(query, [
+      artId,
+      path,
+      userId,
+    ]);
+    return result.affectedRows;
   }
 }
 
