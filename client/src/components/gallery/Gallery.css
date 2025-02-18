@@ -74,7 +74,99 @@
 .gallery-card > :nth-child(2) {
   font-weight: 600;
 }
+.card-change {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #22b573;
+  padding: 14px;
+  height: auto;
+  gap: 10px;
+  border-radius: 15px;
+  list-style: none;
+}
 
+.form-change-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgba(204, 204, 204, 0.9);
+  z-index: 10;
+  border-radius: 15px;
+  padding: 30px;
+  gap: 20px;
+  text-align: center;
+  color: black;
+  font-size: 20px;
+}
+
+.form-change-card input {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+.form-change-card > label {
+  font-weight: bold;
+  display: block;
+}
+
+.div-card {
+  display: flex;
+  justify-content: center;
+  bottom: 20vh;
+}
+
+.input-description-change-card {
+  border-radius: 20px;
+  border: none;
+  height: 100px;
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 15px;
+  display: block;
+  text-align: center;
+}
+
+.button-change {
+  background-color: #c5b88a;
+  color: #ffff;
+  border: none;
+  border-radius: 50px;
+  width: 20vh;
+  height: 5vh;
+}
+
+.button-submit {
+  background-color: #22b573;
+  color: #ffff;
+  border: none;
+  border-radius: 50px;
+  width: 15vh;
+  height: 5vh;
+}
+.button-x {
+  background-color: #22b573;
+  color: #ffff;
+  border: none;
+  border-radius: 50px;
+  width: 5vh;
+  height: 5vh;
+}
 @media screen and (max-width: 600px) {
   .galery-main-container > h1 {
     font-size: 48px;
@@ -82,6 +174,9 @@
   .artwork-page {
     padding: 32px;
   }
+}
+.form-change-card input {
+  width: 25vh;
 }
 
 @media screen and (max-width: 450px) {
@@ -92,5 +187,15 @@
   }
   .galery-main-container {
     padding: 24px;
+  }
+  .form-change-card input {
+    width: 80%;
+  }
+
+  .form-change-card {
+    height: 200vh;
+  }
+  .form-change-card > input {
+    height: auto;
   }
 }
