@@ -17,12 +17,12 @@ const edit: RequestHandler = async (req, res) => {
   try {
     const id = Number(req.params.id);
     console.warn("aled", id);
-    const { title, description, points } = req.body;
-
+    const { title, description, points, adress } = req.body;
     const updatedPiece = {
       name: title,
       points_value: points,
       description,
+      adress,
     } as ArtCardChange;
 
     const editArtPiece = await artPieceRepository.update(updatedPiece, id);

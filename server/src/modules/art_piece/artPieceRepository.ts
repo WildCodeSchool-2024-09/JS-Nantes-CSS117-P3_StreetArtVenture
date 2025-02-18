@@ -12,12 +12,10 @@ class ArtPieceRepository {
     throw new Error("Method not implemented.");
   }
   async getCities() {
-    // Execute the SQL SELECT query to retrieve all items from the "item" table
+    // Exécute la requête SQL pour récupérer les villes
     const [rows] = await databaseClient.query<Rows>(
       "select city FROM art_piece GROUP BY city",
     );
-
-    // Return the array of items
     return rows as ArtPiece[];
   }
 
@@ -28,10 +26,15 @@ class ArtPieceRepository {
     return rows as ArtCard[];
   }
   async update(artPiece: ArtCardChange, id: number) {
-    // TODO: Ajouter addresse une fois que l'api fonctionne
     const [row] = await databaseClient.query<Result>(
-      "UPDATE art_piece SET name = ?, description = ?, points_value = ?  WHERE id = ?",
-      [artPiece.name, artPiece.description, artPiece.points_value, id],
+      "UPDATE art_piece SET name = ?, description = ?, points_value = ?, adress = ? WHERE id = ?",
+      [
+        artPiece.name,
+        artPiece.description,
+        artPiece.points_value,
+        artPiece.adress,
+        id,
+      ],
     );
     return row.affectedRows;
   }

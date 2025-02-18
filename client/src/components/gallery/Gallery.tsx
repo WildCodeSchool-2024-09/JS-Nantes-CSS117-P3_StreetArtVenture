@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./Gallery.css";
 import { useUser } from "../../context/UserContext";
 import { fetchWithAuth } from "../../utils/api";
@@ -8,7 +8,6 @@ function Gallery() {
   const [cities, setCities] = useState<{ city: string }[]>([]);
   const [card, setCard] = useState<CardI[]>([]);
   const [selectedValue, setSelectedValue] = useState("Votre ville");
-
   const [inputValues, setInputValues] = useState<{
     title?: string;
     description?: string;
@@ -24,6 +23,8 @@ function Gallery() {
   }>({});
 
   const { user } = useUser();
+  const lastRequestTimeRef = useRef<number>(0);
+  const MIN_REQUEST_INTERVAL = 2000;
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/art/getCities`)
@@ -35,88 +36,82 @@ function Gallery() {
       .catch((err) => console.error(err));
   }, []);
 
-  // let lastRequestTime = 0;
-  // const MIN_REQUEST_INTERVAL = 2000;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  const fetchLocationData = useCallback(
+    async (adress: string) => {
+      const now = Date.now();
+      if (now - lastRequestTimeRef.current < MIN_REQUEST_INTERVAL) return;
+      lastRequestTimeRef.current = now;
 
-  // const fetchLocationData = async (adress: string) => {
-  //   const now = Date.now();
-  //   if (now - lastRequestTime < MIN_REQUEST_INTERVAL) {
-  //     console.warn("Trop de requêtes à Nominatim, attendez un peu.");
-  //     return;
-  //   }
-  //   lastRequestTime = now;
+      try {
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+            adress,
+          )}&format=json&addressdetails=1`,
+        );
+        const data = await res.json();
+        if (data.length > 0) {
+          const { lat, lon, address = {} } = data[0];
+          const cityName =
+            address.city || address.town || address.village || "Ville inconnue";
+          setInputValues((prev) => ({
+            ...prev,
+            city: cityName,
+            latitude: lat,
+            longitude: lon,
+          }));
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des coordonnées :",
+          error,
+        );
+      }
+    },
+    [MIN_REQUEST_INTERVAL],
+  );
 
-  //   try {
-  //     const response = await fetch(
-  //       `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(adress)}&format=json&addressdetails=1`,
-  //     );
-  //     const data = await response.json();
-  //     if (data.length > 0) {
-  //       const lat = data[0].lat;
-  //       const lon = data[0].lon;
-  //       const addressObj = data[0].address || {};
-  //       const cityName =
-  //         addressObj.city ||
-  //         addressObj.town ||
-  //         addressObj.village ||
-  //         "Ville inconnue";
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (!inputValues.adress) return;
+    const timer = setTimeout(() => {
+      if (inputValues.adress) fetchLocationData(inputValues.adress);
+    }, MIN_REQUEST_INTERVAL);
+    return () => clearTimeout(timer);
+  }, [inputValues.adress, fetchLocationData, MIN_REQUEST_INTERVAL]);
 
-  //       setInputValues((prev) => ({
-  //         ...prev,
-  //         city: cityName,
-  //         latitude: lat,
-  //         longitude: lon,
-  //       }));
-  //     } else {
-  //       console.warn("Aucune donnée trouvée pour cette adresse.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Erreur lors de la récupération des coordonnées :", error);
-  //   }
-  // };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: string,
+  ) => {
+    setInputValues((prev) => ({ ...prev, [field]: e.target.value }));
+  };
 
   const handleSubmit = async (
-    event: React.FormEvent<HTMLFormElement>,
+    e: React.FormEvent<HTMLFormElement>,
     artworkId: number,
   ) => {
-    event.preventDefault();
-    // console.log("inputValues",inputValues);
+    e.preventDefault();
     try {
-      const response = await fetchWithAuth(
+      const res = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/art/${artworkId}`,
         {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(inputValues),
         },
       );
-
-      if (response.ok) {
-        alert("Mise à jour réussie !");
-      } else {
-        const errorMessage = await response.text();
-        alert(`Erreur lors de la mise à jour: ${errorMessage}`);
-      }
+      if (res.ok) alert("Mise à jour réussie !");
+      else alert(`Erreur lors de la mise à jour: ${await res.text()}`);
     } catch (error) {
       console.error("Erreur lors de la requête :", error);
     }
   };
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    field: string,
-  ) => {
-    const newValue = event.target.value;
-    setInputValues((prev) => ({ ...prev, [field]: newValue }));
-  };
-
   const addCard = (artworkId: number) => {
-    setCardsByArtwork((prev) => {
-      if (prev[artworkId]?.length > 0) return prev;
-      return { ...prev, [artworkId]: [""] };
-    });
+    setCardsByArtwork((prev) =>
+      prev[artworkId]?.length ? prev : { ...prev, [artworkId]: [""] },
+    );
   };
 
   const removeCard = (artworkId: number) => {
@@ -168,7 +163,7 @@ function Gallery() {
                     onClick={() => addCard(artwork.id)}
                     className="button-change"
                   >
-                    Modifier la l'oeuvre d'art
+                    Modifier la l'œuvre d'art
                   </button>
 
                   <div className="card-change">
@@ -178,56 +173,44 @@ function Gallery() {
                         {cardItem}
 
                         <form
-                          action="submit"
-                          onSubmit={(e) => handleSubmit(e, artwork.id)}
+                          onSubmit={(ev) => handleSubmit(ev, artwork.id)}
                           className="form-change-card"
                         >
-                          {/* Titre */}
-                          <label
-                            htmlFor="titleInput"
-                            className="block text-gray-700 font-bold mb-2"
-                          >
+                          {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
+                          <label className="block text-gray-700 font-bold mb-2">
                             Changer le titre de l'œuvre
                           </label>
                           <input
                             type="text"
                             value={inputValues.title || ""}
-                            onChange={(e) => handleChange(e, "title")}
+                            onChange={(ev) => handleChange(ev, "title")}
                             placeholder="Titre de l'œuvre"
                             className="input-change-card"
                           />
 
-                          <label
-                            htmlFor="descInput"
-                            className="block text-gray-700 font-bold mb-2"
-                          >
+                          {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
+                          <label className="block text-gray-700 font-bold mb-2">
                             Changer la description
                           </label>
                           <input
                             type="text"
                             value={inputValues.description || ""}
-                            onChange={(e) => handleChange(e, "description")}
+                            onChange={(ev) => handleChange(ev, "description")}
                             placeholder="Description"
                             className="input-change-card"
                           />
 
-                          <label
-                            htmlFor="pointsInput"
-                            className="block text-gray-700 font-bold mb-2"
-                          >
+                          {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
+                          <label className="block text-gray-700 font-bold mb-2">
                             Changer les points
                           </label>
                           <input
                             type="text"
                             value={inputValues.points || ""}
-                            onChange={(e) => handleChange(e, "points")}
+                            onChange={(ev) => handleChange(ev, "points")}
                             placeholder="Points"
                             className="input-change-card"
                           />
-
-                          <button type="submit" className="button-submit">
-                            Soumettre
-                          </button>
 
                           {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
                           <label className="block text-gray-700 font-bold mt-4">
@@ -236,7 +219,7 @@ function Gallery() {
                           <input
                             type="text"
                             value={inputValues.adress || ""}
-                            onChange={(e) => handleChange(e, "adress")}
+                            onChange={(ev) => handleChange(ev, "adress")}
                             placeholder="Adresse"
                             className="input-change-card"
                           />
@@ -262,6 +245,9 @@ function Gallery() {
                             placeholder="Longitude"
                             className="input-change-card"
                           />
+                          <button type="submit" className="button-submit">
+                            Soumettre
+                          </button>
 
                           <button
                             type="button"
