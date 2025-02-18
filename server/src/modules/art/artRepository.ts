@@ -25,10 +25,15 @@ class artRepository {
       throw new Error("Aucune donnée à mettre à jour.");
     }
 
-    const setFields = fields.map((field) => `${field} = ?`);
-    const values = fields.map(
-      (field) => updatedFields[field as keyof typeof updatedFields],
-    );
+    const setFields = fields.map((field) => {
+      if (field === "coordinates") return `${field} = ST_GeomFromText(?)`;
+      return `${field} = ?`;
+    });
+    const values = fields.map((field) => {
+      if (field === "coordinates")
+        return `POINT(${updatedFields[field as keyof typeof updatedFields]})`;
+      return updatedFields[field as keyof typeof updatedFields];
+    });
     values.push(id);
     const query = `UPDATE art_piece SET ${setFields} WHERE id = ?`;
 

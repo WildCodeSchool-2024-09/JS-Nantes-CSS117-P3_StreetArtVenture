@@ -1,7 +1,23 @@
+import { useState } from "react";
 import type { ArtPiece } from "../../types/art_piece";
 import "./ArtPieceCard.component.css";
+import EditAdminArtPiece from "./EditAdminArtPiece/EditAdminArtPiece";
 
-function ArtPieceCard({ art_piece }: { art_piece: ArtPiece }) {
+function ArtPieceCard({
+  art_piece,
+  refreshData,
+}: { art_piece: ArtPiece; refreshData: () => void }) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  function refreshComponent() {
+    setModalOpen(false);
+    refreshData();
+  }
+
+  function handleOnClick() {
+    setModalOpen(true);
+  }
+
   return (
     <section className="art-piece-card">
       <div>
@@ -20,7 +36,7 @@ function ArtPieceCard({ art_piece }: { art_piece: ArtPiece }) {
           </li>
           <li>
             <p>
-              <b>Coordonnées :</b>{" "}
+              <b>Coordonnées :</b>
               {` ${art_piece.coordinates.x} ${art_piece.coordinates.y}`}
             </p>
           </li>
@@ -49,6 +65,19 @@ function ArtPieceCard({ art_piece }: { art_piece: ArtPiece }) {
             className="trait-description"
             src="/forme_blanche.png"
             alt="graphic element"
+          />
+          <button
+            onClick={handleOnClick}
+            className="admin-art-piece-list-edit-button"
+            type="button"
+          >
+            Modifier
+          </button>
+          <EditAdminArtPiece
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            artPiece={art_piece}
+            onEdit={refreshComponent}
           />
         </ul>
       </div>
