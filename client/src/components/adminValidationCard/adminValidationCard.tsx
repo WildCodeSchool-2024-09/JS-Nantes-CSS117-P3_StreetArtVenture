@@ -144,10 +144,15 @@ export function AdminValidationBoard() {
               alt="Street Art representation sent by user"
               className="new-street-art-photo"
             />
+            <img
+              className="graphic-element"
+              src="/forme_blanche.png"
+              alt="graphic element"
+            />
             <form action="submit" onSubmit={handleValidation}>
               <section className="street-art-info">
                 <label>
-                  titre
+                  Titre :
                   <input
                     className="titre"
                     name="titre"
@@ -156,7 +161,7 @@ export function AdminValidationBoard() {
                   />
                 </label>{" "}
                 <label>
-                  description :
+                  Description :
                   <input
                     className="comment"
                     name="commentaire"
@@ -191,7 +196,7 @@ export function AdminValidationBoard() {
             </form>
             <button
               type="button"
-              className="brown-button-admin"
+              className="brown-button-admin-ban"
               onClick={handleBan}
             >
               {banUser ? "Utilisateur banni" : "Bannir l'utilisateur"}

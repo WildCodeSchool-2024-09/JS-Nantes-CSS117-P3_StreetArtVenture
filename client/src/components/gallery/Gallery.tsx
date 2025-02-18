@@ -33,7 +33,7 @@ function Gallery() {
         <img
           className="traith1"
           src="/trait-h1-artwork.tsx.png"
-          alt="background gray if from lighter to darker"
+          alt="graphic element"
         />
 
         <select className="city" name="city" onChange={handleSelect}>
