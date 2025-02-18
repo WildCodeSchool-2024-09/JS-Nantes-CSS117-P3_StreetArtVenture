@@ -80,6 +80,16 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
   }
 };
 
+const similarAdress: RequestHandler = async (req, res, next) => {
+  try {
+    const { adress, id } = req.body;
+    const items = await artRepository.similarAdress(adress, id);
+    res.json(items);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const editArtPiece: RequestHandler = async (req, res, next) => {
   try {
     const artPieceId = req.params.id;
@@ -219,5 +229,6 @@ export default {
   unvalidatedArtPiece,
   editArtPiece,
   denyArtPiece,
+  similarAdress,
   report,
 };

@@ -68,6 +68,7 @@ router.use("/art", authActions.verifyAdmin);
 router.patch("/art/:id", artActions.update);
 router.patch("/art/artPieceValidation/:id", artActions.editArtPiece);
 router.post("/art/newArt", artActions.updateAccepted);
+router.post("/art/similarAdress", artActions.similarAdress);
 router.get("/art/latestArtPieceUnvelidated", artActions.unvalidatedArtPiece);
 router.delete("/art/artPieceDenied/:id", artActions.denyArtPiece);
 
@@ -77,7 +78,7 @@ router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse);
 
 router.use("/user", authActions.verifyAdmin);
 router.delete("/user/:id", userActions.deleteUser);
-router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
+router.get("/report/reporting", reportedArtPieceActions.getUserSignalement);
 
 router.use("/statistics", authActions.verifyAdmin);
 router.get("/statistics/user", statisticsActions.getUserStatistics);
