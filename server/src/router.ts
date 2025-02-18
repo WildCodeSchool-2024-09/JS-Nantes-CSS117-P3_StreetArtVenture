@@ -78,7 +78,7 @@ router.delete("/reports/refuse/:id", reportedArtPieceActions.refuse);
 
 router.use("/user", authActions.verifyAdmin);
 router.delete("/user/:id", userActions.deleteUser);
-router.get("/user/reporting", reportedArtPieceActions.getUserSignalement);
+router.get("/report/reporting", reportedArtPieceActions.getUserSignalement);
 
 router.use("/statistics", authActions.verifyAdmin);
 router.get("/statistics/user", statisticsActions.getUserStatistics);

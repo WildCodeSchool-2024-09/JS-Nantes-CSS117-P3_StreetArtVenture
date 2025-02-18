@@ -22,7 +22,7 @@ function Lost() {
     const fetchReportedData = async () => {
       try {
         const response = await fetchWithAuth(
-          `${import.meta.env.VITE_API_URL}/user/reporting`,
+          `${import.meta.env.VITE_API_URL}/report/reporting`,
         );
         const data = await response.json();
 
@@ -151,20 +151,23 @@ function Lost() {
           alt="Un trait de pinceau noir sous le texte"
         />
 
-        <section className="block-green">
-          <div className="container">
-            {reported.length > 0 ? (
-              <>
-                <figcaption className="reported-content">
-                  <p className="text-work">Oeuvre signalée</p>
-                  <img
-                    className="street-art"
-                    src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
-                    alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
-                  />
-                </figcaption>
-
-                {contentInfo}
+        <section className="block-green ">
+          {reported.length > 0 ? (
+            <>
+              <section className="card-lost-container">
+                <section className="lost-art-content">
+                  <figcaption className="reported-content">
+                    <p className="text-work">Oeuvre signalée</p>
+                    <img
+                      className="street-art"
+                      src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
+                      alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
+                    />
+                  </figcaption>
+                  <div>
+                    <p>{contentInfo}</p>
+                  </div>
+                </section>
 
                 <figcaption className="compared-art">
                   <p className="text-work">Comparaison</p>
@@ -174,36 +177,34 @@ function Lost() {
                     alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
                   />
                 </figcaption>
-              </>
-            ) : (
-              <p>Aucune œuvre d'art signalée.</p>
-            )}
+              </section>
+            </>
+          ) : (
+            <p>Aucune œuvre d'art signalée.</p>
+          )}
 
-            {reported.length > 0 && (
-              <div className="next-refusal-button">
-                <button
-                  className="btn-validation-lost"
-                  type="button"
-                  onClick={() =>
-                    handleValidate(reported[changeCard].art_piece_id)
-                  }
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Validation en cours..." : "Validation"}
-                </button>
-                <button
-                  className="btn-refusal-lost"
-                  type="button"
-                  onClick={() =>
-                    refuseReport(reported[changeCard].art_piece_id)
-                  }
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Suppression en cours..." : "Refus"}
-                </button>
-              </div>
-            )}
-          </div>
+          {reported.length > 0 && (
+            <div className="next-refusal-button">
+              <button
+                className="btn-validation-lost"
+                type="button"
+                onClick={() =>
+                  handleValidate(reported[changeCard].art_piece_id)
+                }
+                disabled={isLoading}
+              >
+                {isLoading ? "Validation en cours..." : "Validation"}
+              </button>
+              <button
+                className="btn-refusal-lost"
+                type="button"
+                onClick={() => refuseReport(reported[changeCard].art_piece_id)}
+                disabled={isLoading}
+              >
+                {isLoading ? "Suppression en cours..." : "Refus"}
+              </button>
+            </div>
+          )}
         </section>
 
         <nav className="button-lost">
