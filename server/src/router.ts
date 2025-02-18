@@ -26,14 +26,7 @@ router.post(
 
 /* ************************** LOGGED USER ACTIONS ************************** */
 router.use(
-  [
-    "/notifications",
-    "/leaderboard",
-    "/art",
-    "/user",
-    "/api/upload",
-    "/statistics",
-  ],
+  ["/notifications", "/leaderboard", "/art", "/user", "/statistics"],
   authActions.verifyToken,
 );
 
@@ -55,7 +48,7 @@ router.get("/user/:id", userActions.read);
 
 /* ************************** ADMIN ACTIONS ************************** */
 router.use(
-  ["/reports", "/leaderboard", "/art", "/user", "/statistics", "/api/upload"],
+  ["/reports", "/leaderboard", "/art", "/user", "/statistics"],
   authActions.verifyAdmin,
 );
 
