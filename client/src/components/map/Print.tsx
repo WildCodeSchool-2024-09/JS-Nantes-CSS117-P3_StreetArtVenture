@@ -24,12 +24,8 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   const webcamRef = useRef<Webcam | null>(null);
 
   const role: Role = {
-    add: {
-      role: "Nouvelle oeuvre",
-    },
-    signalment: {
-      role: "Signaler",
-    },
+    add: "Nouvelle oeuvre",
+    signalment: "Signaler",
   };
   const capturePhoto = async () => {
     if (webcamRef.current) {
@@ -144,7 +140,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
 
   return (
     <div className="camera-container">
-      <h2>{`${role[type].role}`}</h2>
+      <h2>{`${role[type]}`}</h2>
       {showPicture && capturedImage && (
         <div>
           <img className="camera shadow" src={capturedImage} alt="test" />

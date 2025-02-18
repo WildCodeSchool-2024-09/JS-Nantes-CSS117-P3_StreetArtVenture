@@ -1,12 +1,8 @@
 import type { ArtPiece } from "../../types/art_piece";
 
 export type Role = {
-  add: {
-    role: string;
-  };
-  signalment: {
-    role: string;
-  };
+  add: string;
+  signalment: string;
 };
 export type RoleType = keyof Role;
 
