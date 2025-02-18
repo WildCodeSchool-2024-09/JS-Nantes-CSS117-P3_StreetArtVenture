@@ -1,3 +1,13 @@
-.art-piece-list-admin-main-container > ul > li > img {
-  height: 50px;
+.admin-art-piece-list-edit-button {
+  align-self: center;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 23px;
+  font-family: var(--primary-font);
+  cursor: pointer;
+}
+
+.admin-art-piece-list-edit-button:hover {
+  transform: translate(-1px, -1px);
 }
