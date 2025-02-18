@@ -20,9 +20,9 @@ function ArtPieceStats() {
 
   return (
     data && (
-      <section className="pieces_data">
+      <section className="user-stats">
         <p>Nombre d'oeuvres :</p>
-        <p className="red_stats"> {data.nb_art_pieces}</p>
+        <p className="red-stats"> {data.nb_art_pieces}</p>
       </section>
     )
   );
