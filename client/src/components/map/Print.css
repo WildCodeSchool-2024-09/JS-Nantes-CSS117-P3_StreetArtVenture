@@ -5,13 +5,12 @@
   width: 480px;
   height: 65vh;
   z-index: 2;
-  gap: 10px;
   position: fixed;
-  background-color: rgba(34, 181, 115, 0.7);
+  background-color: #39b54adb;
   align-items: center;
   left: 37%;
   top: 15%;
-  border-radius: 40px;
+  border-radius: 28px;
 }
 
 .camera {
@@ -127,4 +126,3 @@ div:has(.new-shot:hover) .shadow {
   z-index: 2;
   margin-top: 50px;
 }
-

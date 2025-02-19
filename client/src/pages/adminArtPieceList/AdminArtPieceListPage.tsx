@@ -8,22 +8,33 @@ function AdminArtPieceListPage() {
   const [data, setData] = useState<null | ArtPiece[]>(null);
   // On mount, fetch art pieces
   useEffect(() => {
-    async function fetchArtPieces() {
-      const response = await fetchWithAuth(
-        `${import.meta.env.VITE_API_URL}/artPiece`,
-      );
-      const result = await response.json();
-      setData(result);
-    }
     fetchArtPieces();
   }, []);
 
+  async function fetchArtPieces() {
+    const response = await fetchWithAuth(
+      `${import.meta.env.VITE_API_URL}/artPiece`,
+    );
+    const result = await response.json();
+    setData(result);
+  }
+
+  function refreshData() {
+    fetchArtPieces();
+  }
+
   return (
     <main className="art-piece-list-admin-main-container">
+      <h1>Liste de toutes les oeuvres</h1>
+      <img src="/separator.png" alt="graphic element" />
       {data ? (
         <ul>
           {data.map((art_piece: ArtPiece) => (
-            <ArtPieceCard key={art_piece.id} art_piece={art_piece} />
+            <ArtPieceCard
+              refreshData={refreshData}
+              key={art_piece.id}
+              art_piece={art_piece}
+            />
           ))}
         </ul>
       ) : (

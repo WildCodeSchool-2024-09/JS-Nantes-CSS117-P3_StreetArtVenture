@@ -19,26 +19,25 @@ function Lost() {
   };
 
   useEffect(() => {
-    const fetchReportedData = async () => {
-      try {
-        const response = await fetchWithAuth(
-          `${import.meta.env.VITE_API_URL}/user/reporting`,
-        );
-        const data = await response.json();
-
-        if (data && Array.isArray(data)) {
-          setReported(data);
-        } else {
-          failed("Données invalides reçues");
-        }
-      } catch {
-        failed("Erreur lors de la récupération des signalements");
-      }
-    };
-
     fetchReportedData();
-  }, [failed]);
+  }, []);
 
+  const fetchReportedData = async () => {
+    try {
+      const response = await fetchWithAuth(
+        `${import.meta.env.VITE_API_URL}/report/reporting`,
+      );
+      const data = await response.json();
+
+      if (data && Array.isArray(data)) {
+        setReported(data);
+      } else {
+        failed("Données invalides reçues");
+      }
+    } catch {
+      failed("Erreur lors de la récupération des signalements");
+    }
+  };
   const handleValidate = async (art_piece_id: number) => {
     const currentIndex = reported.findIndex(
       (item) => item.art_piece_id === art_piece_id,
@@ -68,6 +67,7 @@ function Lost() {
         failed("Erreur lors de la validation du signalement.");
         return;
       }
+      fetchReportedData();
       success("la validation est approuvé");
     } catch {
       failed("Erreur lors de la validation du signalement.");
@@ -89,6 +89,7 @@ function Lost() {
         failed("Erreur lors du refus du signalement.");
         return;
       }
+      fetchReportedData();
       success("Le refus est approuvé");
       const itemExists = reported.some(
         (item) => item.art_piece_id === art_piece_id,
@@ -151,20 +152,21 @@ function Lost() {
           alt="Un trait de pinceau noir sous le texte"
         />
 
-        <section className="block-green">
-          <div className="container">
-            {reported.length > 0 ? (
-              <>
-                <figcaption className="reported-content">
-                  <p className="text-work">Oeuvre signalée</p>
-                  <img
-                    className="street-art"
-                    src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
-                    alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
-                  />
-                </figcaption>
-
-                {contentInfo}
+        <section className="block-green ">
+          {reported.length > 0 ? (
+            <>
+              <section className="card-lost-container">
+                <section className="lost-art-content">
+                  <figcaption className="reported-content">
+                    <p className="text-work">Oeuvre signalée</p>
+                    <img
+                      className="street-art"
+                      src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
+                      alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
+                    />
+                  </figcaption>
+                  <div>{contentInfo}</div>
+                </section>
 
                 <figcaption className="compared-art">
                   <p className="text-work">Comparaison</p>
@@ -174,36 +176,34 @@ function Lost() {
                     alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
                   />
                 </figcaption>
-              </>
-            ) : (
-              <p>Aucune œuvre d'art signalée.</p>
-            )}
+              </section>
+            </>
+          ) : (
+            <p>Aucune œuvre d'art signalée.</p>
+          )}
 
-            {reported.length > 0 && (
-              <div className="next-refusal-button">
-                <button
-                  className="btn-validation-lost"
-                  type="button"
-                  onClick={() =>
-                    handleValidate(reported[changeCard].art_piece_id)
-                  }
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Validation en cours..." : "Validation"}
-                </button>
-                <button
-                  className="btn-refusal-lost"
-                  type="button"
-                  onClick={() =>
-                    refuseReport(reported[changeCard].art_piece_id)
-                  }
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Suppression en cours..." : "Refus"}
-                </button>
-              </div>
-            )}
-          </div>
+          {reported.length > 0 && (
+            <div className="next-refusal-button">
+              <button
+                className="btn-validation-lost"
+                type="button"
+                onClick={() =>
+                  handleValidate(reported[changeCard].art_piece_id)
+                }
+                disabled={isLoading}
+              >
+                {isLoading ? "Validation en cours..." : "Validation"}
+              </button>
+              <button
+                className="btn-refusal-lost"
+                type="button"
+                onClick={() => refuseReport(reported[changeCard].art_piece_id)}
+                disabled={isLoading}
+              >
+                {isLoading ? "Suppression en cours..." : "Refus"}
+              </button>
+            </div>
+          )}
         </section>
 
         <nav className="button-lost">
@@ -213,7 +213,7 @@ function Lost() {
             onClick={() => handleClick("decrement")}
           >
             <img
-              className="arrow-left-lost arrow"
+              className="arrow-left-lost arrow-lost"
               src="https://thypix.com/wp-content/uploads/2020/04/white-arrow-2.png"
               alt="Flèche blanche avec bordure noire"
             />
@@ -225,7 +225,7 @@ function Lost() {
             onClick={() => handleClick("increment")}
           >
             <img
-              className="arrow-right-lost arrow"
+              className="arrow-right-lost arrow-lost"
               src="https://thypix.com/wp-content/uploads/2020/04/white-arrow-2.png"
               alt="arrow white with border black"
             />

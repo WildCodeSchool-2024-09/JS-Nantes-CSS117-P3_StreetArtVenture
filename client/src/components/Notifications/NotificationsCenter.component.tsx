@@ -49,8 +49,8 @@ function NotificationsCenter() {
             notifications?.find(
               (notification) => notification.viewed_at === null,
             )
-              ? "/images/notification-bell-new.svg"
-              : "/images/notification-bell.svg"
+              ? "/images/notification-bell-new.png"
+              : "/images/notification-bell2.png"
           }
         />
       </button>

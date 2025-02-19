@@ -1,6 +1,7 @@
 import path from "node:path";
 import type { RequestHandler } from "express";
 import type { Request, Response } from "express";
+import type { JwtPayload } from "jsonwebtoken";
 import multer from "multer";
 import type { JWTPayload } from "../../types/express/auth";
 import notificationsRepository from "../notifications/notificationsRepository";
@@ -22,31 +23,27 @@ const readAll: RequestHandler = async (req, res, next) => {
 
 const update: RequestHandler = async (req, res, next) => {
   try {
-    async function updateArtPiece() {
-      const { id } = req.params;
-      const updatedFields = req.body;
+    const { id } = req.params;
+    const updatedFields = req.body;
 
-      if (!id) {
-        return res.status(400).json({ error: "ID invalide." });
-      }
-
-      if (Object.keys(updatedFields).length === 0) {
-        return res
-          .status(400)
-          .json({ error: "Aucune donnée à mettre à jour." });
-      }
-
-      const affectedRows = await artRepository.update(id, updatedFields);
-
-      if (affectedRows === 0) {
-        return res
-          .status(404)
-          .json({ error: "Aucune oeuvre trouvée avec cet ID." });
-      }
-
-      return res.json(affectedRows);
+    if (!id) {
+      res.status(400).json({ error: "ID invalide." });
+      return;
     }
-    updateArtPiece();
+
+    if (Object.keys(updatedFields).length === 0) {
+      res.status(400).json({ error: "Aucune donnée à mettre à jour." });
+      return;
+    }
+
+    const affectedRows = await artRepository.update(id, updatedFields);
+
+    if (affectedRows === 0) {
+      res.status(404).json({ error: "Aucune oeuvre trouvée avec cet ID." });
+      return;
+    }
+
+    res.json(affectedRows);
   } catch (err) {
     next(err);
   }
@@ -54,10 +51,12 @@ const update: RequestHandler = async (req, res, next) => {
 
 const browseAround: RequestHandler = async (req, res, next) => {
   try {
+    const { id } = res.locals as JwtPayload;
     const { latitude, longitude, radius } = req.query;
     if (!latitude || !longitude) res.status(400).send("Missing parameters");
     // Fetch all items
     const items = await artRepository.browseAround(
+      id,
       Number.parseFloat(latitude as string),
       Number.parseFloat(longitude as string),
       Number.parseFloat(radius as string),
@@ -81,6 +80,16 @@ const unvalidatedArtPiece: RequestHandler = async (req, res, next) => {
   }
 };
 
+const similarAdress: RequestHandler = async (req, res, next) => {
+  try {
+    const { adress, id } = req.body;
+    const items = await artRepository.similarAdress(adress, id);
+    res.json(items);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const editArtPiece: RequestHandler = async (req, res, next) => {
   try {
     const artPieceId = req.params.id;
@@ -94,7 +103,7 @@ const editArtPiece: RequestHandler = async (req, res, next) => {
     if (!artValidation) {
       res.sendStatus(404);
     } else {
-      const userId = (req.auth as JWTPayload).id;
+      const userId = (res.locals as JWTPayload).id;
       if (userId) notificationsRepository.update(artPieceId, userId, 1);
       const pointsGiven = await userRepository.addCreationPoints(
         userId,
@@ -191,6 +200,25 @@ const updateAccepted: RequestHandler = async (req, res, next) => {
   }
 };
 
+const report: RequestHandler = async (req, res, next) => {
+  try {
+    const { filePath: path, userId, artId } = req.body;
+
+    const affectedRows = await artRepository.reportValidation(
+      path,
+      userId,
+      artId,
+    );
+    if (!affectedRows) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   readAll,
   update,
@@ -201,4 +229,6 @@ export default {
   unvalidatedArtPiece,
   editArtPiece,
   denyArtPiece,
+  similarAdress,
+  report,
 };

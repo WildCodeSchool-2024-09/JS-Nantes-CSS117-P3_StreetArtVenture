@@ -22,26 +22,36 @@ const verifyToken: RequestHandler = async (req, res, next) => {
   }
 };
 
-const verifyUser: RequestHandler = async (req, res, next) => {
+const verifyUser: RequestHandler = async (req, res, next): Promise<void> => {
   try {
     const { email, password, reminder } = req.body;
-    const user = await userRepository.verifyUser(email, password);
 
-    if (user == null) {
-      res.status(404).json({ message: "utilisateur non trouvé" });
-    } else {
-      const token = jwt.sign(
-        {
-          id: user[0].id,
-          email: user[0].email,
-          isAdmin: user[0].isAdmin,
-          isBanned: user[0].isBanned,
-        },
-        JWT_SECRET,
-        { expiresIn: reminder },
-      );
-      res.status(200).json({ token });
+    if (!email || !password) {
+      res.status(400).json({ message: "Email et mot de passe requis" });
+      return;
     }
+
+    const userArray = await userRepository.getByEmail(email);
+
+    const isPasswordValid = await argon2d.verify(userArray.password, password);
+
+    if (!isPasswordValid) {
+      res.status(401).json({ message: "Mot de passe incorrect" });
+      return;
+    }
+
+    const token = jwt.sign(
+      {
+        id: userArray.id,
+        email: userArray.email,
+        isAdmin: userArray.isAdmin,
+        isBanned: userArray.isBanned,
+      },
+      JWT_SECRET,
+      { expiresIn: reminder },
+    );
+
+    res.status(200).json({ token });
   } catch (err) {
     next(err);
   }
@@ -205,6 +215,16 @@ const addpoint: RequestHandler = async (req, res) => {
   }
 };
 
+const isReported: RequestHandler = async (req, res) => {
+  const { userId, artId } = req.body;
+  const answer = await userRepository.reportVerification(userId, artId);
+  if (answer.length === 0) {
+    res.sendStatus(404);
+  } else {
+    res.json(answer);
+  }
+};
+
 export default {
   verifyUser,
   verifyToken,
@@ -216,4 +236,5 @@ export default {
   isSeen,
   addpoint,
   hashPassword,
+  isReported,
 };

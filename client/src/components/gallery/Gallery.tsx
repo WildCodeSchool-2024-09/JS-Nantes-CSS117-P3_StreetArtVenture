@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import "./gallery.css";
+import "./Gallery.css";
 import type { CardI } from "./GalleryType";
 
 function Gallery() {
   const [cities, setCities] = useState<{ city: string }[]>([]);
   const [card, setCard] = useState<CardI[]>([]);
-  const [selectedValue, setSelectedValue] = useState("Votre ville");
+  const [selectedValue, setSelectedValue] = useState("Ville");
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/art/getCities`)
@@ -22,7 +22,7 @@ function Gallery() {
   }
 
   const filteredArray =
-    selectedValue !== "Votre ville"
+    selectedValue !== "Ville"
       ? card.filter((el) => el.city.includes(selectedValue))
       : card;
 
