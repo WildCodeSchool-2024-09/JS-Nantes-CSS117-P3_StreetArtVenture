@@ -69,10 +69,17 @@ function Lost() {
       }
       fetchReportedData();
       success("la validation est approuvé");
+      const itemExists = reported.some(
+        (item) => item.art_piece_id === art_piece_id,
+      );
+      if (itemExists) {
+        updateReportedData(art_piece_id);
+      } else {
+        failed("Le signalement est introuvable.");
+      }
     } catch {
       failed("Erreur lors de la validation du signalement.");
     } finally {
-      await refuseReport(art_piece_id);
       setIsLoading(false);
     }
   };
