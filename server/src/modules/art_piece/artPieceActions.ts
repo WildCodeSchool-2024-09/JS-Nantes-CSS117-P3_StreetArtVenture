@@ -16,14 +16,18 @@ const getCities: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res) => {
   try {
     const id = Number(req.params.id);
-    console.warn("aled", id);
-    const { title, description, points, adress, city } = req.body;
+    const { title, description, points, adress, city, latitude, longitude } =
+      req.body;
     const updatedPiece = {
       name: title,
       points_value: points,
       description,
       adress,
       city,
+      coordinates: {
+        longitude,
+        latitude,
+      },
     } as ArtCardChange;
 
     const editArtPiece = await artPieceRepository.update(updatedPiece, id);

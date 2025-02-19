@@ -142,7 +142,7 @@ function Gallery() {
         await getCities();
         handleAdminAction(artworkId, "soumettre");
       } else {
-        success(`Erreur lors de la mise à jour : ${await res.text()}`);
+        failed(`Erreur lors de la mise à jour : ${await res.text()}`);
       }
     } catch (error) {
       failed(`Erreur lors de la requête : ${error}`);
@@ -190,12 +190,6 @@ function Gallery() {
               <p className="streetart">
                 {artwork.adress}, {artwork.city}
               </p>
-
-              {!user?.isAdmin && (
-                <p className="info">
-                  Connectez-vous en tant qu'admin pour modifier
-                </p>
-              )}
 
               {user?.isAdmin && (
                 <div className="p-4">
@@ -253,7 +247,7 @@ function Gallery() {
                           </label>
                           <input
                             id={`pointsInput-${artwork.id}`}
-                            type="text"
+                            type="number"
                             value={inputValues.points || ""}
                             onChange={(ev) => handleChange(ev, "points")}
                             placeholder="Points"

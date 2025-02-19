@@ -16,6 +16,10 @@ export type ArtCardChange = {
   name: string;
   adress: string;
   description: string;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
   id?: string;
 };
 interface ArtPieceGallery {

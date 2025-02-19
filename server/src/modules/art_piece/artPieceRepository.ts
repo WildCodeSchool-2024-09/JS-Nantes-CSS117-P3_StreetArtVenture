@@ -26,20 +26,32 @@ class ArtPieceRepository {
   }
 
   async update(artPiece: ArtCardChange, id: number) {
-    // Vérifier que 'city' existe et ne soit pas vide
-    if (!artPiece.city || artPiece.city.trim() === "") {
-      throw new Error("La ville ne peut pas être vide");
+    // Vérifier que 'city', 'adress' et 'coordinates' existent et ne sont pas vides
+    console.warn(artPiece);
+    if (
+      !artPiece.city ||
+      artPiece.city.trim() === "" ||
+      !artPiece.adress ||
+      artPiece.adress.trim() === ""
+    ) {
+      throw new Error("La ville et l'adresse ne peuvent pas être vides");
     }
 
-    // Exécuter la requête SQL en s'assurant que `city` est bien défini
+    if (!artPiece.coordinates) {
+      throw new Error("Les nouvelles coordonnées doivent être fournies.");
+    }
+
+    // Exécuter la requête SQL en incluant `coordinates`
     const [row] = await databaseClient.query<Result>(
-      "UPDATE art_piece SET name = ?, description = ?, points_value = ?, adress = ?, city = ? WHERE id = ?",
+      "UPDATE art_piece SET name = ?, description = ?, points_value = ?, adress = ?, city = ?, coordinates = POINT(?, ?) WHERE id = ?",
       [
         artPiece.name,
         artPiece.description,
         artPiece.points_value,
         artPiece.adress,
         artPiece.city,
+        artPiece.coordinates.latitude,
+        artPiece.coordinates.longitude,
         id,
       ],
     );

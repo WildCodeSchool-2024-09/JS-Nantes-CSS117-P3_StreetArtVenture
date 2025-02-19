@@ -171,6 +171,7 @@
   width: 5vh;
   height: 5vh;
 }
+
 @media screen and (max-width: 600px) {
   .galery-main-container > h1 {
     font-size: 48px;
