@@ -11,6 +11,7 @@ const validate: RequestHandler = async (req, res) => {
     if (result === 0) {
       res.sendStatus(404);
     } else {
+      reportedArtPieceRepository.refuseReport(Number.parseInt(artPieceId));
       // On enlève une partie des points des gens qui ont vu l'oeuvre
       userRepository.deductPointsFromRecovery(artPieceId);
       // On ajoute ces points à ceux qui ont report la disparition
