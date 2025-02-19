@@ -138,7 +138,7 @@ WHERE u.id = ?`;
 
   async gainPointsFromRecovery(artPieceId: string) {
     const query =
-      "UPDATE user u JOIN viewed_art_piece v ON u.id = v.user_id JOIN art_piece a ON v.art_piece_id = a.id SET u.points = u.points + ROUND(a.points_value/3) WHERE r.art_piece_id = ?";
+      "UPDATE user u JOIN viewed_art_piece v ON u.id = v.user_id JOIN art_piece a ON v.art_piece_id = a.id JOIN reported_art_piece r ON r.art_piece_id = a.id SET u.points = u.points + ROUND(a.points_value/3) WHERE r.art_piece_id = ?";
     const [result] = await databaseClient.query<Result>(query, [artPieceId]);
     return result.affectedRows;
   }
