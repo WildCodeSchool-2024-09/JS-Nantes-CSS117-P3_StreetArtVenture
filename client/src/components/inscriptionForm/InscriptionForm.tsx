@@ -40,14 +40,15 @@ const InscriptionForm = () => {
         },
       );
       if (!response.ok) {
-        throw new Error("Impossible de s'inscire");
+        const result = await response.json();
+        throw new Error(result.message);
       }
       toast.success("Inscription réussie ! Bienvenue 🎉");
       setTimeout(() => {
         navigate("/");
       }, 3000);
     } catch (error) {
-      toast.error("Une erreur est survenue. Veuillez réessayer.");
+      toast.error((error as Error).message as string);
     }
   };
 
