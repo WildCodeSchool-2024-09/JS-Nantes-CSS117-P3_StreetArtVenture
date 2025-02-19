@@ -27,6 +27,7 @@ router.post(
 /* ************************** LOGGED USER ACTIONS ************************** */
 router.use(
   [
+    "/reports",
     "/notifications",
     "/leaderboard",
     "/art",
