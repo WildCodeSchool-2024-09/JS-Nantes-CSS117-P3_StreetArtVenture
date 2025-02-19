@@ -72,7 +72,6 @@ function Lost() {
     } catch {
       failed("Erreur lors de la validation du signalement.");
     } finally {
-      await refuseReport(art_piece_id);
       setIsLoading(false);
     }
   };
