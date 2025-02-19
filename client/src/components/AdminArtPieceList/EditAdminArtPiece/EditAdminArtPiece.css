@@ -2,33 +2,34 @@
   background-color: #1fa76a;
   box-shadow: 0px 0px 13px 2px black;
   position: fixed;
-  top: 10vh;
+  top: 15vh;
   left: 35vw;
-  height: 80vh;
   width: 30vw;
   border-radius: 23px;
   overflow-y: scroll;
   scrollbar-width: none;
-  padding: 5vh 10vw;
+  padding: 5vh 7vw;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 12px;
+  height: 80vh;
 }
 
 .admin-art-piece-edit-modal > h3 {
   font-size: 2em;
   text-align: center;
   align-self: center;
-  margin-bottom: 50px;
-  width: 400px;
+  margin-bottom: 1px;
+  width: 250px;
 }
 
 .admin-art-piece-edit-modal > label > input,
 .admin-art-piece-edit-modal > label > textarea {
   margin-left: 5px;
   padding: 4px;
-  width: 350px;
+  width: 300px;
+  justify-content: center;
   font-family: var(--primary-font);
   border-radius: 15px;
   border: none;
@@ -58,8 +59,9 @@
   .admin-art-piece-edit-modal {
     top: 5vh;
     left: 8vw;
-    height: 90vh;
+    height: 92vh;
     width: 85vw;
+    padding: 5px;
   }
   .admin-art-piece-edit-modal > h3 {
     width: 250px;
@@ -67,5 +69,10 @@
   .admin-art-piece-edit-modal > label > input,
   .admin-art-piece-edit-modal > label > textarea {
     width: 300px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .admin-art-piece-edit-modal {
+    height: 90vh;
   }
 }
