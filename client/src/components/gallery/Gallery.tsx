@@ -137,7 +137,6 @@ function Gallery() {
         success("Mise à jour réussie !");
         updateCityInState(artworkId, inputValues.city || "");
 
-        // ✅ Met à jour la liste des villes (utile si une nouvelle ville a été ajoutée)
         await getCities();
         await getCities();
         handleAdminAction(artworkId, "soumettre");
