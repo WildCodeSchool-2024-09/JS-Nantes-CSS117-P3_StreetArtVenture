@@ -135,8 +135,8 @@ function Lost() {
   return (
     <section className="lost-page-background">
       <div className="h1-circle-lost">
-        <h1 className="report-text">Signalement</h1>
-        <span className="circle-lost">
+        <h1>Signalement</h1>
+        <span>
           <p>{reported.length}</p>
         </span>
       </div>
@@ -156,25 +156,36 @@ function Lost() {
             <>
               <section className="card-lost-container">
                 <section className="lost-art-content">
-                  <figcaption className="reported-content">
-                    <p className="text-work">Oeuvre signalée</p>
-                    <img
-                      className="street-art"
-                      src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
-                      alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
-                    />
-                  </figcaption>
-                  <div>{contentInfo}</div>
-                </section>
-
-                <figcaption className="compared-art">
-                  <p className="text-work">Comparaison</p>
+                  <p>Oeuvre signalée</p>
                   <img
-                    className="street-art"
+                    className="trait-description"
+                    src="/forme_blanche.png"
+                    alt="graphic element"
+                  />
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}${reported[changeCard].reported_img_path}`}
+                    alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
+                  />
+
+                  <p className="coordinate-lost">{contentInfo}</p>
+                </section>
+                <img
+                  className="arrow-lost-2"
+                  src="/double_arrow.png"
+                  alt="graphic arrow"
+                />
+                <section className="lost-art-content">
+                  <p>Comparaison</p>
+                  <img
+                    className="trait-description"
+                    src="/forme_blanche.png"
+                    alt="graphic element"
+                  />
+                  <img
                     src={`${import.meta.env.VITE_API_URL}${reported[changeCard].report_img_path}`}
                     alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
                   />
-                </figcaption>
+                </section>
               </section>
             </>
           ) : (
