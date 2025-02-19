@@ -73,6 +73,7 @@ const registration: RequestHandler = async (req, res, next) => {
 
     if (isUser?.length) {
       res.status(409).json({ message: "Cet utilisateur existe deja", isUser });
+      return;
     }
     {
       const insertId = await userRepository.userInscription(
