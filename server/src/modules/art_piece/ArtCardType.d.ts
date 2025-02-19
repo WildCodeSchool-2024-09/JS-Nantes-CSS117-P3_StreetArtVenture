@@ -3,8 +3,16 @@ export type ArtCard = {
   adress?: string;
   city: string;
   department: string;
-  coordinates: string; // Exemple : "POINT(12.34 56.78)"
+  coordinates: string;
   is_validated: boolean;
   is_covered: boolean;
   description: string;
+};
+export type ArtCardChange = {
+  city: string;
+  points_value: string;
+  name: string;
+  adress: string;
+  description: string;
+  id?: string;
 };

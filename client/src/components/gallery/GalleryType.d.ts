@@ -10,4 +10,5 @@ export type CardI = {
   description: string;
   points_value: number;
   picture_path: string;
+  points?: string;
 };

@@ -54,6 +54,7 @@ router.post("/user/addpoint", userActions.addpoint);
 router.get("/user/:id", userActions.read);
 
 /* ************************** ADMIN ACTIONS ************************** */
+router.patch("/art/:id", artPieceActions.edit);
 router.use(
   ["/reports", "/leaderboard", "/art", "/user", "/statistics", "/api/upload"],
   authActions.verifyAdmin,
