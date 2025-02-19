@@ -56,9 +56,7 @@ CREATE TABLE notifications (
   user_id INT UNSIGNED NOT NULL,
   status BOOLEAN DEFAULT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  viewed_at TIMESTAMP DEFAULT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-  FOREIGN KEY (art_piece_id) REFERENCES art_piece(id) ON DELETE CASCADE
+  viewed_at TIMESTAMP DEFAULT NULL
 );
 
 INSERT INTO user(username, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection)
