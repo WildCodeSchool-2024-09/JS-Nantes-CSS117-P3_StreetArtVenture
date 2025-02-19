@@ -39,7 +39,7 @@ function Header() {
           ) : (
             <div>
               <NotificationsCenter />
-              <Link to="/profile">
+              <Link to="/profil">
                 <img
                   className="user-picture"
                   src="/images/user_profil.png"
