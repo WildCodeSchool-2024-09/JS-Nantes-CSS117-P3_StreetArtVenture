@@ -9,7 +9,6 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
 
   // On l'ajoute avec les headers passé en paramètre
   const mergedHeaders = {
-    "Content-Type": "application/json",
     ...authHeaders,
     ...(options.headers as HeadersInit),
   };
