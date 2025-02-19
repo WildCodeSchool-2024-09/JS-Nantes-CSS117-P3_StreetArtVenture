@@ -49,12 +49,12 @@
 
 /* style new notification */
 .header-class > div > div > ul > .notification-new {
-  background-color: rgb(237, 195, 203);
+  background-color: rgb(235, 150, 32);
 }
 
 /* style seen notification */
 .header-class > div > div > ul > .notification-seen {
-  background-color: rgb(176, 139, 145);
+  background-color: #22b573;
 }
 
 @media screen and (max-width: 600px) {

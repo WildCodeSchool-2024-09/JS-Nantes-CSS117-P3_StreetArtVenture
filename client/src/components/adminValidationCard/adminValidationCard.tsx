@@ -198,7 +198,7 @@ export function AdminValidationBoard() {
             >
               <section className="street-art-info">
                 <label>
-                  titre : <br />
+                  Titre : <br />
                   <input
                     className="input-validation "
                     name="titre"
@@ -258,8 +258,8 @@ export function AdminValidationBoard() {
       </section>
       {comparaisonValidation.length > 0 && (
         <>
-          <div className="arrow"> </div>
-          <section className="comparaison-container main-validation-card">
+          <img className="arrow" src="/double_arrow.png" alt="graphic arrow" />
+          <section className="main-validation-card-comparaison">
             <p className="index-validation">
               {indexBouton + 1}/{comparaisonValidation.length}
             </p>
