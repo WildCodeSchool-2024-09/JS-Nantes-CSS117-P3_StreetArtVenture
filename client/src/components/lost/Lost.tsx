@@ -30,6 +30,10 @@ function Lost() {
       const data = await response.json();
 
       if (data && Array.isArray(data)) {
+        if (data.length >= changeCard) {
+          setChangeCard(changeCard - 1);
+        }
+        setChangeCard;
         setReported(data);
       } else {
         failed("Données invalides reçues");
@@ -39,15 +43,6 @@ function Lost() {
     }
   };
   const handleValidate = async (art_piece_id: number) => {
-    const currentIndex = reported.findIndex(
-      (item) => item.art_piece_id === art_piece_id,
-    );
-
-    if (currentIndex === -1 || currentIndex === reported.length - 1) {
-      failed("Vous avez atteint la fin de la liste de signalements.");
-      return;
-    }
-
     await validateReport(art_piece_id);
   };
 
