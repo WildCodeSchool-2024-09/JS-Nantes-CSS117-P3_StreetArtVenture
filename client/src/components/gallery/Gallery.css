@@ -86,14 +86,15 @@
   border-radius: 15px;
   list-style: none;
 }
-
 .form-change-card {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50vw;
-  height: auto;
+  max-width: 90vw;
+  min-height: 50vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,16 +104,19 @@
   z-index: 10;
   border-radius: 15px;
   padding: 30px;
-  gap: 20px;
+  gap: 10px;
   text-align: center;
   color: black;
   font-size: 20px;
 }
 
 .form-change-card input {
-  width: 50%;
+  min-width: 50%;
+  width: 80%;
+  min-height: 2vh;
+  height: 5vh;
   box-sizing: border-box;
-  padding: 8px 12px;
+
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
@@ -174,28 +178,40 @@
   .artwork-page {
     padding: 32px;
   }
-}
-.form-change-card input {
-  width: 25vh;
+  .form-change-card {
+    width: 80vw;
+    padding: 20px;
+  }
+  .form-change-card input {
+    width: 80%;
+  }
+  .card-change {
+    max-width: 90%;
+  }
 }
 
 @media screen and (max-width: 450px) {
   .gallery-card {
     padding: 10px;
-    height: 300px;
+    height: 400px;
     font-size: 14px;
   }
   .galery-main-container {
     padding: 24px;
   }
-  .form-change-card input {
-    width: 80%;
-  }
-
   .form-change-card {
-    height: 200vh;
+    width: 90vw;
+    height: auto;
+    padding: 15px;
+  }
+  .form-change-card input {
+    width: 90%;
   }
   .form-change-card > input {
-    height: auto;
+    height: 12px;
+  }
+  .card-change {
+    padding: 8px;
+    gap: 5px;
   }
 }

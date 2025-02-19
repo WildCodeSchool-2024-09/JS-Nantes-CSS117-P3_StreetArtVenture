@@ -1,14 +1,14 @@
 import databaseClient from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
-import type { ArtCard, ArtCardChange } from "./ArtCardType";
-// ArtPieceGallery
+import type { ArtCard, ArtCardChange, ArtPieceGallery } from "./ArtCardType";
+
 interface ArtPiece {
   id: number;
   city: string;
 }
 
 class ArtPieceRepository {
-  create() {
+  create(body: ArtPieceGallery) {
     throw new Error("Method not implemented.");
   }
   async getCities() {
