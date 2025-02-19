@@ -52,18 +52,20 @@ CREATE TABLE reported_art_piece (
 
 CREATE TABLE notifications (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  art_piece_id INT UNSIGNED NOT NULL,
+  art_piece_id INT UNSIGNED,
   user_id INT UNSIGNED NOT NULL,
   status BOOLEAN DEFAULT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  viewed_at TIMESTAMP DEFAULT NULL
+  viewed_at TIMESTAMP DEFAULT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (art_piece_id) REFERENCES art_piece(id) ON DELETE SET NULL
 );
 
 INSERT INTO user(username, firstname, lastname, email, zipcode, city, adress, password, points, is_admin, creation_date, last_connection)
 VALUES
-  ('Kertzmann', 'Maddison', 'Kreiger', 'testadmin@account.com', '29177-3438', 'Angers', '6501 W North Street', '123', 1276, true, '2023-01-14 13:22:26', '2024-05-10 00:46:34'),
+  ('Kertzmann', 'Maddison', 'Kreiger', 'testadmin@account.com', '29177-3438', 'Angers', '6501 W North Street', '$argon2i$v=19$m=16,t=2,p=1$WU9VUl9QQVNTV09SRA$Gd8oWOBptuxIH9bse4BDvg', 1276, true, '2023-01-14 13:22:26', '2024-05-10 00:46:34'),
   ('Cronin-OReilly', 'Brennon', 'Grant', 'testuser@account.com', '67946', 'Nantes', '3387 Auer Estate', '123', 1754, true, '2024-01-10 20:38:10', '2024-08-26 19:03:58'),
-  ('Rmn44', 'Romain', 'Lemonnier', 'lemonnier.romain13@gmail.com', '44000', 'Nantes', '442 Heller Path', 'lemonnier44400', 2582, true, '2024-02-28 10:06:58', '2024-12-07 10:18:33'),
+  ('Rmn44', 'Romain', 'Lemonnier', 'lemonnier.romain13@gmail.com', '44000', 'Nantes', '442 Heller Path', 'lemonnier44400', 2582, false, '2024-02-28 10:06:58', '2024-12-07 10:18:33'),
   ('Sipes', 'Mallory', 'Donnelly', 'Janelle10@hotmail.com', '72333-9054', 'Nantes', '67182 Oak Street', '$argon2id$v=19$m=65536,t=3,p=4$skuhyf7JngwdhDS9GjmdLA$LJX2zC0uIAd4Jb7cAUcrZKZ6UoLZDeW50+w+lRL4wMw', 351, true, '2020-07-31 23:33:24', '2023-04-24 08:38:34'),
   ('Auer', 'Diego', 'Cremin', 'Myriam96@gmail.com', '91903-0033', 'Angers', '11981 Fausto Fords', '$argon2id$v=19$m=65536,t=3,p=4$tnVDec4xD8cr0WTd07G3hQ$+JBRSlMc89sSFt99KUY0gN0xU6WTyT+jbYo2mtT7yQU', 652, true, '2020-07-19 01:15:57', '2023-11-26 09:11:06'),
   ('Nienow', 'Adell', 'Runolfsson', 'Lillie.Robel40@yahoo.com', '61139-8425', 'Nantes', '5312 Hunter Falls', '$argon2id$v=19$m=65536,t=3,p=4$xe6vgWDzu0OatLFoB/ZWLQ$G+GQ8TIgDMbDnQVLt0rD1UDaN3TieWYiQsu4EhGHSdE', 1665, true, '2021-04-22 03:19:40', '2022-12-02 16:39:18'),
