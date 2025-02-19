@@ -55,7 +55,7 @@ router.get("/user/:id", userActions.read);
 
 /* ************************** ADMIN ACTIONS ************************** */
 router.use(
-  ["/reports", "/leaderboard", "/art", "/user", "/statistics", "/api/upload"],
+  ["/reports", "/leaderboard", "/art", "/user", "/statistics"],
   authActions.verifyAdmin,
 );
 
