@@ -13,7 +13,9 @@ function RenameUserPopupForm({
       }}
     >
       <input type="text" defaultValue={poppedUser.username} />
-      <input className="rename-input-ranking" type="submit" value="Renommer" />
+      <button className="rename-input-ranking" type="submit">
+        Renommer
+      </button>
     </form>
   );
 }
