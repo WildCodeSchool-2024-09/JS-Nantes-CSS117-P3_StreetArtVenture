@@ -5,13 +5,14 @@ import Webcam from "react-webcam";
 import "./Print.css";
 import { useUser } from "../../context/UserContext";
 import useToast from "../../utils/useToast";
-import type { Coordinates, WebcamCaptureProps } from "./Map.types";
-
+import type { Coordinates, Role, WebcamCaptureProps } from "./Map.types";
 const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   openCapture,
   setOpenCapture,
   position,
   onSuccess,
+  type,
+  artPieceId,
 }) => {
   const { information, failed } = useToast();
 
@@ -22,6 +23,14 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
   const [coordinates, setCoordinates] = useState<Coordinates | null>(null);
   const webcamRef = useRef<Webcam | null>(null);
 
+  const role: Role = {
+    add: {
+      role: "Nouvelle oeuvre",
+    },
+    signalment: {
+      role: "Signaler",
+    },
+  };
   const capturePhoto = async () => {
     if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
@@ -85,25 +94,45 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
 
       if (response.ok) {
         const data = await response.json();
-
-        const toSend = await fetchWithAuth(
-          `${import.meta.env.VITE_API_URL}/art/newArt`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
+        if (artPieceId) {
+          const toSend = await fetchWithAuth(
+            `${import.meta.env.VITE_API_URL}/art/newReport`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                filePath: data.filePath,
+                userId: user ? user.id : null,
+                artId: artPieceId,
+              }),
             },
-            body: JSON.stringify({
-              coordinates: coordinates,
-              fileName: data.fileName,
-              filePath: data.filePath,
-              userId: user ? user.id : null,
-            }),
-          },
-        );
-        if (!toSend.ok) {
-          failed("Echec lors de l'envoi du fichier");
+          );
+          if (!toSend.ok) {
+            failed("Echec lors de l'envoi du fichier");
+          }
+        } else {
+          const toSend = await fetchWithAuth(
+            `${import.meta.env.VITE_API_URL}/art/newArt`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                coordinates: coordinates,
+                fileName: data.fileName,
+                filePath: data.filePath,
+                userId: user ? user.id : null,
+              }),
+            },
+          );
+          if (!toSend.ok) {
+            failed("Echec lors de l'envoi du fichier");
+          }
         }
+
         setOpenCapture(!openCapture);
         onSuccess();
       }
@@ -115,6 +144,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
 
   return (
     <div className="camera-container">
+      <h2>{`${role[type].role}`}</h2>
       {showPicture && capturedImage && (
         <div>
           <img className="camera shadow" src={capturedImage} alt="test" />

@@ -205,6 +205,16 @@ const addpoint: RequestHandler = async (req, res) => {
   }
 };
 
+const isReported: RequestHandler = async (req, res) => {
+  const { userId, artId } = req.body;
+  const answer = await userRepository.reportVerification(userId, artId);
+  if (answer.length === 0) {
+    res.sendStatus(404);
+  } else {
+    res.json(answer);
+  }
+};
+
 export default {
   verifyUser,
   verifyToken,
@@ -216,4 +226,5 @@ export default {
   isSeen,
   addpoint,
   hashPassword,
+  isReported,
 };

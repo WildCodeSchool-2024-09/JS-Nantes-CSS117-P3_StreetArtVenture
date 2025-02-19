@@ -20,6 +20,8 @@ function AdminArtPieceListPage() {
 
   return (
     <main className="art-piece-list-admin-main-container">
+      <h1>Liste de toutes les oeuvres</h1>
+      <img src="/separator.png" alt="graphic element" />
       {data ? (
         <ul>
           {data.map((art_piece: ArtPiece) => (
