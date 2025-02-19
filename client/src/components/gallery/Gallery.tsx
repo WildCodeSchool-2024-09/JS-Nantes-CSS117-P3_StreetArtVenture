@@ -1,62 +1,324 @@
-import { useEffect, useState } from "react";
-import "./gallery.css";
+import { useCallback, useEffect, useRef, useState } from "react";
+import "./Gallery.css";
+import { useUser } from "../../context/UserContext";
+import { fetchWithAuth } from "../../utils/api";
+import useToast from "../../utils/useToast";
 import type { CardI } from "./GalleryType";
+
+const MIN_REQUEST_INTERVAL = 2000;
 
 function Gallery() {
   const [cities, setCities] = useState<{ city: string }[]>([]);
   const [card, setCard] = useState<CardI[]>([]);
-  const [selectedValue, setSelectedValue] = useState("Votre ville");
+  const [selectedValue, setSelectedValue] = useState("");
+  const { success, failed } = useToast();
+  const [isCard, setIsCard] = useState("");
+  const [cardUser, setCardUser] = useState("");
+  const [inputValues, setInputValues] = useState<{
+    title?: string;
+    description?: string;
+    points?: string;
+    adress?: string;
+    city?: string;
+    latitude?: string;
+    longitude?: string;
+  }>({});
+  const [cardsByArtwork, setCardsByArtwork] = useState<{
+    [key: number]: string[];
+  }>({});
+  const [loadingSubmissions, setLoadingSubmissions] = useState<{
+    [key: number]: boolean;
+  }>({});
+  const { user } = useUser();
+  const lastRequestTimeRef = useRef<number>(0);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/art/getCities`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCities(data.cities);
-        setCard(data.artCard);
-      })
-      .catch((err) => console.error(err));
+    getCities();
   }, []);
 
-  function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectedValue(event.target.value);
-  }
+  const getCities = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/art/getCities`);
+      const data = await res.json();
+      setCities(data.cities);
+      setCard(data.artCard);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  const filteredArray =
-    selectedValue !== "Votre ville"
-      ? card.filter((el) => el.city.includes(selectedValue))
-      : card;
+  const fetchLocationData = useCallback(
+    async (adress: string) => {
+      const now = Date.now();
+      if (now - lastRequestTimeRef.current < MIN_REQUEST_INTERVAL) return;
+      lastRequestTimeRef.current = now;
+
+      try {
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+            adress,
+          )}&format=json&addressdetails=1`,
+        );
+        const data = await res.json();
+        if (data.length > 0) {
+          const { lat, lon, address = {} } = data[0];
+          const cityName =
+            address.city || address.town || address.village || "Ville inconnue";
+          setInputValues((prev) => ({
+            ...prev,
+            city: cityName,
+            latitude: lat,
+            longitude: lon,
+          }));
+        }
+      } catch (error) {
+        failed(`Erreur lors de la requête : ${error}`);
+      }
+    },
+    [failed],
+  );
+
+  useEffect(() => {
+    if (!inputValues.adress) return;
+    const timer = setTimeout(() => {
+      if (inputValues.adress) fetchLocationData(inputValues.adress);
+    }, MIN_REQUEST_INTERVAL);
+    return () => clearTimeout(timer);
+  }, [inputValues.adress, fetchLocationData]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: string,
+  ) => {
+    setInputValues((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const removeCard = (artworkId: number) => {
+    setCardsByArtwork((prev) => {
+      const updated = { ...prev };
+      delete updated[artworkId];
+      return updated;
+    });
+  };
+
+  const handleAdminAction = (id: number, type: "soumettre") => {
+    setIsCard(type);
+    const userData = card.find((el) => el.id === id);
+    if (userData) {
+      setCardUser(userData.name || "");
+    }
+    cardUser;
+    removeCard(id);
+  };
+  const updateCityInState = (artworkId: number, newCity: string) => {
+    setCard((prevCards) =>
+      prevCards.map((artwork) =>
+        artwork.id === artworkId ? { ...artwork, city: newCity } : artwork,
+      ),
+    );
+  };
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+    artworkId: number,
+  ) => {
+    e.preventDefault();
+    setLoadingSubmissions((prev) => ({ ...prev, [artworkId]: true }));
+
+    try {
+      const res = await fetchWithAuth(
+        `${import.meta.env.VITE_API_URL}/art/${artworkId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(inputValues),
+        },
+      );
+      if (res.ok) {
+        success("Mise à jour réussie !");
+        updateCityInState(artworkId, inputValues.city || "");
+
+        // ✅ Met à jour la liste des villes (utile si une nouvelle ville a été ajoutée)
+        await getCities();
+        await getCities();
+        handleAdminAction(artworkId, "soumettre");
+      } else {
+        success(`Erreur lors de la mise à jour : ${await res.text()}`);
+      }
+    } catch (error) {
+      failed(`Erreur lors de la requête : ${error}`);
+    } finally {
+      setLoadingSubmissions((prev) => ({ ...prev, [artworkId]: false }));
+    }
+  };
+
+  const addCard = (artworkId: number) => {
+    setCardsByArtwork((prev) =>
+      prev[artworkId]?.length ? prev : { ...prev, [artworkId]: [""] },
+    );
+  };
+
+  const filteredArray = selectedValue
+    ? card.filter((el) => el.city.includes(selectedValue))
+    : card;
 
   return (
     <main className="artwork-page">
       <div className="galery-main-container">
         <h1>GALERIE D’œuvres</h1>
-        <img
-          className="traith1"
-          src="/trait-h1-artwork.tsx.png"
-          alt="background gray if from lighter to darker"
-        />
-
-        <select className="city" name="city" onChange={handleSelect}>
-          <option>Ville</option>
-          {cities.map((cities) => (
-            <option key={cities.city}>{cities.city}</option>
+        <select
+          className="city"
+          name="city"
+          value={selectedValue}
+          onChange={(e) => setSelectedValue(e.target.value)}
+        >
+          <option value="">Ville</option>
+          {cities.map((cityObj) => (
+            <option key={cityObj.city} value={cityObj.city}>
+              {cityObj.city}
+            </option>
           ))}
         </select>
         <ul className="gallery-card-container">
-          {filteredArray.map((card) => (
-            <li className="gallery-card" key={card.id}>
+          {filteredArray.map((artwork) => (
+            <li className="gallery-card" key={artwork.id}>
               <img
                 className="galerie-oeuvre"
-                src={`${import.meta.env.VITE_API_URL}${card.picture_path}`}
-                alt={`${card.description || "art piece"}`}
+                src={`${import.meta.env.VITE_API_URL}${artwork.picture_path}`}
+                alt={artwork.description || "art piece"}
               />
+              <p className="streetart">{artwork.name}</p>
+              <p className="streetart">
+                {artwork.adress}, {artwork.city}
+              </p>
 
-              <p className="streetart" key={card.name}>
-                {card.name}
-              </p>
-              <p className="streetart" key={card.adress}>
-                {card.adress}, {card.city}
-              </p>
+              {!user?.isAdmin && (
+                <p className="info">
+                  Connectez-vous en tant qu'admin pour modifier
+                </p>
+              )}
+
+              {user?.isAdmin && (
+                <div className="p-4">
+                  <button
+                    type="button"
+                    onClick={() => addCard(artwork.id)}
+                    className="button-change"
+                  >
+                    Modifier l'œuvre d'art
+                  </button>
+
+                  <div className="card-change">
+                    {cardsByArtwork[artwork.id]?.map((cardItem) => (
+                      <div key={isCard} className="div-card">
+                        {cardItem}
+                        <form
+                          onSubmit={(ev) => handleSubmit(ev, artwork.id)}
+                          className="form-change-card"
+                        >
+                          <label
+                            htmlFor={`titleInput-${artwork.id}`}
+                            className="block text-gray-700 font-bold mb-2"
+                          >
+                            Changer le titre de l'œuvre
+                          </label>
+                          <input
+                            id={`titleInput-${artwork.id}`}
+                            type="text"
+                            value={inputValues.title || ""}
+                            onChange={(ev) => handleChange(ev, "title")}
+                            placeholder="Titre de l'œuvre"
+                            className="input-change-card"
+                          />
+
+                          <label
+                            htmlFor={`descInput-${artwork.id}`}
+                            className="block text-gray-700 font-bold mb-2"
+                          >
+                            Changer la description
+                          </label>
+                          <input
+                            id={`descInput-${artwork.id}`}
+                            type="text"
+                            value={inputValues.description || ""}
+                            onChange={(ev) => handleChange(ev, "description")}
+                            placeholder="Description"
+                            className="input-change-card"
+                          />
+
+                          <label
+                            htmlFor={`pointsInput-${artwork.id}`}
+                            className="block text-gray-700 font-bold mb-2"
+                          >
+                            Changer les points
+                          </label>
+                          <input
+                            id={`pointsInput-${artwork.id}`}
+                            type="text"
+                            value={inputValues.points || ""}
+                            onChange={(ev) => handleChange(ev, "points")}
+                            placeholder="Points"
+                            className="input-change-card"
+                          />
+
+                          <label
+                            htmlFor={`adressInput-${artwork.id}`}
+                            className="block text-gray-700 font-bold mt-4"
+                          >
+                            Adresse
+                          </label>
+                          <input
+                            id={`adressInput-${artwork.id}`}
+                            type="text"
+                            value={inputValues.adress || ""}
+                            onChange={(ev) => handleChange(ev, "adress")}
+                            placeholder="Adresse"
+                            className="input-change-card"
+                          />
+
+                          <input
+                            type="text"
+                            value={inputValues.city || ""}
+                            readOnly
+                            placeholder="Ville détectée"
+                            className="input-change-card"
+                          />
+                          <input
+                            type="text"
+                            value={inputValues.latitude || ""}
+                            readOnly
+                            placeholder="Latitude"
+                            className="input-change-card"
+                          />
+                          <input
+                            type="text"
+                            value={inputValues.longitude || ""}
+                            readOnly
+                            placeholder="Longitude"
+                            className="input-change-card"
+                          />
+
+                          <button
+                            type="submit"
+                            className="button-submit"
+                            disabled={loadingSubmissions[artwork.id]}
+                          >
+                            {loadingSubmissions[artwork.id]
+                              ? "Chargement..."
+                              : "Soumettre"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => removeCard(artwork.id)}
+                            className="button-x"
+                          >
+                            ✖
+                          </button>
+                        </form>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </li>
           ))}
         </ul>
