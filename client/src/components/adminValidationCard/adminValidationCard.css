@@ -1,14 +1,15 @@
 .body-admin-validation {
   display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
+  justify-content: center;
   justify-items: center;
-  background-image: url("../../../backgroundAdmin.jpg");
+  background-image: url("../../../background-white.jpg");
   background-size: cover;
   background-position: center;
   width: 100vw;
   font-family: var(--primary-font);
-  padding: 40px 15% 40px 15%;
+  padding: 80px;
+  gap: 2vw;
+  align-items: center;
 }
 
 .main-validation-card {
@@ -18,23 +19,41 @@
   background-color: rgba(34, 181, 115, 1);
   border-radius: 12px;
   padding: 20px;
-  width: 25vw;
+  width: 450px;
   height: 82vh;
-  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.658);
+  gap: 12px;
+}
+
+.arrow {
+  width: 10%;
+  height: 10%;
+}
+
+.main-validation-card-comparaison {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(34, 181, 115, 1);
+  border-radius: 12px;
+  padding: 20px;
+  width: 450px;
+  height: 82vh;
+  gap: 14px;
+  align-items: center;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
+.main-validation-card-comparaison p {
+  color: white;
 }
 
 .new-street-art-photo {
   height: 45%;
-  width: 95%;
   border-radius: 8px;
   margin-bottom: 1.5%;
 }
-.form-validation-container {
-  height: 40%;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-}
+
 .street-art-info {
   color: white;
   display: flex;
@@ -44,6 +63,15 @@
   font-size: 1.2rem;
   margin-bottom: 2%;
 }
+
+.street-art-info label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6px;
+}
 .description {
   height: 70%;
   width: 20vw;
@@ -51,6 +79,10 @@
 
 .input-validation {
   border-radius: 8px;
+  height: 24px;
+  padding: 8px;
+  border-style: none;
+  width: 300px;
 }
 .points {
   width: 46px;
@@ -73,12 +105,27 @@
 .brown-button-admin {
   border-radius: 8px;
   border-style: none;
-  background-color: rgba(182, 188, 149, 1);
+  background-color: rgb(255 255 255);
+  color: #22b573;
+  font-size: 1.2rem;
+  padding: 12px;
+  font-family: var(--primary-font);
+  text-align: center;
+  width: 170px;
+  font-weight: 600;
+}
+
+.brown-button-admin-ban {
+  border-radius: 8px;
+  border-style: none;
+  background-color: rgb(27 27 27);
   color: white;
   font-size: 1.2rem;
-  padding: 14px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.658);
+  padding: 12px;
   font-family: var(--primary-font);
+  text-align: center;
+  width: 350px;
+  font-weight: 600;
 }
 
 .brown-button-admin:hover {
@@ -118,70 +165,6 @@
   padding: 28px;
 }
 
-@media screen and (max-width: 450px) {
-  .main-validation-card {
-    width: 80vw;
-  }
-  .new-street-art-photo {
-    width: 70vw;
-  }
-}
-
-.arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 1vh;
-  width: 4vw;
-  margin-top: 22%;
-  position: relative;
-  background-color: rgb(0, 0, 0);
-  border-radius: 20px;
-}
-
-.arrow::before,
-.arrow::after {
-  content: "";
-  position: absolute;
-  width: 2vh;
-  height: 2vh;
-  border: solid black;
-  border-width: 1vh 1vh 0 0;
-}
-
-.arrow::before {
-  transform: rotate(223deg);
-  left: -2vh;
-}
-
-.arrow::after {
-  transform: rotate(45deg);
-  right: -2vh;
-}
-
-.comparaison-container {
-  justify-content: space-evenly;
-  position: relative;
-}
-
-.comparaison-container p {
-  font-size: 19px;
-  color: white;
-  margin-bottom: 10px;
-  font-family: var(--primary-font);
-  font-weight: 600;
-  font-style: normal;
-  text-align: center;
-}
-
-.comparaison-container h1 {
-  color: white;
-  font-family: var(--primary-font);
-  font-weight: 600;
-  font-style: normal;
-  padding-bottom: 0%;
-}
-
 .arrow-container {
   display: flex;
   justify-content: space-evenly;
@@ -206,8 +189,59 @@
 }
 
 .index-validation {
-  position: absolute;
   top: 3%;
   right: 0%;
   z-index: 1;
+}
+
+@media screen and (max-width: 1050px) {
+  .body-admin-validation {
+    display: flex;
+    flex-direction: column;
+    padding: 70px;
+    gap: 40px;
+  }
+  .arrow {
+    width: 100px;
+    height: 70px;
+    transform: rotate(90deg);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main-validation-card {
+    width: 400px;
+    justify-content: space-evenly;
+  }
+  .new-street-art-photo {
+    height: 35%;
+  }
+  .form-validation-container {
+    gap: 18px;
+  }
+  .main-validation-card-comparaison {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .main-validation-card {
+    width: 300px;
+  }
+  .new-street-art-photo {
+    height: 30%;
+  }
+  .input-validation {
+    width: 270px;
+  }
+
+  .brown-button-admin {
+    width: 120px;
+  }
+  .brown-button-admin-ban {
+    width: 220px;
+  }
+  .main-validation-card-comparaison {
+    width: 300px;
+  }
 }
