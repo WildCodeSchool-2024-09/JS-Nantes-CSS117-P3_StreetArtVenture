@@ -20,6 +20,7 @@ router.post("/user/verify", userActions.verifyUser);
 router.post("/user/verifyToken", userActions.verifyToken);
 router.post(
   "/user/registration",
+  userActions.checkValidRegistration,
   userActions.hashPassword,
   userActions.registration,
 );

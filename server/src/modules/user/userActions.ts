@@ -3,6 +3,7 @@ import type { RequestHandler } from "express";
 
 import jwt from "jsonwebtoken";
 import userRepository from "./userRepository";
+import { registerValidator } from "./utils/registerValidator/registerValidator";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
 
@@ -226,7 +227,17 @@ const isReported: RequestHandler = async (req, res) => {
   }
 };
 
+const checkValidRegistration: RequestHandler = async (req, res, next) => {
+  const err = registerValidator(req);
+  if (err)
+    res.status(400).json({
+      message: err,
+    });
+  else next();
+};
+
 export default {
+  checkValidRegistration,
   verifyUser,
   verifyToken,
   read,
