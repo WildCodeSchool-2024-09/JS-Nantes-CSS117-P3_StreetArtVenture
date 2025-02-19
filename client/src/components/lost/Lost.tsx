@@ -19,26 +19,25 @@ function Lost() {
   };
 
   useEffect(() => {
-    const fetchReportedData = async () => {
-      try {
-        const response = await fetchWithAuth(
-          `${import.meta.env.VITE_API_URL}/report/reporting`,
-        );
-        const data = await response.json();
-
-        if (data && Array.isArray(data)) {
-          setReported(data);
-        } else {
-          failed("Données invalides reçues");
-        }
-      } catch {
-        failed("Erreur lors de la récupération des signalements");
-      }
-    };
-
     fetchReportedData();
-  }, [failed]);
+  }, []);
 
+  const fetchReportedData = async () => {
+    try {
+      const response = await fetchWithAuth(
+        `${import.meta.env.VITE_API_URL}/report/reporting`,
+      );
+      const data = await response.json();
+
+      if (data && Array.isArray(data)) {
+        setReported(data);
+      } else {
+        failed("Données invalides reçues");
+      }
+    } catch {
+      failed("Erreur lors de la récupération des signalements");
+    }
+  };
   const handleValidate = async (art_piece_id: number) => {
     const currentIndex = reported.findIndex(
       (item) => item.art_piece_id === art_piece_id,
@@ -68,6 +67,7 @@ function Lost() {
         failed("Erreur lors de la validation du signalement.");
         return;
       }
+      fetchReportedData();
       success("la validation est approuvé");
     } catch {
       failed("Erreur lors de la validation du signalement.");
@@ -89,6 +89,7 @@ function Lost() {
         failed("Erreur lors du refus du signalement.");
         return;
       }
+      fetchReportedData();
       success("Le refus est approuvé");
       const itemExists = reported.some(
         (item) => item.art_piece_id === art_piece_id,
@@ -164,9 +165,7 @@ function Lost() {
                       alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
                     />
                   </figcaption>
-                  <div>
-                    <p>{contentInfo}</p>
-                  </div>
+                  <div>{contentInfo}</div>
                 </section>
 
                 <figcaption className="compared-art">

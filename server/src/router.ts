@@ -27,6 +27,7 @@ router.post(
 /* ************************** LOGGED USER ACTIONS ************************** */
 router.use(
   [
+    "/reports",
     "/notifications",
     "/leaderboard",
     "/art",
@@ -56,7 +57,7 @@ router.get("/user/:id", userActions.read);
 /* ************************** ADMIN ACTIONS ************************** */
 router.patch("/art/:id", artPieceActions.edit);
 router.use(
-  ["/reports", "/leaderboard", "/art", "/user", "/statistics", "/api/upload"],
+  ["/reports", "/leaderboard", "/art", "/user", "/statistics"],
   authActions.verifyAdmin,
 );
 

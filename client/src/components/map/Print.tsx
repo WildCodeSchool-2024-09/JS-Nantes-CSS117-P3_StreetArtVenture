@@ -84,7 +84,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({
     const formData = new FormData();
     formData.append("image", file);
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${import.meta.env.VITE_API_URL}/api/upload`,
         {
           method: "POST",

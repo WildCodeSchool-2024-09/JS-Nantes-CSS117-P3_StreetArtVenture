@@ -28,6 +28,15 @@ class UserRepository {
     return rows as User[];
   }
 
+  async getByEmail(email: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "select id, password, is_admin AS isAdmin, is_ban AS isBanned from user where email = ? ",
+      [email],
+    );
+
+    return rows[0] as User;
+  }
+
   async isUserYet(username: string, email: string): Promise<User[] | null> {
     const [rows] = await databaseClient.query<Rows>(
       "select email, username from user where email = ? or username = ?",
@@ -138,7 +147,7 @@ WHERE u.id = ?`;
 
   async gainPointsFromRecovery(artPieceId: string) {
     const query =
-      "UPDATE user u JOIN viewed_art_piece v ON u.id = v.user_id JOIN art_piece a ON v.art_piece_id = a.id SET u.points = u.points + ROUND(a.points_value/3) WHERE r.art_piece_id = ?";
+      "UPDATE user u JOIN viewed_art_piece v ON u.id = v.user_id JOIN art_piece a ON v.art_piece_id = a.id JOIN reported_art_piece r ON r.art_piece_id = a.id SET u.points = u.points + ROUND(a.points_value/3) WHERE r.art_piece_id = ?";
     const [result] = await databaseClient.query<Result>(query, [artPieceId]);
     return result.affectedRows;
   }
