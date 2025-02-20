@@ -23,7 +23,7 @@ function Header() {
             className="Logo_street"
             src={
               window.innerWidth > 450
-                ? "images/STREET_LOGO.pn"
+                ? "images/STREET_LOGO.png"
                 : "/images/couronne.png"
             }
           />
