@@ -126,12 +126,12 @@ const editArtPiece: RequestHandler = async (req, res, next) => {
 const denyArtPiece: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
+    const { userId } = req.body;
+    if (userId) await notificationsRepository.update(`${id}`, userId, 0);
     const deniedArt = await artRepository.deleteArtPiece(id);
     if (deniedArt === 0) {
       res.sendStatus(404);
     } else {
-      const { userId } = req.body;
-      if (userId) notificationsRepository.update(`${id}`, userId, 0);
       res.status(200).send("Art piece has been denied !");
     }
   } catch (err) {
