@@ -25,3 +25,9 @@
 .leaflet-popup {
   z-index: 0;
 }
+
+@media (max-width: 450px) {
+  .map-page-main-container {
+    height: calc(100vh - 100px - 100px);
+  }
+}
