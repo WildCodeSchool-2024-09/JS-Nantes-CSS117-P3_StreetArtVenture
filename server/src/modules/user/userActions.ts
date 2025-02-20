@@ -35,7 +35,6 @@ const verifyUser: RequestHandler = async (req, res, next): Promise<void> => {
     const userArray = await userRepository.getByEmail(email);
 
     const isPasswordValid = await argon2d.verify(userArray.password, password);
-
     if (!isPasswordValid) {
       res.status(401).json({ message: "Mot de passe incorrect" });
       return;
