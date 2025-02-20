@@ -29,14 +29,11 @@ function Lost() {
       );
       const data = await response.json();
 
-      if (data && Array.isArray(data)) {
-        if (data.length >= changeCard) {
-          setChangeCard(changeCard - 1);
-        }
-        setChangeCard;
+      if (data.length > 0) {
         setReported(data);
+        setChangeCard((prev) => Math.min(prev, data.length - 1));
       } else {
-        failed("Données invalides reçues");
+        setChangeCard(0);
       }
     } catch {
       failed("Erreur lors de la récupération des signalements");
@@ -162,7 +159,7 @@ function Lost() {
                     alt={`Reported art street, ${reported[changeCard].art_piece_name}`}
                   />
 
-                  <p className="coordinate-lost">{contentInfo}</p>
+                  <div className="coordinate-lost">{contentInfo}</div>
                 </section>
                 <img
                   className="arrow-lost-2"
