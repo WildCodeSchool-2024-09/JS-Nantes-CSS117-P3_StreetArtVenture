@@ -21,7 +21,11 @@ function Header() {
           <img
             alt="logo Street Art Venture"
             className="Logo_street"
-            src="images/STREET_LOGO.png"
+            src={
+              window.innerWidth > 450
+                ? "images/STREET_LOGO.pn"
+                : "/images/couronne.png"
+            }
           />
         </Link>
         {user ? (
