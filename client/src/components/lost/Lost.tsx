@@ -65,6 +65,7 @@ function Lost() {
       failed("Erreur lors de la validation du signalement.");
     } finally {
       setIsLoading(false);
+      updateReportedData(art_piece_id);
     }
   };
 
