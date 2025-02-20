@@ -1,21 +1,35 @@
+.leaflet-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .camera-container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 480px;
+  max-width: 480px;
   height: 65vh;
   z-index: 2;
-  position: fixed;
   background-color: #39b54adb;
   align-items: center;
-  left: 37%;
-  top: 15%;
   border-radius: 28px;
 }
 
+.camera-container > h2 {
+  text-align: center;
+  font-family: var(--primary-font);
+}
+
+.overlay {
+  width: 90%;
+  --border-style: 8px solid rgb(255, 255, 255);
+  --border-space: 20px;
+}
+
 .camera {
-  width: 400px;
   border-radius: 8px;
+  width: 100%;
 }
 .new-shot {
   width: 400px;
@@ -59,48 +73,6 @@ div:has(.new-shot:hover) .shadow {
   cursor: pointer;
 }
 
-.overlay {
-  position: relative;
-  width: 400px;
-  height: 344px;
-  --border-style: 8px solid rgb(255, 255, 255);
-  --border-space: 20px;
-}
-
-.overlay-element {
-  position: absolute;
-  width: 90px;
-  height: 90px;
-}
-
-.overlay .top-left {
-  border-left: var(--border-style);
-  border-top: var(--border-style);
-  top: 10px;
-  left: 10px;
-}
-
-.overlay .top-right {
-  border-right: var(--border-style);
-  border-top: var(--border-style);
-  top: 10px;
-  right: 10px;
-}
-
-.overlay .bottom-left {
-  border-left: var(--border-style);
-  border-bottom: var(--border-style);
-  bottom: 55px;
-  left: 10px;
-}
-
-.overlay .bottom-right {
-  border-right: var(--border-style);
-  border-bottom: var(--border-style);
-  bottom: 55px;
-  right: 10px;
-}
-
 .print-button {
   margin: 12px 0 20px 0;
   border-radius: 12px;
@@ -125,4 +97,12 @@ div:has(.new-shot:hover) .shadow {
 .index-test {
   z-index: 2;
   margin-top: 50px;
+}
+
+@media (max-width: 500px) {
+  .camera-container {
+    justify-content: center;
+    gap: 10px;
+    width: 80vw;
+  }
 }
