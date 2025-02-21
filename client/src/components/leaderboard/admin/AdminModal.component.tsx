@@ -26,17 +26,17 @@ function AdminModal({
                   setIsPopupOpen={setIsPopupOpen}
                   handleAdminConfirmation={handleAdminConfirmation}
                 />
-                <button
-                  className="leaderboard-popup-button-false"
-                  type="button"
-                  onClick={() => {
-                    setIsPopupOpen(false);
-                  }}
-                >
-                  Annuler
-                </button>
               </div>
             )}
+            <button
+              className="leaderboard-popup-button-false"
+              type="button"
+              onClick={() => {
+                setIsPopupOpen(false);
+              }}
+            >
+              Annuler
+            </button>
           </div>
         </div>
       )}

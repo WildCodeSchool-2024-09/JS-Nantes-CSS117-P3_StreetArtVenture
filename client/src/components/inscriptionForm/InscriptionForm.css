@@ -1,6 +1,6 @@
 .main-inscription-form {
-  display: block;
-  justify-items: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
   padding: 60px;
   background-image: url("../../../public/images/wallpaper2.jpg");
