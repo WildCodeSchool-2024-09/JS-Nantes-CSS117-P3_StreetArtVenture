@@ -59,7 +59,7 @@ class artRepository {
     LEFT JOIN viewed_art_piece v
       ON a.id = v.art_piece_id
       AND v.user_id = ? 
-    WHERE ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) <= ? * 1000 AND a.is_validated = 1;`;
+    WHERE ST_Distance_Sphere(coordinates, ST_GeomFromText('POINT(? ?)')) <= ? * 1000 AND a.is_validated = 1 AND a.is_covered = 0;`;
     // Execute the SQL SELECT query to retrieve all art pieces <= 50 km around gps coordinates
     const [rows] = await databaseClient.query<Rows>(query, [
       lat,
