@@ -32,7 +32,7 @@ export const Home: React.FC = () => {
   return (
     <main>
       <figure className="head-img">
-        <img className="head-img " src="./images/IMAGE_HOMEPAGE.jpg" alt="" />
+        <img className="head-img" src="./images/IMAGE_HOMEPAGE.jpg" alt="" />
       </figure>
       <article className="flex-article-white">
         <div className="content-wrapper">
