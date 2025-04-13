@@ -13,7 +13,7 @@ const readAll: RequestHandler = async (req, res, next) => {
     // Fetch all art pieces
     const items = await artRepository.readAll();
 
-    // Respond with the items in JSON format
+    // Respond with the art pieces in JSON format
     res.json(items);
   } catch (err) {
     // Pass any errors to the error-handling middleware
